@@ -9,7 +9,7 @@ class FeaturedBannerResource extends Resource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
@@ -17,7 +17,7 @@ class FeaturedBannerResource extends Resource
         return [
             'id' => $this->id,
             'link' => $this->link,
-            'photo' => url('/') . '/assets/images/featuredbanner/'.$this->photo,
-          ];
+            'photo' => url('/') . '/assets/images/featuredbanner/' . $this->photo,
+        ];
     }
 }

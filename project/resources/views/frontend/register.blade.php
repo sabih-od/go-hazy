@@ -1,97 +1,79 @@
-@extends('layouts.front')
-
+@extends('layouts.app')
 @section('content')
-@include('partials.global.common-header')
+    <div class="mouse-cursor cursor-outer"></div>
+    <div class="mouse-cursor cursor-inner"></div>
 
- <!-- breadcrumb -->
- <div class="full-row bg-light overlay-dark py-5" style="background-image: url({{ $gs->breadcrumb_banner ? asset('assets/images/'.$gs->breadcrumb_banner):asset('assets/images/noimage.png') }}); background-position: center center; background-size: cover;">
-    <div class="container">
-        <div class="row text-center text-white">
-            <div class="col-12">
-                <h3 class="mb-2 text-white">{{ __('Register') }}</h3>
-            </div>
-            <div class="col-12">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb mb-0 d-inline-flex bg-transparent p-0">
-                        <li class="breadcrumb-item"><a href="{{ route('front.index') }}">{{ __('Home') }}</a></li>
 
-                        <li class="breadcrumb-item active" aria-current="page">{{ __('Register') }}</li>
-                    </ol>
-                </nav>
+    <section class="innerBanner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h6>create account</h6>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><span>/</span></li>
+                        <li><a href="#">Create account</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-<!-- breadcrumb -->
+    </section>
 
-        <!--==================== Registration Form Start ====================-->
-        <div class="full-row">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <div class="woocommerce">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-8 col-12 mx-auto">
-                                    <div class="registration-form border">
-                                        @include('includes.admin.form-login')
-                                        <h3>{{ __('Signup Now') }}</h3>
-                                        <form id="registerform" action="{{route('user-register-submit')}}" method="POST">
-                                            @csrf
-                                            <p>
-
-                                                <input type="text" name="name" class="form-control" placeholder="{{ __('Full Name') }}"  >
-                                            </p>
-                                            <p>
-
-                                                <input type="email" name="email" class="form-control" required=""  placeholder="{{ __('Email Address') }}" >
-                                            </p>
-                                            <p>
-
-                                                <input type="text" name="phone" class="form-control" required=""  placeholder="{{ __('Phone Number') }}" >
-                                            </p>
-                                            <p>
-                                                <input type="text" name="address" class="form-control" required=""  placeholder="{{ __('Address') }}" >
-                                            </p>
-
-                                            <p>
-                                                <input type="password" name="password" class="form-control" required=""  placeholder="{{ __('Password') }}" >
-                                            </p>
-                                            <p>
-                                                <input type="password" name="password_confirmation" class="form-control" required=""  placeholder="{{ __('Confirm Password') }}" >
-                                            </p>
-
-                                            @if($gs->is_capcha == 1)
-                                            <div class="form-input mb-3">
-                                                 {!! NoCaptcha::display() !!}
-                                                 {!! NoCaptcha::renderJs() !!}
-                                                 @error('g-recaptcha-response')
-                                                 <p class="my-2">{{$message}}</p>
-                                                 @enderror
-                                             </div>
-                                             @endif
-
-                                            <input id="processdata" type="hidden" value="{{ __('Processing...') }}">
-                                                <button type="submit" class="btn btn-primary float-none w-100 rounded-0 submit-btn" name="register" value="Register">{{ __('Register') }}</button>
-                                            </p>
-                                        </form>
-                                        <p>
-                                                {{ __("Do have any account?") }}<a href="{{ route('user.login') }}"  class="text-secondary">{{__(' Login')}}</a>
-                                        </p>
-                                    </div>
-                                </div>
+    <section class="accountAccesSec">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <div class="whitebg">
+                        <h2><span>Create an Account</span></h2>
+                        <form action="" class="formStyle form-row">
+                            <div class="input-group">
+                                <label>First Name<em>*</em></label>
+                                <input type="text" class="form-control">
                             </div>
-                        </div>
+                            <div class="input-group">
+                                <label>Last Name<em>*</em></label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="input-group">
+                                <label>Email Address<em>*</em></label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="input-group">
+                                <label>Password<em>*</em></label>
+                                <input type="text" class="form-control" placeholder="At least 6 characters">
+                            </div>
+                            <div class="input-group">
+                                <label>Re-enter password<em>*</em></label>
+                                <input type="text" class="form-control" placeholder="At least 6 characters">
+                            </div>
+                            <div class="input-group justify-content-md-end">
+                                <button class="themeBtn rounded">Sign Up</button>
+                            </div>
+                        </form>
+                        <div class="or"><span>or</span></div>
+                        <ul class="list-unstyled socialIo justify-content-center mb-4">
+                            <li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                        </ul>
+                        <p>Already have an account? <a href="{{route('user.login.submit')}}">SignIn</a></p>
                     </div>
                 </div>
             </div>
         </div>
-        <!--==================== Registration Form Start ====================-->
+    </section>
 
 
-@include('partials.global.common-footer')
-@endsection
 
-@section('script')
+    <!-- <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-3"></div>
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+    </section> -->
 
 
 @endsection

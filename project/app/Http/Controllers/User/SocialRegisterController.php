@@ -18,15 +18,15 @@ class SocialRegisterController extends Controller
 
     public function __construct()
     {
-      $link = Socialsetting::findOrFail(1);
-      Config::set('services.google.client_id', $link->gclient_id);
-      Config::set('services.google.client_secret', $link->gclient_secret);
-      Config::set('services.google.redirect', url('/auth/google/callback'));
-      Config::set('services.facebook.client_id', $link->fclient_id);
-      Config::set('services.facebook.client_secret', $link->fclient_secret);
-      $url = url('/auth/facebook/callback');
-      $url = preg_replace("/^http:/i", "https:", $url);
-      Config::set('services.facebook.redirect', $url);
+        $link = Socialsetting::findOrFail(1);
+        Config::set('services.google.client_id', $link->gclient_id);
+        Config::set('services.google.client_secret', $link->gclient_secret);
+        Config::set('services.google.redirect', url('/auth/google/callback'));
+        Config::set('services.facebook.client_id', $link->fclient_id);
+        Config::set('services.facebook.client_secret', $link->fclient_secret);
+        $url = url('/auth/facebook/callback');
+        $url = preg_replace("/^http:/i", "https:", $url);
+        Config::set('services.facebook.redirect', $url);
     }
 
     public function redirectToProvider($provider)
@@ -36,22 +36,17 @@ class SocialRegisterController extends Controller
 
     public function handleProviderCallback($provider)
     {
-        try
-        {
+        try {
             $socialUser = Socialite::driver($provider)->user();
-        }
-        catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             return redirect('/');
         }
         //check if we have logged provider
-        $socialProvider = SocialProvider::where('provider_id',$socialUser->getId())->first();
-        if(!$socialProvider)
-        {
-            if(User::where('email',$socialUser->email)->exists())
-            {
-                $auser = User::where('email',$socialUser->email)->first();
-                Auth::guard('web')->login($auser); 
+        $socialProvider = SocialProvider::where('provider_id', $socialUser->getId())->first();
+        if (!$socialProvider) {
+            if (User::where('email', $socialUser->email)->exists()) {
+                $auser = User::where('email', $socialUser->email)->first();
+                Auth::guard('web')->login($auser);
                 return redirect()->route('user-dashboard');
             }
 
@@ -62,7 +57,7 @@ class SocialRegisterController extends Controller
             $user->photo = $socialUser->avatar_original;
             $user->email_verified = 'Yes';
             $user->is_provider = 1;
-            $user->affilate_code = $socialUser->name.$socialUser->email;
+            $user->affilate_code = $socialUser->name . $socialUser->email;
             $user->affilate_code = md5($user->affilate_code);
             $user->save();
 
@@ -73,14 +68,12 @@ class SocialRegisterController extends Controller
             $notification->user_id = $user->id;
             $notification->save();
 
-        }
-        else
-        {
+        } else {
 
             $user = $socialProvider->user;
         }
 
-        Auth::guard('web')->login($user); 
+        Auth::guard('web')->login($user);
         return redirect()->route('user-dashboard');
 
     }

@@ -3,6 +3,9 @@
 
 // ************************************ ADMIN SECTION **********************************************
 
+use App\Http\Controllers\Front\FrontendController;
+use Illuminate\Support\Facades\Route;
+
 Route::prefix('admin')->group(function() {
 
   //------------ ADMIN LOGIN SECTION ------------
@@ -1607,6 +1610,9 @@ Route::post('/item/report', 'Front\CatalogController@report')->name('product.rep
     Route::get('update-finalize', 'Front\FrontendController@updateFinalize');
 
     Route::get('/under-maintenance', 'Front\FrontendController@maintenance')->name('front-maintenance');
+
+
+    Route::get('/blog-detail',[FrontendController::class, 'blog_detail'])->name('front.blog-detail');
 
     // VENDOR AND PAGE SECTION
     Route::get('/country/tax/check','Front\CartController@country_tax');

@@ -9,7 +9,7 @@ class WithdrawResource extends Resource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
@@ -26,6 +26,6 @@ class WithdrawResource extends Resource
             'swift' => $this->swift,
             'reference' => $this->reference,
             'status' => ucfirst($this->status)
-          ];
+        ];
     }
 }
