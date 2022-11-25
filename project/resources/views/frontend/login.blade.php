@@ -27,17 +27,19 @@
                 <div class="col-lg-7">
                     <div class="whitebg">
                         <h2><span>Welcome back!</span>Sign in to your account</h2>
-                        <form action="" class="formStyle form-row">
+                        <form action="{{route('user.login.submit')}}" class="formStyle form-row" method="post">
+                            @csrf
                             <div class="input-group">
                                 <label>Email or Mobile<em>*</em></label>
-                                <input type="text" class="form-control" placeholder="Enter your Email or Mobile">
+                                <input type="text" name="email" class="form-control" placeholder="Enter your Email or Mobile">
                             </div>
                             <div class="input-group">
                                 <label>Password<em>*</em></label>
-                                <input type="password" class="form-control" placeholder="********">
+                                <input type="password" name="password" class="form-control" placeholder="********">
                             </div>
                             <div class="input-group justify-content-sm-between align-items-sm-center">
-                                <a class="themeBtn rounded" href="{{route('user.login.submit')}}">Sign In</a>
+                                <button type="submit" class="themeBtn rounded">Sign In</button>
+{{--                                <a class="themeBtn rounded" href="{{route('user.login.submit')}}">Sign In</a>--}}
                                 <a href="{{route('user.forgot')}}" class="forgetPass">Forgot my password</a>
                             </div>
                         </form>

@@ -60,7 +60,9 @@ class LoginController extends Controller
                 }
             }
             // Login as User
-            return response()->json(redirect()->intended(route('user-dashboard'))->getTargetUrl());
+//            return response()->json(redirect()->intended(route('user-dashboard'))->getTargetUrl());
+            return redirect()->route('user-dashboard');
+
         }
 
         // if unsuccessful, then redirect back to the login with the form data

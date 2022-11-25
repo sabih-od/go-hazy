@@ -25,29 +25,31 @@
                 <div class="col-lg-7">
                     <div class="whitebg">
                         <h2><span>Create an Account</span></h2>
-                        <form action="" class="formStyle form-row">
+                        <form action="{{route('user-register-submit')}}" class="formStyle form-row" method="post">
+                            @csrf
                             <div class="input-group">
                                 <label>First Name<em>*</em></label>
-                                <input type="text" class="form-control">
+                                <input type="text" name="fname" class="form-control">
                             </div>
                             <div class="input-group">
                                 <label>Last Name<em>*</em></label>
-                                <input type="text" class="form-control">
+                                <input type="text" name="lname" class="form-control">
                             </div>
                             <div class="input-group">
                                 <label>Email Address<em>*</em></label>
-                                <input type="text" class="form-control">
+                                <input type="text" name="email" class="form-control">
                             </div>
                             <div class="input-group">
                                 <label>Password<em>*</em></label>
-                                <input type="text" class="form-control" placeholder="At least 6 characters">
+                                <input type="text" name="password" class="form-control" placeholder="At least 6 characters">
                             </div>
                             <div class="input-group">
                                 <label>Re-enter password<em>*</em></label>
-                                <input type="text" class="form-control" placeholder="At least 6 characters">
+                                <input type="text" name="cnfrm_password" class="form-control" placeholder="At least 6 characters">
                             </div>
                             <div class="input-group justify-content-md-end">
-                                <button class="themeBtn rounded">Sign Up</button>
+{{--                                <input type="submit" value="Sign Up" class="themeBtn rounded">--}}
+                                <button class="themeBtn rounded" type="submit">Sign Up</button>
                             </div>
                         </form>
                         <div class="or"><span>or</span></div>
