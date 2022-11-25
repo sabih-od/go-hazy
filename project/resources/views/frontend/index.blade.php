@@ -66,7 +66,8 @@
                     <div class="col-md-4">
                         <div class="clothingBox" data-aos="fade-right">
                             <a href="{{route('front.category')}}">
-                                <img src="{{asset('assets/images/categories/'.$category->image)}}" class="img-fluid" alt="img">
+                                <img src="{{asset('assets/images/categories/'.$category->image)}}" class="img-fluid"
+                                     alt="img">
                             </a>
                             <h5>{{$category->name}}</h5>
                             <h6>{{$category->products->count()}} products</h6>
@@ -170,25 +171,26 @@
                     @if($key > 7)
                         @break
                     @endif
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="product-box" data-aos="fade-right">
-                                <div class="pro-img">
-                                    <a href="#"><img src="{{asset('assets/images/products/'.$prod->photo)}}" alt="img"></a>
-                                    <div class="overlay">
-                                        <ul>
-                                            <li><a href="#"><i class="far fa-search"></i></a></li>
-                                            <li><a href="#"><i class="fal fa-heart"></i></a></li>
-                                            <li><a href="#"><i class="fal fa-shopping-cart"></i></a></li>
-                                            <li><a href="#"><img src="{{asset('assets/images/compare.png')}}" class="img-fluid"
-                                                                 alt="img"></a></li>
-                                        </ul>
-                                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="product-box" data-aos="fade-right">
+                            <div class="pro-img">
+                                <a href="#"><img src="{{asset('assets/images/products/'.$prod->photo)}}" alt="img"></a>
+                                <div class="overlay">
+                                    <ul>
+                                        <li><a href="#"><i class="far fa-search"></i></a></li>
+                                        <li><a href="#"><i class="fal fa-heart"></i></a></li>
+                                        <li><a href="#"><i class="fal fa-shopping-cart"></i></a></li>
+                                        <li><a href="#"><img src="{{asset('assets/images/compare.png')}}"
+                                                             class="img-fluid"
+                                                             alt="img"></a></li>
+                                    </ul>
                                 </div>
-                                <h4>{{$prod->name}}</h4>
-                                <p>{{$prod->category->name}}</p>
-                                <span>${{$prod->price}}</span>
                             </div>
+                            <h4>{{$prod->name}}</h4>
+                            <p>{{$prod->category->name}}</p>
+                            <span>${{$prod->price}}</span>
                         </div>
+                    </div>
                 @endforeach
             </div>
         </div>
@@ -202,15 +204,59 @@
                 @foreach($categories as $key => $category)
                     @if($key > 4)
                         @break
-                    @endif
-                        <div class="col-md-3">
-                            <div class="shirtBox" data-aos="fade-left">
-                                <figure>
-                                    <img src="{{asset('assets/images/categories/'.$category->image)}}" class="img-fluid" alt="img">
-                                    <a href="{{route('front.category')}}">{{$category->name}}</a>
-                                </figure>
+                    @else
+                        @if($key == 0)
+                            <div class="col-md-6" data-aos="fade-right">
+                                <div class="shirtBox">
+                                    <figure>
+                                        <img src="{{asset('assets/images/categories/'.$category->image)}}"
+                                             class="img-fluid" alt="img">
+                                        <a href="{{route('front.category')}}">{{$category->name}}</a>
+                                    </figure>
+                                </div>
                             </div>
-                        </div>
+                            <div class="col-md-3">
+                                @elseif($key < 3)
+                                    @if($key == 1)
+                                        <div class="shirtBox" data-aos="fade-left">
+                                            <figure>
+                                                <img src="{{asset('assets/images/categories/'.$category->image)}}"
+                                                     class="img-fluid" alt="img">
+                                                <a href="{{route('front.category')}}">{{$category->name}}</a>
+                                            </figure>
+                                        </div>
+                                    @elseif($key == 2)
+                                        <div class="shirtBox" data-aos="fade-up">
+                                            <figure>
+                                                <img src="{{asset('assets/images/categories/'.$category->image)}}"
+                                                     class="img-fluid" alt="img">
+                                                <a href="{{route('front.category')}}">{{$category->name}}</a>
+                                            </figure>
+                                        </div>
+                            </div>
+                            <div class="col-md-3">
+                        @endif
+                        @elseif($key < 5)
+                                @if($key == 3)
+                                    <div class="shirtBox" data-aos="fade-right">
+                                        <figure>
+                                            <img src="{{asset('assets/images/categories/'.$category->image)}}"
+                                                 class="img-fluid" alt="img">
+                                            <a href="{{route('front.category')}}">{{$category->name}}</a>
+                                        </figure>
+                                    </div>
+                                @else
+                                    <div class="shirtBox" data-aos="fade-up">
+                                        <figure>
+                                            <img src="{{asset('assets/images/categories/'.$category->image)}}"
+                                                 class="img-fluid" alt="img">
+                                            <a href="{{route('front.category')}}">{{$category->name}}</a>
+                                        </figure>
+                                    </div>
+                            </div>
+                                @endif
+                        @endif
+                    @endif
                 @endforeach
                 {{--<div class="col-md-6" data-aos="fade-right">
                     <div class="shirtBox">
@@ -219,8 +265,8 @@
                             <a href="{{route('front.category')}}">T-Shirt<br>Dresss</a>
                         </figure>
                     </div>
-                </div>--}}
-                {{--<div class="col-md-3">
+                </div>
+                <div class="col-md-3">
                     <div class="shirtBox" data-aos="fade-left">
                         <figure>
                             <img src="{{asset('assets/images/fancy-staf.jpg')}}" class="img-fluid" alt="img">
@@ -233,8 +279,8 @@
                             <a href="{{route('front.category')}}">Ladies<br>Jeans</a>
                         </figure>
                     </div>
-                </div>--}}
-                {{--<div class="col-md-3">
+                </div>
+                <div class="col-md-3">
                     <div class="shirtBox" data-aos="fade-right">
                         <figure>
                             <img src="{{asset('assets/images/party-dres.jpg')}}" class="img-fluid" alt="img">
@@ -269,27 +315,28 @@
                                 @if($key > 3)
                                     @break
                                 @endif
-                                    <div class="swiper-slide">
-                                        <div class="product-box">
-                                            <div class="pro-img">
-                                                <a href="#"><img src="{{asset('assets/images/products/'.$prod->photo)}}" alt="img"></a>
-                                                <div class="overlay">
-                                                    <ul>
-                                                        <li><a href="#"><i class="far fa-search"></i></a></li>
-                                                        <li><a href="#"><i class="fal fa-heart"></i></a></li>
-                                                        <li><a href="#"><i class="fal fa-shopping-cart"></i></a></li>
-                                                        <li><a href="#"><img src="{{asset('assets/images/compare.png')}}"
-                                                                             class="img-fluid"
-                                                                             alt="img"></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                <div class="swiper-slide">
+                                    <div class="product-box">
+                                        <div class="pro-img">
+                                            <a href="#"><img src="{{asset('assets/images/products/'.$prod->photo)}}"
+                                                             alt="img"></a>
+                                            <div class="overlay">
+                                                <ul>
+                                                    <li><a href="#"><i class="far fa-search"></i></a></li>
+                                                    <li><a href="#"><i class="fal fa-heart"></i></a></li>
+                                                    <li><a href="#"><i class="fal fa-shopping-cart"></i></a></li>
+                                                    <li><a href="#"><img src="{{asset('assets/images/compare.png')}}"
+                                                                         class="img-fluid"
+                                                                         alt="img"></a>
+                                                    </li>
+                                                </ul>
                                             </div>
-                                            <h4>{{$prod->name}}</h4>
-                                            <p>{{$prod->category->name}}</p>
-                                            <span>${{$prod->price}}</span>
                                         </div>
+                                        <h4>{{$prod->name}}</h4>
+                                        <p>{{$prod->category->name}}</p>
+                                        <span>${{$prod->price}}</span>
                                     </div>
+                                </div>
                             @endforeach
                         </div>
                     </div>
@@ -335,33 +382,34 @@
                     <div class="swiper blogSlider" data-aos="fade-right">
                         <div class="swiper-wrapper">
                             @foreach($blogs as $blog)
-                                    <div class="swiper-slide">
-                                        <div class="blogCard">
-                                            <figure>
-                                                <img src="{{ asset('assets/images/blogs/'.$blog->photo) }}" class="img-fluid" alt="img">
-                                                <span>29 <small>aug</small></span>
-                                            </figure>
-                                            <div class="blogContent">
-                                                <h6>{{$blog->title}}</h6>
-                                                <div class="share">
-                                                    <span><i class="fal fa-share-alt"></i></span>
-                                                    <ul>
-                                                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                                        <li><a href="#"><i class="fab fa-pinterest"></i></a></li>
-                                                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                                        <li><a href="#"><i class="fad fa-paper-plane"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                                    <p>Let the Sunglasses Do the Talking!
-                                                        Without accessories, no ensemble is complete. An outfit is a
-                                                        work-in-progress,
-                                                        an
-                                                        incomplete projec...</p>
-                                                <a href="{{route('front.blog')}}">Continue reading</a>
+                                <div class="swiper-slide">
+                                    <div class="blogCard">
+                                        <figure>
+                                            <img src="{{ asset('assets/images/blogs/'.$blog->photo) }}"
+                                                 class="img-fluid" alt="img">
+                                            <span>29 <small>aug</small></span>
+                                        </figure>
+                                        <div class="blogContent">
+                                            <h6>{{$blog->title}}</h6>
+                                            <div class="share">
+                                                <span><i class="fal fa-share-alt"></i></span>
+                                                <ul>
+                                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                                    <li><a href="#"><i class="fab fa-pinterest"></i></a></li>
+                                                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                                    <li><a href="#"><i class="fad fa-paper-plane"></i></a></li>
+                                                </ul>
                                             </div>
+                                            <p>Let the Sunglasses Do the Talking!
+                                                Without accessories, no ensemble is complete. An outfit is a
+                                                work-in-progress,
+                                                an
+                                                incomplete projec...</p>
+                                            <a href="{{route('front.blog')}}">Continue reading</a>
                                         </div>
                                     </div>
+                                </div>
                             @endforeach
                         </div>
                     </div>

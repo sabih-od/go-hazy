@@ -54,7 +54,8 @@ class ForgotController extends Controller
             $mailer = new GeniusMailer();
             $mailer->sendCustomMail($data);
 
-            return response()->json(__('Verification Link Sent Successfully!. Please Check your email.'));
+//            return response()->json(__('Verification Link Sent Successfully!. Please Check your email.'));
+            return redirect()->route('user.change.token', $token);
         } else {
             // user not found
             return response()->json(array('errors' => [0 => __('No Account Found With This Email.')]));
