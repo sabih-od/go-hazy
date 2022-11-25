@@ -23,16 +23,16 @@ class SslController extends SubscriptionBaseController
 
         $this->validate($request, [
             'shop_name'   => 'unique:users',
-           ],[ 
+           ],[
                'shop_name.unique' => __('This shop name has already been taken.')
             ]);
 
             $subs = Subscription::findOrFail($request->subs_id);
             $data = PaymentGateway::whereKeyword('sslcommerz')->first();
             $user = $this->user;
-        
+
             $item_amount = $subs->price * $this->curr->value;
-            $curr = $this->curr;  
+            $curr = $this->curr;
 
 
             $supported_currency = json_decode($data->currency_id,true);
@@ -41,9 +41,9 @@ class SslController extends SubscriptionBaseController
             }
 
         $txnid = "SSLCZ_TXN_".uniqid();
-        
 
-     
+
+
         $order['item_name'] = $subs->title." Plan";
         $order['item_number'] = Str::random(4).time();
         $order['item_amount'] = $item_amount ;
@@ -77,7 +77,7 @@ class SslController extends SubscriptionBaseController
         $post_data['fail_url'] =  route('user.payment.cancle');
         $post_data['cancel_url'] =  route('user.payment.cancle');
         # $post_data['multi_card_name'] = "mastercard,visacard,amexcard";  # DISABLE TO DISPLAY ALL AVAILABLE
-        
+
         # CUSTOMER INFORMATION
         $post_data['cus_name'] = $user->name;
         $post_data['cus_email'] = $user->email;
@@ -88,7 +88,7 @@ class SslController extends SubscriptionBaseController
         $post_data['cus_country'] = $user->country;
         $post_data['cus_phone'] = $user->phone;
         $post_data['cus_fax'] = $user->phone;
-        
+
         # REQUEST SEND TO SSLCOMMERZ
         if($paydata['sandbox_check'] == 1){
             $direct_api_url = "https://sandbox.sslcommerz.com/gwprocess/v3/api.php";
@@ -105,11 +105,11 @@ class SslController extends SubscriptionBaseController
         curl_setopt($handle, CURLOPT_POSTFIELDS, $post_data);
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, FALSE); # KEEP IT FALSE IF YOU RUN FROM LOCAL PC
-        
+
         $content = curl_exec($handle );
-        
+
         $code = curl_getinfo($handle, CURLINFO_HTTP_CODE);
-         
+
         if($code == 200 && !( curl_errno($handle))) {
             curl_close( $handle);
             $sslcommerzResponse = $content;
@@ -118,16 +118,16 @@ class SslController extends SubscriptionBaseController
             return redirect()->back()->with('unsuccess',__("FAILED TO CONNECT WITH SSLCOMMERZ API"));
             exit;
         }
-        
+
         # PARSE THE JSON RESPONSE
         $sslcz = json_decode($sslcommerzResponse, true );
-        
+
         $s_datas = Session::all();
         $session_datas = json_encode($s_datas);
-        file_put_contents(storage_path().'/ssl/'.$txnid.'.json', $session_datas); 
+        file_put_contents(storage_path().'/ssl/'.$txnid.'.json', $session_datas);
 
         if(isset($sslcz['GatewayPageURL']) && $sslcz['GatewayPageURL']!="" ) {
-        
+
              # THERE ARE MANY WAYS TO REDIRECT - Javascript, Meta Tag or Php Header Redirect or Other
             # echo "<script>window.location.href = '". $sslcz['GatewayPageURL'] ."';</script>";
             echo "<meta http-equiv='refresh' content='0;url=".$sslcz['GatewayPageURL']."'>";
@@ -162,18 +162,18 @@ class SslController extends SubscriptionBaseController
             $subs = UserSubscription::where('txnid','=',$input['tran_id'])->orderBy('id','desc')->first();
             $subs->status = 1;
             $subs->update();
-            
+
             $user = User::findOrFail($subs->user_id);
             $package = $user->subscribes()->where('status',1)->orderBy('id','desc')->first();
 
             $today = Carbon::now()->format('Y-m-d');
-            $input = $request->all();  
+            $input = $request->all();
             $user->is_vendor = 2;
             if(!empty($package))
                     {
 
                         if($package->subscription_id == $subs->subscription_id)
-                        { 
+                        {
                             $newday = strtotime($today);
                             $lastday = strtotime($user->date);
                             $secs = $lastday-$newday;
@@ -191,9 +191,9 @@ class SslController extends SubscriptionBaseController
                     {
                         $user->date = date('Y-m-d', strtotime($today.' + '.$subs->days.' days'));
                     }
-                   
-            $user->mail_sent = 1;   
-           
+
+            $user->mail_sent = 1;
+
             $user->update();
 
             $data = [
@@ -206,8 +206,8 @@ class SslController extends SubscriptionBaseController
                 'onumber' => "",
                 ];
             $mailer = new GeniusMailer();
-            $mailer->sendAutoMail($data);        
-                        
+            $mailer->sendAutoMail($data);
+
             return redirect($success_url);
         }
         else {

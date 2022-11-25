@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth\User;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use App\{
     Models\User,
     Models\Notification,
@@ -10,17 +12,13 @@ use App\{
     Http\Controllers\Controller
 };
 use Illuminate\Http\Request;
-use Auth;
-use Validator;
 
 class RegisterController extends Controller
 {
 
     public function register(Request $request)
     {
-
         $gs = Generalsetting::findOrFail(1);
-
 
         if ($gs->is_capcha == 1) {
             $rules = [
@@ -40,7 +38,8 @@ class RegisterController extends Controller
 
         $rules = [
             'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed'
+            'password' => 'required|',
+            'cnfrm_password' => 'required|same:password',
         ];
         $validator = Validator::make($request->all(), $rules);
 
@@ -51,6 +50,7 @@ class RegisterController extends Controller
 
         $user = new User;
         $input = $request->all();
+        $input['name'] = $request['fname'] . " " . $request['lname'];
         $input['password'] = bcrypt($request['password']);
         $token = md5(time() . $request->name . $request->email);
         $input['verification_link'] = $token;
@@ -117,7 +117,8 @@ class RegisterController extends Controller
 
 
             Auth::login($user);
-            return response()->json(1);
+//            return response()->json(1);
+            return redirect()->route('user-dashboard');
         }
 
     }

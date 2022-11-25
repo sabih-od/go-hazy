@@ -30,8 +30,6 @@ class RegisterController extends FrontBaseController
 
     public function register(Request $request)
     {
-
-
         //--- Validation Section
 
         $rules = [
