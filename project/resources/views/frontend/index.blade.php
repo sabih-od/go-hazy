@@ -235,27 +235,27 @@
                                         </div>
                             </div>
                             <div class="col-md-3">
-                        @endif
-                        @elseif($key < 5)
-                                @if($key == 3)
-                                    <div class="shirtBox" data-aos="fade-right">
-                                        <figure>
-                                            <img src="{{asset('assets/images/categories/'.$category->image)}}"
-                                                 class="img-fluid" alt="img">
-                                            <a href="{{route('front.category')}}">{{$category->name}}</a>
-                                        </figure>
-                                    </div>
-                                @else
-                                    <div class="shirtBox" data-aos="fade-up">
-                                        <figure>
-                                            <img src="{{asset('assets/images/categories/'.$category->image)}}"
-                                                 class="img-fluid" alt="img">
-                                            <a href="{{route('front.category')}}">{{$category->name}}</a>
-                                        </figure>
-                                    </div>
-                            </div>
                                 @endif
+                                @elseif($key < 5)
+                                    @if($key == 3)
+                                        <div class="shirtBox" data-aos="fade-right">
+                                            <figure>
+                                                <img src="{{asset('assets/images/categories/'.$category->image)}}"
+                                                     class="img-fluid" alt="img">
+                                                <a href="{{route('front.category')}}">{{$category->name}}</a>
+                                            </figure>
+                                        </div>
+                                    @else
+                                        <div class="shirtBox" data-aos="fade-up">
+                                            <figure>
+                                                <img src="{{asset('assets/images/categories/'.$category->image)}}"
+                                                     class="img-fluid" alt="img">
+                                                <a href="{{route('front.category')}}">{{$category->name}}</a>
+                                            </figure>
+                                        </div>
+                            </div>
                         @endif
+                    @endif
                     @endif
                 @endforeach
                 {{--<div class="col-md-6" data-aos="fade-right">
