@@ -226,7 +226,14 @@
                                                 <option value="" data-form="" data-show="no" data-val="" data-href="">{{ __('Select an option') }}</option>
                                                 @foreach($gateway as $paydata)
 
-                                                    @if($paydata->type == 'manual')
+                                                    @if($paydata->keyword == 'stripe')
+
+                                                        <option value="{{ $paydata->name }}" data-form="{{ $paydata->showSubscriptionLink() }}" data-show="{{ $paydata->showForm() }}" data-href="{{ route('user.load.payment',['slug1' => $paydata->showKeyword(),'slug2' => $paydata->id]) }}" data-val="{{ $paydata->keyword }}">
+                                                            {{ $paydata->name }}
+                                                        </option>
+                                                    @endif
+
+                                                    {{--@if($paydata->type == 'manual')
 
                                                     <option value="{{ $paydata->title }}" data-form="{{ $paydata->showSubscriptionLink() }}" data-show="{{ $paydata->showForm() }}" data-href="{{ route('user.load.payment',['slug1' => $paydata->showKeyword(),'slug2' => $paydata->id]) }}" data-val="{{ $paydata->title }}">
                                                         {{ $paydata->title }}
@@ -238,10 +245,10 @@
                                                         {{ $paydata->name }}
                                                     </option>
 
-                                                    @endif
+                                                    @endif--}}
 
                                                  @endforeach
-                                                 <option value="" data-form="" data-show="no" data-val="" data-href="">{{ __('Select an option') }}</option>
+{{--                                                 <option value="" data-form="" data-show="no" data-val="" data-href="">{{ __('Select an option') }}</option>--}}
                                             </select>
 
                                         </div>

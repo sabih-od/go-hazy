@@ -30,7 +30,7 @@ class StripeController extends SubscriptionBaseController
 
         $this->validate($request, [
             'shop_name'   => 'unique:users',
-           ],[ 
+           ],[
                'shop_name.unique' => __('This shop name has already been taken.')
             ]);
 
@@ -41,8 +41,8 @@ class StripeController extends SubscriptionBaseController
             $item_amount = $subs->price * $this->curr->value;
             $curr = $this->curr;
 
-            $supported_currency = json_decode($data->currency_id,true);
-            if(!in_array($curr->id,$supported_currency)){
+        $supported_currency = json_decode($data->currency_id,true);
+        if(!in_array($curr->id,$supported_currency)){
                 return redirect()->back()->with('unsuccess',__('Invalid Currency For Stripe Payment.'));
             }
 
@@ -83,7 +83,7 @@ class StripeController extends SubscriptionBaseController
                 if ($charge['status'] == 'succeeded') {
 
                     $today = Carbon::now()->format('Y-m-d');
-                    $input = $request->all();  
+                    $input = $request->all();
                     $user->is_vendor = 2;
                     if(!empty($package))
                     {
@@ -105,7 +105,7 @@ class StripeController extends SubscriptionBaseController
                     {
                         $user->date = date('Y-m-d', strtotime($today.' + '.$subs->days.' days'));
                     }
-                    $user->mail_sent = 1;     
+                    $user->mail_sent = 1;
                     $user->update($input);
                     $sub = new UserSubscription;
                     $sub->user_id = $user->id;
@@ -135,12 +135,12 @@ class StripeController extends SubscriptionBaseController
                         'onumber' => "",
                     ];
                     $mailer = new GeniusMailer();
-                    $mailer->sendAutoMail($data);        
+                    $mailer->sendAutoMail($data);
 
                     return redirect($success_url);
 
                 }
-                
+
             }catch (Exception $e){
                 return back()->with('unsuccess', $e->getMessage());
             }catch (\Cartalyst\Stripe\Exception\CardErrorException $e){

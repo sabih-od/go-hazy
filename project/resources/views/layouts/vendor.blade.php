@@ -97,7 +97,7 @@
 														<h5>{{ __('Welcome!') }}</h5>
 
 															<li>
-																<a target="_blank" href="{{ route('front.vendor',str_replace(' ', '-', Auth::user()->shop_name)) }}"><i class="fas fa-eye"></i> {{ __('Visit Store') }}</a>
+																<a target="_blank" href="#"><i class="fas fa-eye"></i> {{ __('Visit Store') }}</a>
 															</li>
 
 															<li>
@@ -127,7 +127,7 @@
 						<ul class="list-unstyled components" id="accordion">
 
 							<li>
-								<a target="_blank" href="{{ route('front.vendor',str_replace(' ', '-', Auth::user()->shop_name)) }}" class="wave-effect"><i class="fas fa-eye mr-2"></i> {{ __('Visit Store') }}</a>
+								<a target="_blank" href="#" class="wave-effect"><i class="fas fa-eye mr-2"></i> {{ __('Visit Store') }}</a>
 							</li>
 
 							<li>
@@ -174,7 +174,7 @@
 								</ul>
 							</li>
 							@endif
-							
+
 
 
 							<li>
@@ -208,7 +208,7 @@
                                     <li>
                                     	<a href="{{ route('vendor-sociallink-index') }}"><span>{{ __('Social Links') }}</span></a>
                                     </li>
-									
+
 								</ul>
 							</li>
 							<li>

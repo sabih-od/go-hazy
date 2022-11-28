@@ -23,7 +23,8 @@
                                                 <h5>{{$data->subtitle_text}}</h5>
                                                 <h2 class="headingOne">{{$data->title_text}}</h2>
                                                 <h1 class="headingTwo">{{$data->details_text}}</h1>
-                                                <a href="{{$data->link}}" class="themeBtn skyBtn">see sale product</a>
+                                                <a href="{{route('front.category')}}" class="themeBtn skyBtn">see sale product</a>
+{{--                                                <a href="{{$data->link}}" class="themeBtn skyBtn">see sale product</a>--}}
                                             </div>
                                         </div>
                                         <div class="col-md-5 imgSet">
