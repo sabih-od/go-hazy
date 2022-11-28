@@ -24,108 +24,191 @@
 @endif
 <!--==================== Newslatter Section End ====================-->
 
-<!--==================== Footer Section Start ====================-->
-<footer class="full-row bg-white border-footer p-0">
+{{--<!--==================== Footer Section Start ====================-->--}}
+{{--<footer class="full-row bg-white border-footer p-0">--}}
+{{--    <div class="container">--}}
+{{--        <div class="row row-cols-xl-4 row-cols-md-2 row-cols-1">--}}
+{{--            <div class="col">--}}
+{{--                <div class="footer-widget my-5">--}}
+{{--                    <div class="footer-logo mb-4">--}}
+{{--                        <a href="{{ route('front.index') }}"><img class="lazy" data-src="{{ asset('assets/images/'.$gs->footer_logo) }}" alt="Image not found!" /></a>--}}
+{{--                    </div>--}}
+{{--                    <div class="widget-ecommerce-contact">--}}
+{{--                        @if($ps->phone != null)--}}
+{{--                        <span class="font-medium font-500 text-dark">{{ __('Got Questions ? Call us 24/7!') }}</span>--}}
+{{--                        <div class="text-dark h4 font-400 ">{{ $ps->phone }}</div>--}}
+{{--                        @endif--}}
+{{--                        @if($ps->street != null)--}}
+{{--                        <span class="h6 text-secondary mt-2">{{ __('Address :') }}</span>--}}
+{{--                        <div class="text-general">{{ $ps->street }}</div>--}}
+{{--                        @endif--}}
+{{--                        @if($ps->email != null)--}}
+{{--                        <span class="h6 text-secondary mt-2">{{ __('Email :') }}</span>--}}
+{{--                        <div class="text-general">{{ $ps->email }}</div>--}}
+{{--                        @endif--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="footer-widget media-widget mb-4">--}}
+{{--                    @foreach(DB::table('social_links')->where('user_id',0)->where('status',1)->get() as $link)--}}
+{{--                        <a href="{{ $link->link }}" target="_blank">--}}
+{{--                            <i class="{{ $link->icon }}"></i>--}}
+{{--                        </a>--}}
+{{--                    @endforeach--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <div class="col">--}}
+{{--                <div class="footer-widget category-widget my-5">--}}
+{{--                    <h3 class="widget-title mb-4">{{ __('Product Category') }}</h3>--}}
+{{--                        <ul>--}}
+{{--                        @foreach (DB::table('categories')->where('language_id',Session::has('language')?Session::get('language'):1)->get()->take(6) as $cate)--}}
+{{--                        <li><a href="{{route('front.category', $cate->slug)}}{{!empty(request()->input('search')) ? '?search='.request()->input('search') : ''}}">{{ $cate->name }}</a></li>--}}
+{{--                        @endforeach--}}
+{{--                        </ul>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <div class="col">--}}
+{{--                <div class="footer-widget category-widget my-5">--}}
+{{--                    <h6 class="widget-title mb-sm-4">{{ __('Customer Care') }}</h6>--}}
+{{--                    <ul>--}}
+{{--                        @if($ps->home == 1)--}}
+{{--                        <li>--}}
+{{--                            <a href="{{ route('front.index') }}">{{ __('Home') }}</a>--}}
+{{--                        </li>--}}
+{{--                        @endif--}}
+{{--                        @if($ps->blog == 1)--}}
+{{--                            <li>--}}
+{{--                                <a href="{{ route('front.blog') }}">{{ __('Blog') }}</a>--}}
+{{--                            </li>--}}
+{{--                        @endif--}}
+{{--                        @if($ps->faq == 1)--}}
+{{--                            <li>--}}
+{{--                                <a href="{{ route('front.faq') }}">{{ __('Faq') }}</a>--}}
+{{--                            </li>--}}
+{{--                            @endif--}}
+{{--                            @foreach(DB::table('pages')->where('language_id',Session::has('language')?Session::get('language'):1)->where('footer','=',1)->get() as $data)--}}
+{{--                            <li><a href="{{ route('front.vendor',$data->slug) }}">{{ $data->title }}</a></li>--}}
+{{--                        @endforeach--}}
+{{--                        @if($ps->contact == 1)--}}
+{{--                        <li>--}}
+{{--                            <a href="{{ route('front.contact') }}">{{ __('Contact Us') }}</a>--}}
+{{--                        </li>--}}
+{{--                        @endif--}}
+{{--                    </ul>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <div class="col">--}}
+{{--                <div class="footer-widget widget-nav my-5">--}}
+{{--                    <h6 class="widget-title mb-sm-4">{{ __('Recent Post') }}</h6>--}}
+{{--                    <ul>--}}
+{{--                        @foreach (DB::table('blogs')->where('language_id',Session::has('language')?Session::get('language'):1)->latest()->limit(3)->get() as $footer_blog)--}}
+{{--                        <li>--}}
+{{--                            <div class="post">--}}
+{{--                                <div class="post-img">--}}
+{{--                                    <img class="lozad lazy" data-src="{{ asset('assets/images/blogs/'.$footer_blog->photo) }}" alt="">--}}
+{{--                                  </div>--}}
+{{--                                  <div class="post-details">--}}
+{{--                                    <a href="{{ route('front.blogshow',$footer_blog->slug) }}">--}}
+{{--                                        <h4 class="post-title">--}}
+{{--                                            {{mb_strlen($footer_blog->title,'UTF-8') > 45 ? mb_substr($footer_blog->title,0,45,'UTF-8')." .." : $footer_blog->title}}--}}
+{{--                                        </h4>--}}
+{{--                                    </a>--}}
+{{--                                    <p class="date">--}}
+{{--                                        {{ date('M d - Y',(strtotime($footer_blog->created_at))) }}--}}
+{{--                                    </p>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </li>--}}
+{{--                        @endforeach--}}
+{{--                    </ul>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</footer>--}}
+{{--<!--==================== Footer Section End ====================-->--}}
+
+
+<!-- Begin: Footer -->
+<footer>
     <div class="container">
-        <div class="row row-cols-xl-4 row-cols-md-2 row-cols-1">
-            <div class="col">
-                <div class="footer-widget my-5">
-                    <div class="footer-logo mb-4">
-                        <a href="{{ route('front.index') }}"><img class="lazy" data-src="{{ asset('assets/images/'.$gs->footer_logo) }}" alt="Image not found!" /></a>
-                    </div>
-                    <div class="widget-ecommerce-contact">
-                        @if($ps->phone != null)
-                        <span class="font-medium font-500 text-dark">{{ __('Got Questions ? Call us 24/7!') }}</span>
-                        <div class="text-dark h4 font-400 ">{{ $ps->phone }}</div>
-                        @endif
-                        @if($ps->street != null)
-                        <span class="h6 text-secondary mt-2">{{ __('Address :') }}</span>
-                        <div class="text-general">{{ $ps->street }}</div>
-                        @endif
-                        @if($ps->email != null)
-                        <span class="h6 text-secondary mt-2">{{ __('Email :') }}</span>
-                        <div class="text-general">{{ $ps->email }}</div>
-                        @endif
-                    </div>
-                </div>
-                <div class="footer-widget media-widget mb-4">
-                    @foreach(DB::table('social_links')->where('user_id',0)->where('status',1)->get() as $link)
-                        <a href="{{ $link->link }}" target="_blank">
-                            <i class="{{ $link->icon }}"></i>
-                        </a>
-                    @endforeach
+        <div class="row justify-content-between">
+            <div class="col-md-12">
+                <p class="foterHazy">Go- Hazy is an American based, Veteran-owned online store.</p>
+            </div>
+            <div class="col-md-4">
+                <div class="fotrLogo">
+                    <a href="#" class="footerLogo"><img src="{{asset('assets/images/min1.png')}}" class="img-fluid"
+                                                        alt="img"></a>
+                    <p>Go-Hazy is an online store that sells high-quality men’s and women’s apparel – from clothing to
+                        accessories, cosmetics, and consumer electronics – we offer it all. By combining cutting-edge
+                        design
+                        with an affordable price tag, we bring you the newest styles at an affordable price.</p>
+                    <ul>
+                        <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                    </ul>
                 </div>
             </div>
-            <div class="col">
-                <div class="footer-widget category-widget my-5">
-                    <h3 class="widget-title mb-4">{{ __('Product Category') }}</h3>
-                        <ul>
-                        @foreach (DB::table('categories')->where('language_id',Session::has('language')?Session::get('language'):1)->get()->take(6) as $cate)
-                        <li><a href="{{route('front.category', $cate->slug)}}{{!empty(request()->input('search')) ? '?search='.request()->input('search') : ''}}">{{ $cate->name }}</a></li>
-                        @endforeach
-                        </ul>
-                </div>
-            </div>
-            <div class="col">
-                <div class="footer-widget category-widget my-5">
-                    <h6 class="widget-title mb-sm-4">{{ __('Customer Care') }}</h6>
+            <div class="col-md-2">
+                <div class="quickHead">
+                    <h6>Useful Links</h6>
                     <ul>
                         @if($ps->home == 1)
-                        <li>
-                            <a href="{{ route('front.index') }}">{{ __('Home') }}</a>
-                        </li>
+                            <li><a href="{{route('front.index')}}">Home</a></li>
+                        @endif
+                        <li><a href="">About Us</a></li>
+                        @if($ps->category == 1)
+                            <li><a href="{{route('front.category')}}">Shop</a></li>
                         @endif
                         @if($ps->blog == 1)
-                            <li>
-                                <a href="{{ route('front.blog') }}">{{ __('Blog') }}</a>
-                            </li>
+                            <li><a href="{{route('front.blog')}}">Blogs</a></li>
                         @endif
-                        @if($ps->faq == 1)
-                            <li>
-                                <a href="{{ route('front.faq') }}">{{ __('Faq') }}</a>
-                            </li>
-                            @endif
-                            @foreach(DB::table('pages')->where('language_id',Session::has('language')?Session::get('language'):1)->where('footer','=',1)->get() as $data)
-                            <li><a href="{{ route('front.vendor',$data->slug) }}">{{ $data->title }}</a></li>
-                        @endforeach
                         @if($ps->contact == 1)
-                        <li>
-                            <a href="{{ route('front.contact') }}">{{ __('Contact Us') }}</a>
-                        </li>
+                            <li><a href="{{route('front.contact')}}">Contact Us</a></li>
                         @endif
                     </ul>
                 </div>
             </div>
-            <div class="col">
-                <div class="footer-widget widget-nav my-5">
-                    <h6 class="widget-title mb-sm-4">{{ __('Recent Post') }}</h6>
+            <div class="col-md-2">
+                <div class="quickHead">
+                    <h6>Information</h6>
                     <ul>
-                        @foreach (DB::table('blogs')->where('language_id',Session::has('language')?Session::get('language'):1)->latest()->limit(3)->get() as $footer_blog)
-                        <li>
-                            <div class="post">
-                                <div class="post-img">
-                                    <img class="lozad lazy" data-src="{{ asset('assets/images/blogs/'.$footer_blog->photo) }}" alt="">
-                                  </div>
-                                  <div class="post-details">
-                                    <a href="{{ route('front.blogshow',$footer_blog->slug) }}">
-                                        <h4 class="post-title">
-                                            {{mb_strlen($footer_blog->title,'UTF-8') > 45 ? mb_substr($footer_blog->title,0,45,'UTF-8')." .." : $footer_blog->title}}
-                                        </h4>
-                                    </a>
-                                    <p class="date">
-                                        {{ date('M d - Y',(strtotime($footer_blog->created_at))) }}
-                                    </p>
-                                </div>
-                            </div>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Return & Shipping</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="quickHead">
+                    <h6>Get In Touch</h6>
+                </div>
+                <div class="calFoter">
+                    <ul>
+                        <li><a href="tel:{{$ps->phone}}"><i class="fas fa-phone-alt"></i><span>{{$ps->phone}}</span></a>
                         </li>
-                        @endforeach
+                        <li><a href="mailto:{{$ps->contact_email}}"><i
+                                    class="fal fa-envelope"></i><span>{{$ps->contact_email}}</span></a></li>
+                        <li><a href="#"><i class="far fa-map-marker-alt"></i><span>Location: {{$ps->street}}</span></a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
+    <div class="copyRight">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>@ Copyright 2022 Go Hazy. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </footer>
-<!--==================== Footer Section End ====================-->
+<!-- END: Footer -->
 
 <!--==================== Copyright Section Start ====================-->
 <div class="container">
