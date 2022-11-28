@@ -92,7 +92,12 @@
                                                   {{ __('Select an option') }}
                                                 </option>
                                                 @foreach($gateway as $paydata)
-                                                  @if($paydata->type == 'manual')
+                                                    @if($paydata->keyword == 'stripe')
+                                                        <option value="{{ $paydata->name }}" data-form="{{ $paydata->showDepositLink() }}" data-show="{{ $paydata->showForm() }}" data-href="{{ route('user.load.payment',['slug1' => $paydata->showKeyword(),'slug2' => $paydata->id]) }}" data-val="{{ $paydata->keyword }}">
+                                                            {{ $paydata->name }}
+                                                        </option>
+                                                    @endif
+                                                  {{--@if($paydata->type == 'manual')
                                                   <option value="{{ $paydata->title }}" data-form="{{ $paydata->showDepositLink() }}" data-show="{{ $paydata->showForm() }}" data-href="{{ route('user.load.payment',['slug1' => $paydata->showKeyword(),'slug2' => $paydata->id]) }}" data-val="{{ $paydata->keyword }}">
                                                     {{ $paydata->title }}
                                                   </option>
@@ -100,7 +105,7 @@
                                                   <option value="{{ $paydata->name }}" data-form="{{ $paydata->showDepositLink() }}" data-show="{{ $paydata->showForm() }}" data-href="{{ route('user.load.payment',['slug1' => $paydata->showKeyword(),'slug2' => $paydata->id]) }}" data-val="{{ $paydata->keyword }}">
                                                     {{ $paydata->name }}
                                                   </option>
-                                                  @endif
+                                                  @endif--}}
                                                 @endforeach
                                             </select>
                                         </div>

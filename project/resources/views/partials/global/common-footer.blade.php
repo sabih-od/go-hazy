@@ -1,7 +1,7 @@
 
 @if($ps->third_left_banner==1)
     <!--==================== Newsleter Section Start ====================-->
-    <div class="full-row bg-dark py-30">
+    {{--<div class="full-row bg-dark py-30">
         <div class="container">
             <div class="row mx-auto">
                 <div class="col-lg-5 col-md-6 mx-auto">
@@ -19,7 +19,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--}}
     <!--==================== Newsleter Section End ====================-->
 @endif
 <!--==================== Newslatter Section End ====================-->
