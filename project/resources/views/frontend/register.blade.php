@@ -41,11 +41,11 @@
                             </div>
                             <div class="input-group">
                                 <label>Password<em>*</em></label>
-                                <input type="text" name="password" class="form-control" placeholder="At least 6 characters">
+                                <input type="password" name="password" class="form-control" placeholder="At least 6 characters">
                             </div>
                             <div class="input-group">
                                 <label>Re-enter password<em>*</em></label>
-                                <input type="text" name="cnfrm_password" class="form-control" placeholder="At least 6 characters">
+                                <input type="password" name="cnfrm_password" class="form-control" placeholder="At least 6 characters">
                             </div>
                             <div class="input-group justify-content-md-end">
 {{--                                <input type="submit" value="Sign Up" class="themeBtn rounded">--}}

@@ -34,7 +34,9 @@ class SubscriptionController extends UserBaseController
             return redirect()->back();
         }
 
-        $data['gateway'] = PaymentGateway::whereSubscription(1)->where('currency_id', 'like', "%\"{$this->curr->id}\"%")->latest('id')->get();
+//        $data['gateway'] = PaymentGateway::whereSubscription(1)->where('currency_id', 'like', "%\"{$this->curr->id}\"%")->latest('id')->get();
+//        dd($data['gateway']);
+        $data['gateway'] = PaymentGateway::whereSubscription(1)->latest('id')->get();
         $paystackData = PaymentGateway::whereKeyword('paystack')->first();
         $data['paystack'] = $paystackData->convertAutoData();
         $voguepayData = PaymentGateway::whereKeyword('voguepay')->first();
@@ -45,6 +47,7 @@ class SubscriptionController extends UserBaseController
 
     public function vendorrequestsub(Request $request)
     {
+        dd('kasjd');
         $input = $request->all();
         if (isset($input['method'])) {
             return redirect()->back();
