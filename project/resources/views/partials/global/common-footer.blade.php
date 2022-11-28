@@ -201,7 +201,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <p>@ Copyright 2022 Go Hazy. All Rights Reserved.</p>
+                    <p>{{ $gs->copyright }}</p>
                 </div>
             </div>
         </div>
@@ -210,12 +210,12 @@
 </footer>
 <!-- END: Footer -->
 
-<!--==================== Copyright Section Start ====================-->
-<div class="container">
-    <div class="mx-auto text-center py-3">
-        <span class="sm-mb-10 d-block">{{ $gs->copyright }}</span>
-    </div>
-</div>
+{{--<!--==================== Copyright Section Start ====================-->--}}
+{{--<div class="container">--}}
+{{--    <div class="mx-auto text-center py-3">--}}
+{{--        <span class="sm-mb-10 d-block">{{ $gs->copyright }}</span>--}}
+{{--    </div>--}}
+{{--</div>--}}
 
 @if(isset($visited))
 
