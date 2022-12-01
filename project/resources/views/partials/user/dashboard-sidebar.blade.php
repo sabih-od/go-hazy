@@ -60,11 +60,11 @@
     <div class="row mt-4">
         <div class="col-lg-12 text-center">
             @if(Auth::user()->IsVendor())
-                <a href="{{ route('user-package') }}" class="mybtn1 lg">
+                <a href="{{ route('user-package') }}" class="themeBtn">
                     <i class="fas fa-dollar-sign"></i> {{ Auth::user()->is_vendor == 1 ? __('Upgrade Plans') : (Auth::user()->is_vendor == 0 ? __('Upgrade Plans') : __('Upgrade Plans')) }}
                 </a>
             @else
-                <a href="{{ route('user-package') }}" class="mybtn1 lg">
+                <a href="{{ route('user-package') }}" class="themeBtn">
                     <i class="fas fa-dollar-sign"></i> {{ Auth::user()->is_vendor == 1 ? __('Become a Vendor') : (Auth::user()->is_vendor == 0 ? __('Become a Vendor') : __('Become a Vendor')) }}
                 </a>
             @endif

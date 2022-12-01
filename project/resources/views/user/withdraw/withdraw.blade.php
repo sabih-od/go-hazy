@@ -38,7 +38,7 @@
                <div class="col-lg-12">
                   <div class="widget border-0 p-40 widget_categories bg-light account-info">
                      <h4 class="widget-title down-line mb-30">{{ __('My Withdraws') }}
-                        <a class="mybtn1" href="{{route('user-wwt-create')}}"> <i class="fas fa-plus"></i> {{ __('Withdraw Now') }}</a>
+                        <a class="themeBtn" href="{{route('user-wwt-create')}}"> <i class="fas fa-plus"></i> {{ __('Withdraw Now') }}</a>
                      </h4>
                      <hr>
                      <div class="gocover"
@@ -137,7 +137,7 @@
                         </div>
                         <hr>
                         <div class="add-product-footer">
-                           <button name="addProduct_btn" type="submit" class="mybtn1">{{ __('Withdraw') }}</button>
+                           <button name="addProduct_btn" type="submit" class="themeBtn">{{ __('Withdraw') }}</button>
                         </div>
                      </form>
                   </div>

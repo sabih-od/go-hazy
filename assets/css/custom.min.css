@@ -787,7 +787,7 @@ footer {
 
 .themeBtn:hover {
     background: #652d90;
-    color: var(--white);
+    color: var(--white) !important;
 }
 
 .fotrLogo ul li a:hover {
@@ -1728,13 +1728,13 @@ button.themeBtn.rounded {
     color: var(--theme-color);
 }
 
-.blogInnerSec .blogMainImg img{
+.blogInnerSec .blogMainImg img {
     height: 600px;
     object-fit: cover;
     object-position: top;
 }
 
-.blogInnerSec .blogInnerCont h2{
+.blogInnerSec .blogInnerCont h2 {
     font-size: 3.25rem;
     margin: 0 0 1rem 0;
     text-align: center;

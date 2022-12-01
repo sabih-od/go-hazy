@@ -97,14 +97,14 @@
                                             {{ $order->method }} {{ __('Charge ID:') }} <p>{{$order->charge_id}}</p>
                                             @endif
                                             {{ $order->method }} {{ __('Transaction ID:') }} <p id="ttn">{{ $order->txnid }}</p>
-                                            <a id="tid" style="cursor: pointer;" class="mybtn2">{{ __('Edit Transaction ID')}}</a>
+                                            <a id="tid" style="cursor: pointer;" class="themeBtn">{{ __('Edit Transaction ID')}}</a>
 
                                             <form id="tform">
                                                 <input style="display: none; width: 100%;" type="text" id="tin" placeholder="{{ __('Enter Transaction ID & Press Enter') }}" required="" class="mb-3">
                                                 <input type="hidden" id="oid" value="{{ $order->id }}">
 
-                                                <button style="display: none; padding: 5px 15px; height: auto; width: auto; line-height: unset;" id="tbtn" type="submit" class="mybtn1">{{ __('Submit') }}</button>
-                                                <a style="display: none; cursor: pointer;  padding: 5px 15px; height: auto; width: auto; line-height: unset;" id="tc"  class="mybtn1">{{ __('Cancel') }}</a>
+                                                <button style="display: none; padding: 5px 15px; height: auto; width: auto; line-height: unset;" id="tbtn" type="submit" class="themeBtn">{{ __('Submit') }}</button>
+                                                <a style="display: none; cursor: pointer;  padding: 5px 15px; height: auto; width: auto; line-height: unset;" id="tc"  class="themeBtn">{{ __('Cancel') }}</a>
                                                     {{-- Change 1 --}}
                                             </form>
                                             @endif
@@ -184,15 +184,15 @@
                                             @endif
                                             {{$order->method}} {{ __('Transaction ID:') }} <p id="ttn"> {{$order->txnid}}</p>
 
-                                            <a id="tid" style="cursor: pointer;" class="mybtn2">{{ __('Edit Transaction ID') }}</a>
+                                            <a id="tid" style="cursor: pointer;" class="themeBtn">{{ __('Edit Transaction ID') }}</a>
 
                                             <form id="tform">
                                                 <input style="display: none; width: 100%;" type="text" id="tin" placeholder="{{ __('Enter Transaction ID & Press Enter') }}" required="" class="mb-3">
                                                 <input type="hidden" id="oid" value="{{$order->id}}">
 
-                                                <button style="display: none; padding: 5px 15px; height: auto; width: auto; line-height: unset;" id="tbtn" type="submit" class="mybtn1">{{ __('Submit') }}</button>
+                                                <button style="display: none; padding: 5px 15px; height: auto; width: auto; line-height: unset;" id="tbtn" type="submit" class="themeBtn">{{ __('Submit') }}</button>
 
-                                                    <a style="display: none; cursor: pointer;  padding: 5px 15px; height: auto; width: auto; line-height: unset;" id="tc"  class="mybtn1">{{ __('Cancel') }}</a>
+                                                    <a style="display: none; cursor: pointer;  padding: 5px 15px; height: auto; width: auto; line-height: unset;" id="tc"  class="themeBtn">{{ __('Cancel') }}</a>
 
                                                     {{-- Change 1 --}}
                                             </form>
@@ -228,7 +228,7 @@
                                                 </td>
                                                 <td data-label="{{ __('Name') }}">
                                                     <div>
-                                                        
+
                                                     <input type="hidden" value="{{ $product['license'] }}">
 
                                                     @if($product['item']['user_id'] != 0)
@@ -276,7 +276,7 @@
                                                 </td>
                                                 <td data-label="{{ __('Details') }}">
                                                     <div>
-                                                            
+
                                                         <b>{{ __('Quantity') }}</b>: {{$product['qty']}} <br>
                                                         @if(!empty($product['size']))
                                                         <b>{{ __('Size') }}</b>: {{ $product['item']['measure'] }}{{str_replace('-',' ',$product['size'])}} <br>

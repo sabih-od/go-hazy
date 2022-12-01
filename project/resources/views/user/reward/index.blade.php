@@ -47,7 +47,7 @@
                         <div class="widget border-0 p-40 widget_categories bg-light account-info">
 
                             <h4 class="widget-title down-line mb-30">{{ __('Reward') }}
-                                <a class="mybtn1" href="{{route('user-reward-convernt')}}"> <i class="fas fa-plus"></i> {{ __('Convert Point') }}</a>
+                                <a class="themeBtn" href="{{route('user-reward-convernt')}}"> <i class="fas fa-plus"></i> {{ __('Convert Point') }}</a>
                             </h4>
 
                             <div class="mr-table allproduct mt-4">

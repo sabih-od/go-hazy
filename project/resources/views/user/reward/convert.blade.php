@@ -45,7 +45,7 @@
                         <div class="widget border-0 p-40 widget_categories bg-light account-info">
 
                             <h4 class="widget-title down-line mb-30">{{ __('Reward Point') }}
-                                <a class="mybtn1" href="{{ url()->previous() }}"> <i class="fas fa-arrow-left"></i> {{ __('Back')}}</a>
+                                <a class="themeBtn" href="{{ url()->previous() }}"> <i class="fas fa-arrow-left"></i> {{ __('Back')}}</a>
                             </h4>
                             <div class="gocover" style="background: url({{ asset('assets/images/'.$gs->loader) }}) no-repeat scroll center center rgba(45, 45, 45, 0.5);"></div>
                             <form id="userform" action="{{route('user-reward-convert-submit')}}" class="pay-form" class="form-horizontal" action="" method="POST" enctype="multipart/form-data">
@@ -87,8 +87,8 @@
                                      </div>
                                <hr>
                                <div class="add-product-footer">
-                                   <button type="button" id="check" class="mybtn1">{{ __('Check') }} </button>
-                                   <button id="final-btn" type="submit" class="mybtn1">{{ __('Convert') }} </button>
+                                   <button type="button" id="check" class="themeBtn">{{ __('Check') }} </button>
+                                   <button id="final-btn" type="submit" class="themeBtn">{{ __('Convert') }} </button>
                                </div>
                            </form>
 

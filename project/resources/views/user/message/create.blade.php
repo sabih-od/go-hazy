@@ -49,7 +49,7 @@
                                     {{$conv->recieved->name}}
                                     @else
                                     {{$conv->sent->name}}
-                                    @endif <a  class="mybtn1" href="{{ url()->previous() }}"> <i class="fas fa-arrow-left"></i> {{ __('Back') }}</a>
+                                    @endif <a  class="themeBtn" href="{{ url()->previous() }}"> <i class="fas fa-arrow-left"></i> {{ __('Back') }}</a>
 								</h4>
 							</div>
                             <div class="support-ticket-wrapper ">
@@ -117,7 +117,7 @@
                                             </div>
                                     </div>
                                     <div class="form-group mt-3">
-                                        <button class="mybtn1">
+                                        <button class="themeBtn">
                                             {{ __('Add Reply') }}
                                         </button>
                                     </div>

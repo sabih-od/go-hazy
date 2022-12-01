@@ -122,7 +122,7 @@
                                     </div>
                                  </div>
                                  <div class="form-links">
-                                    <button class="submit-btn btn btn-primary" type="submit">{{ __('Save') }}</button>
+                                    <button class="themeBtn" type="submit">{{ __('Save') }}</button>
                                  </div>
                               </form>
                            </div>
