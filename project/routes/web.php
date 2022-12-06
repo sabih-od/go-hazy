@@ -1613,6 +1613,10 @@ Route::post('/item/report', 'Front\CatalogController@report')->name('product.rep
 
 
     Route::get('/blog-detail',[FrontendController::class, 'blog_detail'])->name('front.blog-detail');
+    Route::get('/about',[FrontendController::class, 'about'])->name('front.about');
+    Route::get('/privacy-policy',[FrontendController::class, 'privacy_policy'])->name('front.privacy-policy');
+    Route::get('/return-shipping',[FrontendController::class, 'return_shipping'])->name('front.return-shipping');
+    Route::get('/terms-conditions',[FrontendController::class, 'terms_conditions'])->name('front.terms-conditions');
 
     // VENDOR AND PAGE SECTION
     Route::get('/country/tax/check','Front\CartController@country_tax');

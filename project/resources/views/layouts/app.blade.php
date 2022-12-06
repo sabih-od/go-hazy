@@ -134,7 +134,7 @@
                                 <a class="nav-link" href="{{route('front.blog')}}">Blogs</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">About Us</a>
+                                <a class="nav-link" href="{{route('front.about')}}">About Us</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('front.contact')}}">Contact Us</a>
@@ -143,7 +143,7 @@
                         <div class="form-inline">
                             <ul>
                                 <li><a href="#search"><i class="far fa-search"></i></a></li>
-                                <li><a href="#"><i class="fal fa-shopping-cart"></i><span>0</span></a></li>
+                                <li><a href="{{route('front.cart')}}"><i class="fal fa-shopping-cart"></i><span>0</span></a></li>
                                 @if(\Illuminate\Support\Facades\Auth::check())
                                     <li><a href="{{route('user-dashboard')}}">{{\Illuminate\Support\Facades\Auth::user()->name}}</a>
                                     </li>
@@ -193,7 +193,7 @@
                         @if($ps->home == 1)
                             <li><a href="{{route('front.index')}}">Home</a></li>
                         @endif
-                        <li><a href="">About Us</a></li>
+                        <li><a href="{{route('front.about')}}">About Us</a></li>
                         @if($ps->category == 1)
                             <li><a href="{{route('front.category')}}">Shop</a></li>
                         @endif
@@ -210,9 +210,9 @@
                 <div class="quickHead">
                     <h6>Information</h6>
                     <ul>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Return & Shipping</a></li>
-                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="{{route('front.privacy-policy')}}">Privacy Policy</a></li>
+                        <li><a href="{{route('front.return-shipping')}}">Return & Shipping</a></li>
+                        <li><a href="{{route('front.terms-conditions')}}">Terms & Conditions</a></li>
                     </ul>
                 </div>
             </div>
