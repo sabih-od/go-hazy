@@ -558,4 +558,26 @@ class FrontendController extends FrontBaseController
         return view('frontend.blog-detail');
     }
 
+    public function about()
+    {
+        return view('frontend.about');
+    }
+
+
+    public function privacy_policy()
+    {
+        return view('frontend.privacy-policy');
+    }
+
+
+    public function return_shipping()
+    {
+        return view('frontend.return-shipping');
+    }
+
+    public function terms_conditions()
+    {
+        return view('frontend.terms-conditions');
+    }
+
 }
