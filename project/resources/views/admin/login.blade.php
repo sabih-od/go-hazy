@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" dir="ltr">
-  
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,29 +11,53 @@
     <!-- favicon -->
     <link rel="icon"  type="image/x-icon" href="{{asset('assets/images/'.$gs->favicon)}}"/>
     <!-- Bootstrap -->
-    <link href="{{asset('assets/admin/css/bootstrap.min.css')}}" rel="stylesheet" />
-    <!-- Fontawesome -->
-    <link rel="stylesheet" href="{{asset('assets/admin/css/fontawesome.css')}}">
-    <!-- icofont -->
-    <link rel="stylesheet" href="{{asset('assets/admin/css/icofont.min.css')}}">
-    <!-- Sidemenu Css -->
-    <link href="{{asset('assets/admin/plugins/fullside-menu/css/dark-side-style.css')}}" rel="stylesheet" />
-    <link href="{{asset('assets/admin/plugins/fullside-menu/waves.min.css')}}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{asset('assets/css/all.min.css')}}"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('assets/css/custom.min.css')}}"/>
+    <link rel="stylesheet" href="{{asset('assets/css/slider.css')}}"/>
 
-    <link href="{{asset('assets/admin/css/plugin.css')}}" rel="stylesheet" />
-    <link href="{{asset('assets/admin/css/jquery.tagit.css')}}" rel="stylesheet" />   
-      <link rel="stylesheet" href="{{ asset('assets/admin/css/bootstrap-coloroicker.css') }}">
-    <!-- Main Css -->
-    <link href="{{asset('assets/admin/css/style.css')}}" rel="stylesheet"/>
-    <link href="{{asset('assets/admin/css/custom.css')}}" rel="stylesheet"/>
-    <link href="{{asset('assets/admin/css/responsive.css')}}" rel="stylesheet" />
     @yield('styles')
 
   </head>
   <body>
-
+  <section class="accountAccesSec">
+      <div class="container">
+          <div class="row justify-content-center">
+              <div class="col-lg-7">
+                  <div class="whitebg">
+                      <h2>{{ __('Login Now') }}</h2>
+                      <h2>{{ __('Welcome back, please sign in below') }}</h2>
+                      @include('alerts.admin.form-login')
+                      <form id="loginform" action="{{ route('admin.login.submit') }}" class="formStyle form-row" method="post">
+                          @csrf
+                          <div class="input-group">
+                              <label>Email<em>*</em></label>
+                              <input type="text" name="email" class="form-control" placeholder="{{ __('Type Email Address') }}">
+                          </div>
+                          <div class="input-group">
+                              <label>Password<em>*</em></label>
+                              <input type="password" name="password" class="form-control" placeholder="{{ __('Type Password') }}">
+                          </div>
+                          {{--<div class="form-forgot-pass">
+                              <div class="left">
+                                  <input type="checkbox" name="remember"  id="rp" {{ old('remember') ? 'checked' : '' }}>
+                                  <label for="rp">{{ __('Remember Password') }}</label>
+                              </div>
+                          </div>--}}
+                          <div class="input-group justify-content-sm-between align-items-sm-center">
+                              <input id="authdata" type="hidden"  value="{{ __('Authenticating...') }}">
+                              <button type="submit" class="themeBtn rounded">{{ __('Login') }}</button>
+                              {{--                                <a class="themeBtn rounded" href="{{route('user.login.submit')}}">Sign In</a>--}}
+                              <a href="{{ route('admin.forgot') }}" class="forgetPass">Forgot my password</a>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
     <!-- Login and Sign up Area Start -->
-    <section class="login-signup">
+   {{-- <section class="login-signup">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-5">
@@ -73,7 +97,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section>--}}
     <!--Login and Sign up Area End -->
 
 
