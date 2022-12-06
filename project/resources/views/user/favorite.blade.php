@@ -77,9 +77,9 @@
                                     </td>
                                     <td data-label="{{ __('Actions') }}">
                                        <div>
-                                          <a target="_blank" href="{{route('front.vendor',str_replace(' ', '-',($seller->shop_name)))}}" class="link view mybtn1"><i class="fa fa-eye"></i></a>
+                                          <a target="_blank" href="{{route('front.vendor',str_replace(' ', '-',($seller->shop_name)))}}" class="link view themeBtn"><i class="fa fa-eye"></i></a>
 
-                                          <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-href="{{route('user-favorite-delete',$vendor->id)}}" class="link remove mybtn1 "><i class="fa fa-trash"></i></a>
+                                          <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-href="{{route('user-favorite-delete',$vendor->id)}}" class="link remove themeBtn "><i class="fa fa-trash"></i></a>
                                        </div>
                                     </td>
                                  </tr>

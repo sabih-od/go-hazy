@@ -45,7 +45,7 @@
                         <div class="widget border-0 p-40 widget_categories bg-light account-info">
 
                             <h4 class="widget-title down-line mb-30">{{ __('Affiliate History') }}
-                                <a class="mybtn1" href="{{route('user-affilate-program')}}">
+                                <a class="themeBtn" href="{{route('user-affilate-program')}}">
                                     <i class="fas fa-arrow-left"></i>
                                     {{ __('Back') }}
                                 </a>

@@ -54,7 +54,8 @@
                                 <li><a href="#search"><i class="far fa-search"></i></a></li>
                                 <li><a href="#"><i class="fal fa-shopping-cart"></i><span>0</span></a></li>
                                 @if(\Illuminate\Support\Facades\Auth::check())
-                                    <li><a href="{{route('user-dashboard')}}">{{\Illuminate\Support\Facades\Auth::user()->name}}</a>
+                                    <li>
+                                        <a href="{{route('user-dashboard')}}">{{\Illuminate\Support\Facades\Auth::user()->name}}</a>
                                     </li>
                                 @else
                                     <li><a href="{{route('user.login.submit')}}"><i class="fas fa-sign-in-alt"></i></a>
@@ -69,4 +70,111 @@
     </div>
 </header>
 
+<style>
+    .table-responsive .table thead tr {
+        background-color: var(--theme-color) !important;
+    }
+
+    .widget_categories ul li,
+    .widget_categories ul li a {
+        font-weight: 400 !important;
+    }
+
+    .widget_categories ul li a.active {
+        font-weight: 600 !important;
+        color: var(--theme-color) !important;
+    }
+
+    .themeBtn {
+        padding: 1.25em 1em;
+        font-size: 0.75rem;
+        font-weight: 400;
+    }
+
+    .bannerPreview {
+        width: 100%;
+        height: 250px;
+        background-color: #ddd;
+        object-fit: contain;
+    }
+
+    .user-profile-details .elegant-pricing-tables {
+        border: 1px solid #ddd;
+        box-shadow: 0 0 5px #ddd;
+        border-radius: 15px;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .user-profile-details .elegant-pricing-tables .pricing-head {
+        text-align: center;
+        display: flex;
+        background: var(--theme-color);
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5rem 1rem;
+    }
+
+    .user-profile-details .elegant-pricing-tables .pricing-head .price {
+        width: auto;
+        height: auto;
+        background: none;
+        border: none;
+        padding: 0;
+        animation: none !important;
+        color: #fff;
+    }
+
+    .user-profile-details .elegant-pricing-tables .pricing-head h3 {
+        color: #fff;
+    }
+
+    .user-profile-details > .row [class *= 'col-'] {
+        display: flex;
+    }
+
+    .user-profile-details > .row {
+        gap: 2rem 0;
+    }
+
+    .user-profile-details .elegant-pricing-tables:hover {
+        background: none;
+    }
+
+    .user-profile-details .elegant-pricing-tables .pricing-detail {
+        padding: 0 1rem;
+        text-align: center;
+    }
+
+    .user-profile-details .elegant-pricing-tables .pricing-detail ol,
+    .user-profile-details .elegant-pricing-tables .pricing-detail ul {
+        padding: 0;
+        list-style: none;
+        text-align: center;
+    }
+
+    .user-profile-details .elegant-pricing-tables .pricing-detail ol li,
+    .user-profile-details .elegant-pricing-tables .pricing-detail ul li {
+        background: none !important;
+        margin: 0;
+    }
+
+    .user-profile-details .elegant-pricing-tables:hover .pricing-detail ol li,
+    .user-profile-details .elegant-pricing-tables:hover .pricing-detail ul li {
+        color: #000 !important;
+    }
+
+    .user-profile-details .elegant-pricing-tables .themeBtn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .upload-file label {
+        background: var(--theme-color) !important;
+    }
+</style>
 <!-- END: Header -->

@@ -41,7 +41,7 @@
                <div class="col-lg-12">
                   <div class="widget border-0 p-40 widget_categories bg-light account-info">
                      <h4 class="widget-title down-line mb-30">{{ __('My Withdraws') }}
-                        <a class="mybtn1" href="{{route('user-wwt-create')}}"> <i class="fas fa-plus"></i> {{ __('Withdraw Now') }}</a>
+                        <a class="themeBtn" href="{{route('user-wwt-create')}}"> <i class="fas fa-plus"></i> {{ __('Withdraw Now') }}</a>
                      </h4>
                      <div class="mr-table allproduct mt-4">
                         <div class="table-responsive">

@@ -268,7 +268,7 @@
                                         <div class="col-lg-4">
                                         </div>
                                         <div class="col-lg-8">
-                                            <button type="submit" id="final-btn" class="mybtn1">{{ __('Submit') }}</button>
+                                            <button type="submit" id="final-btn" class="themeBtn">{{ __('Submit') }}</button>
                                         </div>
                                     </div>
 

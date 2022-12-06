@@ -42,9 +42,9 @@
                      <div class="order-tracking-content py-30">
                         @include('alerts.form-success')
                         <form class="tracking-form" method="GET">
-                           <div class="new d-flex">
+                           <div class="new d-flex align-items-center">
                               <input type="text" class="form-control border w-75 mr-2 rounded-pill " id="code" placeholder="{{ __('Get Tracking Code') }}" required="">
-                              <button type="submit" id="t-form"  class="mybtn1">{{ __('View Tracking') }}</button>
+                              <button type="submit" id="t-form"  class="themeBtn rounded-pill">{{ __('View Tracking') }}</button>
                               <a href="#"  data-bs-toggle="modal" data-bs-target="#order-tracking-modal"></a>
                            </div>
                         </form>

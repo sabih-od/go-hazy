@@ -78,7 +78,7 @@
                                     </td>
                                     <td data-label="{{ __('View') }}">
                                        <div>
-                                          <a href="javascript:;" data-href="{{ route('user-trans-show',$data->id)}}" data-toggle="modal" data-target="#trans-modal" class="txn-show mybtn1 sm">
+                                          <a href="javascript:;" data-href="{{ route('user-trans-show',$data->id)}}" data-toggle="modal" data-target="#trans-modal" class="txn-show themeBtn sm">
                                           {{ __('View') }}
                                           </a>
                                        </div>

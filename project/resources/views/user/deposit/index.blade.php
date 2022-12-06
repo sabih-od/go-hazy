@@ -45,7 +45,7 @@
                         <div class="widget border-0 p-40 widget_categories bg-light account-info">
 
                             <h4 class="widget-title down-line mb-30">{{ __('Deposits') }}
-                                <a class="mybtn1" href="{{ route('user-deposit-create') }}"> <i class="fas fa-plus"></i> {{ __('Add Deposit') }}</a>
+                                <a class="themeBtn" href="{{ route('user-deposit-create') }}"> <i class="fas fa-plus"></i> {{ __('Add Deposit') }}</a>
                             </h4>
 
                             <div class="mr-table allproduct mt-4">
@@ -74,21 +74,21 @@
                                                                 <div>
                                                                     {{$data->method}}
                                                                 </div>
-                                                            </div>        
+                                                            </div>
                                                         </td>
                                                         <td data-label="{{ __('Amount')}}">
                                                             <div>
                                                                 <div>
                                                                     {{ \PriceHelper::showOrderCurrencyPrice(($data->amount * $data->currency_value),$data->currency_code) }}
                                                                 </div>
-                                                            </div>        
+                                                            </div>
                                                         </td>
                                                         <td data-label="{{ __('Status') }}">
                                                             <div>
                                                                 <span class="badge {{$data->status == 1 ? ' bg-success': 'bg-primary'}}">
                                                                     {{ $data->status == 1 ? 'Completed' : 'Pending'}}
                                                                 </span>
-                                                            </div>        
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                 @endforeach
