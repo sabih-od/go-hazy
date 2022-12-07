@@ -23,7 +23,7 @@ class ImportController extends AdminBaseController
     //*** JSON Request
     public function datatables()
     {
-        $datas = Product::where('product_type', '=', 'affiliate')->latest('id')->get();
+        $datas = Product::where('product_type', '=', 'affiliate')->where('language_id', 1)->latest('id')->get();
 
         //--- Integrating This Collection Into Datatables
         return Datatables::of($datas)

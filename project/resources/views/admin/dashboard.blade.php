@@ -9,7 +9,7 @@
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                 aria-hidden="true">×</span></button>
         <h3 class="text-center">{!! clean($activation_notify, array('Attr.EnableID' => true)) !!}</h3>
-        
+
     </div>
     @endif
 
@@ -197,7 +197,7 @@
                 <div class="card">
                         <h5 class="card-header">{{ __('Recent Customer(s)') }}</h5>
                         <div class="card-body">
-        
+
                              <div class="table-responsive  dashboard-home-table">
                                     <table id="poproducts" class="table table-hover dt-responsive" cellspacing="0" width="100%">
                                     <thead>
@@ -219,7 +219,7 @@
                                     </thead>
                                 </table>
                             </div>
-        
+
                         </div>
                     </div>
         </div>
@@ -231,7 +231,7 @@
                     <div class="card">
                             <h5 class="card-header">{{ __('Popular Product(s)') }}</h5>
                             <div class="card-body">
-            
+
                                 <div class="table-responsive  dashboard-home-table">
                                     <table id="poproducts" class="table table-hover dt-responsive" cellspacing="0" width="100%">
                                         <thead>
@@ -242,7 +242,7 @@
                                                 <th>{{ __('Type') }}</th>
                                                 <th>{{ __('Price') }}</th>
                                                 <th></th>
-                                                
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -276,9 +276,9 @@
                                 </div>
                             </div>
                         </div>
-    
+
             </div>
-    
+
         </div>
 
     <div class="row row-cards-one">
@@ -287,7 +287,7 @@
                     <div class="card">
                             <h5 class="card-header">{{ __('Recent Product(s)') }}</h5>
                             <div class="card-body">
-            
+
                                 <div class="table-responsive dashboard-home-table">
                                     <table id="pproducts" class="table table-hover dt-responsive" cellspacing="0" width="100%">
                                             <thead>
@@ -298,7 +298,7 @@
                                                         <th>{{ __('Type') }}</th>
                                                         <th>{{ __('Price') }}</th>
                                                         <th></th>
-                                                        
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -328,12 +328,12 @@
                                                 </tbody>
                                     </table>
                                 </div>
-            
+
                             </div>
                         </div>
-    
+
             </div>
-    
+
     </div>
 
     <div class="row row-cards-one">
@@ -355,7 +355,7 @@
 
 
 
-    <div class="row row-cards-one">
+   {{-- <div class="row row-cards-one">
 
         <div class="col-md-12 col-sm-12 col-lg-6 col-xl-6">
             <div class="card">
@@ -364,7 +364,7 @@
                     <div class="admin-fix-height-card">
                          <div id="chartContainer-topReference"></div>
                     </div>
-                       
+
                 </div>
             </div>
 
@@ -380,8 +380,8 @@
                         </div>
                     </div>
         </div>
-        
-    </div>
+
+    </div>--}}
 
 
 
@@ -392,7 +392,7 @@
 @section('scripts')
 
 <script type="text/javascript">
-    
+
     (function($) {
 		"use strict";
 
@@ -512,10 +512,10 @@
                     }
                 ]
             });
-        chart.render();    
+        chart.render();
 
     })(jQuery);
-    
+
 </script>
 
 @endsection
