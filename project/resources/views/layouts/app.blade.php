@@ -8,7 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <link rel="icon" type="image/x-icon" href="{{asset('assets/images/'.$gs->favicon)}}"/>
 
-    @if(isset($page->meta_tag) && isset($page->meta_description))
+
+@if(isset($page->meta_tag) && isset($page->meta_description))
 
         <meta name="keywords" content="{{ $page->meta_tag }}">
         <meta name="description" content="{{ $page->meta_description }}">
@@ -93,6 +94,9 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('assets/css/custom.min.css')}}"/>
     <link rel="stylesheet" href="{{asset('assets/css/slider.css')}}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+          integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <!--    <link rel="stylesheet" href="css/responsive.css" />-->
     <title>Go Hazy</title>
 </head>
@@ -143,9 +147,11 @@
                         <div class="form-inline">
                             <ul>
                                 <li><a href="#search"><i class="far fa-search"></i></a></li>
-                                <li><a href="{{route('front.cart')}}"><i class="fal fa-shopping-cart"></i><span>0</span></a></li>
+                                <li><a href="{{route('front.cart')}}"><i class="fal fa-shopping-cart"></i><span>0</span></a>
+                                </li>
                                 @if(\Illuminate\Support\Facades\Auth::check())
-                                    <li><a href="{{route('user-dashboard')}}">{{\Illuminate\Support\Facades\Auth::user()->name}}</a>
+                                    <li>
+                                        <a href="{{route('user-dashboard')}}">{{\Illuminate\Support\Facades\Auth::user()->name}}</a>
                                     </li>
                                 @else
                                     <li><a href="{{route('user.login.submit')}}"><i class="fas fa-sign-in-alt"></i></a>
@@ -256,6 +262,8 @@
     </form>
 </div>
 
+@yield('script')
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="{{asset('assets/js/all.min.js')}}"></script>
@@ -264,6 +272,14 @@
 <script src="{{asset('assets/js/slick.min.js')}}"></script>
 <script src="{{asset('assets/js/scrollTrigger.js')}}"></script>
 <script src="{{asset('assets/js/custom.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    @if(session()->has('error'))
+    toastr.error('{{ session()->get('error') }}');
+    @endif
+</script>
 
 
 </body>

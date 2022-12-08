@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Auth\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Auth;
-use Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -29,6 +29,12 @@ class LoginController extends Controller
         }
         //--- Validation Section Ends
 
+
+        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+            // if successful, then redirect to their intended location
+            return redirect()->route('admin.dashboard');
+        }
+
         // Attempt to log the user in
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             // if successful, then redirect to their intended location
@@ -36,12 +42,12 @@ class LoginController extends Controller
             // Check If Email is verified or not
             if (Auth::user()->email_verified == 'No') {
                 Auth::logout();
-                return response()->json(array('errors' => [0 => __('Your Email is not Verified!')]));
+                return redirect()->back()->with('error', 'Your Email is not Verified!');
             }
 
             if (Auth::user()->ban == 1) {
                 Auth::logout();
-                return response()->json(array('errors' => [0 => __('Your Account Has Been Banned.')]));
+                return redirect()->back()->with('error', 'Your Account Has Been Banned.');
             }
 
             // Login Via Modal
@@ -66,7 +72,8 @@ class LoginController extends Controller
         }
 
         // if unsuccessful, then redirect back to the login with the form data
-        return response()->json(array('errors' => [0 => __('Credentials Doesn\'t Match !')]));
+        return redirect()->back()->with('error', 'Credentials Does not Match !');
+//        return response()->json(array('errors' => [0 => __('Credentials Doesn\'t Match !')]));
     }
 
     public function logout()

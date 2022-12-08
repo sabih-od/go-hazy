@@ -268,27 +268,27 @@
             <li>
                 <a href="{{ route('admin-gs-fav') }}"><span>{{ __('Favicon') }}</span></a>
             </li>
-            <li>
+           {{-- <li>
                 <a href="{{ route('admin-gs-load') }}"><span>{{ __('Loader') }}</span></a>
-            </li>
+            </li>--}}
             <li>
                 <a href="{{ route('admin-shipping-index') }}"><span>{{ __('Shipping Methods') }}</span></a>
             </li>
-            <li>
+         {{--   <li>
                 <a href="{{ route('admin-package-index') }}"><span>{{ __('Packagings') }}</span></a>
-            </li>
+            </li>--}}
             <li>
                 <a href="{{ route('admin-pick-index') }}"><span>{{ __('Pickup Locations') }}</span></a>
             </li>
-            <li>
+           {{-- <li>
                 <a href="{{ route('admin-gs-contents') }}"><span>{{ __('Website Contents') }}</span></a>
-            </li>
+            </li>--}}
             <li>
                 <a href="{{ route('admin-gs-affilate') }}"><span>{{__('Affiliate Program')}}</span></a>
             </li>
-            <li>
+           {{-- <li>
                 <a href="{{ route('admin-gs-popup') }}"><span>{{ __('Popup Banner') }}</span></a>
-            </li>
+            </li>--}}
             <li>
                 <a href="{{ route('admin-gs-bread') }}"><span>{{ __('Breadcrumb Banner') }}</span></a>
             </li>
@@ -302,7 +302,7 @@
         </ul>
     </li>
 
-    <li>
+    {{--<li>
         <a href="#homepage" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
             <i class="fas fa-edit"></i>{{ __('Home Page Settings') }}
         </a>
@@ -326,7 +326,7 @@
                 <a href="{{ route('admin-ps-customize') }}"><span>{{ __('Home Page Customization') }}</span></a>
             </li>
         </ul>
-    </li>
+    </li>--}}
 
     <li>
         <a href="#menu" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
@@ -396,9 +396,9 @@
         </ul>
     </li>
 
-    <li>
+    {{--<li>
         <a href="{{ route('admin.fonts.index') }}" class=" wave-effect"><i class="fa fa-font"></i>{{ __('Font Option') }}</a>
-    </li>
+    </li>--}}
 
     <li>
         <a href="#seoTools" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
@@ -436,7 +436,7 @@
 
 
 
-    <li>
+    {{--<li>
         <a href="#sactive" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
             <i class="fas fa-cog"></i>{{ __('System Activation') }}
         </a>
@@ -445,4 +445,4 @@
             <li><a href="{{route('admin-activation-form')}}"> {{ __('Activation') }}</a></li>
             <li><a href="{{route('admin-generate-backup')}}"> {{ __('Generate Backup') }}</a></li>
         </ul>
-    </li>
+    </li>--}}

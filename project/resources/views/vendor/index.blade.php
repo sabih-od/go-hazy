@@ -1,4 +1,4 @@
-@extends('layouts.vendor') 
+@extends('layouts.vendor')
 
 @section('content')
                     <div class="content-area">
@@ -67,7 +67,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>  
+                                </div>
 
 
                                 <div class="col-md-12 col-lg-6 col-xl-4">
@@ -104,7 +104,7 @@
                                     <div class="card">
                                             <h5 class="card-header">{{ __('Recent Product(s)') }}</h5>
                                             <div class="card-body">
-                            
+
                                                 <div class="table-responsiv dashboard-home-table">
                                                     <table id="pproducts" class="table table-hover dt-responsive" cellspacing="0" width="100%">
                                                             <thead>
@@ -115,7 +115,7 @@
                                                                         <th>{{ __('Type') }}</th>
                                                                         <th>{{ __('Price') }}</th>
                                                                         <th></th>
-                                                                        
+
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -145,21 +145,21 @@
                                                                 </tbody>
                                                     </table>
                                                 </div>
-                            
+
                                             </div>
                                         </div>
-                    
+
                             </div>
                             <div class="col-md-6 col-lg-6 col-xl-6">
                                 <div class="card">
                                     <h5 class="card-header">{{ __('Recent Order(s)') }}</h5>
                                     <div class="card-body">
-                    
+
                                         <div class="my-table-responsiv">
                                             <table class="table table-hover dt-responsive" cellspacing="0" width="100%">
                                                 <thead>
                                                     <tr>
-                    
+
                                                         <th>{{ __('Order Number') }}</th>
                                                         <th>{{ __('Order Date') }}</th>
                                                     </tr>
@@ -188,14 +188,14 @@
                                 <div class="card">
                                     <h5 class="card-header">{{ __('Total Sales in Last 30 Days') }}</h5>
                                     <div class="card-body">
-                    
+
                                         <canvas id="lineChart"></canvas>
-                    
+
                                     </div>
                                 </div>
-                    
+
                             </div>
-                    
+
                         </div>
                     </div>
 
@@ -204,7 +204,7 @@
 @section('scripts')
 
 <script type="text/javascript">
-    
+
     (function($) {
 		"use strict";
 
@@ -258,9 +258,9 @@
     } );
 
 
-     
+
     })(jQuery);
-    
+
 </script>
 
 @endsection
