@@ -15,11 +15,10 @@ use Illuminate\Support\Facades\Session;
 class CatalogController extends FrontBaseController
 {
 
-    // CATEGORIES SECTOPN
+    // CATEGORIES SECTION
 
     public function categories()
     {
-
         return view('frontend.products');
     }
 
@@ -200,13 +199,13 @@ class CatalogController extends FrontBaseController
 
             })->paginate(isset($pageby) ? $pageby : $this->gs->page_count);
         $data['prods'] = $prods;
+
         //    dd($data['prods']);
         if ($request->ajax()) {
             $data['ajax_check'] = 1;
             return view('frontend.ajax.category', $data);
         }
-
-        return view('frontend.product', $data);
+        return view('frontend.product')->with('data', $data);
     }
 
 

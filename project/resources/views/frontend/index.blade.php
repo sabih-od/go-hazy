@@ -28,7 +28,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-5 imgSet">
-                                            <figure>
+                                            <figure>dsad
                                                 <img src="{{asset('assets/images/sliders/'.$data->photo)}}" alt="img">
                                             </figure>
                                         </div>
@@ -212,7 +212,7 @@
                                     <figure>
                                         <img src="{{asset('assets/images/categories/'.$category->image)}}"
                                              class="img-fluid" alt="img">
-                                        <a href="{{route('front.category')}}">{{$category->name}}</a>
+                                        <a href="{{route('front.category',$category->slug)}}">{{$category->name}}</a>
                                     </figure>
                                 </div>
                             </div>
@@ -402,11 +402,7 @@
                                                     <li><a href="#"><i class="fad fa-paper-plane"></i></a></li>
                                                 </ul>
                                             </div>
-                                            <p>Let the Sunglasses Do the Talking!
-                                                Without accessories, no ensemble is complete. An outfit is a
-                                                work-in-progress,
-                                                an
-                                                incomplete projec...</p>
+                                            <p>{!! substr($blog->details, 0, 150) !!}</p>
                                             <a href="{{route('front.blog')}}">Continue reading</a>
                                         </div>
                                     </div>

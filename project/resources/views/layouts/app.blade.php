@@ -9,7 +9,7 @@
     <link rel="icon" type="image/x-icon" href="{{asset('assets/images/'.$gs->favicon)}}"/>
 
 
-@if(isset($page->meta_tag) && isset($page->meta_description))
+    @if(isset($page->meta_tag) && isset($page->meta_description))
 
         <meta name="keywords" content="{{ $page->meta_tag }}">
         <meta name="description" content="{{ $page->meta_description }}">
@@ -103,7 +103,11 @@
 
 <body>
 <!-- Begin: Header -->
+@php
+    use App\Models\Category;
 
+    $categories = Category::all();
+@endphp
 <header class="">
     <div class="main-navigate">
         <div class="an-navbar">
@@ -127,11 +131,9 @@
                             <li class="nav-item drop-down">
                                 <a class="nav-link" href="{{route('front.category')}}">Shop</a>
                                 <ul>
-                                    <li><a href="#">Clothing/ Apparel</a></li>
-                                    <li><a href="#">Accessories Men/Women</a></li>
-                                    <li><a href="#">Beauty & Cosmetics</a></li>
-                                    <li><a href="#">Sports & Entertainment</a></li>
-                                    <li><a href="#">Consumer Electronics</a></li>
+                                    @foreach($categories as $category)
+                                        <li><a href="{{ route('front.category',$category->slug) }}">{{$category->name}}</a></li>
+                                    @endforeach
                                 </ul>
                             </li>
                             <li class="nav-item">

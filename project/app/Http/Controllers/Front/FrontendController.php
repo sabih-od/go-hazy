@@ -205,11 +205,9 @@ class FrontendController extends FrontBaseController
 
     public function blog(Request $request)
     {
-
         if (DB::table('pagesettings')->first()->blog == 0) {
             return redirect()->back();
         }
-
 
         // BLOG TAGS
         $tags = null;
@@ -231,7 +229,6 @@ class FrontendController extends FrontBaseController
 
     public function blogcategory(Request $request, $slug)
     {
-
         // BLOG TAGS
         $tags = null;
         $tagz = '';

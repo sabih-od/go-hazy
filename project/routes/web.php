@@ -4,6 +4,7 @@
 // ************************************ ADMIN SECTION **********************************************
 
 use App\Http\Controllers\Front\FrontendController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function() {
