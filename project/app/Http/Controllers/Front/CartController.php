@@ -18,7 +18,6 @@ class CartController extends FrontBaseController
 
     public function cart(Request $request)
     {
-
         if (!Session::has('cart')) {
             return view('frontend.cart');
         }
@@ -42,7 +41,9 @@ class CartController extends FrontBaseController
         $products = $cart->items;
         $totalPrice = $cart->totalPrice;
         $mainTotal = $totalPrice;
+//        dd($products);
 
+//        dd(Session::has('cart'), $products);
         if($request->ajax()){
             return view('frontend.ajax.cart-page', compact('products','totalPrice','mainTotal'));
         }
@@ -112,7 +113,7 @@ class CartController extends FrontBaseController
         }
 
         // Set Size
-
+//dd($id);
         $size = '';
         if(!empty($prod->size))
         {
@@ -397,7 +398,7 @@ class CartController extends FrontBaseController
 
     public function addnumcart(Request $request)
     {
-        
+
         $id = $_GET['id'];
         $qty = $_GET['qty'];
         $size = str_replace(' ','-',$_GET['size']);
@@ -419,7 +420,7 @@ class CartController extends FrontBaseController
             $qty = 1;
         }
 
-       
+
 
         if($prod->user_id != 0){
         $prc = $prod->price + $this->gs->fixed_commission + ($prod->price/100) * $this->gs->percentage_commission ;
@@ -503,7 +504,7 @@ class CartController extends FrontBaseController
         $color = str_replace('#','',$color);
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
-    
+
         if(!empty($cart->items)){
             if(!empty($cart->items[$id.$size.$color.str_replace(str_split(' ,'),'',$values)])){
                 $minimum_qty = (int)$prod->minimum_qty;
@@ -515,7 +516,7 @@ class CartController extends FrontBaseController
                 }
             }
             else{
-                 
+
                 if($prod->minimum_qty != null){
                     $minimum_qty = (int)$prod->minimum_qty;
                     if($qty < $minimum_qty){
@@ -526,8 +527,8 @@ class CartController extends FrontBaseController
                     }
                 }
             }
-        }else{ 
-           
+        }else{
+
             if($prod->minimum_qty != null){
                 $minimum_qty = (int)$prod->minimum_qty;
                 if($qty < $minimum_qty){
@@ -540,8 +541,8 @@ class CartController extends FrontBaseController
         }
 
         $cart->addnum($prod, $prod->id, $qty, $size,$color,$size_qty,$size_price,$size_key,$keys,$values,$affilate_user);
-     
-        
+
+
         if($cart->items[$id.$size.$color.str_replace(str_split(' ,'),'',$values)]['dp'] == 1)
         {
             return 'digital';
@@ -574,7 +575,6 @@ class CartController extends FrontBaseController
 
     public function addtonumcart(Request $request)
     {
-
         $id = $_GET['id'];
         $qty = $_GET['qty'];
         $size = str_replace(' ','-',$_GET['size']);
@@ -771,9 +771,7 @@ class CartController extends FrontBaseController
 
                             }
                           }
-
                       }
-
                 }
 
         if(!empty($prod->license_qty))
@@ -945,7 +943,7 @@ class CartController extends FrontBaseController
             $data[1] = count($cart->items);
             return response()->json($data);
         } else {
-            
+
             $data[0] = 0;
 
             if($this->gs->currency_format == 0){
@@ -1018,5 +1016,10 @@ class CartController extends FrontBaseController
 
     }
 
-
+    public function cartIncrement($id)
+    {
+        $cart = Cart::where('id', $id)->findOrFail();
+        dd($cart);
+        return redirect()->route('update.cart', compact('cart'))->with('success',__('Successfully Added To Cart.'));
+    }
 }

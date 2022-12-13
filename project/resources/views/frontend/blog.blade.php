@@ -36,12 +36,12 @@
                                 <div class="swiper-slide">
                                     <div class="blogCard my-5">
                                         <figure>
-                                            <img src="{{ asset('assets/images/blogs/'.$blog->photo) }}"
+                                            <img src="{{ asset('assets/images/blogs/'.$blog->photo) ?? '' }}"
                                                  class="img-fluid" alt="img">
                                             <span>29 <small>aug</small></span>
                                         </figure>
                                         <div class="blogContent">
-                                            <h6>{{$blog->title}}</h6>
+                                            <h6>{{$blog->title ?? ''}}</h6>
                                             <div class="share">
                                                 <span><i class="fal fa-share-alt"></i></span>
                                                 <ul>
@@ -52,7 +52,7 @@
                                                     <li><a href="#"><i class="fad fa-paper-plane"></i></a></li>
                                                 </ul>
                                             </div>
-                                            <p>{!! substr($blog->details, 0, 150) !!}</p>
+                                            <p>{!! substr($blog->details, 0, 150) ?? '' !!}</p>
                                             <a href="{{route('front.blog')}}">Continue reading</a>
                                         </div>
                                     </div>

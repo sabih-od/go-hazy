@@ -69,7 +69,7 @@
                                         <li><a href="#"><i class="far fa-search"></i></a></li>
                                         <li><a href="#"><i class="fal fa-heart"></i></a></li>
                                         <li><a href="#"><i class="fal fa-shopping-cart"></i></a></li>
-                                        <li><a href="#"><img
+                                        <li><a href="{{ route('front.product', $item->slug) }}"><img
                                                     src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}"
                                                     class="img-fluid" alt="img"></a></li>
                                     </ul>

@@ -158,7 +158,6 @@
         </div>
     </section>
 
-
     <section class="proSec">
         <div class="container">
             <div class="refreshHeading" data-aos="fade-up">
@@ -169,27 +168,28 @@
             </div>
             <div class="row">
                 @foreach($products as $key => $prod)
+{{--                    {{ dd($products) }}--}}
                     @if($key > 7)
                         @break
                     @endif
                     <div class="col-lg-3 col-sm-6">
                         <div class="product-box" data-aos="fade-right">
                             <div class="pro-img">
-                                <a href="#"><img src="{{asset('assets/images/products/'.$prod->photo)}}" alt="img"></a>
+                                <a href="{{ route('front.product', $prod->slug) }}"><img src="{{asset('assets/images/products/'.$prod->photo) ?? ''}}" alt="img"></a>
                                 <div class="overlay">
                                     <ul>
                                         <li><a href="#"><i class="far fa-search"></i></a></li>
                                         <li><a href="#"><i class="fal fa-heart"></i></a></li>
                                         <li><a href="#"><i class="fal fa-shopping-cart"></i></a></li>
-                                        <li><a href="#"><img src="{{asset('assets/images/compare.png')}}"
+                                        <li><a href="#"><img src="{{asset('assets/images/compare.png') ?? ''}}"
                                                              class="img-fluid"
                                                              alt="img"></a></li>
                                     </ul>
                                 </div>
                             </div>
-                            <h4>{{$prod->name}}</h4>
-                            <p>{{$prod->category->name}}</p>
-                            <span>${{$prod->price}}</span>
+                            <h4>{{$prod->name ?? ''}}</h4>
+                            <p>{{$prod->category->name ?? ''}}</p>
+                            <span>${{$prod->price ?? ''}}</span>
                         </div>
                     </div>
                 @endforeach
@@ -210,9 +210,9 @@
                             <div class="col-md-6" data-aos="fade-right">
                                 <div class="shirtBox">
                                     <figure>
-                                        <img src="{{asset('assets/images/categories/'.$category->image)}}"
+                                        <img src="{{asset('assets/images/categories/'.$category->image) ?? ''}}"
                                              class="img-fluid" alt="img">
-                                        <a href="{{route('front.category',$category->slug)}}">{{$category->name}}</a>
+                                        <a href="{{route('front.category',$category->slug)}}">{{$category->name ?? ''}}</a>
                                     </figure>
                                 </div>
                             </div>
@@ -221,17 +221,17 @@
                                     @if($key == 1)
                                         <div class="shirtBox" data-aos="fade-left">
                                             <figure>
-                                                <img src="{{asset('assets/images/categories/'.$category->image)}}"
+                                                <img src="{{asset('assets/images/categories/'.$category->image) ?? ''}}"
                                                      class="img-fluid" alt="img">
-                                                <a href="{{route('front.category')}}">{{$category->name}}</a>
+                                                <a href="{{route('front.category')}}">{{$category->name ?? ''}}</a>
                                             </figure>
                                         </div>
                                     @elseif($key == 2)
                                         <div class="shirtBox" data-aos="fade-up">
                                             <figure>
-                                                <img src="{{asset('assets/images/categories/'.$category->image)}}"
+                                                <img src="{{asset('assets/images/categories/'.$category->image) ?? ''}}"
                                                      class="img-fluid" alt="img">
-                                                <a href="{{route('front.category')}}">{{$category->name}}</a>
+                                                <a href="{{route('front.category')}}">{{$category->name ?? ''}}</a>
                                             </figure>
                                         </div>
                             </div>
@@ -241,17 +241,17 @@
                                     @if($key == 3)
                                         <div class="shirtBox" data-aos="fade-right">
                                             <figure>
-                                                <img src="{{asset('assets/images/categories/'.$category->image)}}"
+                                                <img src="{{asset('assets/images/categories/'.$category->image) ?? ''}}"
                                                      class="img-fluid" alt="img">
-                                                <a href="{{route('front.category')}}">{{$category->name}}</a>
+                                                <a href="{{route('front.category')}}">{{$category->name ?? ''}}</a>
                                             </figure>
                                         </div>
                                     @else
                                         <div class="shirtBox" data-aos="fade-up">
                                             <figure>
-                                                <img src="{{asset('assets/images/categories/'.$category->image)}}"
+                                                <img src="{{asset('assets/images/categories/'.$category->image) ?? ''}}"
                                                      class="img-fluid" alt="img">
-                                                <a href="{{route('front.category')}}">{{$category->name}}</a>
+                                                <a href="{{route('front.category')}}">{{$category->name ?? ''}}</a>
                                             </figure>
                                         </div>
                             </div>
@@ -319,7 +319,7 @@
                                 <div class="swiper-slide">
                                     <div class="product-box">
                                         <div class="pro-img">
-                                            <a href="#"><img src="{{asset('assets/images/products/'.$prod->photo)}}"
+                                            <a href="#"><img src="{{asset('assets/images/products/'.$prod->photo) ?? ''}}"
                                                              alt="img"></a>
                                             <div class="overlay">
                                                 <ul>
@@ -333,9 +333,9 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <h4>{{$prod->name}}</h4>
-                                        <p>{{$prod->category->name}}</p>
-                                        <span>${{$prod->price}}</span>
+                                        <h4>{{$prod->name ?? ''}}</h4>
+                                        <p>{{$prod->category->name ?? ''}}</p>
+                                        <span>${{$prod->price ?? ''}}</span>
                                     </div>
                                 </div>
                             @endforeach

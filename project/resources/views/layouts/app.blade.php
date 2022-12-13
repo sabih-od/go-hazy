@@ -132,7 +132,9 @@
                                 <a class="nav-link" href="{{route('front.category')}}">Shop</a>
                                 <ul>
                                     @foreach($categories as $category)
-                                        <li><a href="{{ route('front.category',$category->slug) }}">{{$category->name}}</a></li>
+                                        <li>
+                                                <a href="{{ route('front.category',$category->slug) }}">{{$category->name}}</a>
+                                        </li>
                                     @endforeach
                                 </ul>
                             </li>
@@ -149,7 +151,10 @@
                         <div class="form-inline">
                             <ul>
                                 <li><a href="#search"><i class="far fa-search"></i></a></li>
-                                <li><a href="{{route('front.cart')}}"><i class="fal fa-shopping-cart"></i><span>0</span></a>
+                                <li><a href="{{route('front.cart')}}"><i class="fal fa-shopping-cart"></i>
+                                        <span>
+                                            {{ count($products) != 0 ? count($products) : '0' }}
+                                        </span></a>
                                 </li>
                                 @if(\Illuminate\Support\Facades\Auth::check())
                                     <li>
@@ -264,10 +269,11 @@
     </form>
 </div>
 
-@yield('script')
-
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="{{asset('assets/js/all.min.js')}}"></script>
 <script src="{{asset('assets/js/aos.js')}}"></script>
 <script src="{{asset('assets/js/gsap.js')}}"></script>
@@ -282,6 +288,7 @@
     toastr.error('{{ session()->get('error') }}');
     @endif
 </script>
+@yield('script')
 
 
 </body>
