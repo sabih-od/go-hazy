@@ -33,53 +33,53 @@
             </div>
             <div class="row cartItemCard">
                 <input type="hidden" name="cart_id" class="id" value="">
-                @foreach($products as $item)
-{{--                    {{ dd() }}--}}
+                @forelse($products as $item)
+{{--                    {{ dd($item) }}--}}
                     <div class="col-md-1">
                         <img src="{{asset('assets/images/check.jpg')}}" alt="">
                     </div>
                     <div class="col-md-6 text-left">
-                        <h4>{{ $item['item']->name }}</h4>
+                        <h4>{{ $item['item']->name ?? '' }}</h4>
                     </div>
                     <div class="col-md-1">
-                        <strong class="price">${{ $item['item']->price }}</strong>
+                        <strong class="price">${{ $item['item']->price ?? '' }}</strong>
                     </div>
                     <div class="col-md-2">
                         <div class="proCounter">
-                            <input type="hidden" class="prodid" value="{{$item['item']['id']}}">
+                            <input type="hidden" class="prodid" value="{{$item['item']['id'] ?? ''}}">
                             <input type="hidden" class="itemid"
-                                   value="{{$item['item']['id'].$item['size'].$item['color'].str_replace(str_split(' ,'),'',$item['values'])}}">
-                            <input type="hidden" class="size_qty" value="{{$item['size_qty']}}">
-                            <input type="hidden" class="size_price" value="{{$item['size_price']}}">
+                                   value="{{$item['item']['id'].$item['size'] ?? ''.$item['color'].str_replace(str_split(' ,'),'',$item['values'] ?? '')}}">
+                            <input type="hidden" class="size_qty" value="{{$item['size_qty'] ?? ''}}">
+                            <input type="hidden" class="size_price" value="{{$item['size_price'] ?? ''}}">
                             <input type="hidden" class="minimum_qty"
-                                   value="{{ $item['item']['minimum_qty'] == null ? '0' : $item['item']['minimum_qty'] }}">
-                            <span class="minus qtyminus" field='quantity' data-minus-number="{{ $item['item']->id }}">
+                                   value="{{ $item['item']['minimum_qty'] == null ? '0' : $item['item']['minimum_qty'] ?? '' }}">
+                            <span class="minus qtyminus" field='quantity'
+                                  data-minus-number="{{ $item['item']->id ?? ''}}">
                                 <i class="fa fa-angle-down"></i>
                             </span>
-                            <input name="quantity" id="{{ $item['item']->id }}" value="{{ $item['qty'] }}">
-                            <span class="plus qtyplus" field='quantity' data-plus-number="{{ $item['item']->id }}">
+                            <input name="quantity" id="{{ $item['item']->id ?? ''}}" value="{{ $item['qty'] ?? ''}}">
+                            <span class="plus qtyplus" field='quantity' data-plus-number="{{ $item['item']->id ?? ''}}">
                                 <i class="fa fa-angle-up"></i>
                             </span>
                         </div>
                     </div>
                     <div class="col-md-1">
-                        <strong class="price">${{ $item['price'] }}</strong>
+                        <strong class="price">${{ $item['price'] ?? ''}}</strong>
                     </div>
                     <div class="col-md-1">
-                        <a href="{{ route('product.cart.remove',$item['item']->id)}}"
-                           class="delete remove-from-cart"
-                           id="{{ $item['item']->id }}"><i
+                        <a href="{{ route('product.cart.remove',$item['item']->id.$item['size'].$item['color'].str_replace(str_split(' ,'),'',$item['values']) ?? '') }}"
+                           class="delete remove-from-cart"><i
                                 class="far fa-trash-alt text-danger"></i></a>
                     </div>
-                    {{--                    @empty--}}
-                    {{--                        <p class="text-danger ml-5"> Data not found</p>--}}
-                @endforeach
+                @empty
+                    <p class="text-danger ml-5 my-2">Product Not Found</p>
+                @endforelse
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="text-center">
-                        <a href="{{route('front.checkout')}}" class="btnStyle my-5">Proceed To Pay</a>
-                        {{--                        <button class="btnStyle my-5" onclick="window.location.href='{{route('front.checkout')}}'">Proceed To Pay</button>--}}
+                        <a href="{{count($products) != 0 ? route('front.checkout') : route('front.category')}}"
+                           class="btnStyle my-5">{{count($products) != 0 ? 'Proceed To Pay' : 'Shop Now'}}</a>
                     </div>
                     <ul class="shipping-billing-col">
                         <li>
@@ -108,7 +108,7 @@
 
         //Remove Product From Cart
         $(document).on("click", ".cart-remove", function () {
-            var $selector = $(this).data("id");
+            var $selector = $(this).data("class");
             $("." + $selector).hide();
             $.get($(this).data("href"), function (data) {
                 window.location.reload();

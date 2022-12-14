@@ -133,7 +133,7 @@
                                 <ul>
                                     @foreach($categories as $category)
                                         <li>
-                                                <a href="{{ route('front.category',$category->slug) }}">{{$category->name}}</a>
+                                            <a href="{{ route('front.category',$category->slug) }}">{{$category->name}}</a>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -153,7 +153,7 @@
                                 <li><a href="#search"><i class="far fa-search"></i></a></li>
                                 <li><a href="{{route('front.cart')}}"><i class="fal fa-shopping-cart"></i>
                                         <span>
-                                            {{ count($products) != 0 ? count($products) : '0' }}
+                                            {{ Session::has('cart') ? count(Session::get('cart')->items) : '0' }}
                                         </span></a>
                                 </li>
                                 @if(\Illuminate\Support\Facades\Auth::check())

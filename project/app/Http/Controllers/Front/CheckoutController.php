@@ -57,7 +57,6 @@ class CheckoutController extends FrontBaseController
 
     public function checkout()
     {
-
         if (!Session::has('cart')) {
             return redirect()->route('front.cart')->with('success',__("You don't have any product to checkout."));
         }
@@ -70,6 +69,7 @@ class CheckoutController extends FrontBaseController
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
         $products = $cart->items;
+//        dd($products);
         $paystack = PaymentGateway::whereKeyword('paystack')->first();
         $paystackData = $paystack->convertAutoData();
         // $voguepay = PaymentGateway::whereKeyword('voguepay')->first();

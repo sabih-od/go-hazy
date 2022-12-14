@@ -19,7 +19,8 @@ class CartController extends FrontBaseController
     public function cart(Request $request)
     {
         if (!Session::has('cart')) {
-            return view('frontend.cart');
+            $products = [];
+            return view('frontend.cart', compact('products'));
         }
         if (Session::has('already')) {
             Session::forget('already');
@@ -398,7 +399,6 @@ class CartController extends FrontBaseController
 
     public function addnumcart(Request $request)
     {
-
         $id = $_GET['id'];
         $qty = $_GET['qty'];
         $size = str_replace(' ','-',$_GET['size']);
@@ -1014,12 +1014,5 @@ class CartController extends FrontBaseController
 
         return response()->json($data);
 
-    }
-
-    public function cartIncrement($id)
-    {
-        $cart = Cart::where('id', $id)->findOrFail();
-        dd($cart);
-        return redirect()->route('update.cart', compact('cart'))->with('success',__('Successfully Added To Cart.'));
     }
 }

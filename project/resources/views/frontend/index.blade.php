@@ -28,8 +28,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-5 imgSet">
-                                            <figure>dsad
-                                                <img src="{{asset('assets/images/sliders/'.$data->photo)}}" alt="img">
+                                                <img src="{{asset('assets/images/sliders/'.$data->photo) ?? ''}}" alt="img">
                                             </figure>
                                         </div>
                                     </div>
