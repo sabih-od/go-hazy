@@ -40,7 +40,7 @@
                             <p class="text">
                                 {{ __("We'll email you an order confirmation with details and tracking info.") }}
                             </p>
-                            <a href="{{ route('front.index') }}" class="link">{{ __('Get Back To Our Homepage') }}</a>
+                            <a href="{{ route('front.index') }}" class="link"><h5>{{ __('Get Back To Our Homepage') }}</h5></a>
                         </div>
                     </div>
                     <div class="row">
@@ -243,7 +243,7 @@
                                                                     @endif
                                                                     @if(!empty($product['color']))
                                                                     <div class="d-flex mt-2">
-                                                                        <b>{{ __('Color') }}</b>: <span
+                                                                        <b>{{ __('Color') }}</b> : <span
                                                                             id="color-bar"
                                                                             style="border: 10px solid #{{$product['color'] == "" ? "white" : $product['color']}};"></span>
                                                                     </div>

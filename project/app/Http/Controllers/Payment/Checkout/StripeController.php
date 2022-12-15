@@ -2,12 +2,7 @@
 
 namespace App\Http\Controllers\Payment\Checkout;
 
-use App\{
-    Models\Cart,
-    Models\Order,
-    Models\PaymentGateway,
-    Classes\GeniusMailer
-};
+use App\{Models\Cart, Models\Order, Models\PaymentGateway, Classes\GeniusMailer, Traits\PHPCustomMail};
 use App\Models\Country;
 use App\Models\State;
 use Illuminate\Http\Request;
@@ -19,6 +14,7 @@ use Illuminate\Support\Str;
 
 class StripeController extends CheckoutBaseControlller
 {
+    use PHPCustomMail;
     public function __construct()
     {
         parent::__construct();
@@ -108,13 +104,15 @@ class StripeController extends CheckoutBaseControlller
                     $input['payment_status'] = "Completed";
                     $input['txnid'] = $charge['balance_transaction'];
                     $input['charge_id'] = $charge['id'];
-                    if($input['tax_type'] == 'state_tax'){
-                        $input['tax_location'] = State::findOrFail($input['tax'])->state;
-                    }else{
-                        $input['tax_location'] = Country::findOrFail($input['tax'])->country_name;
-                    }
-                    $input['tax'] = Session::get('current_tax');
+//                    if($input['tax_type'] == 'state_tax'){
+//                        $input['tax_location'] = State::findOrFail($input['tax'])->state;
+//                    }else{
+//                        dd(Country::findOrFail(232)->country_name);
+//                        $input['tax_location'] = Country::findOrFail($input['tax'])->country_name;
+//                    }
+                    $input['tax'] = Session::get('current_tax') ?? '0';
 
+//                    dd($input);
                     if($input['dp'] == 1){
                         $input['status'] = 'completed';
                     }
@@ -136,9 +134,10 @@ class StripeController extends CheckoutBaseControlller
                         }
 
                     }
+//                    dd($input);
 
                     $order->fill($input)->save();
-                    $order->tracks()->create(['title' => 'Pending', 'text' => 'You have successfully placed your order.' ]);
+                    $order->tracks()->create(['order_id' => $order->id,'title' => 'Pending', 'text' => 'You have successfully placed your order.' ]);
                     $order->notifications()->create();
 
                     if($input['coupon_id'] != "") {
@@ -162,29 +161,39 @@ class StripeController extends CheckoutBaseControlller
                         OrderHelper::add_to_transaction($order,$order->wallet_price); // Store To Transactions
                     }
 
-                    //Sending Email To Buyer
-                    $data = [
-                        'to' => $order->customer_email,
-                        'type' => "new_order",
-                        'cname' => $order->customer_name,
-                        'oamount' => "",
-                        'aname' => "",
-                        'aemail' => "",
-                        'wtitle' => "",
-                        'onumber' => $order->order_number,
-                    ];
-
-                    $mailer = new GeniusMailer();
-                    $mailer->sendAutoOrderMail($data,$order->id);
+//                    //Sending Email To Buyer
+//                    $data = [
+//                        'to' => $order->customer_email,
+//                        'type' => "new_order",
+//                        'cname' => $order->customer_name,
+//                        'oamount' => "",
+//                        'aname' => "",
+//                        'aemail' => "",
+//                        'wtitle' => "",
+//                        'onumber' => $order->order_number,
+//                    ];
+//
+//                    $mailer = new GeniusMailer();
+//                    $mailer->sendAutoOrderMail($data,$order->id);
+//
+//                    //Sending Email To Admin
+//                    $data = [
+//                        'to' => $this->ps->contact_email,
+//                        'subject' => "New Order Recieved!!",
+//                        'body' => "Hello Admin!<br>Your store has received a new order.<br>Order Number is ".$order->order_number.".Please login to your panel to check. <br>Thank you.",
+//                    ];
+//                    $mailer = new GeniusMailer();
+//                    $mailer->sendCustomMail($data);
 
                     //Sending Email To Admin
-                    $data = [
-                        'to' => $this->ps->contact_email,
-                        'subject' => "New Order Recieved!!",
-                        'body' => "Hello Admin!<br>Your store has received a new order.<br>Order Number is ".$order->order_number.".Please login to your panel to check. <br>Thank you.",
-                    ];
-                    $mailer = new GeniusMailer();
-                    $mailer->sendCustomMail($data);
+                    $html_admin = "Order Created";
+
+                    $this->custommail('no-reply@gohazy.com', $this->ps->contact_email, 'Payment Recieved', $html_admin);
+
+                    //Sending Email To Buyer
+                    $html_user = "Your Order Has Been Placed";
+
+                    $this->custommail('no-reply@gohazy.com', $order->customer_email, 'Payment Clear', $html_user);
 
                     return redirect($success_url);
 

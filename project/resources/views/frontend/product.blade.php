@@ -9,6 +9,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <h6>{{ $data['cat']->name ?? 'Shop'}}</h6>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><span>/</span></li>
+                        <li><a href="#">{{ $data['cat']->name ?? 'Shop'}}</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
