@@ -399,10 +399,11 @@ class CartController extends FrontBaseController
 
     public function addnumcart(Request $request)
     {
+//        dd($request->all());
         $id = $_GET['id'];
         $qty = $_GET['qty'];
         $size = str_replace(' ','-',$_GET['size']);
-        $color = $_GET['color'];
+        $color = $_GET['color'] ?? '';
         $size_qty = $_GET['size_qty'];
         $size_price = (double)$_GET['size_price'];
         $size_key = $_GET['size_key'];
@@ -942,6 +943,7 @@ class CartController extends FrontBaseController
 
             $data[1] = count($cart->items);
             return response()->json($data);
+            dd($data);
         } else {
 
             $data[0] = 0;
@@ -954,7 +956,8 @@ class CartController extends FrontBaseController
                 $data[1] = round($data[0] * $curr->value,2).$curr->sign;
             }
 
-            return response()->json($data);
+//            return response()->json($data);
+            return redirect()->back()->with('success', 'Product Remove Successfully');
         }
     }
 

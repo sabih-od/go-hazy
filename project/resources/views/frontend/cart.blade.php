@@ -13,7 +13,7 @@
                     <ul>
                         <li><a href="#">Home</a></li>
                         <li><span>/</span></li>
-                        <li><a href="#">cart</a></li>
+                        <li><a href="#">{{ __('Cart') }}</a></li>
                     </ul>
                 </div>
             </div>
@@ -34,14 +34,27 @@
             <div class="row cartItemCard">
                 <input type="hidden" name="cart_id" class="id" value="">
                 @forelse($products as $item)
-{{--                    {{ dd($item) }}--}}
+                    {{--                    {{ dd($item) }}--}}
                     <div class="col-md-1">
-                        <img src="{{asset('assets/images/check.jpg')}}" alt="">
+                        <img src="{{ asset('assets/images/products/'.$item['item']['photo']) }}" alt="">
                     </div>
-                    <div class="col-md-6 text-left">
-                        <h4>{{ $item['item']->name ?? '' }}</h4>
+                    <div class="col-md-5 text-left">
+                        <strong>{{ $item['item']->name ?? '' }}</strong>
+                        @if(!empty($item['color']))
+                            <div class="col-md-2">
+                                <strong class="color">{{ __('Color') }} : </strong>
+                                <span id="color-bar"
+                                      style="border: 10px solid {{$item['color'] == "" ? "white" : '#'.$item['color']}};">
+                            </span>
+                            </div>
+                        @endif
+                        @if(!empty($item['size']))
+                            <div class="col-md-2">
+                                <strong class="color">{{ __('Size') }} : {{str_replace('-',' ',$item['size'])}}</strong>
+                            </div>
+                        @endif
                     </div>
-                    <div class="col-md-1">
+                    <div class="col-md-2">
                         <strong class="price">${{ $item['item']->price ?? '' }}</strong>
                     </div>
                     <div class="col-md-2">
@@ -67,7 +80,9 @@
                         <strong class="price">${{ $item['price'] ?? ''}}</strong>
                     </div>
                     <div class="col-md-1">
-                        <a href="{{ route('product.cart.remove',$item['item']->id.$item['size'].$item['color'].str_replace(str_split(' ,'),'',$item['values']) ?? '') }}"
+                        <a href="{{ route('product.cart.remove',$item['item']['id'].
+                                    $item['size'].$item['color'].
+                                    str_replace(str_split(' ,'),'',$item['values']) ?? '') }}"
                            class="delete remove-from-cart"><i
                                 class="far fa-trash-alt text-danger"></i></a>
                     </div>
@@ -81,21 +96,21 @@
                         <a href="{{count($products) != 0 ? route('front.checkout') : route('front.category')}}"
                            class="btnStyle my-5">{{count($products) != 0 ? 'Proceed To Pay' : 'Shop Now'}}</a>
                     </div>
-                    <ul class="shipping-billing-col">
-                        <li>
-                            <p><i class="fas fa-map-marker-alt"></i> Marina, CA 93933
-                                <a href="" class="edit">edit</a></p>
-                        </li>
-                        <li>
-                            <p><i class="fas fa-phone"></i> <a href="tel:(831) 747-0564">(831) 747-0564</a> <a href="#"
-                                                                                                               class="edit">edit</a>
-                            </p>
-                        </li>
-                        <li>
-                            <p><i class="fas fa-envelope"></i><a href="mailto:admin@hazycreations.com">
-                                    admin@hazycreations.com</a><a href="#" class="edit">edit</a></p>
-                        </li>
-                    </ul>
+{{--                    <ul class="shipping-billing-col">--}}
+{{--                        <li>--}}
+{{--                            <p><i class="fas fa-map-marker-alt"></i> Marina, CA 93933--}}
+{{--                                <a href="" class="edit">edit</a></p>--}}
+{{--                        </li>--}}
+{{--                        <li>--}}
+{{--                            <p><i class="fas fa-phone"></i> <a href="tel:(831) 747-0564">(831) 747-0564</a> <a href="#"--}}
+{{--                                                                                                               class="edit">edit</a>--}}
+{{--                            </p>--}}
+{{--                        </li>--}}
+{{--                        <li>--}}
+{{--                            <p><i class="fas fa-envelope"></i><a href="mailto:admin@hazycreations.com">--}}
+{{--                                    admin@hazycreations.com</a><a href="#" class="edit">edit</a></p>--}}
+{{--                        </li>--}}
+{{--                    </ul>--}}
                 </div>
             </div>
         </div>
@@ -107,7 +122,7 @@
         var mainurl = "<?php echo e(url('/')); ?>";
 
         //Remove Product From Cart
-        $(document).on("click", ".cart-remove", function () {
+        $(document).on("click", "remove-from-cart", function () {
             var $selector = $(this).data("class");
             $("." + $selector).hide();
             $.get($(this).data("href"), function (data) {

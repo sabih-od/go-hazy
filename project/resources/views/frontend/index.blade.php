@@ -211,7 +211,7 @@
                                     <figure>
                                         <img src="{{asset('assets/images/categories/'.$category->image) ?? ''}}"
                                              class="img-fluid" alt="img">
-                                        <a href="{{route('front.category',$category->slug)}}">{{$category->name ?? ''}}</a>
+                                        <a href="{{route('front.category',$category->slug,$category->slug)}}">{{$category->name ?? ''}}</a>
                                     </figure>
                                 </div>
                             </div>
@@ -222,7 +222,7 @@
                                             <figure>
                                                 <img src="{{asset('assets/images/categories/'.$category->image) ?? ''}}"
                                                      class="img-fluid" alt="img">
-                                                <a href="{{route('front.category')}}">{{$category->name ?? ''}}</a>
+                                                <a href="{{route('front.category',$category->slug)}}">{{$category->name ?? ''}}</a>
                                             </figure>
                                         </div>
                                     @elseif($key == 2)
@@ -230,7 +230,7 @@
                                             <figure>
                                                 <img src="{{asset('assets/images/categories/'.$category->image) ?? ''}}"
                                                      class="img-fluid" alt="img">
-                                                <a href="{{route('front.category')}}">{{$category->name ?? ''}}</a>
+                                                <a href="{{route('front.category',$category->slug)}}">{{$category->name ?? ''}}</a>
                                             </figure>
                                         </div>
                             </div>
@@ -242,7 +242,7 @@
                                             <figure>
                                                 <img src="{{asset('assets/images/categories/'.$category->image) ?? ''}}"
                                                      class="img-fluid" alt="img">
-                                                <a href="{{route('front.category')}}">{{$category->name ?? ''}}</a>
+                                                <a href="{{route('front.category',$category->slug)}}">{{$category->name ?? ''}}</a>
                                             </figure>
                                         </div>
                                     @else
@@ -250,7 +250,7 @@
                                             <figure>
                                                 <img src="{{asset('assets/images/categories/'.$category->image) ?? ''}}"
                                                      class="img-fluid" alt="img">
-                                                <a href="{{route('front.category')}}">{{$category->name ?? ''}}</a>
+                                                <a href="{{route('front.category',$category->slug)}}">{{$category->name ?? ''}}</a>
                                             </figure>
                                         </div>
                             </div>
