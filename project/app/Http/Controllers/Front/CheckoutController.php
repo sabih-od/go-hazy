@@ -70,16 +70,19 @@ class CheckoutController extends FrontBaseController
 //        dd($products);
         $paystack = PaymentGateway::whereKeyword('paystack')->first();
         $paystackData = $paystack->convertAutoData();
+//        dd($paystackData);
         // $voguepay = PaymentGateway::whereKeyword('voguepay')->first();
         // $voguepayData = $voguepay->convertAutoData();
         // If a user is Authenticated then there is no problm user can go for checkout
 
+//        dd(Auth::check());
         if (Auth::check()) {
 
             // Shipping Method
 
             if ($this->gs->multiple_shipping == 1) {
                 $ship_data = Order::getShipData($cart, $this->language->id);
+//                dd($ship_data);
                 $shipping_data = $ship_data['shipping_data'];
                 $vendor_shipping_id = $ship_data['vendor_shipping_id'];
             } else {
@@ -87,9 +90,9 @@ class CheckoutController extends FrontBaseController
             }
 
             // Packaging
-
             if ($this->gs->multiple_packaging == 1) {
                 $pack_data = Order::getPackingData($cart, $this->language->id);
+//                dd($pack_data);
                 $package_data = $pack_data['package_data'];
                 $vendor_packing_id = $pack_data['vendor_packing_id'];
             } else {
@@ -102,6 +105,8 @@ class CheckoutController extends FrontBaseController
                 }
             }
             $total = $cart->totalPrice;
+//            dd($total);
+
             $coupon = Session::has('coupon') ? Session::get('coupon') : 0;
 
             if (!Session::has('coupon_total')) {
@@ -143,10 +148,12 @@ class CheckoutController extends FrontBaseController
                 }
                 $total = $cart->totalPrice;
                 $coupon = Session::has('coupon') ? Session::get('coupon') : 0;
+//                dd($total, $coupon);
 
                 if (!Session::has('coupon_total')) {
                     $total = $total - $coupon;
                     $total = $total + 0;
+//                    dd($total);
                 } else {
                     $total = Session::get('coupon_total');
                     $total = str_replace($curr->sign, '', $total) + round(0 * $curr->value, 2);
@@ -155,10 +162,15 @@ class CheckoutController extends FrontBaseController
                     if ($prod['item']['type'] != 'Physical') {
                         if (!Auth::check()) {
                             $ck = 1;
-                            return view('frontend.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'digital' => $dp, 'curr' => $curr, 'shipping_data' => $shipping_data, 'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id, 'paystack' => $paystackData]);
+                            return view('frontend.checkout',
+                                ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty,
+                                    'gateways' => $gateways, 'shipping_cost' => 0, 'digital' => $dp, 'curr' => $curr, 'shipping_data' => $shipping_data,
+                                    'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id,
+                                    'paystack' => $paystackData]);
                         }
                     }
                 }
+//                dd($total);
                 return view('frontend.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'digital' => $dp, 'curr' => $curr, 'shipping_data' => $shipping_data, 'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id, 'paystack' => $paystackData]);
             } // If guest checkout is Deactivated then display pop up form with proper error message
 
@@ -168,6 +180,7 @@ class CheckoutController extends FrontBaseController
 
                 if ($this->gs->multiple_shipping == 1) {
                     $ship_data = Order::getShipData($cart, $this->language->id);
+//                    dd($ship_data);
                     $shipping_data = $ship_data['shipping_data'];
                     $vendor_shipping_id = $ship_data['vendor_shipping_id'];
                 } else {
@@ -241,11 +254,14 @@ class CheckoutController extends FrontBaseController
 
     public function payreturn()
     {
-
+//        dd(Session::has('tempcart'));
         if (Session::has('tempcart')) {
             $oldCart = Session::get('tempcart');
+//            dd($oldCart);
             $tempcart = new Cart($oldCart);
+//            dd($tempcart);
             $order = Session::get('temporder');
+//            dd($order);
         } else {
             $tempcart = '';
             return redirect()->back();

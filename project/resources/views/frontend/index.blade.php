@@ -23,12 +23,13 @@
                                                 <h5>{{$data->subtitle_text}}</h5>
                                                 <h2 class="headingOne">{{$data->title_text}}</h2>
                                                 <h1 class="headingTwo">{{$data->details_text}}</h1>
-                                                <a href="{{route('front.category')}}" class="themeBtn skyBtn">see sale product</a>
-{{--                                                <a href="{{$data->link}}" class="themeBtn skyBtn">see sale product</a>--}}
+                                                <a href="{{route('front.category')}}" class="themeBtn skyBtn">see sale
+                                                    product</a>
+                                                {{--                                                <a href="{{$data->link}}" class="themeBtn skyBtn">see sale product</a>--}}
                                             </div>
                                         </div>
                                         <div class="col-md-5 imgSet">
-                                                <img src="{{asset('assets/images/sliders/'.$data->photo) ?? ''}}" alt="img">
+                                            <img src="{{asset('assets/images/sliders/'.$data->photo) ?? ''}}" alt="img">
                                             </figure>
                                         </div>
                                     </div>
@@ -65,7 +66,7 @@
                     @endif
                     <div class="col-md-4">
                         <div class="clothingBox" data-aos="fade-right">
-                            <a href="{{route('front.category')}}">
+                            <a href="{{route('front.category',$category->slug) ?? ''}}">
                                 <img src="{{asset('assets/images/categories/'.$category->image)}}" class="img-fluid"
                                      alt="img">
                             </a>
@@ -167,24 +168,27 @@
             </div>
             <div class="row">
                 @foreach($products as $key => $prod)
-{{--                    {{ dd($products) }}--}}
+                    {{--                    {{ dd($products) }}--}}
                     @if($key > 7)
                         @break
                     @endif
                     <div class="col-lg-3 col-sm-6">
                         <div class="product-box" data-aos="fade-right">
                             <div class="pro-img">
-                                <a href="{{ route('front.product', $prod->slug) }}"><img src="{{asset('assets/images/products/'.$prod->photo) ?? ''}}" alt="img"></a>
-                                <div class="overlay">
-                                    <ul>
-                                        <li><a href="#"><i class="far fa-search"></i></a></li>
-                                        <li><a href="#"><i class="fal fa-heart"></i></a></li>
-                                        <li><a href="#"><i class="fal fa-shopping-cart"></i></a></li>
-                                        <li><a href="#"><img src="{{asset('assets/images/compare.png') ?? ''}}"
-                                                             class="img-fluid"
-                                                             alt="img"></a></li>
-                                    </ul>
-                                </div>
+                                <a href="{{ route('front.product', $prod->slug) }}"><img
+                                        src="{{asset('assets/images/products/'.$prod->photo) ?? ''}}" alt="img"></a>
+                                    <div class="overlay">
+                                        <ul>
+                                            <li><a href="#">
+                                                    <i class="far fa-search"></i></a></li>
+                                            <li><a href="#"><i class="fal fa-heart"></i></a></li>
+                                            <li><a href="{{route('front.product',$prod->slug) ?? ''}}">
+                                                    <i class="fal fa-shopping-cart"></i></a></li>
+                                            <li><a href="#"><img src="{{asset('assets/images/compare.png') ?? ''}}"
+                                                                 class="img-fluid"
+                                                                 alt="img"></a></li>
+                                        </ul>
+                                    </div>
                             </div>
                             <h4>{{$prod->name ?? ''}}</h4>
                             <p>{{$prod->category->name ?? ''}}</p>
@@ -211,7 +215,7 @@
                                     <figure>
                                         <img src="{{asset('assets/images/categories/'.$category->image) ?? ''}}"
                                              class="img-fluid" alt="img">
-                                        <a href="{{route('front.category',$category->slug,$category->slug)}}">{{$category->name ?? ''}}</a>
+                                        <a href="{{route('front.category',$category->slug) ?? ''}}">{{$category->name ?? ''}}</a>
                                     </figure>
                                 </div>
                             </div>
@@ -318,13 +322,15 @@
                                 <div class="swiper-slide">
                                     <div class="product-box">
                                         <div class="pro-img">
-                                            <a href="#"><img src="{{asset('assets/images/products/'.$prod->photo) ?? ''}}"
-                                                             alt="img"></a>
+                                            <a href="#"><img
+                                                    src="{{asset('assets/images/products/'.$prod->photo) ?? ''}}"
+                                                    alt="img"></a>
                                             <div class="overlay">
                                                 <ul>
                                                     <li><a href="#"><i class="far fa-search"></i></a></li>
                                                     <li><a href="#"><i class="fal fa-heart"></i></a></li>
-                                                    <li><a href="#"><i class="fal fa-shopping-cart"></i></a></li>
+                                                    <li><a href="{{route('front.product',$prod->slug) ?? ''}}">
+                                                            <i class="fal fa-shopping-cart"></i></a></li>
                                                     <li><a href="#"><img src="{{asset('assets/images/compare.png')}}"
                                                                          class="img-fluid"
                                                                          alt="img"></a>
@@ -385,12 +391,12 @@
                                 <div class="swiper-slide">
                                     <div class="blogCard">
                                         <figure>
-                                            <img src="{{ asset('assets/images/blogs/'.$blog->photo) }}"
-                                                 class="img-fluid" alt="img">
+                                            <img src="{{asset('assets/images/blogs/'.$blog->photo) ?? ''}}"
+                                                 class="img-fluid" alt="img"/>
                                             <span>29 <small>aug</small></span>
                                         </figure>
                                         <div class="blogContent">
-                                            <h6>{{$blog->title}}</h6>
+                                            <h6>{{ $blog->title }}</h6>
                                             <div class="share">
                                                 <span><i class="fal fa-share-alt"></i></span>
                                                 <ul>
@@ -401,13 +407,13 @@
                                                     <li><a href="#"><i class="fad fa-paper-plane"></i></a></li>
                                                 </ul>
                                             </div>
-                                            <p>{!! substr($blog->details, 0, 150) !!}</p>
+                                            <p>{!! substr($blog->details, 0 , 150) !!}</p>
                                             <a href="{{route('front.blog')}}">Continue reading</a>
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
                         </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

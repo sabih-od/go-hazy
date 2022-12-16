@@ -1739,3 +1739,31 @@ button.themeBtn.rounded {
     margin: 0 0 1rem 0;
     text-align: center;
 }
+
+.product-color,
+.product-size {
+    display: flex;
+    flex-direction: column;
+    margin: 0 1rem;
+    gap: 0.4rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-color *,
+.product-size * {
+    margin: 0;
+    padding: 0;
+}
+
+.product-color select,
+.product-size select {
+    width: 100px;
+}
+span#color-bar {
+    box-shadow: 0 0 15px #000;
+    margin-left: 1rem;
+}
+.checkOutStyle #color-bar {
+    box-shadow: 0 0 5px 3px #000;
+}

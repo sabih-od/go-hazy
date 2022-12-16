@@ -84,9 +84,11 @@
                                         <div class="title">{{ __('Color :') }}</div>
                                         <ul class="color-list">
                                             @foreach($productt->color as $key => $data1)
-                                                <li class="{{ $loop->first ? 'active' : '' }} {{ $productt->IsSizeColor($productt->size[$key]) ? str_replace(' ','',$productt->size[$key]) : ''  }} {{ $productt->size[$key] == $productt->size[0] ? 'show-colors' : '' }}">
+                                                <li class="{{ $loop->first ? 'active' : '' }}
+                                                {{ $productt->IsSizeColor($productt->size[$key]) ? str_replace(' ','',$productt->size[$key]) : ''  }} {{ $productt->size[$key] == $productt->size[0] ? 'show-colors' : '' }}">
                                                 <span class="box" data-color="{{ $productt->color[$key] }}"
-                                                      style="background-color: {{ $productt->color[$key] }}; width: 20px; height: 20px; border-right: 10px;">
+                                                      style="background-color: {{ $productt->color[$key] }};
+                                                          width: 20px; height: 20px; border-right: 10px;">
 
                                                   <input type="hidden" class="size" value="{{ $productt->size[$key] }}">
                                                   <input type="hidden" class="size_qty"
@@ -105,7 +107,7 @@
                                 {{-- PRODUCT COLOR SECTION ENDS  --}}
                             @else
                                 @if(!empty($productt->size_all))
-                                    <div class="product-size mb-2" data-key="false">
+                                    <div class="product-size" data-key="false">
                                         <span class="title">{{ __('Size :') }}</span>
                                         <select name="size" id="size" class="form-control">
                                             @foreach(array_unique(explode(',',$productt->size_all)) as $key => $data1)
@@ -119,17 +121,15 @@
                                 @if(!empty($productt->color_all))
                                     <div class="product-color" data-key="false">
                                         <div class="title">{{ __('Color :') }}</div>
-                                        <select name="color" id="color" onChange="update()">
+                                        <select name="color" id="color" onChange="update()" style="border-radius: 3px;">
                                             @foreach(explode(',', $productt->color_all) as $key => $color1)
-                                                <option value="{{ $color1 }}"
-                                                        style="background-color: {{ $color1 }}"></option>
+                                            <option value="{{ $color1 }}"
+                                                        style="background-color: {{ $color1 }};"></option>
                                             @endforeach
                                         </select>
                                     </div>
                                 @endif
                             @endif
-
-
                             <input type="hidden" id="product_id" name="product_id"
                                    value="{{ $productt->id }}">
                             <div class="cartBtn">
@@ -147,6 +147,19 @@
         @endsection
         @section('script')
             <script>
+
+                // Upadte Color
+                function update() {
+                    let select = document.querySelector('#color')
+                    let option = select.options[select.selectedIndex];
+
+                    select.style.backgroundColor = option.value;
+                    select.style.color = option.value;
+                }
+                $(window).on('load', function () {
+                    update();
+                })
+
                 // Script for Counter
                 $(document).ready(function () {
                     $('.minus').click(function () {

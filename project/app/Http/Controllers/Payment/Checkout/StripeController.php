@@ -29,6 +29,7 @@ class StripeController extends CheckoutBaseControlller
         $input = $request->all();
 
         $data = PaymentGateway::whereKeyword('stripe')->first();
+//        dd($request->all());
         $total = $request->total;
 
         if($request->pass_check) {
