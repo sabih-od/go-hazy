@@ -33,56 +33,56 @@
             </div>
             <div class="row cartItemCard">
                 <input type="hidden" name="cart_id" class="id" value="">
-                @forelse($products as $item)
-                    {{--                    {{ dd($item) }}--}}
+                @forelse($products as $product)
+{{--                    {{ dd($product) }}--}}
                     <div class="col-md-1">
-                        <img src="{{ asset('assets/images/products/'.$item['item']['photo']) }}" alt="">
+                        <img src="{{ asset('assets/images/products/'.$product['item']['photo']) }}" alt="">
                     </div>
                     <div class="col-md-5 text-left">
-                        <strong>{{ $item['item']->name ?? '' }}</strong>
-                        @if(!empty($item['color']))
-                            <div class="col-md-2">
-                                <strong class="color">{{ __('Color') }} : </strong>
+                        <strong>{{ $product['item']->name ?? '' }}</strong>
+                        @if(!empty($product['color']))
+                            <p class="m-0" style="display: flex;">
+                                <strong class="color">{{ __('Color') }} :</strong>
                                 <span id="color-bar"
-                                      style="border: 10px solid {{$item['color'] == "" ? "white" : '#'.$item['color']}};">
+                                      style="border: 10px solid {{$product['color'] == "" ? "white" : '#'.$product['color']}};
+                                          width: 20px; height: 10px;border-radius: 50%;">
                             </span>
-                            </div>
+                            </p>
                         @endif
-                        @if(!empty($item['size']))
-                            <div class="col-md-2">
-                                <strong class="color">{{ __('Size') }} : {{str_replace('-',' ',$item['size'])}}</strong>
-                            </div>
+                        @if(!empty($product['size']))
+                            <p class="m-0">
+                                <strong class="color">{{ __('Size') }} : {{str_replace('-',' ',$product['size'])}}</strong>
+                            </p>
                         @endif
                     </div>
                     <div class="col-md-2">
-                        <strong class="price">${{ $item['item']->price ?? '' }}</strong>
+                        <strong class="price">${{ $product['item']->price ?? '' }}</strong>
                     </div>
                     <div class="col-md-2">
                         <div class="proCounter">
-                            <input type="hidden" class="prodid" value="{{$item['item']['id'] ?? ''}}">
+                            <input type="hidden" class="prodid" value="{{$product['item']['id']}}">
                             <input type="hidden" class="itemid"
-                                   value="{{$item['item']['id'].$item['size'] ?? ''.$item['color'].str_replace(str_split(' ,'),'',$item['values'] ?? '')}}">
-                            <input type="hidden" class="size_qty" value="{{$item['size_qty'] ?? ''}}">
-                            <input type="hidden" class="size_price" value="{{$item['size_price'] ?? ''}}">
+                                   value="{{$product['item']['id'].$product['size'].$product['color'].str_replace(str_split(' ,'),'',$product['values'])}}">
+                            <input type="hidden" class="size_qty" value="{{$product['size_qty']}}">
+                            <input type="hidden" class="size_price" value="{{$product['size_price']}}">
                             <input type="hidden" class="minimum_qty"
-                                   value="{{ $item['item']['minimum_qty'] == null ? '0' : $item['item']['minimum_qty'] ?? '' }}">
-                            <span class="minus qtyminus" field='quantity'
-                                  data-minus-number="{{ $item['item']->id ?? ''}}">
-                                <i class="fa fa-angle-down"></i>
-                            </span>
-                            <input name="quantity" id="{{ $item['item']->id ?? ''}}" value="{{ $item['qty'] ?? ''}}">
-                            <span class="plus qtyplus" field='quantity' data-plus-number="{{ $item['item']->id ?? ''}}">
-                                <i class="fa fa-angle-up"></i>
-                            </span>
+                                   value="{{ $product['item']['minimum_qty'] == null ? '0' : $product['item']['minimum_qty'] }}">
+                            <span class="minus">-</span>
+                            <input
+                                data-id="{{$product['item']['id'].$product['size'].$product['color'].str_replace(str_split(' ,'),'',$product['values'])}}"
+                                type="text"
+                                class="input-text qty text input-quantity" name="quantity[]"
+                                value="{{ $product['qty'] }}" title="Qty" size="4">
+                            <span class="plus quantity-up">+</span>
                         </div>
                     </div>
                     <div class="col-md-1">
-                        <strong class="price">${{ $item['price'] ?? ''}}</strong>
+                        <strong class="price">${{ $product['price'] ?? ''}}</strong>
                     </div>
                     <div class="col-md-1">
-                        <a href="{{ route('product.cart.remove',$item['item']['id'].
-                                    $item['size'].$item['color'].
-                                    str_replace(str_split(' ,'),'',$item['values']) ?? '') }}"
+                        <a href="{{ route('product.cart.remove',$product['item']['id'].
+                                    $product['size'].$product['color'].
+                                    str_replace(str_split(' ,'),'',$product['values']) ?? '') }}"
                            class="delete remove-from-cart"><i
                                 class="far fa-trash-alt text-danger"></i></a>
                     </div>
@@ -96,21 +96,21 @@
                         <a href="{{count($products) != 0 ? route('front.checkout') : route('front.category')}}"
                            class="btnStyle my-5">{{count($products) != 0 ? 'Proceed To Pay' : 'Shop Now'}}</a>
                     </div>
-{{--                    <ul class="shipping-billing-col">--}}
-{{--                        <li>--}}
-{{--                            <p><i class="fas fa-map-marker-alt"></i> Marina, CA 93933--}}
-{{--                                <a href="" class="edit">edit</a></p>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <p><i class="fas fa-phone"></i> <a href="tel:(831) 747-0564">(831) 747-0564</a> <a href="#"--}}
-{{--                                                                                                               class="edit">edit</a>--}}
-{{--                            </p>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <p><i class="fas fa-envelope"></i><a href="mailto:admin@hazycreations.com">--}}
-{{--                                    admin@hazycreations.com</a><a href="#" class="edit">edit</a></p>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
+                    {{--                    <ul class="shipping-billing-col">--}}
+                    {{--                        <li>--}}
+                    {{--                            <p><i class="fas fa-map-marker-alt"></i> Marina, CA 93933--}}
+                    {{--                                <a href="" class="edit">edit</a></p>--}}
+                    {{--                        </li>--}}
+                    {{--                        <li>--}}
+                    {{--                            <p><i class="fas fa-phone"></i> <a href="tel:(831) 747-0564">(831) 747-0564</a> <a href="#"--}}
+                    {{--                                                                                                               class="edit">edit</a>--}}
+                    {{--                            </p>--}}
+                    {{--                        </li>--}}
+                    {{--                        <li>--}}
+                    {{--                            <p><i class="fas fa-envelope"></i><a href="mailto:admin@hazycreations.com">--}}
+                    {{--                                    admin@hazycreations.com</a><a href="#" class="edit">edit</a></p>--}}
+                    {{--                        </li>--}}
+                    {{--                    </ul>--}}
                 </div>
             </div>
         </div>
@@ -147,6 +147,7 @@
                     size_price: size_price,
                 },
                 success: function (data) {
+                    // console.log(data);
                     $(".gocover").hide();
                     if (data == 0) {
                         toastr.error(lang.cart_out);
@@ -165,6 +166,7 @@
         $('.minus').click(function () {
             var pid = $(this).parent().find(".prodid").val();
             var itemid = $(this).parent().find(".itemid").val();
+            var color = $(this).parent().find(".color").val();
             var size_qty = $(this).parent().find(".size_qty").val();
             var size_price = $(this).parent().find(".size_price").val();
             var qty = parseInt($("#qty" + itemid).val());
@@ -188,6 +190,7 @@
                     data: {
                         id: pid,
                         itemid: itemid,
+                        color: color,
                         size_qty: size_qty,
                         size_price: size_price,
                     },

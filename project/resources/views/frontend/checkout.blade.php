@@ -285,9 +285,9 @@
                     <div class="row no-gutters">
                         <div class="col-md-12 d-flex align-items-center justify-content-between">
                             <span>Subtotal ({{ Session::has('cart') ? count(Session::get('cart')->items) : '0' }} items)</span>
-                            <strong>{{ Session::has('cart') ? App\Models\Product::convertPrice(Session::get('cart')->totalPrice) : '0.00' }}</strong>
+                            <strong>{{ Session::has('cart') ? (Session::get('cart')->totalPrice) : '0.00' }}</strong>
                             <input type="hidden" id="ttotal"
-                                   value="{{ Session::has('cart') ? App\Models\Product::convertPrice(Session::get('cart')->totalPrice) : '0' }}">
+                                   value="{{ Session::has('cart') ? (Session::get('cart')->totalPrice) : '0' }}">
                         </div>
                         {{--                        <hr class="w-100">--}}
                         {{--                        <div class="col-md-12 d-flex align-items-center justify-content-between">--}}
@@ -299,8 +299,8 @@
                             <form action="#" id="check-coupon-form" class="w-100">
                                 <div class="applyCoupon">
                                     <input type="text" class="form-control" placeholder="Enter Voucher Code"
-                                           id="code">
-                                    <button class="btnStyle themeBtn btn-block" type="submit">Apply</button>
+                                           id="code" value="">
+                                    <button class="btnStyle" type="submit">Apply</button>
                                 </div>
                             </form>
                         </div>
@@ -315,7 +315,19 @@
                         <div class="col-md-12 d-flex align-items-center justify-content-between">
                             <span>Total</span>
                             <strong
-                                id="grand_total">{{ Session::has('cart') ? App\Models\Product::convertPrice(Session::get('cart')->totalPrice) : '0.00' }}</strong>
+                                id="grand_total">
+                                {{ Session::has('cart') ?
+                                   Session::has('coupon') ?
+                                   (App\Models\Product::convertPrice((Session::get('cart')->totalPrice) - Session::get('coupon'))) :
+                                    App\Models\Product::convertPrice(Session::get('cart')->totalPrice) : '0.00' }}
+                            </strong>
+{{--                            <strong--}}
+{{--                                id="grand_total">--}}
+{{--                                {{ Session::has('cart') ?--}}
+{{--                                   Session::has('coupon') ?--}}
+{{--                                   (App\Models\Product::convertPrice((Session::get('cart')->totalPrice) - Session::get('coupon'))) :--}}
+{{--                                    App\Models\Product::convertPrice(Session::get('cart')->totalPrice) : '0.00' }}--}}
+{{--                            </strong>--}}
                         </div>
                         <hr class="w-100">
                     </div>
@@ -517,6 +529,7 @@
                             } else {
                                 $('.dpercent').html('');
                             }
+                            // window.location.reload();
                             toastr.success("Coupon Activated");
                             $("#code").val("");
                         }

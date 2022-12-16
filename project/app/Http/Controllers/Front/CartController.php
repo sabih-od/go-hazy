@@ -40,6 +40,7 @@ class CartController extends FrontBaseController
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
         $products = $cart->items;
+//        dd($products);
         $totalPrice = $cart->totalPrice;
         $mainTotal = $totalPrice;
 //        dd($products);
@@ -233,7 +234,6 @@ class CartController extends FrontBaseController
 
     public function addtocart($id)
     {
-
         $prod = Product::where('id','=',$id)->first(['id','user_id','slug','name','photo','size','size_qty','size_price','color','price','stock','type','file','link','license','license_qty','measure','whole_sell_qty','whole_sell_discount','attributes','minimum_qty','size_all','color_all']);
 
         // Set Attrubutes
@@ -735,7 +735,7 @@ class CartController extends FrontBaseController
 
 
 
-    public function addbyone()
+    public function addbyone(Request $request)
     {
         if (Session::has('coupon')) {
             Session::forget('coupon');
@@ -743,16 +743,19 @@ class CartController extends FrontBaseController
         $curr = $this->curr;
         $id = $_GET['id'];
         $itemid = $_GET['itemid'];
-        $size_qty = $_GET['size_qty'];
-        $size_price = $_GET['size_price'];
-        $prod = Product::where('id','=',$id)->first(['id','user_id','slug','name','photo','size','size_qty','size_price','color','price','stock','type','file','link','license','license_qty','measure','whole_sell_qty','whole_sell_discount','attributes','stock_check',]);
+        $color = $request->has('color') ? $request['color'] : '';
+        $size = $request->has('size') ? $request['size'] : '';
+        $size_qty = $request->has('size_qty') ? $request['size_qty'] : '';
+        $size_price = $request->has('size_price') ? $request['size_price'] : '';
+        $prod = Product::where('id', $id)->first(['id','user_id','slug','name','photo','size','size_qty','size_price','color','price','stock','type','file','link','license','license_qty','measure','whole_sell_qty','whole_sell_discount','attributes','stock_check',]);
+//        dd($prod);
 
         if($prod->user_id != 0){
-        $prc = $prod->price + $this->gs->fixed_commission + ($prod->price/100) * $this->gs->percentage_commission ;
-        $prod->price = round($prc,2);
+            $prc = $prod->price + $this->gs->fixed_commission + ($prod->price/100) * $this->gs->percentage_commission ;
+            $prod->price = round($prc,2);
         }
 
-            if (!empty($prod->attributes))
+        if (!empty($prod->attributes))
             {
                 $attrArr = json_decode($prod->attributes, true);
                 $count = count($attrArr);
@@ -797,7 +800,7 @@ class CartController extends FrontBaseController
         }
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
-        $cart->adding($prod, $itemid,$size_qty,$size_price);
+        $cart->adding($prod, $itemid, $color, $size,$size_qty,$size_price);
 
         if($prod->stock_check == 1){
             if($cart->items[$itemid]['stock'] < 0)
@@ -942,8 +945,7 @@ class CartController extends FrontBaseController
                 }
 
             $data[1] = count($cart->items);
-            return response()->json($data);
-            dd($data);
+            return redirect()->back()->with('success', 'Remove Item Successfully');
         } else {
 
             $data[0] = 0;

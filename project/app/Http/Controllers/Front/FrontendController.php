@@ -90,8 +90,6 @@ class FrontendController extends FrontBaseController
         $data['categories'] = Category::all();
         $data['blogs'] = Blog::where('language_id', $this->language->id)->latest()->take(3)->get();
 
-//        dd($data);
-
 
         return view('frontend.index', $data);
     }

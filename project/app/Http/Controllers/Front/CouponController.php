@@ -137,7 +137,7 @@ class CouponController extends FrontBaseController
         $gs = $this->gs;
         $code = $_GET['code'];
         $coupon = Coupon::where('code', '=', $code)->first();
-//        dd($coupon);
+
         if (!$coupon) {
             return response()->json(0);
         }
@@ -146,11 +146,12 @@ class CouponController extends FrontBaseController
         $discount_items = [];
         foreach ($cart->items as $key => $item) {
             $product = Product::findOrFail($item['item']['id']);
+
             if ($coupon->coupon_type == 'category') {
                 if ($product->category_id == $coupon->category) {
                     $discount_items[] = $key;
                 }
-//                dd($product->category_id, $coupon->category);
+//                dd($product->category_id, $coupon->category, $discount_items);
             } elseif ($coupon->coupon_type == 'sub_category') {
                 if ($product->sub_category == $coupon->sub_category) {
                     $discount_items[] = $key;
@@ -170,10 +171,10 @@ class CouponController extends FrontBaseController
         $main_discount_price = 0;
         foreach ($cart->items as $ckey => $cproduct) {
             if (in_array($ckey, $discount_items)) {
-                $main_discount_price += $cproduct['price'] * $cproduct['qty'];
+//                dd($cproduct['item_price'], $cproduct['qty']);
+                $main_discount_price += $cproduct['item_price'] * $cproduct['qty'];
             }
         }
-//        dd($ckey, $discount_items);
 
         $total = (float)preg_replace('/[^0-9\.]/ui', '', $main_discount_price); //1100.0
 
@@ -252,7 +253,7 @@ class CouponController extends FrontBaseController
                         Session::put('coupon_percentage', $data[4]);
                         return response()->json($data);
                     } else {
-                        dd('else');
+//                        dd('else');
                         if ($coupon->price >= $total) {
                             return response()->json(3);
                         }
