@@ -53,7 +53,8 @@ class ProductDetailsController extends FrontBaseController
         }
 
 
-        $productt = Product::where('slug','=',$slug)->firstOrFail();
+        $productt = Product::where('slug', 'physical-product-title-title-will-be-here-99-tcv6794kxs1')->get();
+        $productt = $productt[0];
 
         if($productt->status == 0){
             return response()->view('errors.404')->setStatusCode(404);

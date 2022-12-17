@@ -126,6 +126,7 @@
             var $selector = $(this).data("class");
             $("." + $selector).hide();
             $.get($(this).data("href"), function (data) {
+                toastr.success('Product Remove Successfully')
                 window.location.reload();
             });
         });
@@ -153,7 +154,7 @@
                         toastr.error(lang.cart_out);
                     } else {
                         $.get(mainurl + "/carts", function (response) {
-                            toastr.success('Product Added Successdully')
+                            toastr.success('Product Added Successfully')
                             // $(".load_cart").html(response);
                             window.location.reload();
                         });
@@ -198,7 +199,7 @@
                         if (data.qty >= 1) {
                             $.get(mainurl + "/carts", function (response) {
                                 // $(".load_cart").html(response);
-                                toastr.success('Product Minus Successdully')
+                                toastr.success('Product Minus Successfully')
                                 window.location.reload();
                             });
                         } else {

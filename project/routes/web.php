@@ -1461,7 +1461,6 @@ Route::post('/item/report', 'Front\CatalogController@report')->name('product.rep
     // TAG SECTION ENDS
 
     // PRODCT SECTION
-
     Route::get('/item/{slug}','Front\ProductDetailsController@product')->name('front.product');
     Route::get('/afbuy/{slug}','Front\ProductDetailsController@affProductRedirect')->name('affiliate.product');
     Route::get('/item/quick/view/{id}/','Front\ProductDetailsController@quick')->name('product.quick');
