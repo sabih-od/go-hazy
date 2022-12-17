@@ -318,8 +318,8 @@
                                 id="grand_total">
                                 {{ Session::has('cart') ?
                                    Session::has('coupon') ?
-                                   (App\Models\Product::convertPrice((Session::get('cart')->totalPrice) - Session::get('coupon'))) :
-                                    App\Models\Product::convertPrice(Session::get('cart')->totalPrice) : '0.00' }}
+                                   (App\Models\Product::convertPrice((int)(Session::get('cart')->totalPrice) - (int)Session::get('coupon'))) :
+                                    App\Models\Product::convertPrice((int)Session::get('cart')->totalPrice) : '0.00' }}
                             </strong>
 {{--                            <strong--}}
 {{--                                id="grand_total">--}}
