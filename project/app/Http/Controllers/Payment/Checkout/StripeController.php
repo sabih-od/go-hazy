@@ -186,15 +186,41 @@ class StripeController extends CheckoutBaseControlller
 //                    $mailer = new GeniusMailer();
 //                    $mailer->sendCustomMail($data);
 
-                    //Sending Email To Admin
-                    $html_admin = "Order Created";
 
-                    $this->custommail('no-reply@gohazy.com', $this->ps->contact_email, 'Payment Recieved', $html_admin);
+                    //Sending Email To Admin
+                    $to = $this->ps->contact_email;
+                    $from = 'noreply@gohazy.com';
+                    $subject = "New Order Recieved!!";
+                    $msg = "Hello Admin!<br>Your store has received a new order.<br>Order Number is ".$order->order_number.".Please login to your panel to check. <br>Thank you.".".<br>";
+                    $msg .= "Customer Name: " . $order->customer_name . ".<br>";
+                    $msg .= "Customer Phone: " . $order->customer_phone . ".<br>";
+                    $msg .= "Customer Address: " . $order->customer_address . ".<br>";
+                    $msg .= "Total Amount: " . (($order->pay_amount) + $order->coupon_discount) . ".<br>";
+                    $msg .= "Discount: " . $order->coupon_discount . ".<br>";
+                    $msg .= "Paid Amount: " . ($order->pay_amount + $order->wallet_price) . ".<br>";
+                    $msg .= "Quantity: " . $order->totalQty . ".<br>";
+//                    $msg .= "Item: " . $oldCart->item->name . ".<br>";
+                    $msg .= "Regards: <br>";
+                    $msg .= "<b>Team GO HAZY</b>";
+
+                    $this->customMail($from, $to, $subject, $msg);
 
                     //Sending Email To Buyer
-                    $html_user = "Your Order Has Been Placed";
+                    $to = $order->customer_email;
+                    $from = 'noreply@gohazy.com';
+                    $subject = "Your Order Has Been Placed";
+                    $msg = "Hi... " . $order->customer_name . ".<br>";
+                    $msg .= "Phone: " . $order->customer_phone . ".<br>";
+                    $msg .= "Address: " . $order->customer_address . ".<br>";
+                    $msg .= "Total Amount: " . (($order->pay_amount) + $order->coupon_discount) . ".<br>";
+                    $msg .= "Discount: " . $order->coupon_discount . ".<br>";
+                    $msg .= "Paid Amount: " . ($order->pay_amount + $order->wallet_price) . ".<br>";
+                    $msg .= "Quantity: " . $order->totalQty . ".<br>";
+//                    $msg .= "Item: " . $oldCart->item->name . ".<br>";
+                    $msg .= "Regards: <br>";
+                    $msg .= "<b>Team GO HAZY</b>";
 
-                    $this->custommail('no-reply@gohazy.com', $order->customer_email, 'Payment Clear', $html_user);
+                    $this->customMail($from, $to, $subject, $msg);
 
                     return redirect($success_url);
 
