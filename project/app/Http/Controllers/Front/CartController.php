@@ -40,7 +40,6 @@ class CartController extends FrontBaseController
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
         $products = $cart->items;
-        dd($products);
         $totalPrice = $cart->totalPrice;
         $mainTotal = $totalPrice;
 //        dd($products);

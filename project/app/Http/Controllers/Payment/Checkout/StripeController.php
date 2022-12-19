@@ -99,7 +99,7 @@ class StripeController extends CheckoutBaseControlller
                     $input['cart'] = $new_cart;
                     $input['user_id'] = Auth::check() ? Auth::user()->id : NULL;
                     $input['affilate_users'] = $affilate_users;
-                    $input['pay_amount'] = $item_amount / $this->curr->value;
+                    $input['pay_amount'] = (int)$item_amount / (int)$this->curr->value;
                     $input['order_number'] = $item_number;
                     $input['wallet_price'] = $request->wallet_price / $this->curr->value;
                     $input['payment_status'] = "Completed";
