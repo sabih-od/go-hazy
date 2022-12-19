@@ -19,7 +19,6 @@ class VendorController extends FrontBaseController
 
     public function index(Request $request,$slug)
     {
-
         $minprice = $request->min;
         $maxprice = $request->max;
         $sort = $request->sort;
@@ -30,6 +29,7 @@ class VendorController extends FrontBaseController
         if(empty($vendor))
         {
             $page =  DB::table('pages')->where('slug',$slug)->first();
+//            dd($page);
             if(empty($page))
             {
               return response()->view('errors.404',[],404);
