@@ -13,11 +13,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h6>Privacy Policy</h6>
+                    <h6>Return Shipping</h6>
                     <ul>
                         <li><a href="#">Home</a></li>
                         <li><span>/</span></li>
-                        <li><span>Privacy Policy</span></li>
+                        <li><span>Return Shipping</span></li>
                     </ul>
                 </div>
             </div>
