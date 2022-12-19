@@ -223,9 +223,9 @@
                 <div class="quickHead">
                     <h6>Information</h6>
                     <ul>
-                        <li><a href="{{route('front.privacy-policy')}}">Privacy Policy</a></li>
-                        <li><a href="{{route('front.return-shipping')}}">Return & Shipping</a></li>
-                        <li><a href="{{route('front.terms-conditions')}}">Terms & Conditions</a></li>
+                        <li><a href="{{route('front.vendor', 'privacy')}}">Privacy Policy</a></li>
+                        <li><a href="{{route('front.vendor', 'return')}}">Return & Shipping</a></li>
+                        <li><a href="{{route('front.vendor', 'terms')}}">Terms & Conditions</a></li>
                     </ul>
                 </div>
             </div>
