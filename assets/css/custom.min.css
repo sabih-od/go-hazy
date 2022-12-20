@@ -1739,3 +1739,16 @@ button.themeBtn.rounded {
     margin: 0 0 1rem 0;
     text-align: center;
 }
+
+.themeBtn {
+    background: var(--theme-color);
+    font-size: 1rem;
+    color: var(--white);
+    text-transform: uppercase;
+    font-weight: 600;
+    display: inline-block;
+    border-radius: 0;
+    padding: 1.04em 1.56em;
+    border-radius: 0;
+    line-height: normal;
+}

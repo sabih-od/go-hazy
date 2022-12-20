@@ -407,19 +407,6 @@ a.navbar-brand {
     color: #333;
 }
 
-.themeBtn {
-    background: var(--theme-color);
-    font-size: 1rem;
-    color: var(--white);
-    text-transform: uppercase;
-    font-weight: 600;
-    display: inline-block;
-    border-radius: 0;
-    padding: 1.04em 1.56em;
-    border-radius: 0;
-    line-height: normal;
-}
-
 /*.imgSlide {
     position: absolute;
     right: 0;

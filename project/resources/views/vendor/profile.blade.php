@@ -24,10 +24,10 @@
 											<div class="body-area">
 
 				                        <div class="gocover" style="background: url({{asset('assets/images/'.$gs->admin_loader)}}) no-repeat scroll center center rgba(45, 45, 45, 0.5);"></div>
-											<form id="geniusform" action="{{ route('vendor-profile-update') }}" method="POST" enctype="multipart/form-data">
+											<form id="geniusform" class="py-5" action="{{ route('vendor-profile-update') }}" method="POST" enctype="multipart/form-data">
 												{{csrf_field()}}
 
-                      						 @include('alerts.vendor.form-both')  
+                      						 @include('alerts.vendor.form-both')
 
 												<div class="row">
 													<div class="col-lg-4">
@@ -41,7 +41,7 @@
 																	@if($data->checkStatus())
 																	<a class="badge badge-success verify-link" href="javascript:;">{{ __('Verified') }}</a>
 																	@else
-																	 <span class="verify-link"><a href="{{ route('vendor-verify') }}">{{ __('Verify Account') }}</a></span>
+																	 <span class="verify-link"><a class="themeBtn py-2 px-3" href="{{ route('vendor-verify') }}">{{ __('Verify Account') }}</a></span>
 																	@endif
 																</h6>
 														</div>
@@ -107,11 +107,11 @@
 						                        <div class="row">
 						                          <div class="col-lg-4">
 						                            <div class="left-area">
-						                              
+
 						                            </div>
 						                          </div>
 						                          <div class="col-lg-7">
-						                            <button class="addProductSubmit-btn" type="submit">{{ __('Save') }}</button>
+						                            <button class="themeBtn border-0 py-2 px-5" type="submit">{{ __('Save') }}</button>
 						                          </div>
 						                        </div>
 
