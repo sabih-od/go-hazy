@@ -80,11 +80,10 @@
                         <strong class="price">${{ $product['price'] ?? ''}}</strong>
                     </div>
                     <div class="col-md-1">
-                        <a href="{{ route('product.cart.remove',$product['item']['id'].
-                                    $product['size'].$product['color'].
-                                    str_replace(str_split(' ,'),'',$product['values']) ?? '') }}"
-                           class="delete remove-from-cart"><i
-                                class="far fa-trash-alt text-danger"></i></a>
+                        <a href="#" class="remove cart-remove delete"
+                           data-class="cremove{{ $product['item']['id'].$product['size'].$product['color'].str_replace(str_split(' ,'),'',$product['values']) }}"
+                           data-href="{{ route('product.cart.remove',$product['item']['id'].$product['size'].$product['color'].str_replace(str_split(' ,'),'',$product['values'])) }}"><i
+                                class="far fa-trash-alt"></i></a>
                     </div>
                 @empty
                     <p class="text-danger ml-5 my-2">Product Not Found</p>
@@ -121,15 +120,15 @@
     <script>
         var mainurl = "<?php echo e(url('/')); ?>";
 
-        //Remove Product From Cart
-        $(document).on("click", "remove-from-cart", function () {
+        // Remove Product From Cart
+        $(document).on("click", ".cart-remove", function () {
             var $selector = $(this).data("class");
             $("." + $selector).hide();
             $.get($(this).data("href"), function (data) {
-                toastr.success('Product Remove Successfully')
                 window.location.reload();
             });
         });
+
 
         // Add quantity in the cart
         $('.plus').click(function () {
