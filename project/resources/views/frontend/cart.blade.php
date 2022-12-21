@@ -125,6 +125,7 @@
             var $selector = $(this).data("class");
             $("." + $selector).hide();
             $.get($(this).data("href"), function (data) {
+                toastr.success('Successfully Remove To Cart')
                 window.location.reload();
             });
         });
@@ -203,6 +204,7 @@
                             });
                         } else {
                             toastr.error('Product Must Be At Least 1')
+                            window.location.reload();
                             return false;
                         }
                     },
