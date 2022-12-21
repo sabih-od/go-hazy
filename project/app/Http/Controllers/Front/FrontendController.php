@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\{
-    Models\Blog,
+use App\{Models\Blog,
+    Models\Faq,
     Models\Order,
     Models\Product,
     Models\Subscriber,
     Models\BlogCategory,
     Classes\GeniusMailer,
-    Models\Generalsetting,
-};
+    Models\Generalsetting};
 use App\Models\ArrivalSection;
 use App\Models\Category;
 use App\Models\Rating;
@@ -85,7 +84,7 @@ class FrontendController extends FrontBaseController
 
 
         $data['arrivals'] = ArrivalSection::where('status', 1)->get();
-        $data['products'] = Product::get();
+        $data['products'] = Product::where('language_id', 1)->get();
         $data['ratings'] = Rating::get();
         $data['categories'] = Category::all();
         $data['blogs'] = Blog::where('language_id', $this->language->id)->latest()->take(3)->get();
@@ -354,12 +353,13 @@ class FrontendController extends FrontBaseController
 
     public function contact()
     {
-
         if (DB::table('pagesettings')->first()->contact == 0) {
             return redirect()->back();
         }
         $ps = $this->ps;
-        return view('frontend.contact', compact('ps'));
+        $faq = Faq::get();
+
+        return view('frontend.contact', compact('ps', 'faq'));
     }
 
 
