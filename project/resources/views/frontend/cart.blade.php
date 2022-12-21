@@ -67,13 +67,13 @@
                             <input type="hidden" class="size_price" value="{{$product['size_price']}}">
                             <input type="hidden" class="minimum_qty"
                                    value="{{ $product['item']['minimum_qty'] == null ? '0' : $product['item']['minimum_qty'] }}">
-                            <span class="minus">-</span>
+                            <button class="minus">-</button>
                             <input
                                 data-id="{{$product['item']['id'].$product['size'].$product['color'].str_replace(str_split(' ,'),'',$product['values'])}}"
                                 type="text"
                                 class="input-text qty text input-quantity" name="quantity[]"
                                 value="{{ $product['qty'] }}" title="Qty" size="4">
-                            <span class="plus quantity-up">+</span>
+                            <button class="plus quantity-up">+</button>
                         </div>
                     </div>
                     <div class="col-md-1">
@@ -122,8 +122,8 @@
 
         // Remove Product From Cart
         $(document).on("click", ".cart-remove", function () {
-            var $selector = $(this).data("class");
-            $("." + $selector).hide();
+            // var $selector = $(this).data("class");
+            // $("." + $selector).hide();
             $.get($(this).data("href"), function (data) {
                 toastr.success('Successfully Remove To Cart')
                 window.location.reload();
