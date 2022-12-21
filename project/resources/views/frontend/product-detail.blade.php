@@ -253,6 +253,7 @@
                                 $("#cart-items").load(mainurl + "/carts/view");
                                 toastr.success("Successfully Added To Cart");
                             }
+                            window.location.reload();
                         },
                     });
                 });

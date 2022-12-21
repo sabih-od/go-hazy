@@ -303,56 +303,56 @@
     </section>
 
 
-    <section class="proSec">
-        <div class="container">
-            <div class="refreshHeading" data-aos="fade-up">
-                <h1>Best Sellers</h1>
-                <h5>GO-HAZY</h5>
-                <h2>BEST SELLERS FOR THE<br>BEST VERSION OF YOU.</h2>
-                <span>Shop Best Sellers.</span>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="swiper shopSlider" data-aos="fade-right">
-                        <div class="swiper-wrapper">
-                            @foreach($products as $key => $prod)
-                                @if($key > 3)
-                                    @break
-                                @endif
-                                <div class="swiper-slide">
-                                    <div class="product-box">
-                                        <div class="pro-img">
-                                            <a href="#"><img
-                                                    src="{{asset('assets/images/products/'.$prod->photo) ?? ''}}"
-                                                    alt="img"></a>
-                                            <div class="overlay">
-                                                <ul>
-                                                    <li><a href="#"><i class="far fa-search"></i></a></li>
-                                                    <li><a href="#"><i class="fal fa-heart"></i></a></li>
-                                                    <li><a href="{{route('front.product',$prod->slug) ?? ''}}">
-                                                            <i class="fal fa-shopping-cart"></i></a></li>
-                                                    <li><a href="#"><img src="{{asset('assets/images/compare.png')}}"
-                                                                         class="img-fluid"
-                                                                         alt="img"></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <h4>{{$prod->name ?? ''}}</h4>
-                                        <p>{{$prod->category->name ?? ''}}</p>
-                                        <span>${{$prod->price ?? ''}}</span>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                    <div class="swiper-button-next"></div>
-                    <!-- end swiper-button-next -->
-                    <div class="swiper-button-prev"></div>
-                </div>
-            </div>
-        </div>
-    </section>
+{{--    <section class="proSec">--}}
+{{--        <div class="container">--}}
+{{--            <div class="refreshHeading" data-aos="fade-up">--}}
+{{--                <h1>Best Sellers</h1>--}}
+{{--                <h5>GO-HAZY</h5>--}}
+{{--                <h2>BEST SELLERS FOR THE<br>BEST VERSION OF YOU.</h2>--}}
+{{--                <span>Shop Best Sellers.</span>--}}
+{{--            </div>--}}
+{{--            <div class="row">--}}
+{{--                <div class="col-md-12">--}}
+{{--                    <div class="swiper shopSlider" data-aos="fade-right">--}}
+{{--                        <div class="swiper-wrapper">--}}
+{{--                            @foreach($products as $key => $prod)--}}
+{{--                                @if($key > 3)--}}
+{{--                                    @break--}}
+{{--                                @endif--}}
+{{--                                <div class="swiper-slide">--}}
+{{--                                    <div class="product-box">--}}
+{{--                                        <div class="pro-img">--}}
+{{--                                            <a href="#"><img--}}
+{{--                                                    src="{{asset('assets/images/products/'.$prod->photo) ?? ''}}"--}}
+{{--                                                    alt="img"></a>--}}
+{{--                                            <div class="overlay">--}}
+{{--                                                <ul>--}}
+{{--                                                    <li><a href="#"><i class="far fa-search"></i></a></li>--}}
+{{--                                                    <li><a href="#"><i class="fal fa-heart"></i></a></li>--}}
+{{--                                                    <li><a href="{{route('front.product',$prod->slug) ?? ''}}">--}}
+{{--                                                            <i class="fal fa-shopping-cart"></i></a></li>--}}
+{{--                                                    <li><a href="#"><img src="{{asset('assets/images/compare.png')}}"--}}
+{{--                                                                         class="img-fluid"--}}
+{{--                                                                         alt="img"></a>--}}
+{{--                                                    </li>--}}
+{{--                                                </ul>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                        <h4>{{$prod->name ?? ''}}</h4>--}}
+{{--                                        <p>{{$prod->category->name ?? ''}}</p>--}}
+{{--                                        <span>${{$prod->price ?? ''}}</span>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            @endforeach--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="swiper-button-next"></div>--}}
+{{--                    <!-- end swiper-button-next -->--}}
+{{--                    <div class="swiper-button-prev"></div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </section>--}}
 
 
     <section class="signupSec">
