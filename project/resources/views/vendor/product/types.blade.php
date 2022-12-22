@@ -50,30 +50,30 @@
                     </a>
                   </div>
                   @endif
-                  @if($gs->digital == 1)
-                  <div class="col-lg-4">
-                    <a href="{{ route('vendor-prod-create','digital') }}">
-                    <div class="cat-box box2">
-                      <div class="icon">
-                        <i class="fas fa-camera-retro"></i>
-                      </div>
-                      <h5 class="title">{{ __("Digital") }} </h5>
-                    </div>
-                    </a>
-                  </div>
-                  @endif
-                  @if($gs->license == 1)
-                  <div class="col-lg-4">
-                    <a href="{{ route('vendor-prod-create','license') }}">
-                    <div class="cat-box box3">
-                      <div class="icon">
-                        <i class="fas fa-award"></i>
-                      </div>
-                      <h5 class="title">{{ __("license") }} </h5>
-                    </div>
-                    </a>
-                  </div>
-                  @endif
+{{--                  @if($gs->digital == 1)--}}
+{{--                  <div class="col-lg-4">--}}
+{{--                    <a href="{{ route('vendor-prod-create','digital') }}">--}}
+{{--                    <div class="cat-box box2">--}}
+{{--                      <div class="icon">--}}
+{{--                        <i class="fas fa-camera-retro"></i>--}}
+{{--                      </div>--}}
+{{--                      <h5 class="title">{{ __("Digital") }} </h5>--}}
+{{--                    </div>--}}
+{{--                    </a>--}}
+{{--                  </div>--}}
+{{--                  @endif--}}
+{{--                  @if($gs->license == 1)--}}
+{{--                  <div class="col-lg-4">--}}
+{{--                    <a href="{{ route('vendor-prod-create','license') }}">--}}
+{{--                    <div class="cat-box box3">--}}
+{{--                      <div class="icon">--}}
+{{--                        <i class="fas fa-award"></i>--}}
+{{--                      </div>--}}
+{{--                      <h5 class="title">{{ __("license") }} </h5>--}}
+{{--                    </div>--}}
+{{--                    </a>--}}
+{{--                  </div>--}}
+{{--                  @endif--}}
                 </div>
               </div>
             </div>
