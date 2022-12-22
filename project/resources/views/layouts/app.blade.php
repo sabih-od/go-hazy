@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <link rel="icon" type="image/x-icon" href="{{asset('assets/images/'.$gs->favicon)}}"/>
 
+
     @if(isset($page->meta_tag) && isset($page->meta_description))
 
         <meta name="keywords" content="{{ $page->meta_tag }}">
@@ -93,13 +94,20 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('assets/css/custom.min.css')}}"/>
     <link rel="stylesheet" href="{{asset('assets/css/slider.css')}}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+          integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <!--    <link rel="stylesheet" href="css/responsive.css" />-->
     <title>Go Hazy</title>
 </head>
 
 <body>
 <!-- Begin: Header -->
+@php
+    use App\Models\Category;
 
+    $categories = Category::all();
+@endphp
 <header class="">
     <div class="main-navigate">
         <div class="an-navbar">
@@ -123,18 +131,18 @@
                             <li class="nav-item drop-down">
                                 <a class="nav-link" href="{{route('front.category')}}">Shop</a>
                                 <ul>
-                                    <li><a href="#">Clothing/ Apparel</a></li>
-                                    <li><a href="#">Accessories Men/Women</a></li>
-                                    <li><a href="#">Beauty & Cosmetics</a></li>
-                                    <li><a href="#">Sports & Entertainment</a></li>
-                                    <li><a href="#">Consumer Electronics</a></li>
+                                    @foreach($categories as $category)
+                                        <li>
+                                            <a href="{{ route('front.category',$category->slug) }}">{{$category->name}}</a>
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('front.blog')}}">Blogs</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">About Us</a>
+                                <a class="nav-link" href="{{route('front.about')}}">About Us</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('front.contact')}}">Contact Us</a>
@@ -143,9 +151,14 @@
                         <div class="form-inline">
                             <ul>
                                 <li><a href="#search"><i class="far fa-search"></i></a></li>
-                                <li><a href="#"><i class="fal fa-shopping-cart"></i><span>0</span></a></li>
+                                <li><a href="{{route('front.cart')}}"><i class="fal fa-shopping-cart"></i>
+                                        <span>
+                                            {{ Session::has('cart') ? count(Session::get('cart')->items) : '0' }}
+                                        </span></a>
+                                </li>
                                 @if(\Illuminate\Support\Facades\Auth::check())
-                                    <li><a href="{{route('user-dashboard')}}">{{\Illuminate\Support\Facades\Auth::user()->name}}</a>
+                                    <li>
+                                        <a href="{{route('user-dashboard')}}">{{\Illuminate\Support\Facades\Auth::user()->name}}</a>
                                     </li>
                                 @else
                                     <li><a href="{{route('user.login.submit')}}"><i class="fas fa-sign-in-alt"></i></a>
@@ -193,7 +206,7 @@
                         @if($ps->home == 1)
                             <li><a href="{{route('front.index')}}">Home</a></li>
                         @endif
-                        <li><a href="">About Us</a></li>
+                        <li><a href="{{route('front.about')}}">About Us</a></li>
                         @if($ps->category == 1)
                             <li><a href="{{route('front.category')}}">Shop</a></li>
                         @endif
@@ -210,9 +223,9 @@
                 <div class="quickHead">
                     <h6>Information</h6>
                     <ul>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Return & Shipping</a></li>
-                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="{{route('front.vendor', 'privacy')}}">Privacy Policy</a></li>
+                        <li><a href="{{route('front.vendor', 'return')}}">Return & Shipping</a></li>
+                        <li><a href="{{route('front.vendor', 'terms')}}">Terms & Conditions</a></li>
                     </ul>
                 </div>
             </div>
@@ -258,12 +271,28 @@
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="{{asset('assets/js/all.min.js')}}"></script>
 <script src="{{asset('assets/js/aos.js')}}"></script>
 <script src="{{asset('assets/js/gsap.js')}}"></script>
 <script src="{{asset('assets/js/slick.min.js')}}"></script>
 <script src="{{asset('assets/js/scrollTrigger.js')}}"></script>
 <script src="{{asset('assets/js/custom.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    @if(session()->has('error'))
+    toastr.error('{{ session()->get('error') }}');
+    toastr.success('{{ session()->get('success') }}');
+    toastr.success('success');
+    @endif
+</script>
+@yield('script')
 
 
 </body>

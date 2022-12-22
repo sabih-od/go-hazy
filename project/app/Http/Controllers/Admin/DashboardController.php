@@ -37,9 +37,9 @@ class DashboardController extends AdminBaseController
         $data['users'] = User::all();
         $data['products'] = Product::all();
         $data['blogs'] = Blog::all();
-        $data['pproducts'] = Product::latest('id')->take(5)->get();
+        $data['pproducts'] = Product::latest('id')->take(5)->where('language_id', 1)->get();
         $data['rorders'] = Order::latest('id')->take(5)->get();
-        $data['poproducts'] = Product::latest('views')->take(5)->get();
+        $data['poproducts'] = Product::latest('views')->where('language_id', 1)->take(5)->get();
         $data['rusers'] = User::latest('id')->take(5)->get();
         $data['referrals'] = Counter::where('type','referral')->latest('total_count')->take(5)->get();
         $data['browsers'] = Counter::where('type','browser')->latest('total_count')->take(5)->get();

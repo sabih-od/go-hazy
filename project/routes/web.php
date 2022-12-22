@@ -4,6 +4,7 @@
 // ************************************ ADMIN SECTION **********************************************
 
 use App\Http\Controllers\Front\FrontendController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function() {
@@ -1460,7 +1461,6 @@ Route::post('/item/report', 'Front\CatalogController@report')->name('product.rep
     // TAG SECTION ENDS
 
     // PRODCT SECTION
-
     Route::get('/item/{slug}','Front\ProductDetailsController@product')->name('front.product');
     Route::get('/afbuy/{slug}','Front\ProductDetailsController@affProductRedirect')->name('affiliate.product');
     Route::get('/item/quick/view/{id}/','Front\ProductDetailsController@quick')->name('product.quick');
@@ -1488,8 +1488,8 @@ Route::post('/item/report', 'Front\CatalogController@report')->name('product.rep
     // CART SECTION
     Route::get('/carts/view','Front\CartController@cartview');
     Route::get('/carts','Front\CartController@cart')->name('front.cart');
-    Route::get('/addcart/{id}','Front\CartController@addcart')->name('product.cart.add');
-    Route::get('/addtocart/{id}','Front\CartController@addtocart')->name('product.cart.quickadd');
+    Route::post('/addcart/{id}','Front\CartController@addcart')->name('product.cart.add');
+    Route::post('/addtocart/{id}','Front\CartController@addtocart')->name('product.cart.quickadd');
     Route::get('/addnumcart','Front\CartController@addnumcart')->name('details.cart');
     Route::get('/addtonumcart','Front\CartController@addtonumcart');
     Route::get('/addbyone','Front\CartController@addbyone');
@@ -1613,6 +1613,10 @@ Route::post('/item/report', 'Front\CatalogController@report')->name('product.rep
 
 
     Route::get('/blog-detail',[FrontendController::class, 'blog_detail'])->name('front.blog-detail');
+    Route::get('/about',[FrontendController::class, 'about'])->name('front.about');
+//    Route::get('/privacy-policy',[FrontendController::class, 'privacy_policy'])->name('front.privacy-policy');
+//    Route::get('/return-shipping',[FrontendController::class, 'return_shipping'])->name('front.return-shipping');
+//    Route::get('/terms-conditions',[FrontendController::class, 'terms_conditions'])->name('front.terms-conditions');
 
     // VENDOR AND PAGE SECTION
     Route::get('/country/tax/check','Front\CartController@country_tax');

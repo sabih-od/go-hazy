@@ -15,11 +15,10 @@ use Illuminate\Support\Facades\Session;
 class CatalogController extends FrontBaseController
 {
 
-    // CATEGORIES SECTOPN
+    // CATEGORIES SECTION
 
     public function categories()
     {
-
         return view('frontend.products');
     }
 
@@ -27,7 +26,6 @@ class CatalogController extends FrontBaseController
 
     public function category(Request $request, $slug = null, $slug1 = null, $slug2 = null, $slug3 = null)
     {
-
         if ($request->view_check) {
             session::put('view', $request->view_check);
         }
@@ -199,14 +197,15 @@ class CatalogController extends FrontBaseController
                 return $item;
 
             })->paginate(isset($pageby) ? $pageby : $this->gs->page_count);
+
         $data['prods'] = $prods;
+
         //    dd($data['prods']);
         if ($request->ajax()) {
             $data['ajax_check'] = 1;
             return view('frontend.ajax.category', $data);
         }
-
-        return view('frontend.product', $data);
+        return view('frontend.product')->with('data', $data);
     }
 
 
