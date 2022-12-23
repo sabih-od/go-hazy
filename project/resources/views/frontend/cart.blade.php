@@ -120,8 +120,6 @@
 @endsection
 @section('script')
     <script>
-        var mainurl = "<?php echo e(url('/')); ?>";
-
         // Remove Product From Cart
         $(document).on("click", ".cart-remove", function () {
             var $selector = $(this).data("class");
@@ -132,6 +130,7 @@
             });
         });
 
+        var mainurl = "<?php echo e(url('/')); ?>";
 
         // Add quantity in the cart
         $('.plus').click(function () {
