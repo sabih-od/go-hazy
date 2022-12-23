@@ -48,26 +48,26 @@
                     </div>
                     </a>
                   </div>
-                  <div class="col-lg-4">
-                    <a href="{{ route('admin-prod-create','digital') }}">
-                    <div class="cat-box box2">
-                      <div class="icon">
-                        <i class="fas fa-camera-retro"></i>
-                      </div>
-                      <h5 class="title">{{ __("Digital") }} </h5>
-                    </div>
-                    </a>
-                  </div>
-                  <div class="col-lg-4">
-                    <a href="{{ route('admin-prod-create','license') }}">
-                    <div class="cat-box box3">
-                      <div class="icon">
-                        <i class="fas fa-award"></i>
-                      </div>
-                      <h5 class="title">{{ __("license") }} </h5>
-                    </div>
-                    </a>
-                  </div>
+{{--                  <div class="col-lg-4">--}}
+{{--                    <a href="{{ route('admin-prod-create','digital') }}">--}}
+{{--                    <div class="cat-box box2">--}}
+{{--                      <div class="icon">--}}
+{{--                        <i class="fas fa-camera-retro"></i>--}}
+{{--                      </div>--}}
+{{--                      <h5 class="title">{{ __("Digital") }} </h5>--}}
+{{--                    </div>--}}
+{{--                    </a>--}}
+{{--                  </div>--}}
+{{--                  <div class="col-lg-4">--}}
+{{--                    <a href="{{ route('admin-prod-create','license') }}">--}}
+{{--                    <div class="cat-box box3">--}}
+{{--                      <div class="icon">--}}
+{{--                        <i class="fas fa-award"></i>--}}
+{{--                      </div>--}}
+{{--                      <h5 class="title">{{ __("license") }} </h5>--}}
+{{--                    </div>--}}
+{{--                    </a>--}}
+{{--                  </div>--}}
                 </div>
               </div>
             </div>
