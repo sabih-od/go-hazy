@@ -542,7 +542,12 @@ class ProductController extends AdminBaseController
                     $input['subcategory_id'] = null;
                     $input['childcategory_id'] = null;
 
-                    $mcat = Category::where(DB::raw('lower(name)'), strtolower($line[1]));
+                    $mcat = Category::firstOrCreate([
+                        'name' => $line[1]
+                    ], [
+                        'slug' => Str::slug($line[1]),
+                        'language_id' => 1
+                    ]);
                     //$mcat = Category::where("name", $line[1]);
 
                     if ($mcat->exists()) {
@@ -618,8 +623,13 @@ class ProductController extends AdminBaseController
                         $input['thumbnail'] = $thumbnail;
 
                         // Conert Price According to Currency
-                        $input['price'] = ($input['price'] / $sign->value);
-                        $input['previous_price'] = ($input['previous_price'] / $sign->value);
+                        try {
+                            $input['price'] = ($input['price'] / $sign->value);
+                            $input['previous_price'] = ($input['previous_price'] / $sign->value);
+                        }catch (\Exception $e){
+                            die(print_r([$input['sku'], $line[7], $e->getMessage()], 1));
+                        }
+
 
                         // Save Data
                         $data->fill($input)->save();
