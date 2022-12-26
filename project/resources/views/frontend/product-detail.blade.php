@@ -65,16 +65,23 @@
                                 @if(!empty($productt->size))
                                     <div class="product-size">
                                         <p class="title">{{ __('Size :') }}</p>
-                                        <ul class="siz-list">
-                                            @foreach(array_unique($productt->size) as $key => $data1)
-                                                <li class="{{ $loop->first ? 'active' : '' }}"
-                                                    data-key="{{ str_replace(' ','',$data1) }}">
-                                                <span class="box">
-                                                  {{ $data1 }}
-                                                </span>
-                                                </li>
+                                        <select name="size" id="size" class="form-control">
+                                            @foreach(array_unique(explode(',',$productt->size_all)) as $key => $data1)
+                                                <option value="{{ str_replace(' ','',$data1) }}">{{ $data1 }}</option>
+                                                {{--                                            <input type="hidden" class="size" value="{{$data1}}">--}}
+                                                {{--                                            <input type="hidden" class="size_key" value="{{$key}}">--}}
                                             @endforeach
-                                        </ul>
+                                        </select>
+{{--                                        <ul class="siz-list">--}}
+{{--                                            @foreach(array_unique($productt->size) as $key => $data1)--}}
+{{--                                                <li class="{{ $loop->first ? 'active' : '' }}"--}}
+{{--                                                    data-key="{{ str_replace(' ','',$data1) }}">--}}
+{{--                                                <span class="box">--}}
+{{--                                                  {{ $data1 }}--}}
+{{--                                                </span>--}}
+{{--                                                </li>--}}
+{{--                                            @endforeach--}}
+{{--                                        </ul>--}}
                                     </div>
                                 @endif
 
@@ -82,25 +89,31 @@
                                 @if(!empty($productt->color))
                                     <div class="product-color">
                                         <div class="title">{{ __('Color :') }}</div>
-                                        <ul class="color-list">
-                                            @foreach($productt->color as $key => $data1)
-                                                <li class="{{ $loop->first ? 'active' : '' }}
-                                                {{ $productt->IsSizeColor($productt->size[$key]) ? str_replace(' ','',$productt->size[$key]) : ''  }} {{ $productt->size[$key] == $productt->size[0] ? 'show-colors' : '' }}">
-                                                <span class="box" data-color="{{ $productt->color[$key] }}"
-                                                      style="background-color: {{ $productt->color[$key] }};
-                                                          width: 20px; height: 20px; border-right: 10px;">
-
-                                                  <input type="hidden" class="size" value="{{ $productt->size[$key] }}">
-                                                  <input type="hidden" class="size_qty"
-                                                         value="{{ $productt->size_qty[$key] }}">
-                                                  <input type="hidden" class="size_key" value="{{$key}}">
-                                                  <input type="hidden" class="size_price"
-                                                         value="{{ round($productt->size_price[$key] * $curr->value,2) }}">
-
-                                                </span>
-                                                </li>
+                                        <select name="color" id="color" onChange="update()" style="border-radius: 3px;">
+                                            @foreach(explode(',', $productt->color_all) as $key => $color1)
+                                                <option value="{{ $color1 }}"
+                                                        style="background-color: {{ $color1 }};"></option>
                                             @endforeach
-                                        </ul>
+                                        </select>
+{{--                                        <ul class="color-list">--}}
+{{--                                            @foreach($productt->color as $key => $data1)--}}
+{{--                                                <li class="{{ $loop->first ? 'active' : '' }}--}}
+{{--                                                {{ $productt->IsSizeColor($productt->size[$key]) ? str_replace(' ','',$productt->size[$key]) : ''  }} {{ $productt->size[$key] == $productt->size[0] ? 'show-colors' : '' }}">--}}
+{{--                                                <span class="box" data-color="{{ $productt->color[$key] }}"--}}
+{{--                                                      style="background-color: {{ $productt->color[$key] }};--}}
+{{--                                                          width: 20px; height: 20px; border-right: 10px;">--}}
+
+{{--                                                  <input type="hidden" class="size" value="{{ $productt->size[$key] }}">--}}
+{{--                                                  <input type="hidden" class="size_qty"--}}
+{{--                                                         value="{{ $productt->size_qty[$key] }}">--}}
+{{--                                                  <input type="hidden" class="size_key" value="{{$key}}">--}}
+{{--                                                  <input type="hidden" class="size_price"--}}
+{{--                                                         value="{{ round($productt->size_price[$key] * $curr->value,2) }}">--}}
+
+{{--                                                </span>--}}
+{{--                                                </li>--}}
+{{--                                            @endforeach--}}
+{{--                                        </ul>--}}
                                     </div>
 
                                 @endif
