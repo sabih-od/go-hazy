@@ -116,6 +116,7 @@
                                                 {{--                                            <input type="hidden" class="size_key" value="{{$key}}">--}}
                                             @endforeach
                                         </select>
+
                                     </div>
                                 @endif
                                 @if(!empty($productt->color_all))
