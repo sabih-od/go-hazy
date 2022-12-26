@@ -66,7 +66,7 @@
                                     <div class="product-size">
                                         <p class="title">{{ __('Size :') }}</p>
                                         <select name="size" id="size" class="form-control">
-                                            @foreach(array_unique(explode(',',$productt->size_all)) as $key => $data1)
+                                            @foreach(array_unique($productt->size) as $key => $data1)
                                                 <option value="{{ str_replace(' ','',$data1) }}">{{ $data1 }}</option>
                                                 {{--                                            <input type="hidden" class="size" value="{{$data1}}">--}}
                                                 {{--                                            <input type="hidden" class="size_key" value="{{$key}}">--}}
@@ -89,7 +89,7 @@
                                     <div class="product-color">
                                         <div class="title">{{ __('Color :') }}</div>
                                         <select name="color" id="color" onChange="update()" style="border-radius: 3px;">
-                                            @foreach(explode(',', $productt->color_all) as $key => $color1)
+                                            @foreach($productt->color as $key => $color1)
                                                 <option value="{{ $color1 }}"
                                                         style="background-color: {{ $color1 }};"></option>
                                             @endforeach
