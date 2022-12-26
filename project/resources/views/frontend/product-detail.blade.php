@@ -84,7 +84,6 @@
 {{--                                        </ul>--}}
                                     </div>
                                 @endif
-
                                 {{-- PRODUCT COLOR SECTION  --}}
                                 @if(!empty($productt->color))
                                     <div class="product-color">
