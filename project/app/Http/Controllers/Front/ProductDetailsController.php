@@ -63,7 +63,6 @@ class ProductDetailsController extends FrontBaseController
         $productt->update();
 
         $curr = $this->curr;
-
         $product_click =  new ProductClick;
         $product_click->product_id = $productt->id;
         $product_click->date = Carbon::now()->format('Y-m-d');
