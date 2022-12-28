@@ -1,6 +1,13 @@
 @extends('layouts.app')
 @section('content')
-
+    <style>
+        .page-item.active .page-link {
+            z-index: 3;
+            color: #fff;
+            background-color: #f25a29;
+            border-color: #f25a29;
+        }
+    </style>
     <div class="mouse-cursor cursor-outer"></div>
     <div class="mouse-cursor cursor-inner"></div>
 
@@ -97,11 +104,12 @@
 
                 <div class="col-md-12">
                     <div class="pagination listPaginate">
-                        <ul>
-                            <li><a href="#" class="active">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#"><i class="fal fa-angle-right"></i></a></li>
-                        </ul>
+                        {{ $data['prods']->links() }}
+{{--                        <ul>--}}
+{{--                            <li><a href="#" class="active">1</a></li>--}}
+{{--                            <li><a href="">2</a></li>--}}
+{{--                            <li><a href="#"><i class="fal fa-angle-right"></i></a></li>--}}
+{{--                        </ul>--}}
                     </div>
                 </div>
             </div>
