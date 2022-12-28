@@ -46,8 +46,11 @@
                     <div class="prodctdetailContent">
                         <h2>{{ $productt->name ?? '' }}
                         </h2>
-                        <span>${{ $productt->price ?? '' }}
-                        </span>
+                        <span>{{ $productt->setCurrency() ?? '' }}</span>
+                        <del>{{ $productt->showPreviousPrice() ?? '' }}</del>
+                        @if (round((int)$productt->offPercentage()) > 0)
+                            <div class="on-sale">{{ round((int)$productt->offPercentage() )}}% Off</div>
+                        @endif
                         <p>{{ substr($productt->details, 0, 300) }}
                         </p>
                     </div>
