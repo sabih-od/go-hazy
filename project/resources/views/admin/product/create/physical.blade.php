@@ -480,7 +480,7 @@
 																									{{ __('(Quantity of this size)') }}
 																								</span>
 																							</label>
-																							<input type="number" name="size_qty[]" class="input-field" placeholder="{{ __('Size Qty') }}" value="1" min="1">
+																							<input type="number" name="size_qty[]" step="0.01" class="input-field" placeholder="{{ __('Size Qty') }}" value="1" min="1">
 																						</div>
 																						<div class="col-md-3 col-sm-6">
 																							<label>
@@ -653,7 +653,7 @@
 																	</div>
 																</div>
 																<div class="col-lg-12">
-																	<input name="price" type="number" class="input-field" placeholder="{{ __('e.g 20') }}" step="0.1" required="" min="0">
+																	<input name="price" type="number" class="input-field" placeholder="{{ __('e.g 20') }}" step="0.01" required="" min="0">
 																</div>
 															</div>
 
@@ -665,7 +665,7 @@
 																	</div>
 																</div>
 																<div class="col-lg-12">
-																	<input name="previous_price" step="0.1" type="number" class="input-field" placeholder="{{ __('e.g 20') }}" min="0">
+																	<input name="previous_price" step="0.01" type="number" class="input-field" placeholder="{{ __('e.g 20') }}" min="0">
 																</div>
 															</div>
 
