@@ -793,7 +793,7 @@
 																									{{ __('(Added with base price)') }}
 																								</span>
 																							</label>
-																							<input type="number" name="size_price[]" step="0.01" class="input-field" placeholder="{{ __('Size Price') }}" value="0" min="0">
+																							<input type="number" name="size_price[]" step="0.01" class="input-field" placeholder="{{ __('Size Price') }}" value="0" min="0.01">
 																						</div>
 																						<div class="col-md-3 col-sm-6">
 																							<label>
@@ -1021,7 +1021,7 @@
                                                                 </div>
                                                                 <div class="col-lg-12">
                                                                     <input name="price" type="number" class="input-field"
-                                                                           placeholder="e.g 20" step="0.1" min="0"
+                                                                           placeholder="e.g 20" step="0.01" min="0"
                                                                            value="{{$data->previous_price ? round($data->previous_price * $sign->value , 2) : round($data->price * $sign->value , 2)}}" required="">
                                                                 </div>
                                                             </div>

@@ -22,7 +22,11 @@
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="fa fa-bars"></span>
                     </button>
+                    @php
+                        use App\Models\Category;
 
+                        $categories = Category::all();
+                    @endphp
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav m-auto">
                             <li class="nav-item active">
@@ -32,18 +36,18 @@
                             <li class="nav-item drop-down">
                                 <a class="nav-link" href="{{route('front.category')}}">Shop</a>
                                 <ul>
-                                    <li><a href="#">Clothing/ Apparel</a></li>
-                                    <li><a href="#">Accessories Men/Women</a></li>
-                                    <li><a href="#">Beauty & Cosmetics</a></li>
-                                    <li><a href="#">Sports & Entertainment</a></li>
-                                    <li><a href="#">Consumer Electronics</a></li>
+                                    @foreach($categories as $category)
+                                        <li>
+                                            <a href="{{ route('front.category',$category->slug) }}">{{$category->name}}</a>
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('front.blog')}}">Blogs</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">About Us</a>
+                                <a class="nav-link" href="{{route('front.about')}}">About Us</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('front.contact')}}">Contact Us</a>
