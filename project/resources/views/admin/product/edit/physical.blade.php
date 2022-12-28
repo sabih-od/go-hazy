@@ -1034,7 +1034,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-12">
-                                                                    <input name="previous_price" step="0.1" type="number"
+                                                                    <input name="previous_price" step="0.01" type="number"
                                                                            class="input-field" placeholder="e.g 20"
                                                                            value="{{$data->price ? round($data->price * $sign->value , 2) : round($data->previous_price * $sign->value , 2)}}"
                                                                            min="0">
