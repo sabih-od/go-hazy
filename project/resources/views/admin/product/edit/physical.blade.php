@@ -742,7 +742,7 @@
 																									{{ __('(Added with base price)') }}
 																								</span>
 																							</label>
-																							<input type="number" name="size_price[]" required class="input-field" placeholder="{{ __('Size Price') }}" value="{{ round($data->size_price[$key] * $sign->value , 2) }}" min="0">
+																							<input type="number" name="size_price[]" step="0.01" required class="input-field" placeholder="{{ __('Size Price') }}" value="{{ round($data->size_price[$key] * $sign->value , 2) }}" min="0">
 																						</div>
 																						<div class="col-md-3 col-sm-6">
 																							<label>
