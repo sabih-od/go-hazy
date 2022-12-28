@@ -37,6 +37,7 @@ class CartController extends FrontBaseController
         if (Session::has('coupon_percentage')) {
             Session::forget('coupon_percentage');
         }
+
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
         $products = $cart->items;

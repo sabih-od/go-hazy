@@ -69,6 +69,9 @@
                                 <a href="#">
                                     <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}" alt="img">
                                 </a>
+                                @if (round((int)$item->offPercentage()) > 0)
+                                    <div class="on-sale">- {{ round((int)$item->offPercentage() )}}%</div>
+                                @endif
                                 <div class="overlay">
                                     <ul>
                                         <li><a href="#"><i class="far fa-search"></i></a></li>
@@ -83,7 +86,9 @@
                             </div>
                             <h4>{{$item->name ?? 'Shop'}}</h4>
                             <p>{{$item->category->name ?? 'Shop'}}</p>
-                            <span>${{$item->price ?? 'Shop'}}</span>
+{{--                            <span>${{$item->price ?? 'Shop'}}</span>--}}
+                            <span>{{ $item->setCurrency() ?? 'Shop' }}</span>
+                            <del>{{ $item->showPreviousPrice() ?? 'Shop' }}</del>
                         </div>
                     </div>
                 @empty
