@@ -280,9 +280,9 @@
             <li>
                 <a href="{{ route('admin-pick-index') }}"><span>{{ __('Pickup Locations') }}</span></a>
             </li>
-           {{-- <li>
+           <li>
                 <a href="{{ route('admin-gs-contents') }}"><span>{{ __('Website Contents') }}</span></a>
-            </li>--}}
+            </li>
             <li>
                 <a href="{{ route('admin-gs-affilate') }}"><span>{{__('Affiliate Program')}}</span></a>
             </li>
