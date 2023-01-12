@@ -60,21 +60,37 @@
                 <span>Shop Featured Categories.</span>
             </div>
             <div class="row">
-                @foreach($categories as $key => $category)
+                @foreach($products as $key => $item)
+{{--                    {{ dd($category->photo) }}--}}
                     @if($key > 2)
                         @break
                     @endif
-                    <div class="col-md-4">
-                        <div class="clothingBox" data-aos="fade-right">
-                            <a href="{{route('front.category',$category->slug) ?? ''}}">
-                                <img src="{{asset('assets/images/categories/'.$category->image)}}" class="img-fluid"
-                                     alt="img">
-                            </a>
-                            <h5>{{$category->name}}</h5>
-                            <h6>{{$category->products->count()}} products</h6>
+                    <div class="col-lg-4 col-sm-6">
+                        <div class="product-box" data-aos="fade-right">
+                            <div class="pro-img">
+                                <a href="#">
+                                    <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}" alt="img">
+                                </a>
+                            </div>
+                            <h4>{{$item->category->name ?? 'Shop'}}</h4>
+                            <p>{{$item->category->count()}} Products</p>
                         </div>
                     </div>
                 @endforeach
+{{--                @forelse($products as $item)--}}
+{{--                    {{ dd($item->photo) }}--}}
+{{--                    <div class="col-lg-4 col-sm-6">--}}
+{{--                        <div class="product-box" data-aos="fade-right">--}}
+{{--                            <div class="pro-img">--}}
+{{--                                <a href="#">--}}
+{{--                                    <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}" alt="img">--}}
+{{--                                </a>--}}
+{{--                            </div>--}}
+{{--                            <h4>{{$item->name ?? 'Shop'}}</h4>--}}
+{{--                            <p>{{$item->category->name ?? 'Shop'}}</p>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                @endforelse--}}
             </div>
         </div>
     </section>
@@ -205,7 +221,7 @@
         <img src="{{asset('assets/images/orangeshpae2.png')}}" class="img-fluid w-100 twoShape" alt="img">
         <div class="container">
             <div class="row">
-                @foreach($categories as $key => $category)
+                @foreach($products as $key => $item)
                     @if($key > 4)
                         @break
                     @else
@@ -213,9 +229,9 @@
                             <div class="col-md-6" data-aos="fade-right">
                                 <div class="shirtBox">
                                     <figure>
-                                        <img src="{{asset('assets/images/categories/'.$category->image) ?? ''}}"
+                                        <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}"
                                              class="img-fluid" alt="img">
-                                        <a href="{{route('front.category',$category->slug) ?? ''}}">{{$category->name ?? ''}}</a>
+                                        <a href="{{route('front.product',$item->slug) ?? ''}}">{{$item->category->name ?? 'Shop'}}</a>
                                     </figure>
                                 </div>
                             </div>
@@ -224,17 +240,17 @@
                                     @if($key == 1)
                                         <div class="shirtBox" data-aos="fade-left">
                                             <figure>
-                                                <img src="{{asset('assets/images/categories/'.$category->image) ?? ''}}"
+                                                <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}"
                                                      class="img-fluid" alt="img">
-                                                <a href="{{route('front.category',$category->slug)}}">{{$category->name ?? ''}}</a>
+                                                <a href="{{route('front.product',$item->slug)}}">{{$item->category->name ?? 'Shop'}}</a>
                                             </figure>
                                         </div>
                                     @elseif($key == 2)
                                         <div class="shirtBox" data-aos="fade-up">
                                             <figure>
-                                                <img src="{{asset('assets/images/categories/'.$category->image) ?? ''}}"
+                                                <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}"
                                                      class="img-fluid" alt="img">
-                                                <a href="{{route('front.category',$category->slug)}}">{{$category->name ?? ''}}</a>
+                                                <a href="{{route('front.product',$item->slug)}}">{{$item->category->name ?? 'Shop'}}</a>
                                             </figure>
                                         </div>
                             </div>
@@ -244,17 +260,17 @@
                                     @if($key == 3)
                                         <div class="shirtBox" data-aos="fade-right">
                                             <figure>
-                                                <img src="{{asset('assets/images/categories/'.$category->image) ?? ''}}"
+                                                <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}"
                                                      class="img-fluid" alt="img">
-                                                <a href="{{route('front.category',$category->slug)}}">{{$category->name ?? ''}}</a>
+                                                <a href="{{route('front.product',$item->slug)}}">{{$item->category->name ?? 'Shop'}}</a>
                                             </figure>
                                         </div>
                                     @else
                                         <div class="shirtBox" data-aos="fade-up">
                                             <figure>
-                                                <img src="{{asset('assets/images/categories/'.$category->image) ?? ''}}"
+                                                <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}"
                                                      class="img-fluid" alt="img">
-                                                <a href="{{route('front.category',$category->slug)}}">{{$category->name ?? ''}}</a>
+                                                <a href="{{route('front.product',$item->slug)}}">{{$item->category->name ?? 'Shop'}}</a>
                                             </figure>
                                         </div>
                             </div>
@@ -262,6 +278,25 @@
                     @endif
                     @endif
                 @endforeach
+
+{{--                @foreach($products as $key => $item)--}}
+{{--                    --}}{{--                    {{ dd($category->photo) }}--}}
+{{--                    @if($key > 2)--}}
+{{--                        @break--}}
+{{--                    @endif--}}
+{{--                    <div class="col-lg-4 col-sm-6">--}}
+{{--                        <div class="product-box" data-aos="fade-right">--}}
+{{--                            <div class="pro-img">--}}
+{{--                                <a href="#">--}}
+{{--                                    <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}" alt="img">--}}
+{{--                                </a>--}}
+{{--                            </div>--}}
+{{--                            <h4>{{$item->category->name ?? 'Shop'}}</h4>--}}
+{{--                            <p>{{$item->category->count()}} Products</p>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                @endforeach--}}
+
                 {{--<div class="col-md-6" data-aos="fade-right">
                     <div class="shirtBox">
                         <figure>

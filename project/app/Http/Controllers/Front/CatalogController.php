@@ -55,6 +55,7 @@ class CatalogController extends FrontBaseController
             $subcat = Subcategory::where('slug', $slug1)->firstOrFail();
             $data['subcat'] = $subcat;
         }
+
         if (!empty($slug2)) {
             $childcat = Childcategory::where('slug', $slug2)->firstOrFail();
             $data['childcat'] = $childcat;
@@ -71,7 +72,6 @@ class CatalogController extends FrontBaseController
                 }
                 return false;
             });
-
 
         $prods = Product::when($cat, function ($query, $cat) {
             return $query->where('category_id', $cat->id);
@@ -177,7 +177,6 @@ class CatalogController extends FrontBaseController
 
         $prods = $prods->where('language_id', $this->language->id)->where('status', 1)->get()
             ->reject(function ($item) {
-
                 if ($item->user_id != 0) {
                     if ($item->user->is_vendor != 2) {
                         return true;
@@ -190,17 +189,13 @@ class CatalogController extends FrontBaseController
                     }
                 }
                 return false;
-
             })->map(function ($item) {
-
                 $item->price = $item->vendorSizePrice();
                 return $item;
 
             })->paginate(isset($pageby) ? $pageby : $this->gs->page_count);
 
         $data['prods'] = $prods;
-
-        //    dd($data['prods']);
         if ($request->ajax()) {
             $data['ajax_check'] = 1;
             return view('frontend.ajax.category', $data);

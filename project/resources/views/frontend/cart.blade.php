@@ -120,18 +120,18 @@
 @endsection
 @section('script')
     <script>
-        var mainurl = "<?php echo e(url('/')); ?>";
-
         // Remove Product From Cart
         $(document).on("click", ".cart-remove", function () {
-            var $selector = $(this).data("class");
-            $("." + $selector).hide();
+            // alert('hello');
+            // var delete_cart = $(this).data("class");
+            $(this).hide();
             $.get($(this).data("href"), function (data) {
                 toastr.success('Successfully Remove To Cart')
                 window.location.reload();
             });
         });
 
+        var mainurl = "<?php echo e(url('/')); ?>";
 
         // Add quantity in the cart
         $('.plus').click(function () {
@@ -166,7 +166,7 @@
         });
 
         // Remove Quantity from cart
-        $('.minus').click(function () {
+        $(document).on('click', '.minus', function () {
             var pid = $(this).parent().find(".prodid").val();
             var itemid = $(this).parent().find(".itemid").val();
             var color = $(this).parent().find(".color").val();
@@ -180,9 +180,9 @@
             if (qty < 1) {
                 $("#qty" + itemid).val("1");
                 $(".gocover").hide();
-                return false;
+                // return false;
             } else if (qty < minimum_qty) {
-                return false;
+                // return false;
             } else {
                 $(".gocover").show();
 
@@ -196,6 +196,8 @@
                         color: color,
                         size_qty: size_qty,
                         size_price: size_price,
+                        qty : qty,
+                        minimum_qty: minimum_qty,
                     },
                     success: function (data) {
                         if (data.qty >= 1) {

@@ -55,6 +55,7 @@ class ProductDetailsController extends FrontBaseController
 
         $productt = Product::where('slug','=',$slug)->firstOrFail();
 
+
         if($productt->status == 0){
             return response()->view('errors.404')->setStatusCode(404);
         }
@@ -63,7 +64,6 @@ class ProductDetailsController extends FrontBaseController
         $productt->update();
 
         $curr = $this->curr;
-
         $product_click =  new ProductClick;
         $product_click->product_id = $productt->id;
         $product_click->date = Carbon::now()->format('Y-m-d');

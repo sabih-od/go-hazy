@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers\Front;
 
-use Cartalyst\Stripe\Laravel\Facades\Stripe;
-use Illuminate\Support\Str;
-use App\{Models\Cart, Models\Country, Models\Order, Models\PaymentGateway};
-use App\Models\Product;
+use App\{Models\Cart, Models\Order, Models\PaymentGateway};
 use App\Models\State;
 use DB;
 use Auth;
-use Illuminate\Support\Facades\Request;
 use Session;
 
 

@@ -130,12 +130,12 @@
 															<div id="subcatAttributes"></div>
 															<div id="childcatAttributes"></div>
 
-														
+
 
 															<div class="row">
 																<div class="col-lg-12">
 																	<div class="left-area">
-			
+
 																	</div>
 																</div>
 																<div class="col-lg-12">
@@ -168,7 +168,7 @@
 															<div class="row">
 																<div class="col-lg-12">
 																	<div class="left-area">
-			
+
 																	</div>
 																</div>
 																<div class="col-lg-12">
@@ -180,8 +180,8 @@
 																	</ul>
 																</div>
 															</div>
-			
-			
+
+
 															<div class="showbox">
 																<div class="row">
 																	<div class="col-lg-12">
@@ -197,12 +197,12 @@
 																	</div>
 																</div>
 															</div>
-			
-			
+
+
 															<div class="row">
 																<div class="col-lg-12">
 																	<div class="left-area">
-			
+
 																	</div>
 																</div>
 																<div class="col-lg-12">
@@ -214,8 +214,8 @@
 																	</ul>
 																</div>
 															</div>
-			
-								
+
+
 															<div class="showbox">
 																<div class="row">
 																	<div class="col-lg-12">
@@ -228,14 +228,14 @@
 																			placeholder="{{ __('Minimum Order Qty') }}" name="minimum_qty">
 																	</div>
 																</div>
-								
+
 															</div>
-			
-			
+
+
 															<div class="row">
 																<div class="col-lg-12">
 																	<div class="left-area">
-			
+
 																	</div>
 																</div>
 																<div class="col-lg-12">
@@ -247,9 +247,9 @@
 																	</ul>
 																</div>
 															</div>
-			
-			
-			
+
+
+
 															<div class="showbox">
 																<div class="row">
 																	<div class="col-lg-12">
@@ -262,11 +262,11 @@
 																	</div>
 																</div>
 															</div>
-			
+
 															<div class="row">
 																<div class="col-lg-12">
 																	<div class="left-area">
-			
+
 																	</div>
 																</div>
 																<div class="col-lg-12">
@@ -278,9 +278,9 @@
 																	</ul>
 																</div>
 															</div>
-			
+
 															<div class="showbox">
-			
+
 																<div class="row">
 																		<div  class="col-lg-12">
 																			<div class="left-area">
@@ -305,13 +305,13 @@
 																		<a href="javascript:;" id="color-btn" class="add-more mt-4 mb-3"><i class="fas fa-plus"></i>{{ __('Add More Color') }} </a>
 																	</div>
 																</div>
-			
+
 															</div>
-			
+
 															<div class="row">
 																<div class="col-lg-12">
 																	<div class="left-area">
-			
+
 																	</div>
 																</div>
 																<div class="col-lg-12">
@@ -323,7 +323,7 @@
 																	</ul>
 																</div>
 															</div>
-			
+
 															<div class="showbox">
 																<div class="row">
 																		<div  class="col-lg-4">
@@ -341,19 +341,19 @@
 																					<div class="tsize-area">
 																						<span class="remove tsize-remove"><i class="fas fa-times"></i></span>
 																						<input  type="text" name="size_all[]" class="input-field tsize" placeholder="{{ __('Enter Product Size') }}"  >
-																						
+
 																					 </div>
 																				</div>
 																			<a href="javascript:;" id="tsize-btn" class="add-more mt-4 mb-3"><i class="fas fa-plus"></i>{{ __('Add More Size') }} </a>
 																		</div>
 																</div>
-			
+
 															</div>
-			
+
 															<div class="row">
 																<div class="col-lg-12">
 																	<div class="left-area">
-			
+
 																	</div>
 																</div>
 																<div class="col-lg-12">
@@ -365,12 +365,12 @@
 																	</ul>
 																</div>
 															</div>
-			
+
 															<div class="showbox">
 																<div class="row">
 																	<div class="col-lg-12">
 																		<div class="left-area">
-				
+
 																		</div>
 																	</div>
 																	<div class="col-lg-12">
@@ -382,14 +382,14 @@
 																						<div class="col-lg-6">
 																						<input type="number" name="whole_sell_qty[]" class="input-field" placeholder="{{ __('Enter Quantity') }}" min="0">
 																						</div>
-				
+
 																						<div class="col-lg-6">
 																						<input type="number" name="whole_sell_discount[]" class="input-field" placeholder="{{ __('Enter Discount Percentage') }}" min="0" />
 																						</div>
 																					</div>
 																				</div>
 																			</div>
-				
+
 																			<a href="javascript:;" id="whole-btn" class="add-fild-btn"><i class="icofont-plus"></i> {{ __('Add More Field') }}</a>
 																		</div>
 																	</div>
@@ -400,7 +400,7 @@
 															<div class="row">
 																<div class="col-lg-12">
 																	<div class="left-area">
-			
+
 																	</div>
 																</div>
 																<div class="col-lg-12">
@@ -437,11 +437,11 @@
 																	</div>
 																</div>
 															</div>
-		
+
 															<div class="row">
 																<div class="col-lg-12">
 																	<div class="left-area">
-			
+
 																	</div>
 																</div>
 																<div class="col-lg-12">
@@ -480,7 +480,7 @@
 																									{{ __('(Quantity of this size)') }}
 																								</span>
 																							</label>
-																							<input type="number" name="size_qty[]" class="input-field" placeholder="{{ __('Size Qty') }}" value="1" min="1">
+																							<input type="number" name="size_qty[]" step="0.01" class="input-field" placeholder="{{ __('Size Qty') }}" value="1" min="1">
 																						</div>
 																						<div class="col-md-3 col-sm-6">
 																							<label>
@@ -489,7 +489,7 @@
 																									{{ __('(Added with base price)') }}
 																								</span>
 																							</label>
-																							<input type="number" name="size_price[]" class="input-field" placeholder="{{ __('Size Price') }}" value="0" min="0">
+																							<input type="number" name="size_price[]" step="0.01" class="input-field" placeholder="{{ __('Size Price') }}" value="0" min="0.01">
 																						</div>
 																						<div class="col-md-3 col-sm-6">
 																							<label>
@@ -500,11 +500,11 @@
 																							</label>
 																							<select name="color[]" class="input-field color-name"></select>
 																						</div>
-			
+
 																					</div>
 																				</div>
 																			</div>
-			
+
 																			<a href="javascript:;" id="size-btn" class="add-more"><i class="fas fa-plus"></i>{{ __('Add More') }} </a>
 																		</div>
 																</div>
@@ -560,9 +560,9 @@
 																	</div>
 																</div>
 															</div>
-		
-		
-		
+
+
+
 														<div class="showbox">
 															<div class="row">
 															  <div class="col-lg-12">
@@ -575,7 +575,7 @@
 																</ul>
 															  </div>
 															</div>
-		  
+
 															<div class="row">
 															  <div class="col-lg-12">
 																<div class="left-area">
@@ -593,7 +593,7 @@
 														  </div>
 
 														  <input type="hidden" name="type" value="Physical">
-														
+
 													</div>
 												</div>
 											</div>
@@ -653,10 +653,10 @@
 																	</div>
 																</div>
 																<div class="col-lg-12">
-																	<input name="price" type="number" class="input-field" placeholder="{{ __('e.g 20') }}" step="0.1" required="" min="0">
+																	<input name="price" type="number" class="input-field" placeholder="{{ __('e.g 20') }}" step="0.01" required="" min="0">
 																</div>
 															</div>
-			
+
 															<div class="row">
 																<div class="col-lg-12">
 																	<div class="left-area">
@@ -665,7 +665,7 @@
 																	</div>
 																</div>
 																<div class="col-lg-12">
-																	<input name="previous_price" step="0.1" type="number" class="input-field" placeholder="{{ __('e.g 20') }}" min="0">
+																	<input name="previous_price" step="0.01" type="number" class="input-field" placeholder="{{ __('e.g 20') }}" min="0">
 																</div>
 															</div>
 
@@ -684,7 +684,7 @@
 															<div class="row">
 																<div class="col-lg-12">
 																	<div class="left-area">
-			
+
 																	</div>
 																</div>
 																<div class="col-lg-12">
@@ -692,7 +692,7 @@
 																		<div class="heading-area">
 																			<h4 class="title">{{ __('Feature Tags') }}</h4>
 																		</div>
-			
+
 																		<div class="feature-tag-top-filds" id="feature-section">
 																			<div class="feature-area">
 																				<span class="remove feature-remove"><i class="fas fa-times"></i></span>
@@ -700,7 +700,7 @@
 																					<div class="col-lg-6">
 																					<input type="text" name="features[]" class="input-field" placeholder="{{ __('Enter Your Keyword') }}">
 																					</div>
-			
+
 																					<div class="col-lg-6">
 																						<div class="input-group colorpicker-component cp">
 																						  <input type="text" name="colors[]" value="#000000" class="input-field cp"/>
@@ -710,7 +710,7 @@
 																				</div>
 																			</div>
 																		</div>
-			
+
 																		<a href="javascript:;" id="feature-btn" class="add-fild-btn"><i class="icofont-plus"></i> {{ __('Add More Field') }}</a>
 																	</div>
 																</div>
