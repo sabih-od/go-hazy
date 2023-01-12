@@ -191,6 +191,13 @@ section {
     font-size: 1.25rem;
 }
 
+.themeBtn {
+    display: inline-block;
+    padding: 1rem 1.5rem;
+    color: #fff;
+    text-transform: capitalize;
+}
+
 /* sraachbar end */
 .refreshHeading {
     text-align: center;

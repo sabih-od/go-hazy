@@ -94,6 +94,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('assets/css/custom.min.css')}}"/>
     <link rel="stylesheet" href="{{asset('assets/css/slider.css')}}"/>
+    <link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
           integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
@@ -129,7 +130,10 @@
                                         class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item drop-down">
-                                <a class="nav-link" href="{{route('front.category')}}">Shop</a>
+                                <div class="dropdownBtn">
+                                    <a class="nav-link" href="{{route('front.category')}}">Shop</a>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
                                 <ul>
                                     @foreach($categories as $category)
                                         <li>
