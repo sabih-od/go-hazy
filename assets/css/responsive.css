@@ -537,7 +537,7 @@
     }
 
     .signupSec.aboutSignup img {
-        bottom: 0;
+        display: none;
     }
 
     .contactPage {
