@@ -58,7 +58,7 @@
                         @if (round((int)$productt->offPercentage()) > 0)
                             <div class="on-sale">{{ round((int)$productt->offPercentage() )}}% Off</div>
                         @endif
-                        <p>{{ substr($productt->details, 0, 300) }}
+                        <p>{!! substr($productt->details, 0, 400) !!}
                         </p>
                     </div>
                     <form action="{{ route('product.cart.quickadd', $productt->id) }}" method="POST"

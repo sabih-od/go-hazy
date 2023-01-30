@@ -1805,3 +1805,17 @@ span#color-bar {
 
     color: #8b8b8b;
 }
+.menuDropdown select {
+    margin: 4px 1rem;
+    background: #e7e7e7;
+    border: none;
+    padding: 1rem;
+    color: #000;
+}
+.menuDropdown{
+    text-align: center;
+    margin-left: 1rem;
+}
+.menuDropdown select:focus-visible {
+    outline: none;
+}
