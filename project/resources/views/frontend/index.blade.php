@@ -61,7 +61,7 @@
             </div>
             <div class="row">
                 @foreach($products as $key => $item)
-{{--                    {{ dd($category->photo) }}--}}
+                    {{--                    {{ dd($category->photo) }}--}}
                     @if($key > 2)
                         @break
                     @endif
@@ -77,24 +77,23 @@
                         </div>
                     </div>
                 @endforeach
-{{--                @forelse($products as $item)--}}
-{{--                    {{ dd($item->photo) }}--}}
-{{--                    <div class="col-lg-4 col-sm-6">--}}
-{{--                        <div class="product-box" data-aos="fade-right">--}}
-{{--                            <div class="pro-img">--}}
-{{--                                <a href="#">--}}
-{{--                                    <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}" alt="img">--}}
-{{--                                </a>--}}
-{{--                            </div>--}}
-{{--                            <h4>{{$item->name ?? 'Shop'}}</h4>--}}
-{{--                            <p>{{$item->category->name ?? 'Shop'}}</p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                @endforelse--}}
+                {{--                @forelse($products as $item)--}}
+                {{--                    {{ dd($item->photo) }}--}}
+                {{--                    <div class="col-lg-4 col-sm-6">--}}
+                {{--                        <div class="product-box" data-aos="fade-right">--}}
+                {{--                            <div class="pro-img">--}}
+                {{--                                <a href="#">--}}
+                {{--                                    <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}" alt="img">--}}
+                {{--                                </a>--}}
+                {{--                            </div>--}}
+                {{--                            <h4>{{$item->name ?? 'Shop'}}</h4>--}}
+                {{--                            <p>{{$item->category->name ?? 'Shop'}}</p>--}}
+                {{--                        </div>--}}
+                {{--                    </div>--}}
+                {{--                @endforelse--}}
             </div>
         </div>
     </section>
-
 
     <section class="aboutSec">
         <img src="{{asset('assets/images/shapebg1.jpg')}}" class="img-fluid w-100 oneShape" alt="img">
@@ -193,18 +192,18 @@
                             <div class="pro-img">
                                 <a href="{{ route('front.product', $prod->slug) }}"><img
                                         src="{{asset('assets/images/products/'.$prod->photo) ?? ''}}" alt="img"></a>
-                                    <div class="overlay">
-                                        <ul>
-                                            <li><a href="#">
-                                                    <i class="far fa-search"></i></a></li>
-                                            <li><a href="#"><i class="fal fa-heart"></i></a></li>
-                                            <li><a href="{{route('front.product',$prod->slug) ?? ''}}">
-                                                    <i class="fal fa-shopping-cart"></i></a></li>
-                                            <li><a href="#"><img src="{{asset('assets/images/compare.png') ?? ''}}"
-                                                                 class="img-fluid"
-                                                                 alt="img"></a></li>
-                                        </ul>
-                                    </div>
+                                <div class="overlay">
+                                    <ul>
+                                        <li><a href="#">
+                                                <i class="far fa-search"></i></a></li>
+                                        <li><a href="#"><i class="fal fa-heart"></i></a></li>
+                                        <li><a href="{{route('front.product',$prod->slug) ?? ''}}">
+                                                <i class="fal fa-shopping-cart"></i></a></li>
+                                        <li><a href="#"><img src="{{asset('assets/images/compare.png') ?? ''}}"
+                                                             class="img-fluid"
+                                                             alt="img"></a></li>
+                                    </ul>
+                                </div>
                             </div>
                             <h4>{{$prod->name ?? ''}}</h4>
                             <p>{{$prod->category->name ?? ''}}</p>
@@ -279,23 +278,23 @@
                     @endif
                 @endforeach
 
-{{--                @foreach($products as $key => $item)--}}
-{{--                    --}}{{--                    {{ dd($category->photo) }}--}}
-{{--                    @if($key > 2)--}}
-{{--                        @break--}}
-{{--                    @endif--}}
-{{--                    <div class="col-lg-4 col-sm-6">--}}
-{{--                        <div class="product-box" data-aos="fade-right">--}}
-{{--                            <div class="pro-img">--}}
-{{--                                <a href="#">--}}
-{{--                                    <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}" alt="img">--}}
-{{--                                </a>--}}
-{{--                            </div>--}}
-{{--                            <h4>{{$item->category->name ?? 'Shop'}}</h4>--}}
-{{--                            <p>{{$item->category->count()}} Products</p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                @endforeach--}}
+                {{--                @foreach($products as $key => $item)--}}
+                {{--                    --}}{{--                    {{ dd($category->photo) }}--}}
+                {{--                    @if($key > 2)--}}
+                {{--                        @break--}}
+                {{--                    @endif--}}
+                {{--                    <div class="col-lg-4 col-sm-6">--}}
+                {{--                        <div class="product-box" data-aos="fade-right">--}}
+                {{--                            <div class="pro-img">--}}
+                {{--                                <a href="#">--}}
+                {{--                                    <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}" alt="img">--}}
+                {{--                                </a>--}}
+                {{--                            </div>--}}
+                {{--                            <h4>{{$item->category->name ?? 'Shop'}}</h4>--}}
+                {{--                            <p>{{$item->category->count()}} Products</p>--}}
+                {{--                        </div>--}}
+                {{--                    </div>--}}
+                {{--                @endforeach--}}
 
                 {{--<div class="col-md-6" data-aos="fade-right">
                     <div class="shirtBox">
@@ -338,58 +337,387 @@
     </section>
 
 
-{{--    <section class="proSec">--}}
-{{--        <div class="container">--}}
-{{--            <div class="refreshHeading" data-aos="fade-up">--}}
-{{--                <h1>Best Sellers</h1>--}}
-{{--                <h5>GO-HAZY</h5>--}}
-{{--                <h2>BEST SELLERS FOR THE<br>BEST VERSION OF YOU.</h2>--}}
-{{--                <span>Shop Best Sellers.</span>--}}
-{{--            </div>--}}
-{{--            <div class="row">--}}
-{{--                <div class="col-md-12">--}}
-{{--                    <div class="swiper shopSlider" data-aos="fade-right">--}}
-{{--                        <div class="swiper-wrapper">--}}
-{{--                            @foreach($products as $key => $prod)--}}
-{{--                                @if($key > 3)--}}
-{{--                                    @break--}}
-{{--                                @endif--}}
-{{--                                <div class="swiper-slide">--}}
-{{--                                    <div class="product-box">--}}
-{{--                                        <div class="pro-img">--}}
-{{--                                            <a href="#"><img--}}
-{{--                                                    src="{{asset('assets/images/products/'.$prod->photo) ?? ''}}"--}}
-{{--                                                    alt="img"></a>--}}
-{{--                                            <div class="overlay">--}}
-{{--                                                <ul>--}}
-{{--                                                    <li><a href="#"><i class="far fa-search"></i></a></li>--}}
-{{--                                                    <li><a href="#"><i class="fal fa-heart"></i></a></li>--}}
-{{--                                                    <li><a href="{{route('front.product',$prod->slug) ?? ''}}">--}}
-{{--                                                            <i class="fal fa-shopping-cart"></i></a></li>--}}
-{{--                                                    <li><a href="#"><img src="{{asset('assets/images/compare.png')}}"--}}
-{{--                                                                         class="img-fluid"--}}
-{{--                                                                         alt="img"></a>--}}
-{{--                                                    </li>--}}
-{{--                                                </ul>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                        <h4>{{$prod->name ?? ''}}</h4>--}}
-{{--                                        <p>{{$prod->category->name ?? ''}}</p>--}}
-{{--                                        <span>${{$prod->price ?? ''}}</span>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            @endforeach--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="swiper-button-next"></div>--}}
-{{--                    <!-- end swiper-button-next -->--}}
-{{--                    <div class="swiper-button-prev"></div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </section>--}}
+    {{--    <section class="proSec">--}}
+    {{--        <div class="container">--}}
+    {{--            <div class="refreshHeading" data-aos="fade-up">--}}
+    {{--                <h1>Best Sellers</h1>--}}
+    {{--                <h5>GO-HAZY</h5>--}}
+    {{--                <h2>BEST SELLERS FOR THE<br>BEST VERSION OF YOU.</h2>--}}
+    {{--                <span>Shop Best Sellers.</span>--}}
+    {{--            </div>--}}
+    {{--            <div class="row">--}}
+    {{--                <div class="col-md-12">--}}
+    {{--                    <div class="swiper shopSlider" data-aos="fade-right">--}}
+    {{--                        <div class="swiper-wrapper">--}}
+    {{--                            @foreach($products as $key => $prod)--}}
+    {{--                                @if($key > 3)--}}
+    {{--                                    @break--}}
+    {{--                                @endif--}}
+    {{--                                <div class="swiper-slide">--}}
+    {{--                                    <div class="product-box">--}}
+    {{--                                        <div class="pro-img">--}}
+    {{--                                            <a href="#"><img--}}
+    {{--                                                    src="{{asset('assets/images/products/'.$prod->photo) ?? ''}}"--}}
+    {{--                                                    alt="img"></a>--}}
+    {{--                                            <div class="overlay">--}}
+    {{--                                                <ul>--}}
+    {{--                                                    <li><a href="#"><i class="far fa-search"></i></a></li>--}}
+    {{--                                                    <li><a href="#"><i class="fal fa-heart"></i></a></li>--}}
+    {{--                                                    <li><a href="{{route('front.product',$prod->slug) ?? ''}}">--}}
+    {{--                                                            <i class="fal fa-shopping-cart"></i></a></li>--}}
+    {{--                                                    <li><a href="#"><img src="{{asset('assets/images/compare.png')}}"--}}
+    {{--                                                                         class="img-fluid"--}}
+    {{--                                                                         alt="img"></a>--}}
+    {{--                                                    </li>--}}
+    {{--                                                </ul>--}}
+    {{--                                            </div>--}}
+    {{--                                        </div>--}}
+    {{--                                        <h4>{{$prod->name ?? ''}}</h4>--}}
+    {{--                                        <p>{{$prod->category->name ?? ''}}</p>--}}
+    {{--                                        <span>${{$prod->price ?? ''}}</span>--}}
+    {{--                                    </div>--}}
+    {{--                                </div>--}}
+    {{--                            @endforeach--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                    <div class="swiper-button-next"></div>--}}
+    {{--                    <!-- end swiper-button-next -->--}}
+    {{--                    <div class="swiper-button-prev"></div>--}}
+    {{--                </div>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    </section>--}}
 
-
+    <section class="categorySec">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="mainCatBox">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="btnCont">
+                                        <h3 class="mainHeading">Main Category</h3>
+                                        <a href="" class="moreBtn">see All...</a>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="catBox">
+                                        <figure>
+                                            <img src="{{asset('assets/images/pro1.jpg')}}" alt="">
+                                        </figure>
+                                        <div class="overlayContent">
+                                            <h3>Sub Category 1</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="catBox">
+                                        <figure>
+                                            <img src="{{asset('assets/images/pro2.jpg')}}" alt="">
+                                        </figure>
+                                        <div class="overlayContent">
+                                            <h3>Sub Category 1</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="catBox">
+                                        <figure>
+                                            <img src="{{asset('assets/images/pro3.jpg')}}" alt="">
+                                        </figure>
+                                        <div class="overlayContent">
+                                            <h3>Sub Category 1</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="catBox">
+                                        <figure>
+                                            <img src="{{asset('assets/images/pro4.jpg')}}" alt="">
+                                        </figure>
+                                        <div class="overlayContent">
+                                            <h3>Sub Category 1</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mainCatBox">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="btnCont">
+                                        <h3 class="mainHeading">Main Category</h3>
+                                        <a href="" class="moreBtn">see More...</a>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="catBox">
+                                        <figure>
+                                            <img src="{{asset('assets/images/pro1.jpg')}}" alt="">
+                                        </figure>
+                                        <div class="overlayContent">
+                                            <h3>Sub Category 1</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="catBox">
+                                        <figure>
+                                            <img src="{{asset('assets/images/pro2.jpg')}}" alt="">
+                                        </figure>
+                                        <div class="overlayContent">
+                                            <h3>Sub Category 1</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="catBox">
+                                        <figure>
+                                            <img src="{{asset('assets/images/pro3.jpg')}}" alt="">
+                                        </figure>
+                                        <div class="overlayContent">
+                                            <h3>Sub Category 1</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="catBox">
+                                        <figure>
+                                            <img src="{{asset('assets/images/pro4.jpg')}}" alt="">
+                                        </figure>
+                                        <div class="overlayContent">
+                                            <h3>Sub Category 1</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mainCatBox">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="btnCont">
+                                        <h3 class="mainHeading">Main Category</h3>
+                                        <a href="" class="moreBtn">see More...</a>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="catBox">
+                                        <figure>
+                                            <img src="{{asset('assets/images/pro1.jpg')}}" alt="">
+                                        </figure>
+                                        <div class="overlayContent">
+                                            <h3>Sub Category 1</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="catBox">
+                                        <figure>
+                                            <img src="{{asset('assets/images/pro2.jpg')}}" alt="">
+                                        </figure>
+                                        <div class="overlayContent">
+                                            <h3>Sub Category 1</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="catBox">
+                                        <figure>
+                                            <img src="{{asset('assets/images/pro3.jpg')}}" alt="">
+                                        </figure>
+                                        <div class="overlayContent">
+                                            <h3>Sub Category 1</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="catBox">
+                                        <figure>
+                                            <img src="{{asset('assets/images/pro4.jpg')}}" alt="">
+                                        </figure>
+                                        <div class="overlayContent">
+                                            <h3>Sub Category 1</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mainCatBox">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="btnCont">
+                                        <h3 class="mainHeading">Main Category</h3>
+                                        <a href="" class="moreBtn">see More...</a>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="catBox">
+                                        <figure>
+                                            <img src="{{asset('assets/images/pro1.jpg')}}" alt="">
+                                        </figure>
+                                        <div class="overlayContent">
+                                            <h3>Sub Category 1</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="catBox">
+                                        <figure>
+                                            <img src="{{asset('assets/images/pro2.jpg')}}" alt="">
+                                        </figure>
+                                        <div class="overlayContent">
+                                            <h3>Sub Category 1</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="catBox">
+                                        <figure>
+                                            <img src="{{asset('assets/images/pro3.jpg')}}" alt="">
+                                        </figure>
+                                        <div class="overlayContent">
+                                            <h3>Sub Category 1</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="catBox">
+                                        <figure>
+                                            <img src="{{asset('assets/images/pro4.jpg')}}" alt="">
+                                        </figure>
+                                        <div class="overlayContent">
+                                            <h3>Sub Category 1</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mainCatBox">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="btnCont">
+                                        <h3 class="mainHeading">Main Category</h3>
+                                        <a href="" class="moreBtn">see More...</a>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="catBox">
+                                        <figure>
+                                            <img src="{{asset('assets/images/pro1.jpg')}}" alt="">
+                                        </figure>
+                                        <div class="overlayContent">
+                                            <h3>Sub Category 1</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="catBox">
+                                        <figure>
+                                            <img src="{{asset('assets/images/pro2.jpg')}}" alt="">
+                                        </figure>
+                                        <div class="overlayContent">
+                                            <h3>Sub Category 1</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="catBox">
+                                        <figure>
+                                            <img src="{{asset('assets/images/pro3.jpg')}}" alt="">
+                                        </figure>
+                                        <div class="overlayContent">
+                                            <h3>Sub Category 1</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="catBox">
+                                        <figure>
+                                            <img src="{{asset('assets/images/pro4.jpg')}}" alt="">
+                                        </figure>
+                                        <div class="overlayContent">
+                                            <h3>Sub Category 1</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mainCatBox">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="btnCont">
+                                        <h3 class="mainHeading">Main Category</h3>
+                                        <a href="" class="moreBtn">see More...</a>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="catBox">
+                                        <figure>
+                                            <img src="{{asset('assets/images/pro1.jpg')}}" alt="">
+                                        </figure>
+                                        <div class="overlayContent">
+                                            <h3>Sub Category 1</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="catBox">
+                                        <figure>
+                                            <img src="{{asset('assets/images/pro2.jpg')}}" alt="">
+                                        </figure>
+                                        <div class="overlayContent">
+                                            <h3>Sub Category 1</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="catBox">
+                                        <figure>
+                                            <img src="{{asset('assets/images/pro3.jpg')}}" alt="">
+                                        </figure>
+                                        <div class="overlayContent">
+                                            <h3>Sub Category 1</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="catBox">
+                                        <figure>
+                                            <img src="{{asset('assets/images/pro4.jpg')}}" alt="">
+                                        </figure>
+                                        <div class="overlayContent">
+                                            <h3>Sub Category 1</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="signupSec">
         <div class="container">
             <div class="row justify-content-center">
@@ -408,7 +736,6 @@
             </div>
         </div>
     </section>
-
 
     <section class="blogSec">
         <div class="container">
