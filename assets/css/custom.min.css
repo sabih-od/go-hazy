@@ -1812,3 +1812,112 @@ span#color-bar {
 
     color: #8b8b8b;
 }
+
+.mainCatBox {
+    padding: 1rem 0;
+    background: #f9f9f9;
+    box-shadow: 0 0 5px #ddd;
+    border-radius: 10px;
+}
+
+.categorySec {
+    padding: 10rem 0;
+}
+
+.categorySec .row {
+    gap: 2rem 0;
+}
+
+.mainCatBox .mainHeading {
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 0;
+    text-transform: capitalize;
+    position: relative;
+    display: inline-block;
+}
+
+.mainCatBox .catBox img {
+    height: 150px;
+    width: 100%;
+    object-fit: contain;
+    background: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.mainCatBox .catBox:hover img {
+    transform: scale(1.2);
+}
+
+.mainCatBox .catBox {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    display: block;
+}
+
+.mainCatBox .catBox .overlayContent {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.mainCatBox .catBox .overlayContent h3 {
+    color: #fff;
+    font-size: 0.875rem;
+    text-transform: capitalize;
+    text-shadow: 0 0 5px #000;
+}
+
+.mainCatBox .mainHeading::before, .mainCatBox .mainHeading::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    width: 50%;
+    background: var(--theme-color);
+}
+
+.mainCatBox .mainHeading::after {
+    bottom: -5px;
+    width: 40%;
+    height: 1px;
+}
+
+.mainCatBox .btnCont {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+}
+
+.mainCatBox .btnCont .moreBtn {
+    color: #000;
+    font-size: 0.875rem;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.mainCatBox .btnCont .moreBtn::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    transition: all 0.2s ease;
+    height: 1px;
+    background: var(--theme-color);
+}
+
+.mainCatBox .btnCont .moreBtn:hover::before {
+    width: 50%;
+}
+
+.mainCatBox .btnCont .moreBtn:hover {
+    color: var(--theme-color);
+}
