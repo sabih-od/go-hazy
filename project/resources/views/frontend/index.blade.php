@@ -55,7 +55,7 @@
             <div class="refreshHeading" data-aos="fade-up">
                 <h1>New Arrivals</h1>
                 <h5>GO-HAZY</h5>
-                <h2>STYLE REFRESH</h2>
+                <h2>Our Popular Products</h2>
                 <h6>Looks for the season ahead</h6>
                 <span>Shop Featured Categories.</span>
             </div>
