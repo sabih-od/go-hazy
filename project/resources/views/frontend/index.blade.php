@@ -410,7 +410,7 @@
                                         </div>
                                         @foreach($category->subs as $subcategory)
                                             <div class="col-6">
-                                                    <a href="{{ route('front.category',$category->slug) }}" class="catBox">
+                                                    <a href="{{ route('front.category', [$category->slug,$subcategory->slug]) }}" class="catBox">
                                                     <figure>
                                                         <img
                                                             src="{{ $subcategory->image ? asset('assets/images/categories/'.$subcategory->image):asset('assets/images/noimage.png') }}"

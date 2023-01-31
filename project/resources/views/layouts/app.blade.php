@@ -131,51 +131,46 @@
                             </li>
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Category 1
+                                <a class="nav-link dropdown-toggle" onclick="window.location.href='{{route('front.category')}}'" href="{{route('front.category')}}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Shop
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
 
                                     <div class="container">
                                         <div class="row">
+                                            @foreach($categories as $category)
                                             <div class="col-md-4">
-                                                <span class="text-uppercase text-white">Category 1</span>
+                                                <a href="{{ route('front.category', $category->slug) }}"><span class="text-uppercase text-white">{{$category->name}}</span></a>
                                                 <ul class="nav flex-column">
+                                                    @foreach($category->subs as $subscategory)
                                                     <li class="nav-item">
-                                                        <a class="nav-link active" href="#">Active</a>
+                                                        <a class="nav-link active" href="{{ route('front.category', [$category->slug,$subscategory->slug]) }}">{{ $subscategory->name }}</a>
                                                     </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="#">Link item</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="#">Link item</a>
-                                                    </li>
+                                                    @endforeach
+{{--                                                    <li class="nav-item">--}}
+{{--                                                        <a class="nav-link" href="#">Link item</a>--}}
+{{--                                                    </li>--}}
+{{--                                                    <li class="nav-item">--}}
+{{--                                                        <a class="nav-link" href="#">Link item</a>--}}
+{{--                                                    </li>--}}
                                                 </ul>
                                             </div>
                                             <!-- /.col-md-4  -->
-                                            <div class="col-md-4">
-                                                <ul class="nav flex-column">
-                                                    <li class="nav-item">
-                                                        <a class="nav-link active" href="#">Active</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="#">Link item</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="#">Link item</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <!-- /.col-md-4  -->
-                                            <div class="col-md-4">
-                                                <a target="_blank" href="https://bootstrapcreative.com/resources/a-beginners-guide-to-hubspot-cms/">
-                                                    <img src="https://i0.wp.com/bootstrapcreative.com/wp-bc/wp-content/uploads/2022/07/beginners-guide-to-hubspot-cms-cover.png?w=200&ssl=1" alt="Web Design Guides" class="img-fluid">
-                                                </a>
-                                                <p class="text-white">Get Free Guides</p>
-
-                                            </div>
-                                            <!-- /.col-md-4  -->
+{{--                                            <div class="col-md-4">--}}
+{{--                                                <ul class="nav flex-column">--}}
+{{--                                                    <li class="nav-item">--}}
+{{--                                                        <a class="nav-link active" href="#">Active</a>--}}
+{{--                                                    </li>--}}
+{{--                                                    <li class="nav-item">--}}
+{{--                                                        <a class="nav-link" href="#">Link item</a>--}}
+{{--                                                    </li>--}}
+{{--                                                    <li class="nav-item">--}}
+{{--                                                        <a class="nav-link" href="#">Link item</a>--}}
+{{--                                                    </li>--}}
+{{--                                                </ul>--}}
+{{--                                            </div>--}}
+                                            @endforeach
                                         </div>
                                     </div>
                                     <!--  /.container  -->
@@ -183,7 +178,7 @@
 
                                 </div>
                             </li>
-{{--                            <li class="nav-item drop-down">--}}
+                            {{--                            <li class="nav-item drop-down">--}}
 {{--                                <div class="dropdownBtn">--}}
 {{--                                    <a class="nav-link" href="{{route('front.category')}}">Shop</a>--}}
 {{--                                    <i class="fas fa-chevron-down"></i>--}}

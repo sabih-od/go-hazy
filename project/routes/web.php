@@ -1450,6 +1450,7 @@ Route::post('/item/report', 'Front\CatalogController@report')->name('product.rep
     // CATEGORY SECTION
     Route::get('/categories','Front\CatalogController@categories')->name('front.categories');
     Route::get('/category/{category?}/{subcategory?}/{childcategory?}','Front\CatalogController@category')->name('front.category');
+    Route::get('/sub-category/{category?}/{subcategory?}/{childcategory?}','Front\CatalogController@subCategory')->name('front.subcategory');
     // CATEGORY SECTION ENDS
 
     // TAG SECTION
