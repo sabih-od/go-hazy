@@ -86,7 +86,7 @@ class FrontendController extends FrontBaseController
         $data['arrivals'] = ArrivalSection::where('status', 1)->get();
         $data['products'] = Product::where('language_id', 1)->get();
         $data['ratings'] = Rating::get();
-        $data['categories'] = Category::all();
+        $data['categories'] = Category::where('status', 1)->get();
         $data['blogs'] = Blog::where('language_id', $this->language->id)->latest()->take(3)->get();
 
 

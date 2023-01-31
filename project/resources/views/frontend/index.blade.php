@@ -391,330 +391,44 @@
     <section class="categorySec">
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
-                    <div class="mainCatBox">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="btnCont">
-                                        <h3 class="mainHeading">Main Category</h3>
-                                        <a href="" class="moreBtn">see All...</a>
+                @foreach($categories as $category)
+                    {{--                                    {{ dd($category->subs) }}--}}
+                    @if(count($category->subs) > 0)
+                        <div class="col-md-4">
+                            <div class="mainCatBox">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="btnCont">
+                                                <h3 class="mainHeading">{{ $category->name }}</h3>
+                                                @if(count($category->subs) > 3)
+                                                    <a href="" class="moreBtn">see All...</a>
+                                                @else
+                                                    ....
+                                                @endif
+                                            </div>
+                                        </div>
+                                        @foreach($category->subs as $subcategory)
+                                            {{--                                            {{ dd($subcategory) }}--}}
+                                            <div class="col-6">
+                                                <a href="#" class="catBox">
+                                                    <figure>
+                                                        <img
+                                                            src="{{ $subcategory->image ? asset('assets/images/categories/'.$subcategory->image):asset('assets/images/noimage.png') }}"
+                                                            alt="">
+                                                    </figure>
+                                                    <div class="overlayContent">
+                                                        <h3>{{ $subcategory->name ?? ''}}</h3>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        @endforeach
                                     </div>
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="catBox">
-                                        <figure>
-                                            <img src="{{asset('assets/images/pro1.jpg')}}" alt="">
-                                        </figure>
-                                        <div class="overlayContent">
-                                            <h3>Sub Category 1</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="catBox">
-                                        <figure>
-                                            <img src="{{asset('assets/images/pro2.jpg')}}" alt="">
-                                        </figure>
-                                        <div class="overlayContent">
-                                            <h3>Sub Category 1</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="catBox">
-                                        <figure>
-                                            <img src="{{asset('assets/images/pro3.jpg')}}" alt="">
-                                        </figure>
-                                        <div class="overlayContent">
-                                            <h3>Sub Category 1</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="catBox">
-                                        <figure>
-                                            <img src="{{asset('assets/images/pro4.jpg')}}" alt="">
-                                        </figure>
-                                        <div class="overlayContent">
-                                            <h3>Sub Category 1</h3>
-                                        </div>
-                                    </a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="mainCatBox">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="btnCont">
-                                        <h3 class="mainHeading">Main Category</h3>
-                                        <a href="" class="moreBtn">see More...</a>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="catBox">
-                                        <figure>
-                                            <img src="{{asset('assets/images/pro1.jpg')}}" alt="">
-                                        </figure>
-                                        <div class="overlayContent">
-                                            <h3>Sub Category 1</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="catBox">
-                                        <figure>
-                                            <img src="{{asset('assets/images/pro2.jpg')}}" alt="">
-                                        </figure>
-                                        <div class="overlayContent">
-                                            <h3>Sub Category 1</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="catBox">
-                                        <figure>
-                                            <img src="{{asset('assets/images/pro3.jpg')}}" alt="">
-                                        </figure>
-                                        <div class="overlayContent">
-                                            <h3>Sub Category 1</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="catBox">
-                                        <figure>
-                                            <img src="{{asset('assets/images/pro4.jpg')}}" alt="">
-                                        </figure>
-                                        <div class="overlayContent">
-                                            <h3>Sub Category 1</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="mainCatBox">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="btnCont">
-                                        <h3 class="mainHeading">Main Category</h3>
-                                        <a href="" class="moreBtn">see More...</a>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="catBox">
-                                        <figure>
-                                            <img src="{{asset('assets/images/pro1.jpg')}}" alt="">
-                                        </figure>
-                                        <div class="overlayContent">
-                                            <h3>Sub Category 1</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="catBox">
-                                        <figure>
-                                            <img src="{{asset('assets/images/pro2.jpg')}}" alt="">
-                                        </figure>
-                                        <div class="overlayContent">
-                                            <h3>Sub Category 1</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="catBox">
-                                        <figure>
-                                            <img src="{{asset('assets/images/pro3.jpg')}}" alt="">
-                                        </figure>
-                                        <div class="overlayContent">
-                                            <h3>Sub Category 1</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="catBox">
-                                        <figure>
-                                            <img src="{{asset('assets/images/pro4.jpg')}}" alt="">
-                                        </figure>
-                                        <div class="overlayContent">
-                                            <h3>Sub Category 1</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="mainCatBox">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="btnCont">
-                                        <h3 class="mainHeading">Main Category</h3>
-                                        <a href="" class="moreBtn">see More...</a>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="catBox">
-                                        <figure>
-                                            <img src="{{asset('assets/images/pro1.jpg')}}" alt="">
-                                        </figure>
-                                        <div class="overlayContent">
-                                            <h3>Sub Category 1</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="catBox">
-                                        <figure>
-                                            <img src="{{asset('assets/images/pro2.jpg')}}" alt="">
-                                        </figure>
-                                        <div class="overlayContent">
-                                            <h3>Sub Category 1</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="catBox">
-                                        <figure>
-                                            <img src="{{asset('assets/images/pro3.jpg')}}" alt="">
-                                        </figure>
-                                        <div class="overlayContent">
-                                            <h3>Sub Category 1</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="catBox">
-                                        <figure>
-                                            <img src="{{asset('assets/images/pro4.jpg')}}" alt="">
-                                        </figure>
-                                        <div class="overlayContent">
-                                            <h3>Sub Category 1</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="mainCatBox">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="btnCont">
-                                        <h3 class="mainHeading">Main Category</h3>
-                                        <a href="" class="moreBtn">see More...</a>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="catBox">
-                                        <figure>
-                                            <img src="{{asset('assets/images/pro1.jpg')}}" alt="">
-                                        </figure>
-                                        <div class="overlayContent">
-                                            <h3>Sub Category 1</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="catBox">
-                                        <figure>
-                                            <img src="{{asset('assets/images/pro2.jpg')}}" alt="">
-                                        </figure>
-                                        <div class="overlayContent">
-                                            <h3>Sub Category 1</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="catBox">
-                                        <figure>
-                                            <img src="{{asset('assets/images/pro3.jpg')}}" alt="">
-                                        </figure>
-                                        <div class="overlayContent">
-                                            <h3>Sub Category 1</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="catBox">
-                                        <figure>
-                                            <img src="{{asset('assets/images/pro4.jpg')}}" alt="">
-                                        </figure>
-                                        <div class="overlayContent">
-                                            <h3>Sub Category 1</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="mainCatBox">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="btnCont">
-                                        <h3 class="mainHeading">Main Category</h3>
-                                        <a href="" class="moreBtn">see More...</a>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="catBox">
-                                        <figure>
-                                            <img src="{{asset('assets/images/pro1.jpg')}}" alt="">
-                                        </figure>
-                                        <div class="overlayContent">
-                                            <h3>Sub Category 1</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="catBox">
-                                        <figure>
-                                            <img src="{{asset('assets/images/pro2.jpg')}}" alt="">
-                                        </figure>
-                                        <div class="overlayContent">
-                                            <h3>Sub Category 1</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="catBox">
-                                        <figure>
-                                            <img src="{{asset('assets/images/pro3.jpg')}}" alt="">
-                                        </figure>
-                                        <div class="overlayContent">
-                                            <h3>Sub Category 1</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="catBox">
-                                        <figure>
-                                            <img src="{{asset('assets/images/pro4.jpg')}}" alt="">
-                                        </figure>
-                                        <div class="overlayContent">
-                                            <h3>Sub Category 1</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    @endif
+                @endforeach
             </div>
         </div>
     </section>
