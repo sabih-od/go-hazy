@@ -14,30 +14,17 @@
     <section class="innerBanner">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
-
-
-                    @if(isset($data['cat']))
-                        @if(isset($data['subcat']))
-                            <h6>{{ $data['subcat']->name ?? 'Shop'}}</h6>
-                        @else
-                            <h6>{{ $data['cat']->name ?? 'Shop'}}</h6>
-                        @endif
-                    @endif
-
-
+{{--                @foreach($sub as $subcat)--}}
+{{--                    {{ dd($sub) }}--}}
+                    <div class="col-md-12">
+                    <h6>{{ $subcat->name ?? 'Shop'}}</h6>
                     <ul>
                         <li><a href="#">Home</a></li>
                         <li><span>/</span></li>
-                        @if(isset($data['cat']))
-                            @if(isset($data['subcat']))
-                                <li><a href="#">{{ $data['subcat']->name ?? 'Shop'}}</a></li>
-                            @else
-                                <li><a href="#">{{ $data['cat']->name ?? 'Shop'}}</a></li>
-                            @endif
-                        @endif
+                        <li><a href="#">{{ $subcat->name ?? 'Shop'}}</a></li>
                     </ul>
                 </div>
+{{--                @endforeach--}}
             </div>
         </div>
     </section>
@@ -50,11 +37,7 @@
                         <ul>
                             <li><a href="#">Home</a></li>
                             <li><span>/</span></li>
-                            <li>{{ $data['cat']->name ?? 'Shop' }}</li>
-                            @if(isset($data['subcat']))
-                                <li><span>/</span></li>
-                                <li>{{ $data['subcat']->name ?? 'Shop' }}</li>
-                            @endif
+                            <li>{{ $subcat->name ?? 'Shop' }}</li>
                         </ul>
                     </div>
                 </div>
@@ -73,11 +56,7 @@
                                     <a href="#">24</a>
                                 </div>
                             </li>
-                            {{ $data['cat']->name  ?? 'Shop'}}
-                            @if(isset($data['subcat']))
-                                /
-                                {{ $data['subcat']->name ?? 'Shop' }}
-                            @endif
+                            {{ $subcat->name  ?? 'Shop'}}
                             <li>
                                 <a href="#"><img src="{{asset('assets/images/bar1.png')}}" class="img-fluid" alt="img"></a>
                                 <a href="#"><img src="{{asset('assets/images/bar2.png')}}" class="img-fluid" alt="img"></a>
@@ -93,42 +72,43 @@
                 </div>
             </div>
             <div class="row">
-                @forelse($data['prods'] as $item)
-                    <div class="col-lg-4 col-sm-6">
-                        <div class="product-box" data-aos="fade-right">
-                            <div class="pro-img">
-                                <a href="#">
-                                    <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}" alt="img">
-                                </a>
-                                @if (round((int)$item->offPercentage()) > 0)
-                                    <div class="on-sale">- {{ round((int)$item->offPercentage() )}}%</div>
-                                @endif
-                                <div class="overlay">
-                                    <ul>
-                                        <li><a href="#"><i class="far fa-search"></i></a></li>
-                                        <li><a href="#"><i class="fal fa-heart"></i></a></li>
-                                        <li><a href="{{ route('front.product', $item['slug']) }}">
-                                                <i class="fal fa-shopping-cart"></i></a></li>
-                                        <li><a href="{{ route('front.product', $item['slug']) }}"><img
-                                                    src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}"
-                                                    class="img-fluid" alt="img"></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <h4>{{$item->name ?? 'Shop'}}</h4>
-                            <p>{{$item->category->name ?? 'Shop'}}</p>
-                            {{--                            <span>${{$item->price ?? 'Shop'}}</span>--}}
-                            <span>{{ $item->setCurrency() ?? 'Shop' }}</span>
-                            <del>{{ $item->showPreviousPrice() ?? 'Shop' }}</del>
-                        </div>
-                    </div>
-                @empty
-                    <p>There Are No Products</p>
-                @endforelse
+{{--                @forelse($data['prods'] as $item)--}}
+{{--                    {{ dd($item) }}--}}
+{{--                    <div class="col-lg-4 col-sm-6">--}}
+{{--                        <div class="product-box" data-aos="fade-right">--}}
+{{--                            <div class="pro-img">--}}
+{{--                                <a href="#">--}}
+{{--                                    <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}" alt="img">--}}
+{{--                                </a>--}}
+{{--                                @if (round((int)$item->offPercentage()) > 0)--}}
+{{--                                    <div class="on-sale">- {{ round((int)$item->offPercentage() )}}%</div>--}}
+{{--                                @endif--}}
+{{--                                <div class="overlay">--}}
+{{--                                    <ul>--}}
+{{--                                        <li><a href="#"><i class="far fa-search"></i></a></li>--}}
+{{--                                        <li><a href="#"><i class="fal fa-heart"></i></a></li>--}}
+{{--                                        <li><a href="{{ route('front.product', $item['slug']) }}">--}}
+{{--                                                <i class="fal fa-shopping-cart"></i></a></li>--}}
+{{--                                        <li><a href="{{ route('front.product', $item['slug']) }}"><img--}}
+{{--                                                    src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}"--}}
+{{--                                                    class="img-fluid" alt="img"></a></li>--}}
+{{--                                    </ul>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <h4>{{$item->name ?? 'Shop'}}</h4>--}}
+{{--                            <p>{{$item->category->name ?? 'Shop'}}</p>--}}
+{{--                            --}}{{--                            <span>${{$item->price ?? 'Shop'}}</span>--}}
+{{--                            <span>{{ $item->setCurrency() ?? 'Shop' }}</span>--}}
+{{--                            <del>{{ $item->showPreviousPrice() ?? 'Shop' }}</del>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                @empty--}}
+{{--                    <p>There Are No Products</p>--}}
+{{--                @endforelse--}}
 
                 <div class="col-md-12">
                     <div class="pagination listPaginate">
-                        {{ $data['prods']->links() }}
+{{--                        {{ $data['prods']->links() }}--}}
                         {{--                        <ul>--}}
                         {{--                            <li><a href="#" class="active">1</a></li>--}}
                         {{--                            <li><a href="">2</a></li>--}}
