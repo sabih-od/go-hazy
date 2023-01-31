@@ -129,19 +129,73 @@
                                 <a class="nav-link" href="{{route('front.index')}}">Home <span
                                         class="sr-only">(current)</span></a>
                             </li>
-                            <li class="nav-item drop-down">
-                                <div class="dropdownBtn">
-                                    <a class="nav-link" href="{{route('front.category')}}">Shop</a>
-                                    <i class="fas fa-chevron-down"></i>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Category 1
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <span class="text-uppercase text-white">Category 1</span>
+                                                <ul class="nav flex-column">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" href="#">Active</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="#">Link item</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="#">Link item</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <!-- /.col-md-4  -->
+                                            <div class="col-md-4">
+                                                <ul class="nav flex-column">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" href="#">Active</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="#">Link item</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="#">Link item</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <!-- /.col-md-4  -->
+                                            <div class="col-md-4">
+                                                <a target="_blank" href="https://bootstrapcreative.com/resources/a-beginners-guide-to-hubspot-cms/">
+                                                    <img src="https://i0.wp.com/bootstrapcreative.com/wp-bc/wp-content/uploads/2022/07/beginners-guide-to-hubspot-cms-cover.png?w=200&ssl=1" alt="Web Design Guides" class="img-fluid">
+                                                </a>
+                                                <p class="text-white">Get Free Guides</p>
+
+                                            </div>
+                                            <!-- /.col-md-4  -->
+                                        </div>
+                                    </div>
+                                    <!--  /.container  -->
+
+
                                 </div>
-                                <ul>
-                                    @foreach($categories as $category)
-                                        <li>
-                                            <a href="{{ route('front.category',$category->slug) }}">{{$category->name}}</a>
-                                        </li>
-                                    @endforeach
-                                </ul>
                             </li>
+{{--                            <li class="nav-item drop-down">--}}
+{{--                                <div class="dropdownBtn">--}}
+{{--                                    <a class="nav-link" href="{{route('front.category')}}">Shop</a>--}}
+{{--                                    <i class="fas fa-chevron-down"></i>--}}
+{{--                                </div>--}}
+{{--                                <ul>--}}
+{{--                                    @foreach($categories as $category)--}}
+{{--                                        <li>--}}
+{{--                                            <a href="{{ route('front.category',$category->slug) }}">{{$category->name}}</a>--}}
+{{--                                        </li>--}}
+{{--                                    @endforeach--}}
+{{--                                </ul>--}}
+{{--                            </li>--}}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('front.blog')}}">Blogs</a>
                             </li>
