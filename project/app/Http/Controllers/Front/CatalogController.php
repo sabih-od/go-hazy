@@ -24,7 +24,7 @@ class CatalogController extends FrontBaseController
 
     // -------------------------------- CATEGORY SECTION ----------------------------------------
 
-    public function category(Request $request, $slug = null, $slug1 = null, $slug2 = null, $slug3 = null)
+    public function category(Request $request, $slug = null, $slug1 = null, $slug2 = null)
     {
         if ($request->view_check) {
             session::put('view', $request->view_check);
