@@ -1935,3 +1935,15 @@ span#color-bar {
 .mainCatBox .btnCont .moreBtn:hover {
     color: var(--theme-color);
 }
+
+.goog-logo-link {
+    display:none !important;
+}
+
+.goog-te-gadget {
+    color: transparent !important;
+}
+
+.VIpgJd-ZVi9od-l4eHX-hSRGPd{
+    display: none;
+}
