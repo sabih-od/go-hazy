@@ -656,3 +656,6 @@ a.themeBtn.themeBtn1 {
 .navbar-nav .dropdown .nav-item .nav-link {
     font-weight: 400;
 }
+header .navbar {
+    position: unset !important;
+}
