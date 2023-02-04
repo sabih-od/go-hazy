@@ -106,8 +106,10 @@
 <!-- Begin: Header -->
 @php
     use App\Models\Category;
+    use App\Models\Subcategory;
 
     $categories = Category::all();
+    $sub = Subcategory::all();
 @endphp
 <header class="">
     <div class="main-navigate">
@@ -131,7 +133,10 @@
                             </li>
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" onclick="window.location.href='{{route('front.category')}}'" href="{{route('front.category')}}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle"
+                                   onclick="window.location.href='{{route('front.category')}}'"
+                                   href="{{route('front.category')}}" id="navbarDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Shop
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -140,36 +145,49 @@
                                     <div class="container">
                                         <div class="row">
                                             @foreach($categories as $category)
-                                            <div class="col-md-4">
-                                                <a href="{{ route('front.category', $category->slug) }}"><span class="text-uppercase text-white">{{$category->name}}</span></a>
-                                                <ul class="nav flex-column">
-                                                    @foreach($category->subs as $subscategory)
-                                                    <li class="nav-item">
-                                                        <a class="nav-link active" href="{{ route('front.category', [$category->slug,$subscategory->slug]) }}">{{ $subscategory->name }}</a>
-                                                    </li>
-                                                    @endforeach
-{{--                                                    <li class="nav-item">--}}
-{{--                                                        <a class="nav-link" href="#">Link item</a>--}}
-{{--                                                    </li>--}}
-{{--                                                    <li class="nav-item">--}}
-{{--                                                        <a class="nav-link" href="#">Link item</a>--}}
-{{--                                                    </li>--}}
-                                                </ul>
-                                            </div>
-                                            <!-- /.col-md-4  -->
-{{--                                            <div class="col-md-4">--}}
-{{--                                                <ul class="nav flex-column">--}}
-{{--                                                    <li class="nav-item">--}}
-{{--                                                        <a class="nav-link active" href="#">Active</a>--}}
-{{--                                                    </li>--}}
-{{--                                                    <li class="nav-item">--}}
-{{--                                                        <a class="nav-link" href="#">Link item</a>--}}
-{{--                                                    </li>--}}
-{{--                                                    <li class="nav-item">--}}
-{{--                                                        <a class="nav-link" href="#">Link item</a>--}}
-{{--                                                    </li>--}}
-{{--                                                </ul>--}}
-{{--                                            </div>--}}
+                                                <div class="col-md-4">
+                                                    <a href="{{ route('front.category', $category->slug) }}"><span
+                                                            class="text-uppercase text-white">{{$category->name ?? ''}}</span></a>
+                                                    <ul class="nav flex-column">
+                                                        @foreach($category->subs as $subscategory)
+                                                            <li class="nav-item">
+                                                                <a class="nav-link active"
+                                                                   href="{{ route('front.category', [$category->slug,$subscategory->slug]) }}">
+                                                                    {{ $subscategory->name ?? '' }}</a>
+                                                            </li>
+{{--                                                            @if(isset($subscategory->childs) != null)--}}
+                                                                <ul>
+                                                                    @foreach($subscategory->childs as $child)
+                                                                        <li>
+                                                                            <a class="nav-link active"
+                                                                               href="{{ route('front.category', [$category->slug, $subscategory->slug, $child->slug]) }}"><p>{{ $child->name ?? '' }}</p></a>
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+{{--                                                            @endif--}}
+                                                        @endforeach
+                                                        {{--                                                    <li class="nav-item">--}}
+                                                        {{--                                                        <a class="nav-link" href="#">Link item</a>--}}
+                                                        {{--                                                    </li>--}}
+                                                        {{--                                                    <li class="nav-item">--}}
+                                                        {{--                                                        <a class="nav-link" href="#">Link item</a>--}}
+                                                        {{--                                                    </li>--}}
+                                                    </ul>
+                                                </div>
+                                                <!-- /.col-md-4  -->
+                                                {{--                                            <div class="col-md-4">--}}
+                                                {{--                                                <ul class="nav flex-column">--}}
+                                                {{--                                                    <li class="nav-item">--}}
+                                                {{--                                                        <a class="nav-link active" href="#">Active</a>--}}
+                                                {{--                                                    </li>--}}
+                                                {{--                                                    <li class="nav-item">--}}
+                                                {{--                                                        <a class="nav-link" href="#">Link item</a>--}}
+                                                {{--                                                    </li>--}}
+                                                {{--                                                    <li class="nav-item">--}}
+                                                {{--                                                        <a class="nav-link" href="#">Link item</a>--}}
+                                                {{--                                                    </li>--}}
+                                                {{--                                                </ul>--}}
+                                                {{--                                            </div>--}}
                                             @endforeach
                                         </div>
                                     </div>
@@ -179,18 +197,18 @@
                                 </div>
                             </li>
                             {{--                            <li class="nav-item drop-down">--}}
-{{--                                <div class="dropdownBtn">--}}
-{{--                                    <a class="nav-link" href="{{route('front.category')}}">Shop</a>--}}
-{{--                                    <i class="fas fa-chevron-down"></i>--}}
-{{--                                </div>--}}
-{{--                                <ul>--}}
-{{--                                    @foreach($categories as $category)--}}
-{{--                                        <li>--}}
-{{--                                            <a href="{{ route('front.category',$category->slug) }}">{{$category->name}}</a>--}}
-{{--                                        </li>--}}
-{{--                                    @endforeach--}}
-{{--                                </ul>--}}
-{{--                            </li>--}}
+                            {{--                                <div class="dropdownBtn">--}}
+                            {{--                                    <a class="nav-link" href="{{route('front.category')}}">Shop</a>--}}
+                            {{--                                    <i class="fas fa-chevron-down"></i>--}}
+                            {{--                                </div>--}}
+                            {{--                                <ul>--}}
+                            {{--                                    @foreach($categories as $category)--}}
+                            {{--                                        <li>--}}
+                            {{--                                            <a href="{{ route('front.category',$category->slug) }}">{{$category->name}}</a>--}}
+                            {{--                                        </li>--}}
+                            {{--                                    @endforeach--}}
+                            {{--                                </ul>--}}
+                            {{--                            </li>--}}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('front.blog')}}">Blogs</a>
                             </li>

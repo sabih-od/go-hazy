@@ -823,7 +823,7 @@ footer {
 }
 
 .proPage {
-    padding: 5rem 0 0;
+    padding: 5rem 10rem 0;
     background: transparent;
 }
 
@@ -838,7 +838,7 @@ footer {
 }
 
 .shopNav ul li {
-    font-size: 0.875rem;
+    font-size: 1rem;
     color: #333;
     font-weight: 600;
 }
@@ -852,6 +852,8 @@ footer {
     align-items: center;
     justify-content: flex-end;
     gap: 1.8rem;
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 .shopLabel ul li {
@@ -861,7 +863,7 @@ footer {
 }
 
 .shopLabel ul li label {
-    font-size: 0.875rem;
+    font-size: 1rem;
     color: #242424;
     margin: 0;
     font-weight: 600;
@@ -873,20 +875,21 @@ footer {
 
 .shopLabel ul li .pagination a {
     color: #777;
-    font-size: 0.875rem;
+    font-size: 1rem;
 }
 
 .shopLabel ul li .pagination span {
     color: #777;
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 .shopLabel ul li select {
     color: #242424;
-    font-weight: 600;
+    font-weight: 400;
     font-size: 0.875rem;
     border: 0;
-    border-bottom: 1px solid;
-    width: 170px;
+    padding: 1rem;
 }
 
 .listPaginate {
