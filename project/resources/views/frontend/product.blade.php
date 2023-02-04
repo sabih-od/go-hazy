@@ -16,25 +16,31 @@
             <div class="row">
                 <div class="col-md-12">
 
-
                     @if(isset($data['cat']))
                         @if(isset($data['subcat']))
-                            <h6>{{ $data['subcat']->name ?? 'Shop'}}</h6>
-                        @else
-                            <h6>{{ $data['cat']->name ?? 'Shop'}}</h6>
+                            @if(isset($data['childcat']))
+                                <h6>{{ $data['childcat']->name ?? 'Shop'}}</h6>
+                            @else
+                                <h6>{{ $data['subcat']->name ?? 'Shop'}}</h6>
+                            @endif
                         @endif
+                    @else
+                        <h6>{{ $data['cat']->name ?? 'Shop'}}</h6>
                     @endif
-
 
                     <ul>
                         <li><a href="#">Home</a></li>
                         <li><span>/</span></li>
                         @if(isset($data['cat']))
                             @if(isset($data['subcat']))
-                                <li><a href="#">{{ $data['subcat']->name ?? 'Shop'}}</a></li>
-                            @else
-                                <li><a href="#">{{ $data['cat']->name ?? 'Shop'}}</a></li>
+                                @if(isset($data['childcat']))
+                                    <li><a href="#">{{ $data['childcat']->name ?? 'Shop'}}</a></li>
+                                @else
+                                    <li><a href="#">{{ $data['subcat']->name ?? 'Shop'}}</a></li>
+                                @endif
                             @endif
+                        @else
+                            <li><a href="#">{{ $data['cat']->name ?? 'Shop'}}</a></li>
                         @endif
                     </ul>
                 </div>
@@ -43,7 +49,7 @@
     </section>
 
     <section class="proSec proPage">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row align-items-center mb-4">
                 <div class="col-md-4">
                     <div class="shopNav">
@@ -54,6 +60,10 @@
                             @if(isset($data['subcat']))
                                 <li><span>/</span></li>
                                 <li>{{ $data['subcat']->name ?? 'Shop' }}</li>
+                            @endif
+                            @if(isset($data['childcat']))
+                                <li><span>/</span></li>
+                                <li>{{ $data['childcat']->name ?? 'Shop' }}</li>
                             @endif
                         </ul>
                     </div>
@@ -77,6 +87,10 @@
                             @if(isset($data['subcat']))
                                 /
                                 {{ $data['subcat']->name ?? 'Shop' }}
+                            @endif
+                            @if(isset($data['childcat']))
+                                /
+                                {{ $data['childcat']->name ?? 'Shop' }}
                             @endif
                             <li>
                                 <a href="#"><img src="{{asset('assets/images/bar1.png')}}" class="img-fluid" alt="img"></a>
