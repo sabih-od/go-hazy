@@ -15,32 +15,27 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
+                    @php
+                        $category = !empty(request()->segment(4)) ? request()->segment(4) : (!empty(request()->segment(3)) ? request()->segment(3) : request()->segment(2)) ;
+                    @endphp
 
-                    @if(isset($data['cat']))
-                        @if(isset($data['subcat']))
-                            @if(isset($data['childcat']))
-                                <h6>{{ $data['childcat']->name ?? 'Shop'}}</h6>
-                            @else
-                                <h6>{{ $data['subcat']->name ?? 'Shop'}}</h6>
-                            @endif
-                        @endif
+                    @if(!empty($category))
+                        <h6>{{ ucfirst(str_replace('-', ' ', $category)) }}</h6>
                     @else
-                        <h6>{{ $data['cat']->name ?? 'Shop'}}</h6>
+                        <h6>{{ ucfirst(str_replace('-', ' ', 'Shop')) }}</h6>
                     @endif
 
                     <ul>
                         <li><a href="#">Home</a></li>
                         <li><span>/</span></li>
-                        @if(isset($data['cat']))
-                            @if(isset($data['subcat']))
-                                @if(isset($data['childcat']))
-                                    <li><a href="#">{{ $data['childcat']->name ?? 'Shop'}}</a></li>
-                                @else
-                                    <li><a href="#">{{ $data['subcat']->name ?? 'Shop'}}</a></li>
-                                @endif
+                        <li><a href="#">{{ $data['cat']->name ?? 'Shop' }}</a></li>
+                        @if(isset($data['subcat']))
+                            <li><span>/</span></li>
+                            <li><a href="#">{{ $data['subcat']->name ?? 'Shop'}}</a></li>
+                            @if(isset($data['childcat']))
+                                <li><span>/</span></li>
+                                <li><a href="#">{{ $data['childcat']->name ?? 'Shop'}}</a></li>
                             @endif
-                        @else
-                            <li><a href="#">{{ $data['cat']->name ?? 'Shop'}}</a></li>
                         @endif
                     </ul>
                 </div>
