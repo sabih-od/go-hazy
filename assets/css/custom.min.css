@@ -555,6 +555,7 @@ section {
 .signupSec form .themeBtn {
     flex-shrink: 0;
     border: 0;
+    color: #652d90;
     padding: 0.782em 2.56em;
 }
 
@@ -728,7 +729,7 @@ section {
 }
 
 .fotrLogo ul li a {
-    background: #000000;
+    background: #65328f;
     width: 25px;
     height: 25px;
     display: flex;
@@ -775,7 +776,7 @@ footer {
 .copyRight {
     background: var(--theme-color);
     padding: 1.5rem 0;
-    border-top: 1px solid #000;
+    /*border-top: 1px solid #000;*/
     margin-top: 4rem;
 }
 
@@ -804,7 +805,7 @@ footer {
 }
 
 .signupSec form .themeBtn:hover {
-    background: var(--black);
+    background: #eb5d34;
     color: var(--white);
 }
 
