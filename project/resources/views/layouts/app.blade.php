@@ -140,47 +140,40 @@
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <div class="container">
                                         <div class="row no-gutters">
-                                            <div class="col-3">
-                                                <div class="mainCat">
-                                                    <h4>Store Category</h4>
-                                                    <ul class="nav flex-column">
-                                                        <li class="nav-item"><a href="#" class="nav-link">Women</a></li>
-                                                        <li class="nav-item"><a href="#" class="nav-link">Men</a></li>
-                                                        <li class="nav-item"><a href="#" class="nav-link">Kids</a></li>
-                                                        <li class="nav-item"><a href="#" class="nav-link">Electronic</a></li>
-                                                    </ul>
+                                                <div class="col-3">
+                                                    <div class="mainCat">
+                                                        <h4>Store Category</h4>
+                                                        @foreach($categories as $category)
+                                                        <ul class="nav flex-column">
+                                                            <li class="nav-item"><a
+                                                                    href="{{ route('front.category', $category->slug) }}"
+                                                                    class="nav-link">{{$category->name ?? ''}}</a></li>
+                                                        </ul>
+                                                        @endforeach
+                                                    </div>
                                                 </div>
-                                            </div>
                                             <div class="col-9">
                                                 <div class="subCat">
                                                     <div class="container-fluid">
                                                         <div class="row">
                                                             @foreach($categories as $category)
+                                                            @foreach($category->subs as $subscategory)
                                                                 <div class="col-md-4">
-                                                                    <a href="{{ route('front.category', $category->slug) }}"><span
-                                                                            class="text-uppercase text-white">{{$category->name ?? ''}}</span></a>
+                                                                    <a href="{{ route('front.category', [$category->slug,$subscategory->slug]) }}"><span
+                                                                            class="text-uppercase text-white">{{ $subscategory->name ?? '' }}</span></a>
+                                                                    @if(isset($subscategory->childs) != null)
                                                                     <ul class="nav flex-column">
-                                                                        @foreach($category->subs as $subscategory)
+                                                                        @foreach($subscategory->childs as $child)
                                                                             <li class="nav-item">
                                                                                 <a class="nav-link active"
-                                                                                   href="{{ route('front.category', [$category->slug,$subscategory->slug]) }}">
-                                                                                    {{ $subscategory->name ?? '' }}</a>
+                                                                                   href="{{ route('front.category', [$category->slug, $subscategory->slug, $child->slug]) }}">
+                                                                                    {{ $child->name ?? '' }}</a>
                                                                             </li>
-                                                                            @if(isset($subscategory->childs) != null)
-                                                                                <ul>
-                                                                                    @foreach($subscategory->childs as $child)
-                                                                                        <li>
-                                                                                            <a class="nav-link active"
-                                                                                               href="{{ route('front.category', [$category->slug, $subscategory->slug, $child->slug]) }}">
-                                                                                                <p>{{ $child->name ?? '' }}</p>
-                                                                                            </a>
-                                                                                        </li>
-                                                                                    @endforeach
-                                                                                </ul>
-                                                                            @endif
                                                                         @endforeach
                                                                     </ul>
+                                                                    @endif
                                                                 </div>
+                                                            @endforeach
                                                             @endforeach
                                                         </div>
                                                     </div>

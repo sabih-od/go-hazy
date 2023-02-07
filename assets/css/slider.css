@@ -534,7 +534,7 @@ a.themeBtn.themeBtn1 {
 
 .homeSlider.swiper-container .swiper-button-prev:hover,
 .homeSlider.swiper-container .swiper-button-next:hover {
-    background: #000;
+    background: #65328f;
 }
 
 .navbar .drop-down ul li a:hover {
@@ -585,11 +585,31 @@ a.themeBtn.themeBtn1 {
     font-weight: 300;
     padding-left: 5px;
 }
-
-/* adds some margin below the link sets  */
-.navbar .dropdown-menu div[class*="col"] {
-    margin-bottom: 1rem;
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+    scrollbar-width: auto;
+    scrollbar-color: #662e91 #ffffff;
 }
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #662e91;
+    border-radius: 10px;
+    border: 3px solid #ffffff;
+}
+/* adds some margin below the link sets  */
+/*.navbar .dropdown-menu div[class*="col"] {*/
+/*    margin-bottom: 1rem;*/
+/*}*/
 
 .navbar .dropdown-menu {
     border: none;
@@ -628,12 +648,12 @@ a.themeBtn.themeBtn1 {
     .navbar .dropdown:hover .dropdown-menu,
     .navbar .dropdown .dropdown-menu:hover {
         opacity: 1;
-        top: 100%;
+        top: 5.8rem;
         visibility: visible;
     }
 
     .navbar .dropdown-menu {
-        border: 1px solid rgba(0, 0, 0, .15);
+        /*border: 1px solid rgba(0, 0, 0, .15);*/
         background-color: #fff;
     }
 
@@ -647,6 +667,7 @@ a.themeBtn.themeBtn1 {
 
 .dropdown-menu ul {
     gap: 0.35rem;
+    margin-bottom: 1rem;
 }
 
 .dropdown-menu .container {
