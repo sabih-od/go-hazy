@@ -68,9 +68,7 @@
                     <div class="col-lg-4 col-sm-6">
                         <div class="product-box" data-aos="fade-right">
                             <div class="pro-img">
-                                <a href="#">
-                                    <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}" alt="img">
-                                </a>
+                                <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}" alt="img">
                             </div>
                             <h4>{{$item->category->name ?? 'Shop'}}</h4>
                             <p>{{$item->category->count()}} Products</p>
