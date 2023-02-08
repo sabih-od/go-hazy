@@ -692,7 +692,7 @@ a.themeBtn.themeBtn1 {
 
 .mainCat .nav-item .nav-link {
     color: #fff;
-    font-size: 1.25rem;
+    font-size: 1rem;
     padding: 0.5rem 1rem;
     display: block;
     transition: all 0.4s ease;
@@ -713,4 +713,7 @@ a.themeBtn.themeBtn1 {
     padding: 2rem 4rem;
     max-height: 80vh;
     overflow-y: auto;
+}
+.mainCat .nav.flex-column {
+    margin: 0;
 }
