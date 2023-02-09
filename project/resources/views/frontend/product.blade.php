@@ -106,56 +106,504 @@
                     <div class="categoriesCont">
                         <ul>
                             <li>
-                                <a href="#">
-                                    Dresses
+                                <a data-id="shopWomen" href="#">
+                                    Women
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    Tees
+                                <a data-id="shopWomen" href="#">
+                                    Women
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    Blouses Shirts
+                                <a data-id="shopWomen" href="#">
+                                    Women
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    Hoodies Sweatshirts
+                                <a data-id="shopWomen" href="#">
+                                    Women
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    Women's Sets
+                                <a data-id="shopWomen" href="#">
+                                    Women
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    Suits Blazers
+                                <a data-id="shopWomen" href="#">
+                                    Women
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    Bodysuits
+                                <a data-id="shopWomen" href="#">
+                                    Women
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    Tanks Camis
+                                <a data-id="shopWomen" href="#">
+                                    Women
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    Coats Jackets
+                                <a data-id="shopWomen" href="#">
+                                    Women
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    Sweaters
+                                <a data-id="shopWomen" href="#">
+                                    Women
                                 </a>
                             </li>
                         </ul>
+                    </div>
+                    <div class="subCatCont" id="shopWomen">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <a href="#">
+                                                    <span class="text-uppercase">
+                                                                        Women's Fashion
+                                                                    </span>
+                                                </a>
+                                                <ul>
+                                                    <li>
+                                                        <a href="">
+                                                            Dresses
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Tees
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Blouses Shirts
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Hoodies Sweatshirts
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Women's Sets
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Suits Blazers
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Bodysuits
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Tanks Camis
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Coats Jackets
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Sweaters
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <a href="#">
+                                                    <span class="text-uppercase">
+                                                                        Women's Fashion
+                                                                    </span>
+                                                </a>
+                                                <ul>
+                                                    <li>
+                                                        <a href="">
+                                                            Dresses
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Tees
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Blouses Shirts
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Hoodies Sweatshirts
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Women's Sets
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Suits Blazers
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Bodysuits
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Tanks Camis
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Coats Jackets
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Sweaters
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <a href="#">
+                                                    <span class="text-uppercase">
+                                                                        Women's Fashion
+                                                                    </span>
+                                                </a>
+                                                <ul>
+                                                    <li>
+                                                        <a href="">
+                                                            Dresses
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Tees
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Blouses Shirts
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Hoodies Sweatshirts
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Women's Sets
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Suits Blazers
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Bodysuits
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Tanks Camis
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Coats Jackets
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Sweaters
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <a href="#">
+                                                    <span class="text-uppercase">
+                                                                        Women's Fashion
+                                                                    </span>
+                                                </a>
+                                                <ul>
+                                                    <li>
+                                                        <a href="">
+                                                            Dresses
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Tees
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Blouses Shirts
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Hoodies Sweatshirts
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Women's Sets
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Suits Blazers
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Bodysuits
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Tanks Camis
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Coats Jackets
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Sweaters
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <a href="#">
+                                                    <span class="text-uppercase">
+                                                                        Women's Fashion
+                                                                    </span>
+                                                </a>
+                                                <ul>
+                                                    <li>
+                                                        <a href="">
+                                                            Dresses
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Tees
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Blouses Shirts
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Hoodies Sweatshirts
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Women's Sets
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Suits Blazers
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Bodysuits
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Tanks Camis
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Coats Jackets
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Sweaters
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <a href="#">
+                                                    <span class="text-uppercase">
+                                                                        Women's Fashion
+                                                                    </span>
+                                                </a>
+                                                <ul>
+                                                    <li>
+                                                        <a href="">
+                                                            Dresses
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Tees
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Blouses Shirts
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Hoodies Sweatshirts
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Women's Sets
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Suits Blazers
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Bodysuits
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Tanks Camis
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Coats Jackets
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Sweaters
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="brandsCont">
+                                        <a href="" class="brandBox">
+                                            <figure>
+                                                <img
+                                                    src="{{asset('assets/images/glogo.png')}}"
+                                                    alt="">
+                                            </figure>
+                                        </a>
+                                        <a href="" class="brandBox">
+                                            <figure>
+                                                <img
+                                                    src="{{asset('assets/images/glogo.png')}}"
+                                                    alt="">
+                                            </figure>
+                                        </a>
+                                        <a href="" class="brandBox">
+                                            <figure>
+                                                <img
+                                                    src="{{asset('assets/images/glogo.png')}}"
+                                                    alt="">
+                                            </figure>
+                                        </a>
+                                        <a href="" class="brandBox">
+                                            <figure>
+                                                <img
+                                                    src="{{asset('assets/images/glogo.png')}}"
+                                                    alt="">
+                                            </figure>
+                                        </a>
+                                        <a href="" class="brandBox">
+                                            <figure>
+                                                <img
+                                                    src="{{asset('assets/images/glogo.png')}}"
+                                                    alt="">
+                                            </figure>
+                                        </a>
+                                        <a href="" class="brandBox">
+                                            <figure>
+                                                <img
+                                                    src="{{asset('assets/images/glogo.png')}}"
+                                                    alt="">
+                                            </figure>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-12 mt-5">
+                                    <div class="container-fluid d-block">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <a href="#" class="subCatCard">
+                                                    <h4>Women Fashion</h4>
+                                                    <figure>
+                                                        <img
+                                                            src="{{asset('assets/images/aboutchair.png')}}"
+                                                            alt="">
+                                                    </figure>
+                                                </a>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <a href="#" class="subCatCard">
+                                                    <h4>Women Fashion</h4>
+                                                    <figure>
+                                                        <img
+                                                            src="{{asset('assets/images/aboutchair.png')}}"
+                                                            alt="">
+                                                    </figure>
+                                                </a>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <a href="#" class="subCatCard">
+                                                    <h4>Women Fashion</h4>
+                                                    <figure>
+                                                        <img
+                                                            src="{{asset('assets/images/aboutchair.png')}}"
+                                                            alt="">
+                                                    </figure>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-9">

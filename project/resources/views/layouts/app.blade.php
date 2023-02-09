@@ -608,34 +608,34 @@
                                                                 <div class="container-fluid d-block">
                                                                     <div class="row">
                                                                         <div class="col-md-4">
-                                                                            <div class="subCatCard">
+                                                                            <a href="#" class="subCatCard">
                                                                                 <h4>Women Fashion</h4>
                                                                                 <figure>
                                                                                     <img
                                                                                         src="{{asset('assets/images/aboutchair.png')}}"
                                                                                         alt="">
                                                                                 </figure>
-                                                                            </div>
+                                                                            </a>
                                                                         </div>
                                                                         <div class="col-md-4">
-                                                                            <div class="subCatCard">
+                                                                            <a href="#" class="subCatCard">
                                                                                 <h4>Women Fashion</h4>
                                                                                 <figure>
                                                                                     <img
                                                                                         src="{{asset('assets/images/aboutchair.png')}}"
                                                                                         alt="">
                                                                                 </figure>
-                                                                            </div>
+                                                                            </a>
                                                                         </div>
                                                                         <div class="col-md-4">
-                                                                            <div class="subCatCard">
+                                                                            <a href="#" class="subCatCard">
                                                                                 <h4>Women Fashion</h4>
                                                                                 <figure>
                                                                                     <img
                                                                                         src="{{asset('assets/images/aboutchair.png')}}"
                                                                                         alt="">
                                                                                 </figure>
-                                                                            </div>
+                                                                            </a>
                                                                         </div>
                                                                     </div>
                                                                 </div>

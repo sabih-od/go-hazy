@@ -749,10 +749,10 @@ a.themeBtn.themeBtn1 {
     position: relative;
 }
 
-.mainCat .nav-item + .nav-item {
-    border-top: 1px solid #000;
-    margin-top: 0.5rem;
-}
+/*.mainCat .nav-item + .nav-item {*/
+/*    border-top: 1px solid #000;*/
+/*    margin-top: 0.5rem;*/
+/*}*/
 
 .brandsCont {
     display: flex;
@@ -792,7 +792,10 @@ a.themeBtn.themeBtn1 {
 }
 
 .subCatCard h4 {
-    font-size: 1.25rem;
+    font-size: 0.875rem;
     font-weight: 600;
     color: var(--theme-color);
+    margin: 0;
+    white-space: nowrap;
+    position: relative;
 }

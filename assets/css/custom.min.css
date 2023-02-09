@@ -1960,6 +1960,7 @@ span#color-bar {
     height: 100%;
     padding: 1rem 0;
 }
+
 .categoriesCont ul {
     display: flex;
     flex-direction: column;
@@ -1972,8 +1973,72 @@ span#color-bar {
     font-size: 1.25rem;
     padding: 0.5rem 1rem;
     transition: all 0.2s ease;
+    margin: 0 1rem;
+    border-radius: 5px;
 }
 
-.categoriesCont ul li a:hover {
+.categoriesCont ul li a:hover, .categoriesCont ul li a.active {
     background: #fff;
+    box-shadow: 2px 2px 5px #ddd;
+    color: var(--theme-color);
+    font-weight: 600;
+}
+
+.subCatCont {
+    position: absolute;
+    top: 1rem;
+    background: #fff;
+    width: 70vw;
+    left: 30%;
+    box-shadow: 0 0 15px #ddd;
+    border-radius: 5px;
+    z-index: 1;
+    padding: 2rem 1rem;
+    transform: translateX(-10%);
+    display: none;
+}
+
+.subCatCont:hover,
+.subCatCont.active {
+    display: block;
+}
+
+.subCatCont a {
+    font-size: 1.125rem;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: flex;
+}
+
+.subCatCont ul a {
+    position: relative;
+    font-weight: 400;
+    margin: 0;
+    font-size: 1rem;
+    display: inline-block;
+}
+
+.subCatCont ul a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 0%;
+    bottom: 0;
+    transition: all 0.2s ease;
+    height: 1px;
+    background: #333;
+}
+
+.subCatCont ul a:hover::before {
+    width: 100%;
+}
+
+.proPage [class*='col-'] {
+    position: unset;
+}
+
+.proPage .row {
+    position: relative;
+    gap: 1rem 0;
 }
