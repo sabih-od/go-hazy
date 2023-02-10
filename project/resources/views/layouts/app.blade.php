@@ -138,43 +138,508 @@
                                     Shop
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <div class="container">
+                                    <div class="container-fluid d-block p-0">
                                         <div class="row no-gutters">
-                                                <div class="col-3">
-                                                    <div class="mainCat">
-                                                        <h4>Store Category</h4>
-                                                        @foreach($categories as $category)
-                                                        <ul class="nav flex-column">
-                                                            <li class="nav-item"><a
-                                                                    href="{{ route('front.category', $category->slug) }}"
-                                                                    class="nav-link">{{$category->name ?? ''}}</a></li>
-                                                        </ul>
-                                                        @endforeach
-                                                    </div>
+                                            <div class="col-3">
+                                                <div class="mainCat">
+                                                    <h4>Store Category</h4>
+                                                    <ul class="nav flex-column">
+                                                        <li class="nav-item">
+                                                            <a href="#" class="nav-link" data-id="women">
+                                                                Women's Fashion
+                                                            </a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a href="#" class="nav-link" data-id="women">
+                                                                Women's Fashion
+                                                            </a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a href="#" class="nav-link" data-id="women">
+                                                                Women's Fashion
+                                                            </a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a href="#" class="nav-link" data-id="women">
+                                                                Women's Fashion
+                                                            </a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a href="#" class="nav-link" data-id="women">
+                                                                Women's Fashion
+                                                            </a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a href="#" class="nav-link" data-id="women">
+                                                                Women's Fashion
+                                                            </a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a href="#" class="nav-link" data-id="women">
+                                                                Women's Fashion
+                                                            </a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a href="#" class="nav-link" data-id="women">
+                                                                Women's Fashion
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                    {{--                                                        @foreach($categories as $category)--}}
+                                                    {{--                                                        <ul class="nav flex-column">--}}
+                                                    {{--                                                            <li class="nav-item"><a--}}
+                                                    {{--                                                                    href="{{ route('front.category', $category->slug) }}"--}}
+                                                    {{--                                                                    class="nav-link">{{$category->name ?? ''}}</a></li>--}}
+                                                    {{--                                                        </ul>--}}
+                                                    {{--                                                        @endforeach--}}
                                                 </div>
+                                            </div>
                                             <div class="col-9">
-                                                <div class="subCat">
-                                                    <div class="container-fluid">
+                                                <div class="subCat" id="women">
+                                                    <div class="container-fluid d-block">
                                                         <div class="row">
-                                                            @foreach($categories as $category)
-                                                            @foreach($category->subs as $subscategory)
-                                                                <div class="col-md-4">
-                                                                    <a href="{{ route('front.category', [$category->slug,$subscategory->slug]) }}"><span
-                                                                            class="text-uppercase text-white">{{ $subscategory->name ?? '' }}</span></a>
-                                                                    @if(isset($subscategory->childs) != null)
-                                                                    <ul class="nav flex-column">
-                                                                        @foreach($subscategory->childs as $child)
-                                                                            <li class="nav-item">
-                                                                                <a class="nav-link active"
-                                                                                   href="{{ route('front.category', [$category->slug, $subscategory->slug, $child->slug]) }}">
-                                                                                    {{ $child->name ?? '' }}</a>
-                                                                            </li>
-                                                                        @endforeach
-                                                                    </ul>
-                                                                    @endif
+                                                            <div class="col-md-8">
+                                                                <div class="container-fluid">
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <a href="#">
+                                                                    <span class="text-uppercase text-white">
+                                                                        Women's Fashion
+                                                                    </span>
+                                                                            </a>
+                                                                            <ul class="nav flex-column">
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Dresses
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Tees
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Blouses Shirts
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Hoodies Sweatshirts
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Women's Sets
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Suits Blazers
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Bodysuits
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Tanks Camis
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Coats Jackets
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Sweaters
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <a href="#">
+                                                                    <span class="text-uppercase text-white">
+                                                                        Women's Fashion
+                                                                    </span>
+                                                                            </a>
+                                                                            <ul class="nav flex-column">
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Dresses
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Tees
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Blouses Shirts
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Hoodies Sweatshirts
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Women's Sets
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Suits Blazers
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Bodysuits
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Tanks Camis
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Coats Jackets
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Sweaters
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <a href="#">
+                                                                    <span class="text-uppercase text-white">
+                                                                        Women's Fashion
+                                                                    </span>
+                                                                            </a>
+                                                                            <ul class="nav flex-column">
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Dresses
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Tees
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Blouses Shirts
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Hoodies Sweatshirts
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Women's Sets
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Suits Blazers
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Bodysuits
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Tanks Camis
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Coats Jackets
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Sweaters
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <a href="#">
+                                                                    <span class="text-uppercase text-white">
+                                                                        Women's Fashion
+                                                                    </span>
+                                                                            </a>
+                                                                            <ul class="nav flex-column">
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Dresses
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Tees
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Blouses Shirts
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Hoodies Sweatshirts
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Women's Sets
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Suits Blazers
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Bodysuits
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Tanks Camis
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Coats Jackets
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Sweaters
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <a href="#">
+                                                                    <span class="text-uppercase text-white">
+                                                                        Women's Fashion
+                                                                    </span>
+                                                                            </a>
+                                                                            <ul class="nav flex-column">
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Dresses
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Tees
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Blouses Shirts
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Hoodies Sweatshirts
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Women's Sets
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Suits Blazers
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Bodysuits
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Tanks Camis
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Coats Jackets
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Sweaters
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <a href="#">
+                                                                    <span class="text-uppercase text-white">
+                                                                        Women's Fashion
+                                                                    </span>
+                                                                            </a>
+                                                                            <ul class="nav flex-column">
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Dresses
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Tees
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Blouses Shirts
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Hoodies Sweatshirts
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Women's Sets
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Suits Blazers
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Bodysuits
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Tanks Camis
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Coats Jackets
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a href="" class="nav-link">
+                                                                                        Sweaters
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                            @endforeach
-                                                            @endforeach
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="brandsCont">
+                                                                    <a href="" class="brandBox">
+                                                                        <figure>
+                                                                            <img
+                                                                                src="{{asset('assets/images/glogo.png')}}"
+                                                                                alt="">
+                                                                        </figure>
+                                                                    </a>
+                                                                    <a href="" class="brandBox">
+                                                                        <figure>
+                                                                            <img
+                                                                                src="{{asset('assets/images/glogo.png')}}"
+                                                                                alt="">
+                                                                        </figure>
+                                                                    </a>
+                                                                    <a href="" class="brandBox">
+                                                                        <figure>
+                                                                            <img
+                                                                                src="{{asset('assets/images/glogo.png')}}"
+                                                                                alt="">
+                                                                        </figure>
+                                                                    </a>
+                                                                    <a href="" class="brandBox">
+                                                                        <figure>
+                                                                            <img
+                                                                                src="{{asset('assets/images/glogo.png')}}"
+                                                                                alt="">
+                                                                        </figure>
+                                                                    </a>
+                                                                    <a href="" class="brandBox">
+                                                                        <figure>
+                                                                            <img
+                                                                                src="{{asset('assets/images/glogo.png')}}"
+                                                                                alt="">
+                                                                        </figure>
+                                                                    </a>
+                                                                    <a href="" class="brandBox">
+                                                                        <figure>
+                                                                            <img
+                                                                                src="{{asset('assets/images/glogo.png')}}"
+                                                                                alt="">
+                                                                        </figure>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 mt-5">
+                                                                <div class="container-fluid d-block">
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <a href="#" class="subCatCard">
+                                                                                <h4>Women Fashion</h4>
+                                                                                <figure>
+                                                                                    <img
+                                                                                        src="{{asset('assets/images/aboutchair.png')}}"
+                                                                                        alt="">
+                                                                                </figure>
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <a href="#" class="subCatCard">
+                                                                                <h4>Women Fashion</h4>
+                                                                                <figure>
+                                                                                    <img
+                                                                                        src="{{asset('assets/images/aboutchair.png')}}"
+                                                                                        alt="">
+                                                                                </figure>
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <a href="#" class="subCatCard">
+                                                                                <h4>Women Fashion</h4>
+                                                                                <figure>
+                                                                                    <img
+                                                                                        src="{{asset('assets/images/aboutchair.png')}}"
+                                                                                        alt="">
+                                                                                </figure>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -15,6 +15,10 @@ header {
     gap: 3rem;
 }
 
+nav.navbar {
+    position: unset;
+}
+
 .drop-down {
     position: relative;
 }
@@ -585,6 +589,7 @@ a.themeBtn.themeBtn1 {
     font-weight: 300;
     padding-left: 5px;
 }
+
 /* ===== Scrollbar CSS ===== */
 /* Firefox */
 * {
@@ -606,16 +611,11 @@ a.themeBtn.themeBtn1 {
     border-radius: 10px;
     border: 3px solid #ffffff;
 }
-/* adds some margin below the link sets  */
-/*.navbar .dropdown-menu div[class*="col"] {*/
-/*    margin-bottom: 1rem;*/
-/*}*/
 
 .navbar .dropdown-menu {
     border: none;
 }
 
-/* breakpoint and up - mega dropdown styles */
 @media screen and (min-width: 992px) {
 
     .navbar {
@@ -631,16 +631,16 @@ a.themeBtn.themeBtn1 {
     .navbar .dropdown-menu {
         display: block;
         position: absolute;
-        left: 0;
+        left: 50%;
         top: 100%;
         z-index: 99;
         opacity: 0;
         visibility: hidden;
         padding: 0;
-        background: #fff;
-        box-shadow: 0px 0px 30px rgb(127 137 161 / 25%);
-        transition: 0.3s;
-        width: 100%;
+        transition: all 0.2s ease;
+        width: calc(100% - 5rem);
+        background: transparent;
+        transform: translateX(-50%);
     }
 
 
@@ -653,8 +653,6 @@ a.themeBtn.themeBtn1 {
     }
 
     .navbar .dropdown-menu {
-        /*border: 1px solid rgba(0, 0, 0, .15);*/
-        background-color: #fff;
     }
 
 }
@@ -666,7 +664,6 @@ a.themeBtn.themeBtn1 {
 }
 
 .dropdown-menu ul {
-    gap: 0.35rem;
     margin-bottom: 1rem;
 }
 
@@ -684,14 +681,15 @@ a.themeBtn.themeBtn1 {
 /*}*/
 
 .mainCat {
-    background: #662e91;
     height: 100%;
-    max-height: 80vh;
     overflow-y: auto;
+    background: #fff;
+    box-shadow: 0 1px 10px rgb(0 0 0 / 12%);
+    border-radius: 10px;
 }
 
 .mainCat .nav-item .nav-link {
-    color: #fff;
+    color: #333;
     font-size: 1rem;
     padding: 0.5rem 1rem;
     display: block;
@@ -699,21 +697,104 @@ a.themeBtn.themeBtn1 {
 }
 
 .mainCat > h4 {
-    color: #fff;
     padding: 1rem;
-    background: #4a2268;
     text-transform: uppercase;
+    margin: 2px 0 0;
 }
 
-.mainCat .nav-item .nav-link:hover {
-    background: #9755c9;
+.mainCat .nav-item .nav-link:hover,
+.mainCat .nav-item .nav-link.active {
+    color: var(--theme-color);
+    font-weight: 600;
+    box-shadow: 0 1px 10px rgb(0 0 0 / 12%);
 }
 
 .dropdown-menu .subCat {
-    padding: 2rem 4rem;
-    max-height: 80vh;
-    overflow-y: auto;
+    padding: 2rem 1rem;
+    overflow: hidden;
+    display: none;
+    box-shadow: 0 1px 10px rgb(0 0 0 / 12%);
+    background: #fff;
 }
+
 .mainCat .nav.flex-column {
     margin: 0;
+    padding: 1rem 0;
+}
+
+.dropdown-menu .subCat.active,
+.dropdown-menu .subCat:hover {
+    display: block;
+}
+
+.navbar-nav .dropdown .subCat .nav-item .nav-link:hover::before {
+    width: 100%;
+}
+
+.navbar-nav .dropdown .subCat .nav-item .nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    width: 0%;
+    background: #333;
+    transition: all 0.2s ease;
+    z-index: 1;
+}
+
+.navbar-nav .dropdown .subCat .nav-item .nav-link {
+    display: inline-block;
+    position: relative;
+}
+
+/*.mainCat .nav-item + .nav-item {*/
+/*    border-top: 1px solid #000;*/
+/*    margin-top: 0.5rem;*/
+/*}*/
+
+.brandsCont {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0;
+    justify-content: space-between;
+}
+
+.brandsCont .brandBox {
+    background: #ddd;
+    width: 49%;
+}
+
+.brandsCont .brandBox img {
+    width: 100%;
+    object-fit: contain;
+    height: 70px;
+    padding: 0.5rem;
+}
+
+.subCatCard {
+    height: 100px;
+    border: 1px solid rgba(0, 0, 0, 0.35);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 1rem;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+}
+
+.subCatCard img {
+    height: 150px;
+    width: 150px;
+    object-fit: contain;
+    margin-top: -50px;
+}
+
+.subCatCard h4 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--theme-color);
+    margin: 0;
+    white-space: nowrap;
+    position: relative;
 }
