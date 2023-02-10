@@ -378,6 +378,7 @@ a.navbar-brand {
     bottom: 0;
     right: 0;
     left: 0;
+    display: none;
 }
 
 .preLoader.black {
@@ -683,13 +684,13 @@ a.themeBtn.themeBtn1 {
 .mainCat {
     height: 100%;
     overflow-y: auto;
-    background: #fff;
+    background: #65328f;
     box-shadow: 0 1px 10px rgb(0 0 0 / 12%);
     border-radius: 10px;
 }
 
 .mainCat .nav-item .nav-link {
-    color: #333;
+    color: #fff;
     font-size: 1rem;
     padding: 0.5rem 1rem;
     display: block;
@@ -700,6 +701,8 @@ a.themeBtn.themeBtn1 {
     padding: 1rem;
     text-transform: uppercase;
     margin: 2px 0 0;
+    color: #fff;
+    background: #492567;
 }
 
 .mainCat .nav-item .nav-link:hover,
@@ -719,7 +722,7 @@ a.themeBtn.themeBtn1 {
 
 .mainCat .nav.flex-column {
     margin: 0;
-    padding: 1rem 0;
+    /* padding: 1rem 0; */
 }
 
 .dropdown-menu .subCat.active,
