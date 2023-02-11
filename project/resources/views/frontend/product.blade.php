@@ -101,61 +101,55 @@
                     </div>
                 </div>
             </div>
+{{--{{ dd($data['cat']) }}--}}
+            @php
+                use App\Models\Category;
+
+                $categories = Category::all();
+            @endphp
             <div class="row">
                 <div class="col-md-3">
                     <div class="categoriesCont">
-                        <ul>
-                            <li>
-                                <a data-id="shopWomen" href="#">
-                                    Women
-                                </a>
-                            </li>
-                            <li>
-                                <a data-id="shopWomen" href="#">
-                                    Women
-                                </a>
-                            </li>
-                            <li>
-                                <a data-id="shopWomen" href="#">
-                                    Women
-                                </a>
-                            </li>
-                            <li>
-                                <a data-id="shopWomen" href="#">
-                                    Women
-                                </a>
-                            </li>
-                            <li>
-                                <a data-id="shopWomen" href="#">
-                                    Women
-                                </a>
-                            </li>
-                            <li>
-                                <a data-id="shopWomen" href="#">
-                                    Women
-                                </a>
-                            </li>
-                            <li>
-                                <a data-id="shopWomen" href="#">
-                                    Women
-                                </a>
-                            </li>
-                            <li>
-                                <a data-id="shopWomen" href="#">
-                                    Women
-                                </a>
-                            </li>
-                            <li>
-                                <a data-id="shopWomen" href="#">
-                                    Women
-                                </a>
-                            </li>
-                            <li>
-                                <a data-id="shopWomen" href="#">
-                                    Women
-                                </a>
-                            </li>
-                        </ul>
+                        @if(!isset($data['cat']) && !isset($data['subcat']) && !isset($data['childcat']))
+                            @foreach($categories as $category)
+                                <ul>
+                                    <li class="category_element" data-id="{{$category->id}}"><a
+                                            href="{{ route('front.category', $category->slug) }}"
+                                            data-id="shopWomen">{{$category->name ?? ''}}</a></li>
+                                </ul>
+                            @endforeach
+                        @else
+                            <ul>
+                                @if(isset($data['cat']))
+                                    <li class="category_element" data-id="{{$data['cat']->id}}"><a
+                                            href="{{ route('front.category', $data['cat']->slug) }}"
+                                            data-id="shopWomen">{{$data['cat']->name ?? ''}}</a>
+                                        <ul class="nav flex-column">
+                                            {{--                                        @foreach($subscategory->childs as $child)--}}
+                                            @if(isset($data['subcat']))
+                                                <li class="nav-item">
+                                                    <a class="nav-link active"
+                                                       href="{{ route('front.category', [$data['cat']->slug, $data['subcat']->slug]) }}">
+                                                        {{ $data['subcat']->name ?? '' }}</a>
+                                                    <ul class="nav flex-column">
+                                                        {{--                                        @foreach($subscategory->childs as $child)--}}
+                                                        @if(isset($data['childcat']))
+                                                            <li class="nav-item">
+                                                                <a class="nav-link active"
+                                                                   href="{{ route('front.category', [$data['cat']->slug, $data['subcat']->slug, $data['childcat']->slug]) }}">
+                                                                    {{ $data['childcat']->name ?? '' }}</a>
+                                                            </li>
+                                                        @endif
+                                                        {{--                                        @endforeach--}}
+                                                    </ul>
+                                                </li>
+                                            @endif
+                                            {{--                                        @endforeach--}}
+                                        </ul>
+                                    </li>
+                                @endif
+                            </ul>
+                        @endif
                     </div>
                     <div class="subCatCont" id="shopWomen">
                         <div class="container-fluid">
@@ -163,360 +157,25 @@
                                 <div class="col-md-8">
                                     <div class="container-fluid">
                                         <div class="row">
-                                            <div class="col-md-4">
-                                                <a href="#">
-                                                    <span class="text-uppercase">
-                                                                        Women's Fashion
-                                                                    </span>
-                                                </a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="">
-                                                            Dresses
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Tees
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Blouses Shirts
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Hoodies Sweatshirts
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Women's Sets
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Suits Blazers
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Bodysuits
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Tanks Camis
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Coats Jackets
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Sweaters
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <a href="#">
-                                                    <span class="text-uppercase">
-                                                                        Women's Fashion
-                                                                    </span>
-                                                </a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="">
-                                                            Dresses
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Tees
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Blouses Shirts
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Hoodies Sweatshirts
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Women's Sets
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Suits Blazers
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Bodysuits
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Tanks Camis
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Coats Jackets
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Sweaters
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <a href="#">
-                                                    <span class="text-uppercase">
-                                                                        Women's Fashion
-                                                                    </span>
-                                                </a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="">
-                                                            Dresses
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Tees
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Blouses Shirts
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Hoodies Sweatshirts
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Women's Sets
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Suits Blazers
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Bodysuits
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Tanks Camis
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Coats Jackets
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Sweaters
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <a href="#">
-                                                    <span class="text-uppercase">
-                                                                        Women's Fashion
-                                                                    </span>
-                                                </a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="">
-                                                            Dresses
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Tees
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Blouses Shirts
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Hoodies Sweatshirts
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Women's Sets
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Suits Blazers
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Bodysuits
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Tanks Camis
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Coats Jackets
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Sweaters
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <a href="#">
-                                                    <span class="text-uppercase">
-                                                                        Women's Fashion
-                                                                    </span>
-                                                </a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="">
-                                                            Dresses
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Tees
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Blouses Shirts
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Hoodies Sweatshirts
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Women's Sets
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Suits Blazers
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Bodysuits
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Tanks Camis
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Coats Jackets
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Sweaters
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <a href="#">
-                                                    <span class="text-uppercase">
-                                                                        Women's Fashion
-                                                                    </span>
-                                                </a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="">
-                                                            Dresses
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Tees
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Blouses Shirts
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Hoodies Sweatshirts
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Women's Sets
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Suits Blazers
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Bodysuits
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Tanks Camis
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Coats Jackets
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="">
-                                                            Sweaters
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
+                                            @foreach($categories as $category)
+                                                @foreach($category->subs as $subscategory)
+                                                    <div class="col-md-4 sub_category_element" data-parent="{{$category->id}}">
+                                                        <a href="{{ route('front.category', [$category->slug,$subscategory->slug]) }}"><span
+                                                                class="text-uppercase ">{{ $subscategory->name ?? '' }}</span></a>
+                                                        @if(isset($subscategory->childs) != null)
+                                                            <ul class="nav flex-column">
+                                                                @foreach($subscategory->childs as $child)
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link active"
+                                                                           href="{{ route('front.category', [$category->slug, $subscategory->slug, $child->slug]) }}">
+                                                                            {{ $child->name ?? '' }}</a>
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        @endif
+                                                    </div>
+                                                @endforeach
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
