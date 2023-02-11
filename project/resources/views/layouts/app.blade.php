@@ -151,55 +151,6 @@
                                                                     data-id="women">{{$category->name ?? ''}}</a></li>
                                                         </ul>
                                                     @endforeach
-{{--                                                    <ul class="nav flex-column">--}}
-{{--                                                        <li class="nav-item">--}}
-{{--                                                            <a href="#" class="nav-link active" data-id="women">--}}
-{{--                                                                Women's Fashion--}}
-{{--                                                            </a>--}}
-{{--                                                        </li>--}}
-{{--                                                                                                                <li class="nav-item">--}}
-{{--                                                                                                                    <a href="#" class="nav-link" data-id="women">--}}
-{{--                                                                                                                        Women's Fashion--}}
-{{--                                                                                                                    </a>--}}
-{{--                                                                                                                </li>--}}
-{{--                                                                                                                <li class="nav-item">--}}
-{{--                                                                                                                    <a href="#" class="nav-link" data-id="women">--}}
-{{--                                                                                                                        Women's Fashion--}}
-{{--                                                                                                                    </a>--}}
-{{--                                                                                                                </li>--}}
-{{--                                                                                                                <li class="nav-item">--}}
-{{--                                                                                                                    <a href="#" class="nav-link" data-id="women">--}}
-{{--                                                                                                                        Women's Fashion--}}
-{{--                                                                                                                    </a>--}}
-{{--                                                                                                                </li>--}}
-{{--                                                                                                                <li class="nav-item">--}}
-{{--                                                                                                                    <a href="#" class="nav-link" data-id="women">--}}
-{{--                                                                                                                        Women's Fashion--}}
-{{--                                                                                                                    </a>--}}
-{{--                                                                                                                </li>--}}
-{{--                                                                                                                <li class="nav-item">--}}
-{{--                                                                                                                    <a href="#" class="nav-link" data-id="women">--}}
-{{--                                                                                                                        Women's Fashion--}}
-{{--                                                                                                                    </a>--}}
-{{--                                                                                                                </li>--}}
-{{--                                                                                                                <li class="nav-item">--}}
-{{--                                                                                                                    <a href="#" class="nav-link" data-id="women">--}}
-{{--                                                                                                                        Women's Fashion--}}
-{{--                                                                                                                    </a>--}}
-{{--                                                                                                                </li>--}}
-{{--                                                                                                                <li class="nav-item">--}}
-{{--                                                                                                                    <a href="#" class="nav-link" data-id="women">--}}
-{{--                                                                                                                        Women's Fashion--}}
-{{--                                                                                                                    </a>--}}
-{{--                                                                                                                </li>--}}
-{{--                                                    </ul>--}}
-                                                    {{--                                                        @foreach($categories as $category)--}}
-                                                    {{--                                                        <ul class="nav flex-column">--}}
-                                                    {{--                                                            <li class="nav-item"><a--}}
-                                                    {{--                                                                    href="{{ route('front.category', $category->slug) }}"--}}
-                                                    {{--                                                                    class="nav-link">{{$category->name ?? ''}}</a></li>--}}
-                                                    {{--                                                        </ul>--}}
-                                                    {{--                                                        @endforeach--}}
                                                 </div>
                                             </div>
                                             <div class="col-9">
@@ -228,7 +179,6 @@
                                                                                 </div>
                                                                             @endforeach
                                                                         @endforeach
-
                                                                     </div>
                                                                 </div>
                                                             </div>
