@@ -25,27 +25,34 @@
                 <div class="col-md-6">
                     <div class="productImgMain">
                         <div class="product-detail-slider">
-                            @if($productt->galleries == null || count($productt->galleries) == 0)
-                                    <div>
-                                        <img src="{{asset('assets/images/products/'.$productt->photo) ?? ''}}"
-                                             alt="Thumb Image"/>
-                                    </div>
-                        </div>
-                        <div class="product-detail-nav">
-                            @else
+
                             @foreach($productt->galleries as $gal)
                                 <div>
-                                    <img class="ml-10" src="{{asset('assets/images/galleries/'.$gal->photo) ?? ''}}"
+                                    <img class="" src="{{asset('assets/images/galleries/'.$gal->photo) ?? ''}}"
                                          alt="Thumb Image"/>
                                 </div>
-                                @endforeach
-                                @foreach($productt->galleries as $gal)
-                                    <div>
-                                        <img class="ml-10" src="{{asset('assets/images/galleries/'.$gal->photo) ?? ''}}"
-                                             alt="Thumb Image"/>
-                                    </div>
-                                @endforeach
-                            @endif
+                            @endforeach
+                            {{--                            @if($productt->galleries == null || count($productt->galleries) == 0)--}}
+                            {{--                                    <div>--}}
+                            {{--                                        <img src="{{asset('assets/images/products/'.$productt->photo) ?? ''}}"--}}
+                            {{--                                             alt="Thumb Image"/>--}}
+                            {{--                                    </div>--}}
+                            {{--                            @else--}}
+                        </div>
+                        <div class="product-detail-nav">
+                            {{--                            @foreach($productt->galleries as $gal)--}}
+                            {{--                                <div>--}}
+                            {{--                                    <img class="ml-10" src="{{asset('assets/images/galleries/'.$gal->photo) ?? ''}}"--}}
+                            {{--                                         alt="Thumb Image"/>--}}
+                            {{--                                </div>--}}
+                            {{--                                @endforeach--}}
+                            @foreach($productt->galleries as $gal)
+                                <div>
+                                    <img class="" src="{{asset('assets/images/galleries/'.$gal->photo) ?? ''}}"
+                                         alt="Thumb Image"/>
+                                </div>
+                            @endforeach
+                            {{--                            @endif--}}
                         </div>
                     </div>
                 </div>

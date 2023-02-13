@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\{
+use App\{Jobs\SaveProductImage,
     Models\Product,
     Models\Gallery,
     Models\Category,
@@ -545,6 +545,7 @@ class ProductController extends AdminBaseController
                         $input['type'] = 'Physical';
                         $input['sku'] = $line[0];
 
+                        $input['language_id'] = 1;
                         $input['category_id'] = null;
                         $input['subcategory_id'] = null;
                         $input['childcategory_id'] = null;
@@ -558,24 +559,39 @@ class ProductController extends AdminBaseController
                         //$mcat = Category::where("name", $line[1]);
 
                         if ($mcat->exists()) {
-                            $input['category_id'] = $mcat->first()->id;
+                            $input['category_id'] = $mcat->id;
 
                             if ($line[2] != "") {
-                                $scat = Subcategory::where(DB::raw('lower(name)'), strtolower($line[2]));
-
+//                                $scat = Subcategory::where(DB::raw('lower(name)'), strtolower($line[2]));
+                                $scat = Subcategory::firstOrCreate([
+                                    'name' => $line[2],
+                                    'category_id' => $mcat->id,
+                                ], [
+                                    'slug' => Str::slug($line[2]),
+                                    'language_id' => 1
+                                ]);
                                 if ($scat->exists()) {
-                                    $input['subcategory_id'] = $scat->first()->id;
+                                    $input['subcategory_id'] = $scat->id;
+
+                                    if ($line[3] != "") {
+//                                $chcat = Childcategory::where(DB::raw('lower(name)'), strtolower($line[3]));
+                                        $chcat = Childcategory::firstOrCreate([
+                                            'name' => $line[3],
+                                            'subcategory_id' => $scat->id,
+                                        ], [
+                                            'slug' => Str::slug($line[3]),
+                                            'language_id' => 1
+                                        ]);
+
+                                        if ($chcat->exists()) {
+                                            $input['childcategory_id'] = $chcat->id;
+                                        }
+                                    }
                                 }
                             }
-                            if ($line[3] != "") {
-                                $chcat = Childcategory::where(DB::raw('lower(name)'), strtolower($line[3]));
 
-                                if ($chcat->exists()) {
-                                    $input['childcategory_id'] = $chcat->first()->id;
-                                }
-                            }
-
-                            $input['photo'] = $line[5];
+//                            $input['photo'] = $line[5];
+                            $input['photo'] = 'abc';
                             $input['name'] = $line[4];
                             $input['details'] = $line[6];
                             $input['color'] = $line[13];
@@ -594,40 +610,40 @@ class ProductController extends AdminBaseController
                             $input['affiliate_link'] = $line[20];
                             $input['slug'] = Str::slug($input['name'], '-') . '-' . strtolower($input['sku']);
 
-                            $image_url = $line[5];
-
-                            $ch = curl_init();
-                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                            curl_setopt($ch, CURLOPT_URL, $image_url);
-                            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
-                            curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
-                            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-                            curl_setopt($ch, CURLOPT_HEADER, true);
-                            curl_setopt($ch, CURLOPT_NOBODY, true);
-
-                            $content = curl_exec($ch);
-                            $contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
-
-                            $thumb_url = '';
-
-                            if (strpos($contentType, 'image/') !== false) {
-                                $fimg = Image::make($line[5])->resize(800, 800);
-                                $fphoto = time() . Str::random(8) . '.jpg';
-                                $fimg->save(public_path() . '/assets/images/products/' . $fphoto);
-                                $input['photo'] = $fphoto;
-                                $thumb_url = $line[5];
-                            } else {
-                                $fimg = Image::make(public_path() . '/assets/images/noimage.png')->resize(800, 800);
-                                $fphoto = time() . Str::random(8) . '.jpg';
-                                $fimg->save(public_path() . '/assets/images/products/' . $fphoto);
-                                $input['photo'] = $fphoto;
-                                $thumb_url = public_path() . '/assets/images/noimage.png';
-                            }
-
-                            $timg = Image::make($thumb_url)->resize(285, 285);
-                            $thumbnail = time() . Str::random(8) . '.jpg';
-                            $timg->save(public_path() . '/assets/images/thumbnails/' . $thumbnail);
-                            $input['thumbnail'] = $thumbnail;
+//                            $image_url = $line[5];
+//
+//                            $ch = curl_init();
+//                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+//                            curl_setopt($ch, CURLOPT_URL, $image_url);
+//                            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
+//                            curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
+//                            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+//                            curl_setopt($ch, CURLOPT_HEADER, true);
+//                            curl_setopt($ch, CURLOPT_NOBODY, true);
+//
+//                            $content = curl_exec($ch);
+//                            $contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
+//
+//                            $thumb_url = '';
+//
+//                            if (strpos($contentType, 'image/') !== false) {
+//                                $fimg = Image::make($line[5])->resize(800, 800);
+//                                $fphoto = time() . Str::random(8) . '.jpg';
+//                                $fimg->save(public_path() . '/assets/images/products/' . $fphoto);
+//                                $input['photo'] = $fphoto;
+//                                $thumb_url = $line[5];
+//                            } else {
+//                                $fimg = Image::make(public_path() . '/assets/images/noimage.png')->resize(800, 800);
+//                                $fphoto = time() . Str::random(8) . '.jpg';
+//                                $fimg->save(public_path() . '/assets/images/products/' . $fphoto);
+//                                $input['photo'] = $fphoto;
+//                                $thumb_url = public_path() . '/assets/images/noimage.png';
+//                            }
+//
+//                            $timg = Image::make($thumb_url)->resize(285, 285);
+//                            $thumbnail = time() . Str::random(8) . '.jpg';
+//                            $timg->save(public_path() . '/assets/images/thumbnails/' . $thumbnail);
+//                            $input['thumbnail'] = $thumbnail;
 
                             // Conert Price According to Currency
                             // Product Discount
@@ -647,6 +663,7 @@ class ProductController extends AdminBaseController
 
                             // Save Data
                             $data->fill($input)->save();
+                            SaveProductImage::dispatch($data->id, $line[5], $line[21], $line[22], $line[23]);
 
                         } else {
                             $log .= "<br>" . __('Row No') . ": " . $i . " - " . __('No Category Found!') . "<br>";

@@ -101,7 +101,7 @@
                     </div>
                 </div>
             </div>
-{{--{{ dd($data['cat']) }}--}}
+            {{--{{ dd($data['cat']) }}--}}
             @php
                 use App\Models\Category;
 
@@ -110,46 +110,13 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="categoriesCont">
-                        @if(!isset($data['cat']) && !isset($data['subcat']) && !isset($data['childcat']))
-                            @foreach($categories as $category)
-                                <ul>
-                                    <li class="category_element" data-id="{{$category->id}}"><a
-                                            href="{{ route('front.category', $category->slug) }}"
-                                            data-id="shopWomen">{{$category->name ?? ''}}</a></li>
-                                </ul>
-                            @endforeach
-                        @else
+                        @foreach($categories as $category)
                             <ul>
-                                @if(isset($data['cat']))
-                                    <li class="category_element" data-id="{{$data['cat']->id}}"><a
-                                            href="{{ route('front.category', $data['cat']->slug) }}"
-                                            data-id="shopWomen">{{$data['cat']->name ?? ''}}</a>
-                                        <ul class="nav flex-column">
-                                            {{--                                        @foreach($subscategory->childs as $child)--}}
-                                            @if(isset($data['subcat']))
-                                                <li class="nav-item">
-                                                    <a class="nav-link active"
-                                                       href="{{ route('front.category', [$data['cat']->slug, $data['subcat']->slug]) }}">
-                                                        {{ $data['subcat']->name ?? '' }}</a>
-                                                    <ul class="nav flex-column">
-                                                        {{--                                        @foreach($subscategory->childs as $child)--}}
-                                                        @if(isset($data['childcat']))
-                                                            <li class="nav-item">
-                                                                <a class="nav-link active"
-                                                                   href="{{ route('front.category', [$data['cat']->slug, $data['subcat']->slug, $data['childcat']->slug]) }}">
-                                                                    {{ $data['childcat']->name ?? '' }}</a>
-                                                            </li>
-                                                        @endif
-                                                        {{--                                        @endforeach--}}
-                                                    </ul>
-                                                </li>
-                                            @endif
-                                            {{--                                        @endforeach--}}
-                                        </ul>
-                                    </li>
-                                @endif
+                                <li class="category_element" data-id="{{$category->id}}"><a
+                                        href="{{ route('front.category', $category->slug) }}"
+                                        data-id="shopWomen">{{$category->name ?? ''}}</a></li>
                             </ul>
-                        @endif
+                        @endforeach
                     </div>
                     <div class="subCatCont" id="shopWomen">
                         <div class="container-fluid">
@@ -159,7 +126,8 @@
                                         <div class="row">
                                             @foreach($categories as $category)
                                                 @foreach($category->subs as $subscategory)
-                                                    <div class="col-md-4 sub_category_element" data-parent="{{$category->id}}">
+                                                    <div class="col-md-4 sub_category_element"
+                                                         data-parent="{{$category->id}}">
                                                         <a href="{{ route('front.category', [$category->slug,$subscategory->slug]) }}"><span
                                                                 class="text-uppercase ">{{ $subscategory->name ?? '' }}</span></a>
                                                         @if(isset($subscategory->childs) != null)
@@ -179,88 +147,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="brandsCont">
-                                        <a href="" class="brandBox">
-                                            <figure>
-                                                <img
-                                                    src="{{asset('assets/images/glogo.png')}}"
-                                                    alt="">
-                                            </figure>
-                                        </a>
-                                        <a href="" class="brandBox">
-                                            <figure>
-                                                <img
-                                                    src="{{asset('assets/images/glogo.png')}}"
-                                                    alt="">
-                                            </figure>
-                                        </a>
-                                        <a href="" class="brandBox">
-                                            <figure>
-                                                <img
-                                                    src="{{asset('assets/images/glogo.png')}}"
-                                                    alt="">
-                                            </figure>
-                                        </a>
-                                        <a href="" class="brandBox">
-                                            <figure>
-                                                <img
-                                                    src="{{asset('assets/images/glogo.png')}}"
-                                                    alt="">
-                                            </figure>
-                                        </a>
-                                        <a href="" class="brandBox">
-                                            <figure>
-                                                <img
-                                                    src="{{asset('assets/images/glogo.png')}}"
-                                                    alt="">
-                                            </figure>
-                                        </a>
-                                        <a href="" class="brandBox">
-                                            <figure>
-                                                <img
-                                                    src="{{asset('assets/images/glogo.png')}}"
-                                                    alt="">
-                                            </figure>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-12 mt-5">
-                                    <div class="container-fluid d-block">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <a href="#" class="subCatCard">
-                                                    <h4>Women Fashion</h4>
-                                                    <figure>
-                                                        <img
-                                                            src="{{asset('assets/images/aboutchair.png')}}"
-                                                            alt="">
-                                                    </figure>
-                                                </a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a href="#" class="subCatCard">
-                                                    <h4>Women Fashion</h4>
-                                                    <figure>
-                                                        <img
-                                                            src="{{asset('assets/images/aboutchair.png')}}"
-                                                            alt="">
-                                                    </figure>
-                                                </a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a href="#" class="subCatCard">
-                                                    <h4>Women Fashion</h4>
-                                                    <figure>
-                                                        <img
-                                                            src="{{asset('assets/images/aboutchair.png')}}"
-                                                            alt="">
-                                                    </figure>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -270,7 +156,7 @@
                         <div class="row">
                             @forelse($data['prods'] as $item)
                                 <div class="col-lg-4 col-sm-6">
-                                    <div class="product-box" data-aos="fade-right">
+                                    <div class="product-box">
                                         <div class="pro-img">
                                             <a href="#">
                                                 <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}"

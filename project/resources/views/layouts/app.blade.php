@@ -92,6 +92,7 @@
 <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/all.min.css')}}"/>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" href="{{asset('assets/css/custom.min.css')}}"/>
     <link rel="stylesheet" href="{{asset('assets/css/slider.css')}}"/>
     <link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}"/>
@@ -181,89 +182,7 @@
                                                                         @endforeach
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <div class="brandsCont">
-                                                                    <a href="" class="brandBox">
-                                                                        <figure>
-                                                                            <img
-                                                                                src="{{asset('assets/images/glogo.png')}}"
-                                                                                alt="">
-                                                                        </figure>
-                                                                    </a>
-                                                                    <a href="" class="brandBox">
-                                                                        <figure>
-                                                                            <img
-                                                                                src="{{asset('assets/images/glogo.png')}}"
-                                                                                alt="">
-                                                                        </figure>
-                                                                    </a>
-                                                                    <a href="" class="brandBox">
-                                                                        <figure>
-                                                                            <img
-                                                                                src="{{asset('assets/images/glogo.png')}}"
-                                                                                alt="">
-                                                                        </figure>
-                                                                    </a>
-                                                                    <a href="" class="brandBox">
-                                                                        <figure>
-                                                                            <img
-                                                                                src="{{asset('assets/images/glogo.png')}}"
-                                                                                alt="">
-                                                                        </figure>
-                                                                    </a>
-                                                                    <a href="" class="brandBox">
-                                                                        <figure>
-                                                                            <img
-                                                                                src="{{asset('assets/images/glogo.png')}}"
-                                                                                alt="">
-                                                                        </figure>
-                                                                    </a>
-                                                                    <a href="" class="brandBox">
-                                                                        <figure>
-                                                                            <img
-                                                                                src="{{asset('assets/images/glogo.png')}}"
-                                                                                alt="">
-                                                                        </figure>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12 mt-5">
-                                                                <div class="container-fluid d-block">
-                                                                    <div class="row">
-                                                                        <div class="col-md-4">
-                                                                            <a href="#" class="subCatCard">
-                                                                                <h4>Women Fashion</h4>
-                                                                                <figure>
-                                                                                    <img
-                                                                                        src="{{asset('assets/images/aboutchair.png')}}"
-                                                                                        alt="">
-                                                                                </figure>
-                                                                            </a>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <a href="#" class="subCatCard">
-                                                                                <h4>Women Fashion</h4>
-                                                                                <figure>
-                                                                                    <img
-                                                                                        src="{{asset('assets/images/aboutchair.png')}}"
-                                                                                        alt="">
-                                                                                </figure>
-                                                                            </a>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <a href="#" class="subCatCard">
-                                                                                <h4>Women Fashion</h4>
-                                                                                <figure>
-                                                                                    <img
-                                                                                        src="{{asset('assets/images/aboutchair.png')}}"
-                                                                                        alt="">
-                                                                                </figure>
-                                                                            </a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                            </div>categoriesCont
                                                         </div>
                                                     </div>
                                                 </div>
