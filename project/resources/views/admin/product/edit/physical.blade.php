@@ -30,7 +30,7 @@
 									</div>
 								</div>
 							</div>
-							<form id="geniusform" action="{{route('admin-prod-update',$data->id)}}" method="POST" enctype="multipart/form-data">
+							<form id="geniusform" action="{{route('admin-prod-update',$data->id)}}" method="POST" enctype="multipart/form-data" novalidate>
 								{{csrf_field()}}
 								@include('alerts.admin.form-both')
 								<div class="row">
