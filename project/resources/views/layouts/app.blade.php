@@ -147,25 +147,25 @@
                                                     <ul class="nav flex-column">
                                                         @foreach($categories as $category)
                                                             <li class="nav-item category_element"
-                                                                data-id="{{$category->id}}"><a
+                                                                ><a
                                                                     href="{{ route('front.category', $category->slug) }}"
                                                                     class="nav-link"
-                                                                    data-id="women">{{$category->name ?? ''}}</a></li>
+                                                                    data-id="as{{$category->id}}">{{$category->name ?? ''}}</a></li>
                                                         @endforeach
                                                     </ul>
                                                 </div>
                                             </div>
                                             <div class="col-9">
-                                                <div class="subCat active" id="women">
-                                                    <div class="container-fluid d-block">
-                                                        <div class="row">
-                                                            <div class="col-md-8">
-                                                                <div class="container-fluid">
-                                                                    <div class="row">
-                                                                        @foreach($categories as $category)
+                                                @foreach($categories as $category)
+                                                    <div class="subCat" id="as{{$category->id}}">
+                                                        <div class="container-fluid d-block">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="container-fluid d-block">
+                                                                        <div class="row">
                                                                             @foreach($category->subs as $subscategory)
                                                                                 <div
-                                                                                    class="col-md-4 sub_category_element"
+                                                                                    class="col-md-3 sub_category_element"
                                                                                     data-parent="{{$category->id}}">
                                                                                     <a href="{{ route('front.category', [$category->slug,$subscategory->slug]) }}"><span
                                                                                             class="text-uppercase text-white">{{ $subscategory->name ?? '' }}</span></a>
@@ -182,13 +182,13 @@
                                                                                     @endif
                                                                                 </div>
                                                                             @endforeach
-                                                                        @endforeach
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
@@ -376,11 +376,11 @@
 
 //for category hover
 <script>
-    $(document).ready(function () {
-        $('.category_element').hover(function () {
+    /*$(document).ready(function () {
+        $('#shopWomen').find('.category_element').hover(function () {
             var category_id = $(this).data('id');
 
-            $('.sub_category_element').each(function () {
+            $('#shopWomen').find('.sub_category_element').each(function () {
                 if ($(this).data('parent') != category_id) {
                     $(this).prop('hidden', true);
                 } else {
@@ -388,7 +388,7 @@
                 }
             });
         });
-    });
+    });*/
 </script>
 @yield('script')
 

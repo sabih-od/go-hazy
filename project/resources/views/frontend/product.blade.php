@@ -110,23 +110,25 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="categoriesCont">
-                        @foreach($categories as $category)
+
                             <ul>
-                                <li class="category_element" data-id="{{$category->id}}"><a
-                                        href="{{ route('front.category', $category->slug) }}"
-                                        data-id="shopWomen">{{$category->name ?? ''}}</a></li>
+                                @foreach($categories as $category)
+                                    <li class="category_element">
+                                    <a href="{{ route('front.category', $category->slug) }}"
+                                       data-id="_inner_{{$category->id}}">{{$category->name ?? ''}}</a></li>
+                                @endforeach
                             </ul>
-                        @endforeach
+
                     </div>
-                    <div class="subCatCont" id="shopWomen">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            @foreach($categories as $category)
+                    @foreach($categories as $category)
+                        <div class="subCatCont" id="_inner_{{$category->id}}">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="container-fluid">
+                                            <div class="row">
                                                 @foreach($category->subs as $subscategory)
-                                                    <div class="col-md-4 sub_category_element"
+                                                    <div class="col-md-3 sub_category_element"
                                                          data-parent="{{$category->id}}">
                                                         <a href="{{ route('front.category', [$category->slug,$subscategory->slug]) }}"><span
                                                                 class="text-uppercase ">{{ $subscategory->name ?? '' }}</span></a>
@@ -143,13 +145,13 @@
                                                         @endif
                                                     </div>
                                                 @endforeach
-                                            @endforeach
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
                 <div class="col-md-9">
                     <div class="container-fluid">
