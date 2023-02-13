@@ -43,7 +43,7 @@
                         </h4>
                         @endif
                         <h4 class="title">
-                           {{ __('Conversation with') }} {{$conv->subject}} <a  class="mybtn1" href="{{ url()->previous() }}"> <i class="fas fa-arrow-left"></i> {{ __('Back') }}</a>
+                           {{ __('Conversation with') }} {{$conv->subject}} <a  class="themebtn" href="{{ url()->previous() }}"> <i class="fas fa-arrow-left"></i> {{ __('Back') }}</a>
                         </h4>
                      </div>
                      <div class="support-ticket-wrapper ">
@@ -102,7 +102,7 @@
                                  </div>
                               </div>
                               <div class="form-group mt-3">
-                                 <button class="mybtn1">
+                                 <button class="themebtn">
                                  {{ __('Add Reply') }}
                                  </button>
                               </div>

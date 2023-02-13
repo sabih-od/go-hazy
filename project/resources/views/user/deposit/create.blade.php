@@ -43,7 +43,7 @@
                         <div class="widget border-0 p-40 widget_categories bg-light account-info">
 
                             <h4 class="widget-title down-line mb-30">{{ __('Deposit') }}
-                                <a class="mybtn1" href="{{ route('user-deposit-index') }}">
+                                <a class="themeBtn" href="{{ route('user-deposit-index') }}">
                                     <i class="fas fa-arrow-left"></i> {{ __('Back') }}
                                 </a>
                             </h4>
@@ -92,7 +92,12 @@
                                                   {{ __('Select an option') }}
                                                 </option>
                                                 @foreach($gateway as $paydata)
-                                                  @if($paydata->type == 'manual')
+                                                    @if($paydata->keyword == 'stripe')
+                                                        <option value="{{ $paydata->name }}" data-form="{{ $paydata->showDepositLink() }}" data-show="{{ $paydata->showForm() }}" data-href="{{ route('user.load.payment',['slug1' => $paydata->showKeyword(),'slug2' => $paydata->id]) }}" data-val="{{ $paydata->keyword }}">
+                                                            {{ $paydata->name }}
+                                                        </option>
+                                                    @endif
+                                                  {{--@if($paydata->type == 'manual')
                                                   <option value="{{ $paydata->title }}" data-form="{{ $paydata->showDepositLink() }}" data-show="{{ $paydata->showForm() }}" data-href="{{ route('user.load.payment',['slug1' => $paydata->showKeyword(),'slug2' => $paydata->id]) }}" data-val="{{ $paydata->keyword }}">
                                                     {{ $paydata->title }}
                                                   </option>
@@ -100,7 +105,7 @@
                                                   <option value="{{ $paydata->name }}" data-form="{{ $paydata->showDepositLink() }}" data-show="{{ $paydata->showForm() }}" data-href="{{ route('user.load.payment',['slug1' => $paydata->showKeyword(),'slug2' => $paydata->id]) }}" data-val="{{ $paydata->keyword }}">
                                                     {{ $paydata->name }}
                                                   </option>
-                                                  @endif
+                                                  @endif--}}
                                                 @endforeach
                                             </select>
                                         </div>
@@ -112,7 +117,7 @@
                                         <div class="col-lg-4">
                                         </div>
                                         <div class="col-lg-8 mt-4">
-                                            <button type="submit" id="final-btn" class="mybtn1">{{ __('Submit') }}</button>
+                                            <button type="submit" id="final-btn" class="themeBtn">{{ __('Submit') }}</button>
                                         </div>
                                     </div>
                                 </form>

@@ -13,22 +13,22 @@ class OrderController extends UserBaseController
     public function orders()
     {
         $user = $this->user;
-        $orders = Order::where('user_id','=',$user->id)->latest('id')->get();
-        return view('user.order.index',compact('user','orders'));
+        $orders = Order::where('user_id', '=', $user->id)->latest('id')->get();
+        return view('user.order.index', compact('user', 'orders'));
     }
 
     public function ordertrack()
     {
         $user = $this->user;
-        return view('user.order-track',compact('user'));
+        return view('user.order-track', compact('user'));
     }
 
     public function trackload($id)
     {
         $user = $this->user;
-        $order = $user->orders()->where('order_number','=',$id)->first();
-        $datas = array('Pending','Processing','On Delivery','Completed');
-        return view('load.track-load',compact('order','datas'));
+        $order = $user->orders()->where('order_number', '=', $id)->first();
+        $datas = array('Pending', 'Processing', 'On Delivery', 'Completed');
+        return view('load.track-load', compact('order', 'datas'));
 
     }
 
@@ -38,19 +38,18 @@ class OrderController extends UserBaseController
         $user = $this->user;
         $order = $user->orders()->whereId($id)->firstOrFail();
         $cart = json_decode($order->cart, true);;
-        return view('user.order.details',compact('user','order','cart'));
+        return view('user.order.details', compact('user', 'order', 'cart'));
     }
 
-    public function orderdownload($slug,$id)
+    public function orderdownload($slug, $id)
     {
         $user = $this->user;
-        $order = Order::where('order_number','=',$slug)->first();
+        $order = Order::where('order_number', '=', $slug)->first();
         $prod = Product::findOrFail($id);
-        if(!isset($order) || $prod->type == 'Physical' || $order->user_id != $user->id)
-        {
+        if (!isset($order) || $prod->type == 'Physical' || $order->user_id != $user->id) {
             return redirect()->back();
         }
-        return response()->download(public_path('assets/files/'.$prod->file));
+        return response()->download(public_path('assets/files/' . $prod->file));
     }
 
     public function orderprint($id)
@@ -58,7 +57,7 @@ class OrderController extends UserBaseController
         $user = $this->user;
         $order = Order::findOrfail($id);
         $cart = json_decode($order->cart, true);
-        return view('user.order.print',compact('user','order','cart'));
+        return view('user.order.print', compact('user', 'order', 'cart'));
     }
 
     public function trans()
@@ -69,7 +68,7 @@ class OrderController extends UserBaseController
         $order->txnid = $trans;
         $order->update();
         $data = $order->txnid;
-        return response()->json($data);            
-    }  
+        return response()->json($data);
+    }
 
 }

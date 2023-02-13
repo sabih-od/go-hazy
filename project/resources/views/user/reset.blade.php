@@ -60,7 +60,7 @@
                                  </div>
                               </div>
                               <div class="form-links">
-                                 <button class="submit-btn btn btn-primary" type="submit">{{ __('Submit') }}</button>
+                                 <button class="themeBtn" type="submit">{{ __('Submit') }}</button>
                               </div>
                            </form>
                         </div>

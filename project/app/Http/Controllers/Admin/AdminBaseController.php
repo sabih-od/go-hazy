@@ -11,6 +11,7 @@ class AdminBaseController extends Controller
     protected $gs;
     protected $curr;
     protected $language_id;
+
     public function __construct()
     {
         $this->middleware('auth:admin');
@@ -21,13 +22,13 @@ class AdminBaseController extends Controller
 
         // Set Global Language
 
-        $this->language = DB::table('admin_languages')->where('is_default','=',1)->first();
+        $this->language = DB::table('admin_languages')->where('is_default', '=', 1)->first();
         view()->share('langg', $this->language);
         App::setlocale($this->language->name);
-    
+
         // Set Global Currency
 
-        $this->curr = DB::table('currencies')->where('is_default','=',1)->first();
+        $this->curr = DB::table('currencies')->where('is_default', '=', 1)->first();
 
     }
 }

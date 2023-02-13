@@ -104,7 +104,7 @@ class ProductController extends VendorBaseController
             }else{
                 return back();
             }
-            
+
         }else if($slug == 'digital'){
             if($this->gs->digital == 1){
                 return view('vendor.product.create.digital',compact('cats','sign'));
@@ -117,7 +117,7 @@ class ProductController extends VendorBaseController
             }else{
                 return back();
             }
-            
+
         }
     }
 
@@ -216,7 +216,7 @@ class ProductController extends VendorBaseController
         $filename = '';
         if ($file = $request->file('csvfile'))
         {
-            $extensions = ['csv'];       
+            $extensions = ['csv'];
             if(!in_array($file->getClientOriginalExtension(),$extensions)){
                 return response()->json(array('errors' => ['Image format not supported']));
             }
@@ -295,16 +295,16 @@ class ProductController extends VendorBaseController
                 $input['slug'] = Str::slug($input['name'],'-').'-'.strtolower($input['sku']);
 
                 $image_url = $line[5];
-                
+
                   $ch = curl_init();
                   curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
                   curl_setopt ($ch, CURLOPT_URL, $image_url);
                   curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, 20);
                   curl_setopt ($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
                   curl_setopt ($ch, CURLOPT_FOLLOWLOCATION, true);
-                  curl_setopt($ch, CURLOPT_HEADER, true); 
+                  curl_setopt($ch, CURLOPT_HEADER, true);
                   curl_setopt($ch, CURLOPT_NOBODY, true);
-                
+
                   $content = curl_exec ($ch);
                   $contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
                 $thumb_url = '';
@@ -315,7 +315,7 @@ class ProductController extends VendorBaseController
                         $input['photo']  = $fphoto;
                         $thumb_url = $line[5];
                     }else{
-                        $fimg = Image::make(public_path().'/assets/images/noimage.png')->resize(800, 800); 
+                        $fimg = Image::make(public_path().'/assets/images/noimage.png')->resize(800, 800);
                         $fphoto = time().Str::random(8).'.jpg';
                         $fimg->save(public_path().'/assets/images/products/'.$fphoto);
                         $input['photo']  = $fphoto;
@@ -328,8 +328,14 @@ class ProductController extends VendorBaseController
                 $input['thumbnail']  = $thumbnail;
 
                 // Conert Price According to Currency
-                $input['price'] = ($input['price'] / $sign->value);
-                $input['previous_price'] = ($input['previous_price'] / $sign->value);
+                // Product Discount
+                if (!is_null($request->previous_price)) {
+                    $input['price'] = ($request->previous_price / $sign->value);
+                    $input['previous_price'] = ($request->price / $sign->value);
+                } else {
+                    $input['price'] = ($input['price'] / $sign->value);
+                    $input['previous_price'] = ($input['previous_price'] / $sign->value);
+                }
                 $input['user_id'] = $user->id;
                 // Save Data
                 $data->fill($input)->save();
@@ -404,7 +410,7 @@ class ProductController extends VendorBaseController
             // Check File
             if ($file = $request->file('file'))
             {
-                $extensions = ['zip'];       
+                $extensions = ['zip'];
                 if(!in_array($file->getClientOriginalExtension(),$extensions)){
                     return response()->json(array('errors' => ['Image format not supported']));
                 }
@@ -487,7 +493,7 @@ class ProductController extends VendorBaseController
                        foreach($size_prices as $key => $sPrice){
                            $s_price[$key] = $sPrice / $sign->value;
                        }
-                       
+
                        $input['size_price'] = implode(',', $s_price);
                    }
            }
@@ -595,8 +601,14 @@ class ProductController extends VendorBaseController
              }
 
             // Conert Price According to Currency
-             $input['price'] = ($input['price'] / $sign->value);
-             $input['previous_price'] = ($input['previous_price'] / $sign->value);
+            // Product Discount
+            if (!is_null($request->previous_price)) {
+                $input['price'] = ($request->previous_price / $sign->value);
+                $input['previous_price'] = ($request->price / $sign->value);
+            } else {
+                $input['price'] = ($input['price'] / $sign->value);
+                $input['previous_price'] = ($input['previous_price'] / $sign->value);
+            }
          	 $input['user_id'] = $this->user->id;
 
            // store filtering attributes for physical product
@@ -662,7 +674,7 @@ class ProductController extends VendorBaseController
              $input['attributes'] = $jsonAttr;
            }
 
-        
+
             // Save Data
                 $data->fill($input)->save();
 
@@ -686,7 +698,7 @@ class ProductController extends VendorBaseController
                 $lastid = $data->id;
                 if ($files = $request->file('gallery')){
                     foreach ($files as  $key => $file){
-                        $extensions = ['jpeg','jpg','png','svg'];       
+                        $extensions = ['jpeg','jpg','png','svg'];
                         if(!in_array($file->getClientOriginalExtension(),$extensions)){
                             return response()->json(array('errors' => ['Image format not supported']));
                         }
@@ -773,7 +785,7 @@ class ProductController extends VendorBaseController
         $data = Product::findOrFail($id);
         $sign = $this->curr;
         $input = $request->all();
- 
+
             //Check Types
             if($request->type_check == 1)
             {
@@ -854,7 +866,7 @@ class ProductController extends VendorBaseController
                                  foreach($size_prices as $key => $sPrice){
                                      $s_price[$key] = $sPrice / $sign->value;
                                  }
-                                 
+
                                  $input['size_price'] = implode(',', $s_price);
                              }
                      }
@@ -1060,7 +1072,7 @@ class ProductController extends VendorBaseController
 
 
         $data->slug = Str::slug($data->name,'-').'-'.strtolower($data->sku);
-     
+
          $data->update($input);
         //-- Logic Section Ends
 
@@ -1106,7 +1118,7 @@ class ProductController extends VendorBaseController
             // Check File
             if ($file = $request->file('file'))
             {
-                $extensions = ['zip'];       
+                $extensions = ['zip'];
                 if(!in_array($file->getClientOriginalExtension(),$extensions)){
                     return response()->json(array('errors' => ['Image format not supported']));
                 }
@@ -1192,7 +1204,7 @@ class ProductController extends VendorBaseController
                         foreach($size_prices as $key => $sPrice){
                             $s_price[$key] = $sPrice / $sign->value;
                         }
-                        
+
                         $input['size_price'] = implode(',', $s_price);
                     }
             }
@@ -1284,8 +1296,14 @@ class ProductController extends VendorBaseController
              }
 
             // Conert Price According to Currency
-             $input['price'] = ($input['price'] / $sign->value);
-             $input['previous_price'] = ($input['previous_price'] / $sign->value);
+            // Product Discount
+            if (!is_null($request->previous_price)) {
+                $input['price'] = ($request->previous_price / $sign->value);
+                $input['previous_price'] = ($request->price / $sign->value);
+            } else {
+                $input['price'] = ($input['price'] / $sign->value);
+                $input['previous_price'] = ($input['previous_price'] / $sign->value);
+            }
              $input['user_id'] = $this->user->id;
 
              // store filtering attributes for physical product
@@ -1387,7 +1405,7 @@ class ProductController extends VendorBaseController
                 $lastid = $data->id;
                 if ($files = $request->file('gallery')){
                     foreach ($files as  $key => $file){
-                        $extensions = ['jpeg','jpg','png','svg'];       
+                        $extensions = ['jpeg','jpg','png','svg'];
                         if(!in_array($file->getClientOriginalExtension(),$extensions)){
                             return response()->json(array('errors' => ['Image format not supported']));
                         }

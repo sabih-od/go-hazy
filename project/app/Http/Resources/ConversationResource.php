@@ -9,7 +9,7 @@ class ConversationResource extends Resource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
@@ -23,6 +23,6 @@ class ConversationResource extends Resource
             'messages' => ConversationMessageResource::collection($this->messages),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-          ];
+        ];
     }
 }

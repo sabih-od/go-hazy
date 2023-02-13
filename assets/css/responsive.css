@@ -1,0 +1,657 @@
+@media only screen and (max-width: 1920px) and (min-width: 1500px) {
+    .container {
+        max-width: 1315px;
+    }
+}
+
+@media only screen and (max-width: 1600px) {
+    .imgSet {
+        right: 0;
+        bottom: 0;
+    }
+
+    .twoShape {
+        bottom: -50px;
+    }
+
+    .shirtSec .twoShape {
+        bottom: -3rem;
+    }
+
+    .shirtSec .oneShape {
+        top: -2.7rem;
+    }
+
+    .purpleshapedouwm {
+        bottom: -40px;
+    }
+
+    .orangetop {
+        top: -30px;
+    }
+
+    .freeDelivery.about-page-delivery {
+        padding: 7rem 0;
+    }
+
+    .aboutSec {
+        padding: 5rem 0 5rem;
+    }
+}
+
+@media only screen and (max-width: 1445px) {
+    section {
+        padding: 3rem 0;
+    }
+
+    .refreshSec {
+        padding: 4rem 0;
+    }
+
+    .proSec {
+        padding: 6rem 0;
+    }
+
+    .proSec {
+        padding: 6rem 0 2rem;
+    }
+
+    .signupSec {
+        padding: 5rem 0;
+    }
+
+    .freeDelivery {
+        padding: 4rem 0;
+    }
+
+    .chairImg {
+        top: -9%;
+    }
+}
+
+@media only screen and (max-width: 1366px) {
+    html {
+        font-size: 14px;
+    }
+
+    .twoShape {
+        bottom: -40px;
+    }
+
+    .signupSec .refreshHeading.white p {
+        margin: 0 0 2rem;
+    }
+
+    .signupSec {
+        padding: 3rem 0;
+    }
+
+    .shirtBox figure a {
+        font-size: 2.575rem;
+    }
+
+    .innerBanner h6 {
+        font-size: 3.25rem;
+    }
+
+    .orangetop {
+        top: -20px;
+    }
+
+    .signupSec.aboutSignup .refreshHeading.white form {
+        position: relative;
+        z-index: 1;
+    }
+
+    .signupSec.aboutSignup {
+        padding: 3rem 0;
+    }
+}
+
+@media (max-width: 1199.98px) {
+    html {
+        font-size: 13px;
+    }
+
+    .twoShape {
+        bottom: -37px;
+    }
+
+    .shirtSec .oneShape {
+        top: -2.5rem;
+    }
+
+    .shirtSec .twoShape {
+        bottom: -2.5rem;
+    }
+
+    footer {
+        padding: 3rem 0 0;
+    }
+
+    .copyRight {
+        margin-top: 3rem;
+    }
+
+    .imgSet {
+        position: absolute;
+    }
+
+    .imgSet figure img {
+        width: 100%;
+    }
+
+    .mainSlider {
+        height: 447px;
+    }
+
+    .headingTwo {
+        font-size: 2.325rem;
+    }
+
+    .mainSlider h2 {
+        margin: 1.5rem 0;
+    }
+
+    .aboutIcon figure {
+        width: 65px;
+        height: 65px;
+        padding: 1.4rem;
+    }
+
+    .shirtBox figure a {
+        font-size: 2rem;
+    }
+
+    .deliveryContent h6 {
+        font-size: 1.675rem;
+    }
+
+    .headingOne {
+        font-size: 3.3125rem;
+    }
+
+    .privacyPage h6 {
+        margin: 1rem 0;
+    }
+
+    .privacyPage ul li + li {
+        margin-top: 0.5rem;
+    }
+}
+
+@media (max-width: 991.98px) {
+    html {
+        font-size: 12px;
+    }
+
+    .mouse-cursor {
+        display: none;
+    }
+
+    .slideContent h5 {
+        font-size: 1rem;
+    }
+
+    .mainSlider h2 {
+        font-size: 1.75rem;
+        margin: 1rem 0;
+    }
+
+    .headingTwo {
+        font-size: 1.25rem;
+    }
+
+    .imgSet img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .refreshSec:before {
+        display: none;
+    }
+
+    .refreshHeading h1 {
+        font-size: 5.25rem;
+    }
+
+    .refreshHeading h2 {
+        margin: 0.5rem 0;
+    }
+
+    .twoShape {
+        bottom: -27px;
+    }
+
+    .shirtSec .oneShape {
+        top: -1.5rem;
+    }
+
+    .shirtSec .twoShape {
+        bottom: -2rem;
+    }
+
+    .refreshHeading h2 {
+        font-size: 1.8rem;
+    }
+
+    .blogContent h6 {
+        margin: 1.4rem 1rem 0;
+        font-size: 1.3rem;
+    }
+
+    .aboutSec {
+        padding: 2rem 0;
+    }
+
+    .chairImg {
+        position: static;
+    }
+
+    .refreshHeading {
+        margin-bottom: 1rem;
+    }
+
+    .shirtBox figure a {
+        font-size: 1.5rem;
+    }
+
+    .mainSlider {
+        height: 317px;
+    }
+
+    .navbar-toggler {
+        border: 1px solid #000;
+        color: #000;
+    }
+
+    .navbar-nav {
+        gap: 1rem;
+    }
+
+    .form-inline {
+        justify-content: center;
+    }
+
+    .form-inline ul {
+        border: 0;
+        padding: 0;
+    }
+
+    .purpleshapedouwm {
+        bottom: -30px;
+    }
+
+    .about-page-delivery .deliveryContent {
+        max-width: 100%;
+    }
+
+    .orangetop {
+        top: -10px;
+    }
+
+    .contactForm input {
+        height: 35px;
+        margin: 0 0 1rem;
+    }
+
+    .contactForm textarea {
+        height: 110px;
+    }
+
+    .mapSec iframe {
+        height: 200px;
+    }
+
+    .faqSec #accordion .card .card-body p {
+        line-height: 20px;
+    }
+
+    .contactPage .refreshHeading h2 {
+        font-size: 1.5rem;
+    }
+
+    .navbar .drop-down:hover > ul {
+        opacity: 0;
+        visibility: hidden;
+        top: 0;
+    }
+
+    .navbar .drop-down > ul.active {
+        height: 100%;
+        opacity: 1;
+        visibility: visible;
+        position: unset;
+    }
+
+    .navbar .drop-down > ul {
+        box-shadow: none;
+        background: transparent;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    li.nav-item.drop-down {
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar .drop-down li {
+        width: 49%;
+    }
+
+    .navbar .drop-down > a:after {
+        content: none;
+    }
+
+    .navbar .drop-down i {
+        font-size: 2rem;
+        padding-left: 1rem;
+    }
+
+    .navbar-nav .nav-item .nav-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar .drop-down .dropdownBtn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+}
+
+@media (max-width: 767.98px) {
+    html {
+        font-size: 14px;
+    }
+
+    .imgSet::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.35);
+        width: 100%;
+        height: 100%;
+    }
+
+    .mainSlider {
+        height: 60vh;
+        text-align: center;
+    }
+
+    .slideContent {
+        text-align: center;
+        position: relative;
+        z-index: 1;
+    }
+
+    .imgSet figure img {
+        width: 50%;
+    }
+
+    .imgSet figure {
+        text-align: center;
+    }
+
+    .homeSlider.swiper-container .swiper-button-prev {
+        width: 50px;
+        height: 50px;
+        left: 1rem;
+    }
+
+    .mainSlider h2 {
+        margin: 1rem 0;
+    }
+
+    .headingOne {
+        font-size: 2.3125rem;
+    }
+
+    .headingTwo {
+        font-size: 1.5rem;
+        margin: 0 0 2rem;
+    }
+
+    .homeSlider.swiper-container .swiper-button-next {
+        width: 50px;
+        height: 50px;
+        right: 1rem;
+    }
+
+    .refreshHeading {
+        margin-bottom: 2rem;
+    }
+
+    .clothingBox {
+        margin-bottom: 2rem;
+    }
+
+    .twoShape {
+        display: none;
+    }
+
+    .shirtSec .oneShape {
+        top: -0.5rem;
+    }
+
+    .refreshHeading h1 {
+        font-size: 4.25rem;
+    }
+
+    .deliveryBox figure {
+        position: static;
+    }
+
+    .deliveryBox {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem 2rem;
+        height: auto;
+        margin-bottom: 1rem;
+    }
+
+    .deliveryContent h6 {
+        width: auto;
+        font-size: 1.475rem;
+    }
+
+    .fotrLogo ul {
+        margin: 0 0 1.5rem;
+    }
+
+    .quickHead ul {
+        margin: 0 0 1.5rem;
+    }
+
+    .blogCard figure img {
+        width: 100%;
+    }
+
+    .footerLogo img {
+        width: 30%;
+    }
+
+    .product-box h4 {
+        font-size: 1.2rem;
+    }
+
+    .product-box p {
+        font-size: 1rem;
+    }
+
+    .product-box span {
+        font-size: 1rem;
+    }
+
+    .refreshSec {
+        padding: 3rem 0 1rem;
+    }
+
+    .proSec {
+        padding: 3rem 0 2rem;
+    }
+
+    .freeDelivery {
+        padding: 2rem 0;
+    }
+
+    .shopNav ul {
+        justify-content: center;
+        margin: 0 0 1rem;
+    }
+
+    .innerBanner h6 {
+        font-size: 2.25rem;
+    }
+
+    .blogCard {
+        margin-bottom: 2rem;
+    }
+
+    .purpleshapedouwm {
+        bottom: -20px;
+    }
+
+    .freeDelivery.about-page-delivery {
+        padding: 5rem 0 3rem;
+    }
+
+    .about-page .refreshHeading.white {
+        text-align: center;
+        margin: 2rem 0 0;
+    }
+
+    .about-page-end .refreshHeading.white {
+        text-align: center;
+    }
+
+    .signupSec.aboutSignup .refreshHeading.white form {
+        padding: 3rem 2rem;
+    }
+
+    .signupSec.aboutSignup img {
+        display: none;
+    }
+
+    .contactPage {
+        padding: 2rem 0;
+    }
+
+    .rightOne {
+        padding-left: 0;
+        border: 0;
+        padding-top: 2rem;
+    }
+
+    .leftOne {
+        padding-right: 0;
+    }
+
+    .contactPage .refreshHeading {
+        margin-bottom: 1rem;
+    }
+
+    footer {
+        padding: 1.5rem 0 0;
+    }
+
+    .copyRight {
+        margin-top: 2rem;
+    }
+
+    .privacyPage {
+        padding: 2rem 0;
+    }
+
+    .privacyPage h6 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .headingOne {
+        font-size: 2rem;
+    }
+
+    .slideContent h5 {
+        font-size: 1.5375rem;
+    }
+
+    .mainSlider {
+        height: 50vh;
+    }
+
+    .refreshHeading h2 {
+        font-size: 1.5rem;
+    }
+
+    .signupSec .refreshHeading.white p {
+        font-size: 1rem;
+    }
+
+    .signupSec form {
+        display: block;
+    }
+
+    .signupSec form .themeBtn {
+        width: 100%;
+    }
+
+    .copyRight {
+        padding: 0.5rem 0;
+        margin-top: 1.5rem;
+    }
+
+    .copyRight p {
+        font-size: 0.9rem;
+    }
+
+    .fotrLogo p {
+        font-size: 0.9rem;
+        margin: 0.5rem 0;
+    }
+
+    footer {
+        padding: 2rem 0 0;
+    }
+
+    .shopLabel ul {
+        gap: 0.5rem;
+        flex-flow: wrap;
+        justify-content: center;
+    }
+
+    .innerBanner h6 {
+        font-size: 1.8rem;
+    }
+
+    .purpleshapedouwm {
+        bottom: -10px;
+    }
+
+    .orangetop {
+        top: -7px;
+    }
+
+    .signupSec.aboutSignup img {
+        display: none;
+    }
+
+    .contactPage .refreshHeading h2 {
+        font-size: 1.2rem;
+    }
+
+    .privacyPage {
+        padding: 1rem 0;
+    }
+}
+
+@media (max-width: 320.98px) {
+}

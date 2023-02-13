@@ -70,7 +70,7 @@
                                       </div>
                                     </td>
                                     <td data-label="{{ __('View') }}">
-                                      <a class="mybtn1 sm1" href="{{route('user-order',$order->id)}}">
+                                      <a class="themeBtn sm1" href="{{route('user-order',$order->id)}}">
                                         {{ __('View Order') }}
                                       </a>
                                     </td>

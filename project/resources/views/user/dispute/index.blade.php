@@ -45,7 +45,7 @@
                         <div class="widget border-0 p-40 widget_categories bg-light account-info">
 
                             <h4 class="widget-title down-line mb-30">{{ __('Dispute') }}
-                                <a data-bs-toggle="modal" data-bs-target="#vendorform" class="mybtn1" href="javascript:;"> <i class="fas fa-envelope"></i> {{ __('Add Dispute') }}</a>
+                                <a data-bs-toggle="modal" data-bs-target="#vendorform" class="themeBtn" href="javascript:;"> <i class="fas fa-envelope"></i> {{ __('Add Dispute') }}</a>
                             </h4>
                             <div class="mr-table allproduct message-area  mt-4">
 								@include('alerts.form-success')
@@ -82,8 +82,8 @@
                             </td>
                             <td class="{{ __('Actions') }}">
                               <div>
-                                <a href="{{route('user-message-show',$conv->id)}}" class="link view mybtn1"><i class="fa fa-eye"></i></a>
-                                <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-href="{{route('user-message-delete1',$conv->id)}}"class="link remove mybtn1"><i class="fa fa-trash"></i></a>
+                                <a href="{{route('user-message-show',$conv->id)}}" class="link view themeBtn"><i class="fa fa-eye"></i></a>
+                                <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-href="{{route('user-message-delete1',$conv->id)}}"class="link remove themeBtn"><i class="fa fa-trash"></i></a>
                               </div>
                             </td>
 

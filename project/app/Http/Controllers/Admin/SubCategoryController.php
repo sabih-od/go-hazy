@@ -59,11 +59,13 @@ class SubCategoryController extends AdminBaseController
     {
         //--- Validation Section
         $rules = [
-            'slug' => 'unique:subcategories|regex:/^[a-zA-Z0-9\s-]+$/'
+            'slug' => 'unique:subcategories|regex:/^[a-zA-Z0-9\s-]+$/',
+            'image' => 'required|mimes:jpeg,jpg,png,svg'
                  ];
         $customs = [
             'slug.unique' => __('This slug has already been taken.'),
-            'slug.regex' => __('Slug Must Not Have Any Special Characters.')
+            'slug.regex' => __('Slug Must Not Have Any Special Characters.'),
+            'image.required' => __('Banner Image is required.'),
                    ];
         $validator = Validator::make($request->all(), $rules, $customs);
 
@@ -75,6 +77,11 @@ class SubCategoryController extends AdminBaseController
         //--- Logic Section
         $data = new Subcategory();
         $input = $request->all();
+        if ($file = $request->file('image')) {
+            $name = \PriceHelper::ImageCreateName($file);
+            $file->move('assets/images/categories', $name);
+            $input['image'] = $name;
+        }
         $data->fill($input)->save();
         //--- Logic Section Ends
 
@@ -97,11 +104,13 @@ class SubCategoryController extends AdminBaseController
     {
         //--- Validation Section
         $rules = [
-            'slug' => 'unique:subcategories,slug,'.$id.'|regex:/^[a-zA-Z0-9\s-]+$/'
+            'slug' => 'unique:subcategories,slug,'.$id.'|regex:/^[a-zA-Z0-9\s-]+$/',
+            'image' => 'required|mimes:jpeg,jpg,png,svg',
                  ];
         $customs = [
             'slug.unique' => __('This slug has already been taken.'),
-            'slug.regex' => __('Slug Must Not Have Any Special Characters.')
+            'slug.regex' => __('Slug Must Not Have Any Special Characters.'),
+            'image.required' => __('Banner Image is required.'),
                    ];
         $validator = Validator::make($request->all(), $rules, $customs);
 
@@ -113,6 +122,12 @@ class SubCategoryController extends AdminBaseController
         //--- Logic Section
         $data = Subcategory::findOrFail($id);
         $input = $request->all();
+        if ($file = $request->file('image')) {
+            $name = \PriceHelper::ImageCreateName($file);
+            $file->move('assets/images/categories', $name);
+            $input['image'] = $name;
+        }
+//        dd($input);
         $data->update($input);
         //--- Logic Section Ends
 
