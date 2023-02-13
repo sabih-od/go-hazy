@@ -144,14 +144,15 @@
                                             <div class="col-3">
                                                 <div class="mainCat">
                                                     <h4>Store Category</h4>
-                                                    @foreach($categories as $category)
-                                                        <ul class="nav flex-column">
-                                                            <li class="nav-item category_element" data-id="{{$category->id}}"><a
+                                                    <ul class="nav flex-column">
+                                                        @foreach($categories as $category)
+                                                            <li class="nav-item category_element"
+                                                                data-id="{{$category->id}}"><a
                                                                     href="{{ route('front.category', $category->slug) }}"
-                                                                    class="nav-link active"
+                                                                    class="nav-link"
                                                                     data-id="women">{{$category->name ?? ''}}</a></li>
-                                                        </ul>
-                                                    @endforeach
+                                                        @endforeach
+                                                    </ul>
                                                 </div>
                                             </div>
                                             <div class="col-9">
@@ -163,7 +164,9 @@
                                                                     <div class="row">
                                                                         @foreach($categories as $category)
                                                                             @foreach($category->subs as $subscategory)
-                                                                                <div class="col-md-4 sub_category_element" data-parent="{{$category->id}}">
+                                                                                <div
+                                                                                    class="col-md-4 sub_category_element"
+                                                                                    data-parent="{{$category->id}}">
                                                                                     <a href="{{ route('front.category', [$category->slug,$subscategory->slug]) }}"><span
                                                                                             class="text-uppercase text-white">{{ $subscategory->name ?? '' }}</span></a>
                                                                                     @if(isset($subscategory->childs) != null)
@@ -182,7 +185,7 @@
                                                                         @endforeach
                                                                     </div>
                                                                 </div>
-                                                            </div>categoriesCont
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -378,7 +381,7 @@
             var category_id = $(this).data('id');
 
             $('.sub_category_element').each(function () {
-                if($(this).data('parent') != category_id) {
+                if ($(this).data('parent') != category_id) {
                     $(this).prop('hidden', true);
                 } else {
                     $(this).prop('hidden', false);
