@@ -185,7 +185,7 @@
                                                                         @endforeach
                                                                     </div>
                                                                 </div>
-                                                            </div>categoriesCont
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
