@@ -410,6 +410,7 @@
                                             </div>
                                         </div>
                                         @foreach($category->subs as $subcategory)
+                                            @if($loop->iteration > 4) @break @endif
                                             <div class="col-6">
                                                 <a href="{{ route('front.category', [$category->slug,$subcategory->slug]) }}"
                                                    class="catBox">
