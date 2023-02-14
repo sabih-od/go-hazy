@@ -1850,7 +1850,7 @@ span#color-bar {
 }
 
 .mainCatBox .mainHeading {
-    text-align: center;
+    text-align: left;
     font-size: 1.5rem;
     margin: 0;
     text-transform: capitalize;
@@ -1893,6 +1893,7 @@ span#color-bar {
     font-size: 0.875rem;
     text-transform: capitalize;
     text-shadow: 0 0 5px #000;
+    text-align: center;
 }
 
 .mainCatBox .mainHeading::before, .mainCatBox .mainHeading::after {
