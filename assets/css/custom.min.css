@@ -1997,6 +1997,7 @@ span#color-bar {
     padding: 2rem 1rem;
     display: none;
     transform: translateX(-1%);
+    min-height: 100vh;
 }
 
 .subCatCont:hover,
