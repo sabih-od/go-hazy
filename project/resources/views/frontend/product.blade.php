@@ -69,34 +69,36 @@
                             <li>
                                 <label>Show :</label>
                                 <div class="pagination">
-                                    <a href="#">9</a>
+                                    <a href="{{ route('front.category', ['pageby' => 9]) }}">9</a>
                                     <span>/</span>
-                                    <a href="#">12</a>
+                                    <a href="{{ route('front.category', ['pageby' => 12]) }}">12</a>
                                     <span>/</span>
-                                    <a href="#">18</a>
+                                    <a href="{{ route('front.category', ['pageby' => 18]) }}">18</a>
                                     <span>/</span>
-                                    <a href="#">24</a>
+                                    <a href="{{ route('front.category', ['pageby' => 24]) }}">24</a>
+                                    <span>/</span>
+                                    <a href="{{ route('front.category', ['pageby' => 30]) }}">30</a>
                                 </div>
                             </li>
-                            {{ $data['cat']->name  ?? 'Shop'}}
-                            @if(isset($data['subcat']))
-                                /
-                                {{ $data['subcat']->name ?? 'Shop' }}
-                            @endif
-                            @if(isset($data['childcat']))
-                                /
-                                {{ $data['childcat']->name ?? 'Shop' }}
-                            @endif
-                            <li>
-                                <a href="#"><img src="{{asset('assets/images/bar1.png')}}" class="img-fluid" alt="img"></a>
-                                <a href="#"><img src="{{asset('assets/images/bar2.png')}}" class="img-fluid" alt="img"></a>
-                                <a href="#"><img src="{{asset('assets/images/bar3.png')}}" class="img-fluid" alt="img"></a>
-                            </li>
-                            <li>
-                                <select>
-                                    <option>Default Sorting</option>
-                                </select>
-                            </li>
+{{--                            {{ $data['cat']->name  ?? 'Shop'}}--}}
+{{--                            @if(isset($data['subcat']))--}}
+{{--                                /--}}
+{{--                                {{ $data['subcat']->name ?? 'Shop' }}--}}
+{{--                            @endif--}}
+{{--                            @if(isset($data['childcat']))--}}
+{{--                                /--}}
+{{--                                {{ $data['childcat']->name ?? 'Shop' }}--}}
+{{--                            @endif--}}
+{{--                            <li>--}}
+{{--                                <a href="#"><img src="{{asset('assets/images/bar1.png')}}" class="img-fluid" alt="img"></a>--}}
+{{--                                <a href="#"><img src="{{asset('assets/images/bar2.png')}}" class="img-fluid" alt="img"></a>--}}
+{{--                                <a href="#"><img src="{{asset('assets/images/bar3.png')}}" class="img-fluid" alt="img"></a>--}}
+{{--                            </li>--}}
+{{--                            <li>--}}
+{{--                                <select>--}}
+{{--                                    <option>Default Sorting</option>--}}
+{{--                                </select>--}}
+{{--                            </li>--}}
                         </ul>
                     </div>
                 </div>

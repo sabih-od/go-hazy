@@ -414,9 +414,12 @@
                                             <div class="col-6">
                                                 <a href="{{ route('front.category', [$category->slug,$subcategory->slug]) }}"
                                                    class="catBox">
+                                                    @php
+                                                    $subCatImg = $subcategory->image ? asset('assets/images/categories/'.$subcategory->image):asset('assets/images/' . ('products/' . $subcategory->products()->first()->photo ?? 'noimage.png'));
+                                                    @endphp
                                                     <figure>
                                                         <img
-                                                            src="{{ $subcategory->image ? asset('assets/images/categories/'.$subcategory->image):asset('assets/images/noimage.png') }}"
+                                                            src="{{ $subCatImg }}"
                                                             alt="">
                                                     </figure>
                                                     <div class="overlayContent">
