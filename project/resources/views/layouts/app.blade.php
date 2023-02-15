@@ -371,7 +371,6 @@
     }
 </script>
 
-//for category hover
 <script>
     $(document).ready(function () {
         $('.category_element').hover(function () {
