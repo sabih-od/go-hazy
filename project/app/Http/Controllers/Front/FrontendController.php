@@ -406,7 +406,7 @@ class FrontendController extends FrontBaseController
             $headers = "From: " . $gs->from_name . "<" . $gs->from_email . ">";
             mail($to, $subject, $msg, $headers);
         }*/
-        if(!$this->customMail($from, $from, 'Inquiry Form', $msg))
+        if(!$this->customMail('noreply@mailinator.com', $from, 'Inquiry Form', $msg))
             return redirect()->back()->with('error', 'E-mail not send!');
 
         // Logic Section Ends
