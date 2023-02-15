@@ -9,7 +9,8 @@ use App\{Models\Blog,
     Models\Subscriber,
     Models\BlogCategory,
     Classes\GeniusMailer,
-    Models\Generalsetting};
+    Models\Generalsetting,
+    Traits\PHPCustomMail};
 use App\Models\ArrivalSection;
 use App\Models\Category;
 use App\Models\Rating;
@@ -19,6 +20,8 @@ use Illuminate\Support\Facades\Validator;
 
 class FrontendController extends FrontBaseController
 {
+
+    use PHPCustomMail;
 
 // LANGUAGE SECTION
 
@@ -381,16 +384,15 @@ class FrontendController extends FrontBaseController
                 return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
             }
         }
-
-
         // Logic Section
         $subject = "Email From Of " . $request->name;
         $to = $request->to;
         $name = $request->name;
         $phone = $request->phone;
-        $from = $request->email;
-        $msg = "Name: " . $name . "\nEmail: " . $from . "\nPhone: " . $phone . "\nMessage: " . $request->text;
-        if ($gs->is_smtp) {
+//        $from = $request->email;
+        $inquiry = $request->inquiry;
+        $msg = "Name: " . $name . "\nEmail: " . $to . "\nInquiry: " . $inquiry . "\nPhone: " . $phone . "\nMessage: " . $request->text;
+        /*if ($gs->is_smtp) {
             $data = [
                 'to' => $to,
                 'subject' => $subject,
@@ -402,11 +404,16 @@ class FrontendController extends FrontBaseController
         } else {
             $headers = "From: " . $gs->from_name . "<" . $gs->from_email . ">";
             mail($to, $subject, $msg, $headers);
-        }
+        }*/
+
+        if(!$this->customMail($gs->from_email, $gs->from_email, 'Inquiry Form', $msg))
+            return redirect()->back()->with('error', 'E-mail not send!');
+
         // Logic Section Ends
 
         // Redirect Section
-        return response()->json(__('Success! Thanks for contacting us, we will get back to you shortly.'));
+//        return response()->json(('Success! Thank You for Your Email'));
+        return redirect()->back()->with('success', 'E-mail has been sent successfully!');
     }
 
     // Refresh Capcha Code
@@ -574,5 +581,10 @@ class FrontendController extends FrontBaseController
     {
         return view('frontend.terms-conditions');
     }
+
+//    public function contactUs(){
+//
+//        return view('');
+//    }
 
 }
