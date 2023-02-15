@@ -1240,6 +1240,11 @@ footer {
 
 .contactForm .themeBtn {
     border: 0;
+    background: #652d90;
+    color: var(--white) !important;
+}
+.contactForm .themeBtn:hover {
+    background: #eb5d34;
 }
 
 .leftOne {

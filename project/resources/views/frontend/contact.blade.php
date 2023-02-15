@@ -22,9 +22,9 @@
     </section>
 
 
-{{--    <section class="contactPage">--}}
-{{--        <div class="container">--}}
-{{--            <div class="row justify-content-between">--}}
+    <section class="contactPage">
+        <div class="container">
+            <div class="row justify-content-center">
 {{--                <div class="col-md-6">--}}
 {{--                    @foreach($faq as $key => $faqs)--}}
 {{--                    <div class="leftOne">--}}
@@ -50,7 +50,7 @@
 {{--                </div>--}}
 
                 <div class="col-md-6">
-                    <div class="rightOne">
+
                         <div class="refreshHeading text-left" data-aos="fade-up">
 {{--                            <h5>INFORMATION ABOUT US</h5>--}}
                             <h2><h2>CONTACT US FOR ANY<br>QUESTIONS</h2></h2>
@@ -84,7 +84,7 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
+
                 </div>
             </div>
         </div>
