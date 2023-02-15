@@ -389,9 +389,10 @@ class FrontendController extends FrontBaseController
         $to = $request->to;
         $name = $request->name;
         $phone = $request->phone;
-//        $from = $request->email;
+        $from = "admin@hazycreations.com";
         $inquiry = $request->inquiry;
         $msg = "Name: " . $name . "\nEmail: " . $to . "\nInquiry: " . $inquiry . "\nPhone: " . $phone . "\nMessage: " . $request->text;
+
         /*if ($gs->is_smtp) {
             $data = [
                 'to' => $to,
@@ -405,8 +406,7 @@ class FrontendController extends FrontBaseController
             $headers = "From: " . $gs->from_name . "<" . $gs->from_email . ">";
             mail($to, $subject, $msg, $headers);
         }*/
-
-        if(!$this->customMail($gs->from_email, $gs->from_email, 'Inquiry Form', $msg))
+        if(!$this->customMail($from, $from, 'Inquiry Form', $msg))
             return redirect()->back()->with('error', 'E-mail not send!');
 
         // Logic Section Ends
