@@ -1850,7 +1850,7 @@ span#color-bar {
 }
 
 .mainCatBox .mainHeading {
-    text-align: center;
+    text-align: left;
     font-size: 1.5rem;
     margin: 0;
     text-transform: capitalize;
@@ -1893,6 +1893,7 @@ span#color-bar {
     font-size: 0.875rem;
     text-transform: capitalize;
     text-shadow: 0 0 5px #000;
+    text-align: center;
 }
 
 .mainCatBox .mainHeading::before, .mainCatBox .mainHeading::after {
@@ -1956,7 +1957,7 @@ span#color-bar {
 }
 
 .categoriesCont {
-    background: #f8f8f8;
+    background: #65328f;
     height: 100%;
     padding: 1rem 0;
 }
@@ -1968,18 +1969,18 @@ span#color-bar {
 
 .categoriesCont ul li a {
     display: block;
-    color: #333;
+    color: #fff;
     font-weight: 400;
-    font-size: 1.25rem;
+    font-size: 1rem;
     padding: 0.5rem 1rem;
     transition: all 0.2s ease;
-    margin: 0 1rem;
+    margin: 0;
     border-radius: 5px;
+    text-transform: uppercase;
 }
 
 .categoriesCont ul li a:hover, .categoriesCont ul li a.active {
-    background: #fff;
-    box-shadow: 2px 2px 5px #ddd;
+    box-shadow: 0 1px 10px rgb(0 0 0 / 12%);
     color: var(--theme-color);
     font-weight: 600;
 }
@@ -1989,13 +1990,14 @@ span#color-bar {
     top: 1rem;
     background: #fff;
     width: 70vw;
-    left: 30%;
+    left: 25%;
     box-shadow: 0 0 15px #ddd;
     border-radius: 5px;
     z-index: 1;
     padding: 2rem 1rem;
-    transform: translateX(-10%);
     display: none;
+    transform: translateX(-1%);
+    min-height: 100vh;
 }
 
 .subCatCont:hover,
@@ -2017,6 +2019,7 @@ span#color-bar {
     margin: 0;
     font-size: 1rem;
     display: inline-block;
+    padding: 0;
 }
 
 .subCatCont ul a::before {

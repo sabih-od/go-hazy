@@ -142,17 +142,17 @@
                                     <div class="container-fluid d-block p-0">
                                         <div class="row no-gutters">
                                             <div class="col-3">
-                                                <div class="mainCat">
-                                                    <h4>Store Category</h4>
-                                                    @foreach($categories as $category)
-                                                        <ul class="nav flex-column">
-                                                            <li class="nav-item category_element" data-id="{{$category->id}}"><a
-                                                                    href="{{ route('front.category', $category->slug) }}"
-                                                                    class="nav-link active"
-                                                                    data-id="women">{{$category->name ?? ''}}</a></li>
-                                                        </ul>
-                                                    @endforeach
-                                                </div>
+{{--                                                <div class="mainCat">--}}
+{{--                                                    <h4>Store Category</h4>--}}
+{{--                                                    @foreach($categories as $category)--}}
+{{--                                                        <ul class="nav flex-column">--}}
+{{--                                                            <li class="nav-item category_element" data-id="{{$category->id}}"><a--}}
+{{--                                                                    href="{{ route('front.category', $category->slug) }}"--}}
+{{--                                                                    class="nav-link active"--}}
+{{--                                                                    data-id="women">{{$category->name ?? ''}}</a></li>--}}
+{{--                                                        </ul>--}}
+{{--                                                    @endforeach--}}
+{{--                                                </div>--}}
                                             </div>
                                             <div class="col-9">
                                                 <div class="subCat active" id="women">
@@ -366,7 +366,7 @@
     function googleTranslateElementInit() {
         new google.translate.TranslateElement({
             pageLanguage: 'en',
-            includedLanguages: 'en,ja,es,ru,de'
+            includedLanguages: 'en,ja,es,ru,de,tl'
         }, 'google_translate_element');
     }
 </script>
@@ -385,6 +385,10 @@
                 }
             });
         });
+
+        setTimeout(function () {
+            $('option[value="tl"]').text('Tagalog')
+        }, 4000);
     });
 </script>
 @yield('script')

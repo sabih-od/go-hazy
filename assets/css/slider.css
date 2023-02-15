@@ -718,6 +718,7 @@ a.themeBtn.themeBtn1 {
     display: none;
     box-shadow: 0 1px 10px rgb(0 0 0 / 12%);
     background: #fff;
+    height: 100%;
 }
 
 .mainCat .nav.flex-column {

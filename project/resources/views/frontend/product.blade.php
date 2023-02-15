@@ -69,34 +69,36 @@
                             <li>
                                 <label>Show :</label>
                                 <div class="pagination">
-                                    <a href="#">9</a>
+                                    <a href="{{ route('front.category', ['pageby' => 9]) }}">9</a>
                                     <span>/</span>
-                                    <a href="#">12</a>
+                                    <a href="{{ route('front.category', ['pageby' => 12]) }}">12</a>
                                     <span>/</span>
-                                    <a href="#">18</a>
+                                    <a href="{{ route('front.category', ['pageby' => 18]) }}">18</a>
                                     <span>/</span>
-                                    <a href="#">24</a>
+                                    <a href="{{ route('front.category', ['pageby' => 24]) }}">24</a>
+                                    <span>/</span>
+                                    <a href="{{ route('front.category', ['pageby' => 30]) }}">30</a>
                                 </div>
                             </li>
-                            {{ $data['cat']->name  ?? 'Shop'}}
-                            @if(isset($data['subcat']))
-                                /
-                                {{ $data['subcat']->name ?? 'Shop' }}
-                            @endif
-                            @if(isset($data['childcat']))
-                                /
-                                {{ $data['childcat']->name ?? 'Shop' }}
-                            @endif
-                            <li>
-                                <a href="#"><img src="{{asset('assets/images/bar1.png')}}" class="img-fluid" alt="img"></a>
-                                <a href="#"><img src="{{asset('assets/images/bar2.png')}}" class="img-fluid" alt="img"></a>
-                                <a href="#"><img src="{{asset('assets/images/bar3.png')}}" class="img-fluid" alt="img"></a>
-                            </li>
-                            <li>
-                                <select>
-                                    <option>Default Sorting</option>
-                                </select>
-                            </li>
+{{--                            {{ $data['cat']->name  ?? 'Shop'}}--}}
+{{--                            @if(isset($data['subcat']))--}}
+{{--                                /--}}
+{{--                                {{ $data['subcat']->name ?? 'Shop' }}--}}
+{{--                            @endif--}}
+{{--                            @if(isset($data['childcat']))--}}
+{{--                                /--}}
+{{--                                {{ $data['childcat']->name ?? 'Shop' }}--}}
+{{--                            @endif--}}
+{{--                            <li>--}}
+{{--                                <a href="#"><img src="{{asset('assets/images/bar1.png')}}" class="img-fluid" alt="img"></a>--}}
+{{--                                <a href="#"><img src="{{asset('assets/images/bar2.png')}}" class="img-fluid" alt="img"></a>--}}
+{{--                                <a href="#"><img src="{{asset('assets/images/bar3.png')}}" class="img-fluid" alt="img"></a>--}}
+{{--                            </li>--}}
+{{--                            <li>--}}
+{{--                                <select>--}}
+{{--                                    <option>Default Sorting</option>--}}
+{{--                                </select>--}}
+{{--                            </li>--}}
                         </ul>
                     </div>
                 </div>
@@ -110,23 +112,25 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="categoriesCont">
-                        @foreach($categories as $category)
+
                             <ul>
-                                <li class="category_element" data-id="{{$category->id}}"><a
-                                        href="{{ route('front.category', $category->slug) }}"
-                                        data-id="shopWomen">{{$category->name ?? ''}}</a></li>
+                                @foreach($categories as $category)
+                                    <li class="category_element">
+                                    <a href="{{ route('front.category', $category->slug) }}"
+                                       data-id="_inner_{{$category->id}}">{{$category->name ?? ''}}</a></li>
+                                @endforeach
                             </ul>
-                        @endforeach
+
                     </div>
-                    <div class="subCatCont" id="shopWomen">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            @foreach($categories as $category)
+                    @foreach($categories as $category)
+                        <div class="subCatCont" id="_inner_{{$category->id}}">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="container-fluid">
+                                            <div class="row">
                                                 @foreach($category->subs as $subscategory)
-                                                    <div class="col-md-4 sub_category_element"
+                                                    <div class="col-md-3 sub_category_element"
                                                          data-parent="{{$category->id}}">
                                                         <a href="{{ route('front.category', [$category->slug,$subscategory->slug]) }}"><span
                                                                 class="text-uppercase ">{{ $subscategory->name ?? '' }}</span></a>
@@ -143,13 +147,13 @@
                                                         @endif
                                                     </div>
                                                 @endforeach
-                                            @endforeach
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
                 <div class="col-md-9">
                     <div class="container-fluid">
