@@ -615,6 +615,9 @@ a.themeBtn.themeBtn1 {
 
 .navbar .dropdown-menu {
     border: none;
+    max-height: 80vh;
+    overflow-x:hidden;
+    overflow-y: scroll;
 }
 
 @media screen and (min-width: 992px) {
