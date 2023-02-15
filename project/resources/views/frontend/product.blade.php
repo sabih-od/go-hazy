@@ -44,7 +44,7 @@
     </section>
 
     <section class="proSec proPage">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row align-items-center mb-4">
                 <div class="col-md-4">
                     <div class="shopNav">
@@ -110,53 +110,8 @@
                 $categories = Category::all();
             @endphp
             <div class="row">
-                <div class="col-md-3">
-                    <div class="categoriesCont">
-
-                            <ul>
-                                @foreach($categories as $category)
-                                    <li class="category_element">
-                                    <a href="{{ route('front.category', $category->slug) }}"
-                                       data-id="_inner_{{$category->id}}">{{$category->name ?? ''}}</a></li>
-                                @endforeach
-                            </ul>
-
-                    </div>
-                    @foreach($categories as $category)
-                        <div class="subCatCont" id="_inner_{{$category->id}}">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="container-fluid">
-                                            <div class="row">
-                                                @foreach($category->subs as $subscategory)
-                                                    <div class="col-md-3 sub_category_element"
-                                                         data-parent="{{$category->id}}">
-                                                        <a href="{{ route('front.category', [$category->slug,$subscategory->slug]) }}"><span
-                                                                class="text-uppercase ">{{ $subscategory->name ?? '' }}</span></a>
-                                                        @if(isset($subscategory->childs) != null)
-                                                            <ul class="nav flex-column">
-                                                                @foreach($subscategory->childs as $child)
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link active"
-                                                                           href="{{ route('front.category', [$category->slug, $subscategory->slug, $child->slug]) }}">
-                                                                            {{ $child->name ?? '' }}</a>
-                                                                    </li>
-                                                                @endforeach
-                                                            </ul>
-                                                        @endif
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-                <div class="col-md-9">
-                    <div class="container-fluid">
+                <div class="col-md-12">
+                    <div class="container">
                         <div class="row">
                             @forelse($data['prods'] as $item)
                                 <div class="col-lg-4 col-sm-6">

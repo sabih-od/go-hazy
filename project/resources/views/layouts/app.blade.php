@@ -142,28 +142,31 @@
                                     <div class="container-fluid d-block p-0">
                                         <div class="row no-gutters">
                                             <div class="col-3">
-{{--                                                <div class="mainCat">--}}
-{{--                                                    <h4>Store Category</h4>--}}
-{{--                                                    @foreach($categories as $category)--}}
-{{--                                                        <ul class="nav flex-column">--}}
-{{--                                                            <li class="nav-item category_element" data-id="{{$category->id}}"><a--}}
-{{--                                                                    href="{{ route('front.category', $category->slug) }}"--}}
-{{--                                                                    class="nav-link active"--}}
-{{--                                                                    data-id="women">{{$category->name ?? ''}}</a></li>--}}
-{{--                                                        </ul>--}}
-{{--                                                    @endforeach--}}
-{{--                                                </div>--}}
+                                                <div class="mainCat">
+                                                    <h4>Store Category</h4>
+                                                    <ul class="nav flex-column">
+                                                        @foreach($categories as $category)
+                                                            <li class="nav-item category_element"
+                                                            ><a
+                                                                    href="{{ route('front.category', $category->slug) }}"
+                                                                    class="nav-link"
+                                                                    data-id="as{{$category->id}}">{{$category->name ?? ''}}</a></li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
                                             </div>
                                             <div class="col-9">
-                                                <div class="subCat active" id="women">
-                                                    <div class="container-fluid d-block">
-                                                        <div class="row">
-                                                            <div class="col-md-8">
-                                                                <div class="container-fluid">
-                                                                    <div class="row">
-                                                                        @foreach($categories as $category)
+                                                @foreach($categories as $category)
+                                                    <div class="subCat" id="as{{$category->id}}">
+                                                        <div class="container-fluid d-block">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="container-fluid d-block">
+                                                                        <div class="row">
                                                                             @foreach($category->subs as $subscategory)
-                                                                                <div class="col-md-4 sub_category_element" data-parent="{{$category->id}}">
+                                                                                <div
+                                                                                    class="col-md-3 sub_category_element"
+                                                                                    data-parent="{{$category->id}}">
                                                                                     <a href="{{ route('front.category', [$category->slug,$subscategory->slug]) }}"><span
                                                                                             class="text-uppercase text-white">{{ $subscategory->name ?? '' }}</span></a>
                                                                                     @if(isset($subscategory->childs) != null)
@@ -179,13 +182,13 @@
                                                                                     @endif
                                                                                 </div>
                                                                             @endforeach
-                                                                        @endforeach
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>categoriesCont
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
@@ -371,24 +374,25 @@
     }
 </script>
 
+
 <script>
     $(document).ready(function () {
-        $('.category_element').hover(function () {
+        /*$('#shopWomen').find('.category_element').hover(function () {
             var category_id = $(this).data('id');
 
-            $('.sub_category_element').each(function () {
-                if($(this).data('parent') != category_id) {
+            $('#shopWomen').find('.sub_category_element').each(function () {
+                if ($(this).data('parent') != category_id) {
                     $(this).prop('hidden', true);
                 } else {
                     $(this).prop('hidden', false);
                 }
             });
-        });
-
+        });*/
         setTimeout(function () {
             $('option[value="tl"]').text('Tagalog')
-        }, 4000);
+        }, 1000);
     });
+
 </script>
 @yield('script')
 
