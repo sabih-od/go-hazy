@@ -161,7 +161,7 @@ class Product extends Model
         if ($gs->currency_format == 0) {
             return $curr->sign . $price;
         } else {
-            return $price . $curr->sign;
+            return $curr->sign . $price;
         }
     }
 
@@ -280,7 +280,7 @@ class Product extends Model
         if ($gs->currency_format == 0) {
             return $curr->sign . $price;
         } else {
-            return $price . $curr->sign;
+            return $curr->sign . $price;
         }
     }
 
