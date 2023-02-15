@@ -53,32 +53,32 @@
                     <div class="rightOne">
                         <div class="refreshHeading text-left" data-aos="fade-up">
 {{--                            <h5>INFORMATION ABOUT US</h5>--}}
-                            <h2>Inquiry</h2>
+                            <h2><h2>CONTACT US FOR ANY<br>QUESTIONS</h2></h2>
                         </div>
                         <form class="contactForm">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <label>Email</label>
+                                    <label>Name</label>
                                     <input type="text" class="form-control">
                                 </div>
                                 <div class="col-md-12">
-                                    <label>Website</label>
-                                    <input type="text" class="form-control">
+                                    <label>Email Address</label>
+                                    <input type="email" class="form-control">
                                 </div>
                                 <div class="col-md-12">
-                                    <label>Number</label>
-                                    <input type="text" class="form-control">
+                                    <label>Phone Number</label>
+                                    <input type="number" class="form-control">
                                 </div>
                                 <div class="col-md-12">
-                                    <label>Fax</label>
+                                    <label>Address</label>
                                     <input type="text" class="form-control">
                                 </div>
+{{--                                <div class="col-md-12">--}}
+{{--                                    <label>Street Address</label>--}}
+{{--                                    <input type="text" class="form-control">--}}
+{{--                                </div>--}}
                                 <div class="col-md-12">
-                                    <label>Street Address</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="col-md-12">
-                                    <label>Contact Us Email Address </label>
+                                    <label>Inquiry </label>
                                     <textarea></textarea>
                                     <button class="themeBtn">ASK A QUESTION</button>
                                 </div>
