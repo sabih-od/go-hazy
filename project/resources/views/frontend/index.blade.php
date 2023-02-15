@@ -415,7 +415,7 @@
                                                 <a href="{{ route('front.category', [$category->slug,$subcategory->slug]) }}"
                                                    class="catBox">
                                                     @php
-                                                    $subCatImg = $subcategory->image ? asset('assets/images/categories/'.$subcategory->image):asset('assets/images/' . ('products/' . $subcategory->products()->first()->photo ?? 'noimage.png'));
+                                                    $subCatImg = $subcategory->image ? asset('assets/images/categories/'.$subcategory->image):asset('assets/images/' . ('products/' . ($subcategory->products()->first() && $subcategory->products()->first()->photo ? $subcategory->products()->first()->photo : 'noimage.png')));
                                                     @endphp
                                                     <figure>
                                                         <img
