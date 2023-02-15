@@ -29,7 +29,9 @@
                                             </div>
                                         </div>
                                         <div class="col-md-5 imgSet">
-                                            <img src="{{asset('assets/images/sliders/'.$data->photo) ?? ''}}" alt="img">
+                                            <figure>
+                                                <img src="{{asset('assets/images/sliders/'.$data->photo) ?? ''}}"
+                                                     alt="img">
                                             </figure>
                                         </div>
                                     </div>
@@ -390,7 +392,7 @@
         <div class="container">
             <div class="row">
                 @foreach($categories as $category)
-{{--                                                        {{ dd($category->products) }}--}}
+                    {{--                                                        {{ dd($category->products) }}--}}
                     @if(count($category->subs) > 0)
                         <div class="col-md-4">
                             <div class="mainCatBox">
@@ -400,18 +402,24 @@
                                             <div class="btnCont">
                                                 <h3 class="mainHeading">{{ $category->name ?? '' }}</h3>
                                                 @if(count($category->subs) > 0)
-                                                    <a href="{{ route('front.category',$category->slug) }}" class="moreBtn">See All...</a>
+                                                    <a href="{{ route('front.category',$category->slug) }}"
+                                                       class="moreBtn">See All...</a>
                                                 @else
 
                                                 @endif
                                             </div>
                                         </div>
                                         @foreach($category->subs as $subcategory)
+                                            @if($loop->iteration > 4) @break @endif
                                             <div class="col-6">
-                                                    <a href="{{ route('front.category', [$category->slug,$subcategory->slug]) }}" class="catBox">
+                                                <a href="{{ route('front.category', [$category->slug,$subcategory->slug]) }}"
+                                                   class="catBox">
+                                                    @php
+                                                    $subCatImg = $subcategory->image ? asset('assets/images/categories/'.$subcategory->image):asset('assets/images/' . ('products/' . $subcategory->products()->first()->photo ?? 'noimage.png'));
+                                                    @endphp
                                                     <figure>
                                                         <img
-                                                            src="{{ $subcategory->image ? asset('assets/images/categories/'.$subcategory->image):asset('assets/images/noimage.png') }}"
+                                                            src="{{ $subCatImg }}"
                                                             alt="">
                                                     </figure>
                                                     <div class="overlayContent">
