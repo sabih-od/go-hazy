@@ -389,7 +389,7 @@ class FrontendController extends FrontBaseController
         $to = $request->to;
         $name = $request->name;
         $phone = $request->phone;
-        $from = "parker@mailinator.com";
+        $from = "admin@hazycreations.com";
         $inquiry = $request->inquiry;
         $msg = "Name: " . $name . "\nEmail: " . $to . "\nInquiry: " . $inquiry . "\nPhone: " . $phone . "\nMessage: " . $request->text;
 
@@ -406,7 +406,7 @@ class FrontendController extends FrontBaseController
             $headers = "From: " . $gs->from_name . "<" . $gs->from_email . ">";
             mail($to, $subject, $msg, $headers);
         }*/
-        if(!$this->customMail('noreply@mailinator.com', $from, 'Inquiry Form', $msg))
+        if(!$this->customMail($from, $from, 'Inquiry Form', $msg))
             return redirect()->back()->with('error', 'E-mail not send!');
 
         // Logic Section Ends
