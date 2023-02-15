@@ -389,7 +389,7 @@ class FrontendController extends FrontBaseController
         $to = $request->to;
         $name = $request->name;
         $phone = $request->phone;
-        $from = "admin@hazycreations.com";
+        $from = "parker@mailinator.com";
         $inquiry = $request->inquiry;
         $msg = "Name: " . $name . "\nEmail: " . $to . "\nInquiry: " . $inquiry . "\nPhone: " . $phone . "\nMessage: " . $request->text;
 
