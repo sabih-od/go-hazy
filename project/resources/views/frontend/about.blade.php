@@ -56,31 +56,6 @@
         </div>
     </section>
 
-    <section class="freeDelivery about-page-delivery">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="deliveryBox red" data-aos="fade-right">
-                        <div class="deliveryContent">
-                            <h5>Antony’s Best Collection</h5>
-                            <p>Shopping with us is as easy as it gets. We renew our collection every month to ensure
-                                you get the best, latest and trendiest products at all times.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="deliveryBox purple" data-aos="fade-left">
-                        <div class="deliveryContent">
-                            <h5>JOIN US</h5>
-                            <p>Do you have what it takes to join Antony Garcia? Reach out to us today, and let’s get to
-                                work.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section class="shirtSec about-page-end">
         <img src="{{asset('assets/images/organe-top.png')}}" class="img-fluid w-100 orangetop" alt="img">
         <div class="container">
