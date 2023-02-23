@@ -307,7 +307,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <p>@ Copyright 2022 Go Hazy. All Rights Reserved.</p>
+                    <p>@ Copyright 2023 Go Hazy. All Rights Reserved.</p>
                 </div>
             </div>
         </div>

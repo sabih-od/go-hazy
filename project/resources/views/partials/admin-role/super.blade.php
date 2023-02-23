@@ -302,7 +302,7 @@
         </ul>
     </li>
 
-    {{--<li>
+    <li>
         <a href="#homepage" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
             <i class="fas fa-edit"></i>{{ __('Home Page Settings') }}
         </a>
@@ -326,7 +326,7 @@
                 <a href="{{ route('admin-ps-customize') }}"><span>{{ __('Home Page Customization') }}</span></a>
             </li>
         </ul>
-    </li>--}}
+    </li>
 
     <li>
         <a href="#menu" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">

@@ -23,8 +23,8 @@
                                                 <h5>{{$data->subtitle_text}}</h5>
                                                 <h2 class="headingOne">{{$data->title_text}}</h2>
                                                 <h1 class="headingTwo">{{$data->details_text}}</h1>
-                                                <a href="{{route('front.category')}}" class="themeBtn skyBtn">see sale
-                                                    product</a>
+                                                <a href="{{route('front.category')}}" class="themeBtn skyBtn">
+                                                    see all product</a>
                                                 {{--                                                <a href="{{$data->link}}" class="themeBtn skyBtn">see sale product</a>--}}
                                             </div>
                                         </div>
@@ -172,7 +172,30 @@
             </div>
         </div>
     </section>
-
+    <section class="freeDelivery about-page-delivery">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="deliveryBox red" data-aos="fade-right">
+                        <div class="deliveryContent">
+                            <h5>Antony’s Best Collection</h5>
+                            <p>Shopping with us is as easy as it gets. We renew our collection every month to ensure
+                                you get the best, latest and trendiest products at all times.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="deliveryBox purple" data-aos="fade-left">
+                        <div class="deliveryContent">
+                            <h5>JOIN US</h5>
+                            <p>Do you have what it takes to join Antony Garcia? Reach out to us today, and let’s get to
+                                work.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="proSec">
         <div class="container">
             <div class="refreshHeading" data-aos="fade-up">
