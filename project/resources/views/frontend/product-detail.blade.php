@@ -272,7 +272,7 @@
                                   data-side-href="{{ route('front.side.reviews',$productt->id) }}" method="POST">
                                 @csrf
                                 <input type="hidden" id="rating" name="rating" value="5">
-                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                <input type="hidden" name="user_id" value="{{ Auth::user()->id ?? '' }}">
                                 <input type="hidden" name="product_id" value="{{ $productt->id }}">
                                 <div class="row">
                                     <div class="col-lg-12">
