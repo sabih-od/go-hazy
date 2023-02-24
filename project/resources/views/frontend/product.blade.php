@@ -50,7 +50,7 @@
                     <div id="sidebar" class="widget-title-bordered-full">
                         <div id="bigbazar-price-filter-list-1"
                          class="widget bigbazar_widget_price_filter_list widget_layered_nav widget-toggle mx-3">
-                        <h2 class="widget-title">{{ __('Filter by Price')  }}</h2>
+                        <h2 class="widget-title">{{ __('Filter by Price') }}</h2>
                         <ul class="price-filter-list">
                             <div class="price-range-block">
                                 <div id="slider-range" class="price-filter-range" name="rangeInput"></div>
