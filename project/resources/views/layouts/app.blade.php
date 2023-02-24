@@ -332,6 +332,7 @@
         integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="{{asset('assets/js/all.min.js')}}"></script>
+<script src="{{ asset('assets/front/js/jquery-ui.min.js') }}"></script>
 <script src="{{asset('assets/js/aos.js')}}"></script>
 <script src="{{asset('assets/js/gsap.js')}}"></script>
 <script src="{{asset('assets/js/slick.min.js')}}"></script>
