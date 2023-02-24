@@ -257,7 +257,7 @@
                                                                     <th width="35%">{{ __('Name') }}</th>
                                                                     <th width="20%">{{ __('Details') }}</th>
                                                                     <th>{{ __('Price') }}</th>
-{{--                                                                    <th>{{ __('Discount') }}</th>--}}
+                                                                    <th>{{ __('Discount') }}</th>
                                                                     <th>{{ __('Total') }}</th>
                                                                 </tr>
                                                                 </thead>
@@ -298,13 +298,14 @@
 
                                                                         </td>
 
-                                                                        <td>{{ \PriceHelper::showCurrencyPrice(($product['item_price'] ) * $order->currency_value) }}
+                                                                        <td>{{ \PriceHelper::showCurrencyPrice(($order->pay_amount) + $order->coupon_discount)  }}
                                                                         </td>
 
-{{--                                                                        <td>{{ \PriceHelper::showCurrencyPrice($product['price'] * $order->coupon_discount)  }}--}}
-{{--                                                                            <small>{{ $product['discount'] == 0 ? '' : '('.$product['discount'].'% '.__('Off').')' }}</small>--}}
-{{--                                                                        </td>--}}
-                                                                        <td>{{ \PriceHelper::showCurrencyPrice($product['price'] * $order->currency_value)  }}
+                                                                        <td>{{ \PriceHelper::showCurrencyPrice($order->coupon_discount)  }}
+                                                                            <small>{{ $product['discount'] == 0 ? '' : '('.$product['discount'].'% '.__('Off').')' }}</small>
+                                                                        </td>
+
+                                                                        <td>{{ \PriceHelper::showOrderCurrencyPrice((($order->pay_amount+$order->wallet_price) * $order->currency_value),$order->currency_sign) }}
                                                                             <small>{{ $product['discount'] == 0 ? '' : '('.$product['discount'].'% '.__('Off').')' }}</small>
                                                                         </td>
 

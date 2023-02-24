@@ -29,7 +29,7 @@
                         <h2>Billing Address</h2>
                         <h4>Fill the form below to complete your purchase</h4>
                         <p class="checkout-subheading"><span>Already Registered?</span> Click here to <a
-                                href="login.php" data-toggle="modal" data-target="#signIn">Login now</a></p>
+                                href="{{ route('user.login') }}" data-toggle="modal" data-target="#signIn">Login now</a></p>
                     </div>
                 </div>
                 {{ csrf_field() }}
