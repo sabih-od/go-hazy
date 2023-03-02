@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
     <div class="preLoader black">
         <img src="{{asset('assets/images/min1.png')}}" alt="img">
     </div>

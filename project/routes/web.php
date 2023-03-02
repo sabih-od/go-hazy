@@ -1467,6 +1467,7 @@ Route::post('/item/report', 'Front\CatalogController@report')->name('product.rep
     Route::get('/item/quick/view/{id}/','Front\ProductDetailsController@quick')->name('product.quick');
     Route::post('/item/review','Front\ProductDetailsController@reviewsubmit')->name('front.review.submit');
     Route::get('/item/view/review/{id}','Front\ProductDetailsController@reviews')->name('front.reviews');
+    Route::get('/item/view/review/{id}','Front\ProductDetailsController@customerReviews')->name('front.customerreviews');
     Route::get('/item/view/side/review/{id}','Front\ProductDetailsController@sideReviews')->name('front.side.reviews');
     // PRODCT SECTION ENDS
 

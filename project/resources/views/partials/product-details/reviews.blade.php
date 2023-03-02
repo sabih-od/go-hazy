@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-8">
         <div id="comments">
+
             @if(count($productt->ratings) > 0)
             <h2 class="woocommerce-Reviews-title my-3"> {{ __('Ratings & Reviews') }}</h2>
 

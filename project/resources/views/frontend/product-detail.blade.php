@@ -173,34 +173,37 @@
                     </div>
                 </div>
             </div>
+
+
             <div class="row">
                 <div class="col-8">
+                    @foreach($productt->ratings as $product_review)
                     <div id="comments">
                         <h2 class="woocommerce-Reviews-title my-3"> {{ __('Ratings & Reviews') }}</h2>
-
                         <div class="reating-area">
                             <div class="stars">
                                 <span id="star-rating"></span>
-                                <i class="fas fa-star"></i>
+                                @for($i = 0; $i < $product_review->rating; $i++)
+                                    <i class="fas fa-star"></i>
+                                @endfor
                             </div>
                         </div>
-
                         <ul class="all-comments">
                             <li>
                                 <div class="single-comment">
                                     <div class="left-area">
                                         <img
-                                            src=""
+                                            src="{{ $product_review->user->photo ? asset('assets/images/users/'.$product_review->user->photo):asset('assets/images/'.$gs->user_image) }}"
                                             alt="">
                                         <div class="header-area">
                                             <div class="stars-area">
                                                 <ul class="stars">
                                                     <div class="ratings">
                                                         <div class="empty-stars"></div>
-                                                        <div class="empty-stars"></div>
-                                                        <div class="empty-stars"></div>
-                                                        <div class="empty-stars"></div>
-                                                        <div class="empty-stars"></div>
+{{--                                                        <div class="empty-stars"></div>--}}
+{{--                                                        <div class="empty-stars"></div>--}}
+{{--                                                        <div class="empty-stars"></div>--}}
+{{--                                                        <div class="empty-stars"></div>--}}
                                                         {{--                                                    <div class="full-stars" style="width:{{$review->rating*20}}%"></div>--}}
                                                     </div>
                                                 </ul>
@@ -211,17 +214,14 @@
                                         <div class="comment-body">
                                             <div class="nameBox">
                                                 <h5 class="name">
-                                                    John Doe
+                                                    {{ $product_review->user->name }}
                                                 </h5>
                                                 <p class="date">
-                                                    2/21/2023
+                                                    {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$product_review->review_date)->diffForHumans() }}
                                                 </p>
                                             </div>
                                             <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, ad
-                                                amet architecto asperiores aspernatur cumque deserunt enim fugit,
-                                                incidunt nam necessitatibus, nihil non odit praesentium quis quo sed
-                                                sequi velit?
+                                                {{ $product_review->review }}
                                             </p>
                                         </div>
                                     </div>
@@ -229,7 +229,12 @@
                             </li>
                         </ul>
                     </div>
-                    <p>{{ __('No Review Found.') }}</p>
+                    @endforeach
+
+                        @if($productt->ratings->isEmpty())
+                            <p>No reviews found.</p>
+                        @endif
+{{--                    <p>{{ __('No Review Found.') }}</p>--}}
                     <div id="review_form_wrapper">
                         <div class="review-area">
                             <h4 class="title">{{ __('Reviews') }}</h4>
@@ -268,8 +273,8 @@
                                  style="background: url({{ asset('assets/images/'.$gs->loader) }}) no-repeat scroll center center rgba(45, 45, 45, 0.5);">
                             </div>
                             <form id="reviewform" action="{{ route('front.review.submit') }}"
-                                  data-href="{{ route('front.reviews',$productt->id) }}"
-                                  data-side-href="{{ route('front.side.reviews',$productt->id) }}" method="POST">
+                                  data-href="{{ route('front.customerreviews',$productt->id) }}"
+                                  data-side-href="{{ route('front.side.reviews',$productt->id) }}" method="post" >
                                 @csrf
                                 <input type="hidden" id="rating" name="rating" value="5">
                                 <input type="hidden" name="user_id" value="{{ Auth::user()->id ?? '' }}">
@@ -280,11 +285,16 @@
                                           required></textarea>
                                     </div>
                                 </div>
+                                @auth
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <button class="btnStyle" type="submit">{{ __('Submit') }}</button>
                                     </div>
                                 </div>
+                                @endauth
+                                @guest
+                                    <a href="{{route('user.login')}}" class="btnStyle">Submit</a>
+                                @endguest
                             </form>
                         </div>
                     </div>
