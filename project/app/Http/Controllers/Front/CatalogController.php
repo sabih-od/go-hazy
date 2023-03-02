@@ -36,14 +36,17 @@ class CatalogController extends FrontBaseController
         $subcat = null;
         $childcat = null;
         $flash = null;
-        $minprice = $request->min;
-        $maxprice = $request->max;
+        $minprice = $request->min ?? null;
+        $maxprice = $request->max ?? null;
         $sort = $request->sort;
         $search = $request->search;
         $pageby = $request->pageby;
         $minprice = ($minprice / $this->curr->value);
         $maxprice = ($maxprice / $this->curr->value);
         $type = $request->has('type') ?? '';
+
+        $data['min'] = $minprice;
+        $data['max'] = $maxprice;
 
 
         if (!empty($slug)) {

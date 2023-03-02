@@ -298,18 +298,25 @@ class ProductDetailsController extends FrontBaseController
                     $input = $request->all();
                     $input['review_date'] = date('Y-m-d H:i:s');
                     $prev_reviewer->update($input);
-                    $data = __('Your Rating Submitted Successfully.');
-                    return response()->json($data);
+//                    $data = __('Your Rating Submitted Successfully.');
+//                    return redirect()->back()->with('success','Your Rating Submitted Successfully.');
+//                    $data = __('Your Rating Submitted Successfully.');
+//                    return response()->json($data);
+
+                    return redirect()->back()->with('success','Your Rating Submitted Successfully.');
                 }
                 $Rating = new Rating;
                 $Rating->fill($request->all());
                 $Rating['review_date'] = date('Y-m-d H:i:s');
                 $Rating->save();
-                $data = __('Your Rating Submitted Successfully.');
-                return response()->json($data);
+//                $data = __('Your Rating Submitted Successfully.');
+//                return response()->json($data);
+
+                    return redirect()->back()->with('success','Your Rating Submitted Successfully.');
             }
             else{
-                return response()->json(array('errors' => [ 0 => __('Buy This Product First') ]));
+//                return response()->json(array('errors' => [ 0 => __('Buy This Product First') ]));
+                return redirect()->back()->with('error','Buy This Product First.');
             }
         }
 
@@ -318,10 +325,21 @@ class ProductDetailsController extends FrontBaseController
             return view('load.reviews',compact('productt','id'));
         }
 
+    public function customerReviews($id){
+        $productt = Product::find($id);
+        return view('frontend.product-detail',compact('productt','id'));
+    }
+
         public function sideReviews($id){
             $productt = Product::find($id);
             return view('load.side-load',compact('productt'));
         }
+//
+//        public function userRatings($id)
+//        {
+//            $product_review = Rating::where('id',$id)->get();
+//            return view('frontend.product-detail', compact('product_review'));
+//        }
 
     // ------------------ Rating SECTION ENDS --------------------
 

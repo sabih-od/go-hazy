@@ -52,22 +52,24 @@
                          class="widget bigbazar_widget_price_filter_list widget_layered_nav widget-toggle mx-3">
                         <h2 class="widget-title">{{ __('Filter by Price') }}</h2>
                         <ul class="price-filter-list">
-                            <div class="price-range-block">
-                                <div id="slider-range" class="price-filter-range" name="rangeInput"></div>
-                                <div class="livecount">
-                                    $ <input type="number" name="min" oninput="" id="min_price" class="price-range-field"/>
-                                    <span>
-                            {{ __('To') }}
-                        </span>
-                                    $ <input type="number" name="max" oninput="" id="max_price" class="price-range-field"/>
+                            <form action="{{route('front.category')}}" method="GET">
+                                <div class="price-range-block">
+                                    <div id="slider-range" class="price-filter-range" name="rangeInput"></div>
+                                    <div class="livecount">
+                                        $ <input type="number" name="min" oninput="" id="min_price" value="{{$data['min'] ?? 0}}" class="price-range-field"/>
+                                        <span>
+                                        {{ __('To') }}
+                                    </span>
+                                        $ <input type="number" name="max" oninput="" id="max_price" value="{{$data['max'] ?? 0}}" class="price-range-field"/>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <button class="filter-btn btn btn-primary mt-3 mb-4" type="submit">{{ __('Search') }}</button>
+                                <button class="filter-btn btn btn-primary mt-3 mb-4" type="submit">{{ __('Search') }}</button>
+                            </form>
                         </ul>
                     </div>
                     </div>
                 </div>
+
                 <div class="col-xl-9">
                     <div class="row align-items-center mb-4">
                         <div class="col-md-4">
@@ -80,7 +82,7 @@
                                         <li><span>/</span></li>
                                         <li>{{ $data['subcat']->name ?? 'Shop' }}</li>
                                     @endif
-                                    @if(isset($data['childcat']))
+                                    @if(isset($data['chiwebldcat']))
                                         <li><span>/</span></li>
                                         <li>{{ $data['childcat']->name ?? 'Shop' }}</li>
                                     @endif
@@ -145,6 +147,7 @@
                                                         <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}"
                                                              alt="img">
                                                     </a>
+
                                                     @if (round((int)$item->offPercentage()) > 0)
                                                         <div class="on-sale">- {{ round((int)$item->offPercentage() )}}%</div>
                                                     @endif
@@ -216,7 +219,7 @@
                     orientation: "horizontal",
                     min: 0,
                     max: 1000000,
-                    values: [0, 1000000],
+                    values: ['{{$data['min'] ?? 0}}', '{{$data['max'] ?? 0}}'],
                     step: 1,
 
                     slide: function (event, ui) {
@@ -229,8 +232,8 @@
                     }
                 });
 
-                $("#min_price").val($("#slider-range").slider("values", 0));
-                $("#max_price").val($("#slider-range").slider("values", 1));
+                // $("#min_price").val($("#slider-range").slider("values", 0));
+                // $("#max_price").val($("#slider-range").slider("values", 1));
 
             });
 

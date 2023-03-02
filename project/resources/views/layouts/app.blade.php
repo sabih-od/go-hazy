@@ -361,8 +361,11 @@
 <script>
     @if(session()->has('error'))
     toastr.error('{{ session()->get('error') }}');
+    {{--toastr.success('{{ session()->get('
+    --}}
+    @endif
+    @if(session()->has('success'))
     toastr.success('{{ session()->get('success') }}');
-    toastr.success('success');
     @endif
 </script>
 {{-- Translator --}}
