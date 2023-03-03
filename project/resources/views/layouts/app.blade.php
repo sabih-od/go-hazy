@@ -322,7 +322,7 @@
         @csrf
         <input placeholder="SEARCH" type="search" value="" name="title">
         <div class="srch-btn">
-            <a href="#" class="themeBtn" type="submit">Search</a>
+            <button href="#" class="themeBtn" type="submit">Search</button>
         </div>
     </form>
 </div>
