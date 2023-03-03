@@ -236,38 +236,6 @@
                         @endif
 {{--                    <p>{{ __('No Review Found.') }}</p>--}}
                     <div id="review_form_wrapper">
-                        <div class="review-area">
-                            <h4 class="title">{{ __('Reviews') }}</h4>
-                            <div class="star-area">
-                                <ul class="star-list">
-                                    <li class="stars" data-val="1">
-                                        <i class="fas fa-star"></i>
-                                    </li>
-                                    <li class="stars" data-val="2">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </li>
-                                    <li class="stars" data-val="3">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </li>
-                                    <li class="stars" data-val="4">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </li>
-                                    <li class="stars active" data-val="5">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
                         <div class="write-comment-area">
                             <div class="gocover"
                                  style="background: url({{ asset('assets/images/'.$gs->loader) }}) no-repeat scroll center center rgba(45, 45, 45, 0.5);">
@@ -276,6 +244,38 @@
                                   data-href="{{ route('front.customerreviews',$productt->id) }}"
                                   data-side-href="{{ route('front.side.reviews',$productt->id) }}" method="post" >
                                 @csrf
+                                <div class="review-area">
+                                    <h4 class="title">{{ __('Reviews') }}</h4>
+                                    <div class="star-area">
+                                        <ul class="star-list">
+                                            <li class="stars" data-val="1">
+                                                <i class="fas fa-star"></i>
+                                            </li>
+                                            <li class="stars" data-val="2">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </li>
+                                            <li class="stars" data-val="3">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </li>
+                                            <li class="stars" data-val="4">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </li>
+                                            <li class="stars" data-val="5">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                                 <input type="hidden" id="rating" name="rating" value="5">
                                 <input type="hidden" name="user_id" value="{{ Auth::user()->id ?? '' }}">
                                 <input type="hidden" name="product_id" value="{{ $productt->id }}">
@@ -336,6 +336,16 @@
                 $input.change();
                 return false;
             });
+
+            // <li class="stars" data-val="1">
+            $('.stars').on('click', function () {
+                $('.stars').each(function () {
+                    $(this).removeClass('active');
+                });
+
+                $(this).addClass('active');
+                $('#rating').val($(this).data('val'));
+            })
         });
 
         var mainurl = "<?php echo e(url('/')); ?>";

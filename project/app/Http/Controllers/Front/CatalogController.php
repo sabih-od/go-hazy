@@ -44,9 +44,11 @@ class CatalogController extends FrontBaseController
         $minprice = ($minprice / $this->curr->value);
         $maxprice = ($maxprice / $this->curr->value);
         $type = $request->has('type') ?? '';
+        $title = $request->get('title') ?? null;
 
         $data['min'] = $minprice;
         $data['max'] = $maxprice;
+        $data['title'] = $title;
 
 
         if (!empty($slug)) {
@@ -100,6 +102,9 @@ class CatalogController extends FrontBaseController
             })
             ->when($maxprice, function ($query, $maxprice) {
                 return $query->where('price', '<=', $maxprice);
+            })
+            ->when($title, function ($query) use ($title) {
+                return $query->where('name', 'LIKE', '%'.$title.'%');
             })
             ->when($sort, function ($query, $sort) {
                 if ($sort == 'date_desc') {
