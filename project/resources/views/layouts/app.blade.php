@@ -320,7 +320,7 @@
     <button class="close" type="button">×</button>
     <form method="GET" action="{{route('front.category')}}">
         @csrf
-        <input placeholder="SEARCH" type="search" value="{{$data['title'] ?? ''}}" name="title">
+        <input placeholder="SEARCH" type="search" value="" name="title">
         <div class="srch-btn">
             <a href="#" class="themeBtn" type="submit">Search</a>
         </div>
