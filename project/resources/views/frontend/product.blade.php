@@ -218,7 +218,7 @@
                     range: true,
                     orientation: "horizontal",
                     min: 0,
-                    max: 1000000,
+                    max: 1500,
                     values: ['{{$data['min'] ?? 0}}', '{{$data['max'] ?? 0}}'],
                     step: 1,
 
