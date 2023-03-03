@@ -889,6 +889,7 @@ a.themeBtn.themeBtn1 {
 
 .price-range-block #slider-range {
     margin-bottom: 21px;
+    z-index: 1;
 }
 
 button.filter-btn.btn.btn-primary {
