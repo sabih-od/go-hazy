@@ -307,7 +307,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <p>@ Copyright 2022 Go Hazy. All Rights Reserved.</p>
+                    <p>@ Copyright 2023 Go Hazy. All Rights Reserved.</p>
                 </div>
             </div>
         </div>
@@ -332,6 +332,7 @@
         integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="{{asset('assets/js/all.min.js')}}"></script>
+<script src="{{ asset('assets/front/js/jquery-ui.min.js') }}"></script>
 <script src="{{asset('assets/js/aos.js')}}"></script>
 <script src="{{asset('assets/js/gsap.js')}}"></script>
 <script src="{{asset('assets/js/slick.min.js')}}"></script>
@@ -360,8 +361,11 @@
 <script>
     @if(session()->has('error'))
     toastr.error('{{ session()->get('error') }}');
+    {{--toastr.success('{{ session()->get('
+    --}}
+    @endif
+    @if(session()->has('success'))
     toastr.success('{{ session()->get('success') }}');
-    toastr.success('success');
     @endif
 </script>
 {{-- Translator --}}
