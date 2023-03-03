@@ -318,10 +318,11 @@
 
 <div id="search">
     <button class="close" type="button">×</button>
-    <form>
-        <input placeholder="SEARCH" type="search" value="">
+    <form method="GET" action="{{route('front.category')}}">
+        @csrf
+        <input placeholder="SEARCH" type="search" value="" name="title">
         <div class="srch-btn">
-            <a href="#" class="themeBtn">Search</a>
+            <button href="#" class="themeBtn" type="submit">Search</button>
         </div>
     </form>
 </div>

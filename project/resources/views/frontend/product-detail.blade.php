@@ -236,38 +236,6 @@
                         @endif
 {{--                    <p>{{ __('No Review Found.') }}</p>--}}
                     <div id="review_form_wrapper">
-                        <div class="review-area">
-                            <h4 class="title">{{ __('Reviews') }}</h4>
-                            <div class="star-area">
-                                <ul class="star-list">
-                                    <li class="stars" data-val="1">
-                                        <i class="fas fa-star"></i>
-                                    </li>
-                                    <li class="stars" data-val="2">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </li>
-                                    <li class="stars" data-val="3">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </li>
-                                    <li class="stars" data-val="4">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </li>
-                                    <li class="stars active" data-val="5">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
                         <div class="write-comment-area">
                             <div class="gocover"
                                  style="background: url({{ asset('assets/images/'.$gs->loader) }}) no-repeat scroll center center rgba(45, 45, 45, 0.5);">
@@ -276,6 +244,38 @@
                                   data-href="{{ route('front.customerreviews',$productt->id) }}"
                                   data-side-href="{{ route('front.side.reviews',$productt->id) }}" method="post" >
                                 @csrf
+                                <div class="review-area">
+                                    <h4 class="title">{{ __('Reviews') }}</h4>
+                                    <div class="star-area">
+                                        <ul class="star-list">
+                                            <li class="stars" data-val="1">
+                                                <i class="fas fa-star"></i>
+                                            </li>
+                                            <li class="stars" data-val="2">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </li>
+                                            <li class="stars" data-val="3">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </li>
+                                            <li class="stars" data-val="4">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </li>
+                                            <li class="stars" data-val="5">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                                 <input type="hidden" id="rating" name="rating" value="5">
                                 <input type="hidden" name="user_id" value="{{ Auth::user()->id ?? '' }}">
                                 <input type="hidden" name="product_id" value="{{ $productt->id }}">
@@ -286,11 +286,11 @@
                                     </div>
                                 </div>
                                 @auth
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <button class="btnStyle" type="submit">{{ __('Submit') }}</button>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <button class="btnStyle" type="submit">{{ __('Submit') }}</button>
+                                        </div>
                                     </div>
-                                </div>
                                 @endauth
                                 @guest
                                     <a href="{{route('user.login')}}" class="btnStyle">Submit</a>
@@ -298,6 +298,134 @@
                             </form>
                         </div>
                     </div>
+
+
+{{--            <div class="row">--}}
+{{--                <div class="col-8">--}}
+{{--                    @foreach($productt->ratings as $product_review)--}}
+{{--                    <div id="comments">--}}
+{{--                        <h2 class="woocommerce-Reviews-title my-3"> {{ __('Ratings & Reviews') }}</h2>--}}
+{{--                        <div class="reating-area">--}}
+{{--                            <div class="stars">--}}
+{{--                                <span id="star-rating"></span>--}}
+{{--                                @for($i = 0; $i < $product_review->rating; $i++)--}}
+{{--                                    <i class="fas fa-star"></i>--}}
+{{--                                @endfor--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <ul class="all-comments">--}}
+{{--                            <li>--}}
+{{--                                <div class="single-comment">--}}
+{{--                                    <div class="left-area">--}}
+{{--                                        <img--}}
+{{--                                            src="{{ $product_review->user->photo ? asset('assets/images/users/'.$product_review->user->photo):asset('assets/images/'.$gs->user_image) }}"--}}
+{{--                                            alt="">--}}
+{{--                                        <div class="header-area">--}}
+{{--                                            <div class="stars-area">--}}
+{{--                                                <ul class="stars">--}}
+{{--                                                    <div class="ratings">--}}
+{{--                                                        <div class="empty-stars"></div>--}}
+{{--                                                        <div class="empty-stars"></div>--}}
+{{--                                                        <div class="empty-stars"></div>--}}
+{{--                                                        <div class="empty-stars"></div>--}}
+{{--                                                        <div class="empty-stars"></div>--}}
+{{--                                                        --}}{{--                                                    <div class="full-stars" style="width:{{$review->rating*20}}%"></div>--}}
+{{--                                                    </div>--}}
+{{--                                                </ul>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="right-area">--}}
+{{--                                        <div class="comment-body">--}}
+{{--                                            <div class="nameBox">--}}
+{{--                                                <h5 class="name">--}}
+{{--                                                    {{ $product_review->user->name }}--}}
+{{--                                                </h5>--}}
+{{--                                                <p class="date">--}}
+{{--                                                    {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$product_review->review_date)->diffForHumans() }}--}}
+{{--                                                </p>--}}
+{{--                                            </div>--}}
+{{--                                            <p>--}}
+{{--                                                {{ $product_review->review }}--}}
+{{--                                            </p>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </li>--}}
+{{--                        </ul>--}}
+{{--                    </div>--}}
+{{--                    @endforeach--}}
+
+{{--                        @if($productt->ratings->isEmpty())--}}
+{{--                            <p>No reviews found.</p>--}}
+{{--                        @endif--}}
+{{--                    <p>{{ __('No Review Found.') }}</p>--}}
+{{--                    <div id="review_form_wrapper">--}}
+{{--                        <div class="review-area">--}}
+{{--                            <h4 class="title">{{ __('Reviews') }}</h4>--}}
+{{--                            <div class="star-area">--}}
+{{--                                <ul class="star-list">--}}
+{{--                                    <li class="stars" data-val="1">--}}
+{{--                                        <i class="fas fa-star"></i>--}}
+{{--                                    </li>--}}
+{{--                                    <li class="stars" data-val="2">--}}
+{{--                                        <i class="fas fa-star"></i>--}}
+{{--                                        <i class="fas fa-star"></i>--}}
+{{--                                    </li>--}}
+{{--                                    <li class="stars" data-val="3">--}}
+{{--                                        <i class="fas fa-star"></i>--}}
+{{--                                        <i class="fas fa-star"></i>--}}
+{{--                                        <i class="fas fa-star"></i>--}}
+{{--                                    </li>--}}
+{{--                                    <li class="stars" data-val="4">--}}
+{{--                                        <i class="fas fa-star"></i>--}}
+{{--                                        <i class="fas fa-star"></i>--}}
+{{--                                        <i class="fas fa-star"></i>--}}
+{{--                                        <i class="fas fa-star"></i>--}}
+{{--                                    </li>--}}
+{{--                                    <li class="stars active" data-val="5">--}}
+{{--                                        <i class="fas fa-star"></i>--}}
+{{--                                        <i class="fas fa-star"></i>--}}
+{{--                                        <i class="fas fa-star"></i>--}}
+{{--                                        <i class="fas fa-star"></i>--}}
+{{--                                        <i class="fas fa-star"></i>--}}
+{{--                                    </li>--}}
+{{--                                </ul>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="write-comment-area">--}}
+{{--                            <div class="gocover"--}}
+{{--                                 style="background: url({{ asset('assets/images/'.$gs->loader) }}) no-repeat scroll center center rgba(45, 45, 45, 0.5);">--}}
+{{--                            </div>--}}
+{{--                            <form id="reviewform" action="{{ route('front.review.submit') }}"--}}
+{{--                                  data-href="{{ route('front.customerreviews',$productt->id) }}"--}}
+{{--                                  data-side-href="{{ route('front.side.reviews',$productt->id) }}" method="post" >--}}
+{{--                                @csrf--}}
+{{--                                <input type="hidden" id="rating" name="rating" value="5">--}}
+{{--                                <input type="hidden" name="user_id" value="{{ Auth::user()->id ?? '' }}">--}}
+{{--                                <input type="hidden" name="product_id" value="{{ $productt->id }}">--}}
+{{--                                <div class="row">--}}
+{{--                                    <div class="col-lg-12">--}}
+{{--                                <textarea name="review" placeholder="{{ __('Write Your Review *') }}"--}}
+{{--                                          required></textarea>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                @auth--}}
+{{--                                <div class="row">--}}
+{{--                                    <div class="col-lg-12">--}}
+{{--                                        <button class="btnStyle" type="submit">{{ __('Submit') }}</button>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                @endauth--}}
+{{--                                @guest--}}
+{{--                                    <a href="{{route('user.login')}}" class="btnStyle">Submit</a>--}}
+{{--                                @endguest--}}
+{{--                            </form>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+
+{{--                </div>--}}
+{{--            </div>--}}
 
                 </div>
             </div>
@@ -336,6 +464,16 @@
                 $input.change();
                 return false;
             });
+
+            // <li class="stars" data-val="1">
+            $('.stars').on('click', function () {
+                $('.stars').each(function () {
+                    $(this).removeClass('active');
+                });
+
+                $(this).addClass('active');
+                $('#rating').val($(this).data('val'));
+            })
         });
 
         var mainurl = "<?php echo e(url('/')); ?>";
