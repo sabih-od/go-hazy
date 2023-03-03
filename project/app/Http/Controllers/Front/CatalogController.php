@@ -50,6 +50,9 @@ class CatalogController extends FrontBaseController
         $data['max'] = $maxprice;
         $data['title'] = $title;
 
+        $data['min'] = $minprice;
+        $data['max'] = $maxprice;
+
 
         if (!empty($slug)) {
             $cat = Category::where('slug', $slug)->firstOrFail();
