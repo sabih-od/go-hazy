@@ -38,6 +38,8 @@ class CatalogController extends FrontBaseController
         $flash = null;
         $minprice = $request->min ?? null;
         $maxprice = $request->max ?? null;
+        $sort = '';
+        $sorts = 'ASC';
         $sort = 'asc';
         $search = $request->search;
         $pageby = $request->pageby;
@@ -68,6 +70,9 @@ class CatalogController extends FrontBaseController
             $childcat = Childcategory::orderBy('price', $sort)->where('slug', $slug2)->firstOrFail();
             $data['childcat'] = $childcat;
         }
+
+
+        $data['latest_products'] = Product::orderBy('price', $sorts)->with('user')->whereStatus(1)->whereLatest(1)
 
         $data['latest_products'] = Product::orderBy('price', $sort)->with('user')->whereStatus(1)->whereLatest(1)
             ->home($this->language->id)
@@ -109,14 +114,14 @@ class CatalogController extends FrontBaseController
             ->when($title, function ($query) use ($title) {
                 return $query->where('name', 'LIKE', '%'.$title.'%');
             })
-            ->when($sort, function ($query, $sort) {
-                if ($sort == 'date_desc') {
+            ->when($sorts, function ($query, $sorts) {
+                if ($sorts == 'date_desc') {
                     return $query->latest('id');
-                } elseif ($sort == 'date_asc') {
+                } elseif ($sorts == 'date_asc') {
                     return $query->oldest('id');
-                } elseif ($sort == 'price_desc') {
+                } elseif ($sorts) {
                     return $query->latest('price');
-                } elseif ($sort == 'price_asc') {
+                } elseif ($sorts == 'price_desc') {
                     return $query->oldest('price');
                 }
             })
@@ -207,22 +212,7 @@ class CatalogController extends FrontBaseController
             })->paginate(isset($pageby) ? $pageby : $this->gs->page_count);
 
         $data['prods'] = $prods;
-
-//        $zipFile = $request->file('zip_file');
-//        $zip = new ZipArchive();
-//        $zip->open($zipFile->getPathname());
-//        $jsonFile = $zip->getFromName('product.json');
-//        $productData = json_decode($jsonFile, true);
-//
-//        $product = new Product();
-//        $product->name = $request->input('name');
-//        $product->description = $request->input('description');
-//        $product->price = $productData['price'];
-//        $product->details = $productData['details'];
-//        $product->save();
-//
-//        $zip->close();
-
+        
         if ($request->ajax()) {
             $data['ajax_check'] = 1;
             return view('frontend.ajax.category', $data);
