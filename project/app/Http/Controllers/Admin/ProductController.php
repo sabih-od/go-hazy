@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\{Jobs\SaveProductImage,
+use App\{Jobs\ReadCsvFile,
+    Jobs\ReadJsonFile,
+    Jobs\SaveProductImage,
     Models\Product,
     Models\Gallery,
     Models\Category,
@@ -10,12 +12,8 @@ use App\{Jobs\SaveProductImage,
     Models\Attribute,
     Models\Subcategory,
     Models\Childcategory,
-    Models\AttributeOption
-};
-use Illuminate\{
-    Http\Request,
-    Support\Str
-};
+    Models\AttributeOption};
+use Illuminate\{Http\Request, Support\Facades\Auth, Support\Facades\File, Support\Str};
 
 use DB;
 use Image;
@@ -115,6 +113,11 @@ class ProductController extends AdminBaseController
     public function index()
     {
         return view('admin.product.index');
+    }
+
+    public function zip()
+    {
+        return view('admin.product.product-zip');
     }
 
     public function types()
@@ -530,6 +533,7 @@ class ProductController extends AdminBaseController
         $file = fopen(public_path('assets/temp_files/' . $filename), "r");
         $i = 1;
 
+
         while (($line = fgetcsv($file)) !== FALSE) {
 
             if ($i != 1) {
@@ -537,140 +541,7 @@ class ProductController extends AdminBaseController
                 if (!Product::where('sku', $line[0])->exists()) {
                     //--- Validation Section Ends
 
-                    try {
-                        //--- Logic Section
-                        $data = new Product;
-                        $sign = Currency::where('is_default', '=', 1)->first();
-
-                        $input['type'] = 'Physical';
-                        $input['sku'] = $line[0];
-
-                        $input['language_id'] = 1;
-                        $input['category_id'] = null;
-                        $input['subcategory_id'] = null;
-                        $input['childcategory_id'] = null;
-
-                        $mcat = Category::firstOrCreate([
-                            'name' => $line[1]
-                        ], [
-                            'slug' => Str::slug($line[1]),
-                            'language_id' => 1
-                        ]);
-                        //$mcat = Category::where("name", $line[1]);
-
-                        if ($mcat->exists()) {
-                            $input['category_id'] = $mcat->id;
-
-                            if ($line[2] != "") {
-//                                $scat = Subcategory::where(DB::raw('lower(name)'), strtolower($line[2]));
-                                $scat = Subcategory::firstOrCreate([
-                                    'name' => $line[2],
-                                    'category_id' => $mcat->id,
-                                ], [
-                                    'slug' => Str::slug($line[2]),
-                                    'language_id' => 1
-                                ]);
-                                if ($scat->exists()) {
-                                    $input['subcategory_id'] = $scat->id;
-
-                                    if ($line[3] != "") {
-//                                $chcat = Childcategory::where(DB::raw('lower(name)'), strtolower($line[3]));
-                                        $chcat = Childcategory::firstOrCreate([
-                                            'name' => $line[3],
-                                            'subcategory_id' => $scat->id,
-                                        ], [
-                                            'slug' => Str::slug($line[3]),
-                                            'language_id' => 1
-                                        ]);
-
-                                        if ($chcat->exists()) {
-                                            $input['childcategory_id'] = $chcat->id;
-                                        }
-                                    }
-                                }
-                            }
-
-//                            $input['photo'] = $line[5];
-                            $input['photo'] = 'abc';
-                            $input['name'] = $line[4];
-                            $input['details'] = $line[6];
-                            $input['color'] = $line[13];
-                            $input['price'] = $line[7];
-                            $input['previous_price'] = $line[8] != "" ? $line[8] : null;
-                            $input['stock'] = $line[9];
-                            $input['size'] = $line[10];
-                            $input['size_qty'] = $line[11];
-                            $input['size_price'] = $line[12];
-                            $input['youtube'] = $line[15];
-                            $input['policy'] = $line[16];
-                            $input['meta_tag'] = $line[17];
-                            $input['meta_description'] = $line[18];
-                            $input['tags'] = $line[14];
-                            $input['product_type'] = $line[19];
-                            $input['affiliate_link'] = $line[20];
-                            $input['slug'] = Str::slug($input['name'], '-') . '-' . strtolower($input['sku']);
-
-//                            $image_url = $line[5];
-//
-//                            $ch = curl_init();
-//                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-//                            curl_setopt($ch, CURLOPT_URL, $image_url);
-//                            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
-//                            curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
-//                            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-//                            curl_setopt($ch, CURLOPT_HEADER, true);
-//                            curl_setopt($ch, CURLOPT_NOBODY, true);
-//
-//                            $content = curl_exec($ch);
-//                            $contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
-//
-//                            $thumb_url = '';
-//
-//                            if (strpos($contentType, 'image/') !== false) {
-//                                $fimg = Image::make($line[5])->resize(800, 800);
-//                                $fphoto = time() . Str::random(8) . '.jpg';
-//                                $fimg->save(public_path() . '/assets/images/products/' . $fphoto);
-//                                $input['photo'] = $fphoto;
-//                                $thumb_url = $line[5];
-//                            } else {
-//                                $fimg = Image::make(public_path() . '/assets/images/noimage.png')->resize(800, 800);
-//                                $fphoto = time() . Str::random(8) . '.jpg';
-//                                $fimg->save(public_path() . '/assets/images/products/' . $fphoto);
-//                                $input['photo'] = $fphoto;
-//                                $thumb_url = public_path() . '/assets/images/noimage.png';
-//                            }
-//
-//                            $timg = Image::make($thumb_url)->resize(285, 285);
-//                            $thumbnail = time() . Str::random(8) . '.jpg';
-//                            $timg->save(public_path() . '/assets/images/thumbnails/' . $thumbnail);
-//                            $input['thumbnail'] = $thumbnail;
-
-                            // Conert Price According to Currency
-                            // Product Discount
-
-                            try {
-                                if (!is_null($request->previous_price)) {
-                                    $input['price'] = ($request->previous_price / $sign->value);
-                                    $input['previous_price'] = ($request->price / $sign->value);
-                                } else {
-                                    $input['price'] = ($input['price'] / $sign->value);
-                                    $input['previous_price'] = ($input['previous_price'] / $sign->value);
-                                }
-                            } catch (\Exception $e) {
-                                die(print_r([$input['sku'], $line[7], $e->getMessage()], 1));
-                            }
-
-
-                            // Save Data
-                            $data->fill($input)->save();
-                            SaveProductImage::dispatch($data->id, $line[5], $line[21], $line[22], $line[23]);
-
-                        } else {
-                            $log .= "<br>" . __('Row No') . ": " . $i . " - " . __('No Category Found!') . "<br>";
-                        }
-                    } catch (\Exception $e) {
-                        $log .= "<br>" . __('Row No') . ": " . $i . " - " . __('Error: ' . $e->getMessage() . ' Line: ' . $e->getLine()) . "<br>";
-                    }
+                    dispatch(new ReadCsvFile($line, $log, $i));
 
                 } else {
                     $log .= "<br>" . __('Row No') . ": " . $i . " - " . __('Duplicate Product Code!') . "<br>";
@@ -1139,4 +1010,118 @@ class ProductController extends AdminBaseController
         }
         return response()->json($attrOptions);
     }
+
+//    public function uploadZip(Request $request)
+//    {
+//        try {
+//            $rules = [
+//                'zipfile' => 'required|mimes:zip',
+//            ];
+//
+//            $validator = Validator::make($request->all(), $rules);
+//
+//            if ($validator->fails()) {
+//                return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+//            }
+//
+//            $zip = new \ZipArchive;
+//            $file = $request->file("zipfile")->move(
+//                base_path() . '/storage/app/assets/document_path',
+//                $request->file("zipfile")->getClientOriginalName()
+//            );
+//            $status = $zip->open($file);
+//
+//            if ($status !== true) {
+//                throw new \Exception($status);
+//            } else {
+//                $storageDestinationPath = base_path("/storage/app/assets/products");
+//
+//                if (!File::exists($storageDestinationPath)) {
+//                    File::makeDirectory($storageDestinationPath, 0755, true);
+//                }
+//
+//                $zip->extractTo($storageDestinationPath);
+//
+//                $folder_name = str_replace(".zip", "", $request->file("zipfile")->getClientOriginalName());
+//                $new_dir = $storageDestinationPath . '/' . $folder_name;
+//                $temp_files = scandir($new_dir);
+//
+//                foreach ($temp_files as $file_name) {
+//                    $file_url = $new_dir . '/' . $file_name;
+//
+//                    if (!str_contains($file_url, '.json')) {
+//                        continue;
+//                    }
+////                    ReadJsonFile::dispatch($file_url);
+//
+//                    $jsonData = file_get_contents($file_url);
+//                    $product_to_store = json_decode($jsonData, true);
+//                    $content = $product_to_store['storeInfo'];
+////                    dd($product_to_store, $content['name']);
+//
+////                    $product_to_store = (array)json_decode($jsonData->content(), true);
+//
+//                }
+//                $zip->close();
+//
+//
+//
+////                $products = json_decode($jsonData);
+////                dd($products);
+//
+////                foreach ($products as $productData) {
+//////                    dd($productData);
+////                    $product = Product::create([
+////                        'name' => $productData->name,
+////                        'description' => $productData->description,
+////                        'price' => $productData->price,
+////                        // ... add more fields here as needed
+////                    ]);
+////                    $product->save();
+////                }
+//
+////                return response()->json(['message' => 'Products uploaded successfully']);
+//                return redirect()->back()->with('success', 'Products uploaded successfully');
+//            }
+//        } catch (\Exception $exception) {
+//            return redirect()->back()->with('error', $exception->getMessage());
+//        }
+////        return back()->with('success', 'You have successfully extracted zip.');
+////            // extract the file contents
+////              $res = $zip->open($extract_path);
+//////            if ($res === TRUE) {
+//////                $file = $zip->extractTo($extract_path);
+//////                $jsonData = $file;
+//////                $zip->close();
+//////
+//////                $products = json_decode($jsonData);
+////
+//////            }
+////
+//////            $res = $zip->open($target_path);
+//////            if ($res === TRUE) {
+//////                $jsonData = $zip->getFromIndex(0);
+//////                $zip->close();
+//////
+//////                // parse the JSON data
+//////                $products = json_decode($jsonData);
+//////                dd($products);
+////
+////
+////                foreach ($products as $productData) {
+////                    $product = Product::create([
+////                        'name' => $productData->name,
+////                        'description' => $productData->description,
+////                        'price' => $productData->price,
+////                        // ... add more fields here as needed
+////                    ]);
+////                    $product->save();
+////                }
+////
+////                return response()->json(['message' => 'Products uploaded successfully']);
+////            }
+////            else {
+////                return response()->json(['message' => 'Unable to extract zip file'], 500);
+////            }
+//    }
 }
