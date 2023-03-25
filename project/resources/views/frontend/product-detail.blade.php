@@ -266,7 +266,7 @@
                                                 <i class="fas fa-star"></i>
                                                 <i class="fas fa-star"></i>
                                             </li>
-                                            <li class="stars" data-val="5">
+                                            <li class="stars active" data-val="5">
                                                 <i class="fas fa-star"></i>
                                                 <i class="fas fa-star"></i>
                                                 <i class="fas fa-star"></i>

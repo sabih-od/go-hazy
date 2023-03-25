@@ -258,6 +258,9 @@ Route::delete('/state/delete/{id}', 'Admin\StateController@delete')->name('admin
 
   Route::post('/products/upload/update/{id}', 'Admin\ProductController@uploadUpdate')->name('admin-prod-upload-update');
 
+  Route::get('/products/upload/zip', 'Admin\ProductController@zip')->name('admin.prod.upload.zip');
+  Route::post('/products/upload/zip/file', 'Admin\ProductController@uploadZip')->name('admin.prod.upload.zip.bulk');
+
   Route::get('/products/deactive', 'Admin\ProductController@deactive')->name('admin-prod-deactive');
 
   Route::get('/products/catalogs/datatables', 'Admin\ProductController@catalogdatatables')->name('admin-prod-catalog-datatables'); //JSON REQUEST

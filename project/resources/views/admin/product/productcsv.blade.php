@@ -28,6 +28,8 @@
 									</div>
 								</div>
 							</div>
+
+                            {{-- CSV FORM START --}}
 							<div class="add-product-content">
 								<div class="row">
 									<div class="col-lg-12 p-5">
@@ -36,7 +38,7 @@
 					                      <form id="geniusform" action="{{route('admin-prod-importsubmit')}}" method="POST" enctype="multipart/form-data">
 					                        {{csrf_field()}}
 
-                        						@include('alerts.admin.form-both')  
+                        						@include('alerts.admin.form-both')
 
 											  <div class="row">
 												  <div class="col-lg-12 text-right">
@@ -60,11 +62,11 @@
 															@endforeach
 														</select>
 													</div>
-  
+
 												</div>
 
 
-										
+
 
 											  <div class="row text-center">
 												  <div class="col-lg-12">
@@ -93,6 +95,7 @@
 									</div>
 								</div>
 							</div>
+                            {{-- CSV FORM END --}}
 						</div>
 
 
