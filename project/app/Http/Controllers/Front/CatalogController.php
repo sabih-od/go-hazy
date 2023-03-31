@@ -72,7 +72,7 @@ class CatalogController extends FrontBaseController
         }
 
 
-        $data['latest_products'] = Product::orderBy('price', $sorts)->with('user')->whereStatus(1)->whereLatest(1)
+        $data['latest_products'] = Product::orderBy('price', $sorts)->with('user')->whereStatus(1)->whereLatest(1);
 
         $data['latest_products'] = Product::orderBy('price', $sort)->with('user')->whereStatus(1)->whereLatest(1)
             ->home($this->language->id)
@@ -212,7 +212,7 @@ class CatalogController extends FrontBaseController
             })->paginate(isset($pageby) ? $pageby : $this->gs->page_count);
 
         $data['prods'] = $prods;
-        
+
         if ($request->ajax()) {
             $data['ajax_check'] = 1;
             return view('frontend.ajax.category', $data);

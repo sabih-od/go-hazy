@@ -63,21 +63,27 @@
                 <span>Shop Featured Categories.</span>
             </div>
             <div class="row">
-                @foreach($products as $key => $item)
-                    {{--                    {{ dd($category->photo) }}--}}
-                    @if($key > 2)
-                        @break
-                    @endif
-                    <div class="col-lg-4 col-sm-6">
-                        <div class="product-box" data-aos="fade-right">
-                            <div class="pro-img">
-                                <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}" alt="img">
-                            </div>
-                            <h4>{{$item->category->name ?? 'Shop'}}</h4>
-                            <p>{{$item->category->count()}} Products</p>
+                <div class="col-12">
+                    <div class="swiper popularSlider">
+                        <div class="swiper-wrapper">
+                            @foreach($products as $key => $item)
+                                {{--                    {{ dd($category->photo) }}--}}
+                                @if($key > 2)
+                                    @break
+                                @endif
+                                <div class="swiper-slide">
+                                    <div class="product-box" data-aos="fade-right">
+                                        <div class="pro-img">
+                                            <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}" alt="img">
+                                        </div>
+                                        <h4>{{$item->category->name ?? 'Shop'}}</h4>
+                                        <p>{{$item->category->count()}} Products</p>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
-                @endforeach
+                </div>
                 {{--                @forelse($products as $item)--}}
                 {{--                    {{ dd($item->photo) }}--}}
                 {{--                    <div class="col-lg-4 col-sm-6">--}}
