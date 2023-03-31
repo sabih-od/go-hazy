@@ -53,6 +53,20 @@
     @endif
 
 
+    @php
+        use App\Models\Category;
+
+        $categories = Category::all();
+        /*@dd($categories);*/
+        $sort = 'ASC';
+    @endphp
+    {{--@foreach($categories as $category)
+        <li class="nav-item category_element"
+        ><a
+                href="{{ route('front.category', $category->slug) }}"
+                class="nav-link"
+                data-id="as{{$category->id}}">{{$category->name ?? ''}}</a></li>
+    @endforeach--}}
     <section class="refreshSec">
         <div class="container">
             <div class="refreshHeading" data-aos="fade-up">
@@ -66,20 +80,24 @@
                 <div class="col-12">
                     <div class="swiper popularSlider">
                         <div class="swiper-wrapper">
-                            @foreach($products as $key => $item)
-                                {{--                    {{ dd($category->photo) }}--}}
-                                @if($key > 2)
-                                    @break
-                                @endif
-                                <div class="swiper-slide">
-                                    <div class="product-box" data-aos="fade-right">
-                                        <div class="pro-img">
-                                            <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}" alt="img">
+                            @foreach($categories as $key => $item)
+                                @foreach($item->products as $key => $products)
+                                    <div class="swiper-slide">
+                                        <div class="product-box" data-aos="fade-right">
+                                            <div class="pro-img">
+
+                                                <img
+                                                    src="{{asset('assets/images/products/'.$products->photo) ?? 'Shop'}}"
+                                                    alt="img">
+
+                                            </div>
+                                            <a href="{{ route('front.category', $item->slug) }}">
+                                                <h4>{{$item->name ?? 'Shop'}}</h4>
+                                            </a>
+                                            <p>{{$item->products->count()}} Products</p>
                                         </div>
-                                        <h4>{{$item->category->name ?? 'Shop'}}</h4>
-                                        <p>{{$item->category->count()}} Products</p>
                                     </div>
-                                </div>
+                                @endforeach
                             @endforeach
                         </div>
                     </div>

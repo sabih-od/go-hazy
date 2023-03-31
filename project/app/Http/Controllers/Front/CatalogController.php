@@ -57,22 +57,19 @@ class CatalogController extends FrontBaseController
 
 
         if (!empty($slug)) {
-            $cat = Category::orderBy('price', $sort)->where('slug', $slug)->firstOrFail();
+            $cat = Category::where('slug', $slug)->firstOrFail();
             $data['cat'] = $cat;
         }
 
         if (!empty($slug1)) {
-            $subcat = Subcategory::orderBy('price', $sort)->where('slug', $slug1)->firstOrFail();
+            $subcat = Subcategory::where('slug', $slug1)->firstOrFail();
             $data['subcat'] = $subcat;
         }
 
         if (!empty($slug2)) {
-            $childcat = Childcategory::orderBy('price', $sort)->where('slug', $slug2)->firstOrFail();
+            $childcat = Childcategory::where('slug', $slug2)->firstOrFail();
             $data['childcat'] = $childcat;
         }
-
-
-        $data['latest_products'] = Product::orderBy('price', $sorts)->with('user')->whereStatus(1)->whereLatest(1);
 
         $data['latest_products'] = Product::orderBy('price', $sort)->with('user')->whereStatus(1)->whereLatest(1)
             ->home($this->language->id)
