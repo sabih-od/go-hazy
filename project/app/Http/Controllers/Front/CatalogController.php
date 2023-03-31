@@ -70,10 +70,7 @@ class CatalogController extends FrontBaseController
             $childcat = Childcategory::orderBy('price', $sort)->where('slug', $slug2)->firstOrFail();
             $data['childcat'] = $childcat;
         }
-
-
-        $data['latest_products'] = Product::orderBy('price', $sorts)->with('user')->whereStatus(1)->whereLatest(1)
-
+        
         $data['latest_products'] = Product::orderBy('price', $sort)->with('user')->whereStatus(1)->whereLatest(1)
             ->home($this->language->id)
             ->get()
