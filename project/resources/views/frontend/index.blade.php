@@ -85,15 +85,13 @@
                                     <div class="swiper-slide">
                                         <div class="product-box" data-aos="fade-right">
                                             <div class="pro-img">
-
-                                                <img
-                                                    src="{{asset('assets/images/products/'.$products->photo) ?? 'Shop'}}"
-                                                    alt="img">
-
+                                                <a href="{{ route('front.category', $item->slug) }}">
+                                                    <img
+                                                        src="{{asset('assets/images/products/'.$products->photo) ?? 'Shop'}}"
+                                                        alt="img">
+                                                </a>
                                             </div>
-                                            <a href="{{ route('front.category', $item->slug) }}">
-                                                <h4>{{$item->name ?? 'Shop'}}</h4>
-                                            </a>
+                                            <h4>{{$item->name ?? 'Shop'}}</h4>
                                             <p>{{$item->products->count()}} Products</p>
                                         </div>
                                     </div>
