@@ -57,17 +57,17 @@ class CatalogController extends FrontBaseController
 
 
         if (!empty($slug)) {
-            $cat = Category::orderBy('price', $sort)->where('slug', $slug)->firstOrFail();
+            $cat = Category::where('slug', $slug)->firstOrFail();
             $data['cat'] = $cat;
         }
 
         if (!empty($slug1)) {
-            $subcat = Subcategory::orderBy('price', $sort)->where('slug', $slug1)->firstOrFail();
+            $subcat = Subcategory::where('slug', $slug1)->firstOrFail();
             $data['subcat'] = $subcat;
         }
 
         if (!empty($slug2)) {
-            $childcat = Childcategory::orderBy('price', $sort)->where('slug', $slug2)->firstOrFail();
+            $childcat = Childcategory::where('slug', $slug2)->firstOrFail();
             $data['childcat'] = $childcat;
         }
         
@@ -209,7 +209,7 @@ class CatalogController extends FrontBaseController
             })->paginate(isset($pageby) ? $pageby : $this->gs->page_count);
 
         $data['prods'] = $prods;
-        
+
         if ($request->ajax()) {
             $data['ajax_check'] = 1;
             return view('frontend.ajax.category', $data);
