@@ -60,13 +60,6 @@
         /*@dd($categories);*/
         $sort = 'ASC';
     @endphp
-    {{--@foreach($categories as $category)
-        <li class="nav-item category_element"
-        ><a
-                href="{{ route('front.category', $category->slug) }}"
-                class="nav-link"
-                data-id="as{{$category->id}}">{{$category->name ?? ''}}</a></li>
-    @endforeach--}}
     <section class="refreshSec">
         <div class="container">
             <div class="refreshHeading" data-aos="fade-up">
@@ -80,40 +73,60 @@
                 <div class="col-12">
                     <div class="swiper popularSlider">
                         <div class="swiper-wrapper">
-                            @foreach($categories as $key => $item)
-                                @foreach($item->products as $key => $products)
-                                    <div class="swiper-slide">
-                                        <div class="product-box" data-aos="fade-right">
-                                            <div class="pro-img">
-                                                <a href="{{ route('front.category', $item->slug) }}">
-                                                    <img
-                                                        src="{{asset('assets/images/products/'.$products->photo) ?? 'Shop'}}"
-                                                        alt="img">
-                                                </a>
-                                            </div>
-                                            <h4>{{$item->name ?? 'Shop'}}</h4>
-                                            <p>{{$item->products->count()}} Products</p>
+                            @foreach($categories as $category)
+                                <div class="swiper-slide">
+                                    <div class="product-box" data-aos="fade-right">
+                                        <div class="pro-img">
+                                            <img
+                                                src="{{asset('assets/images/categories/'.$category->photo) ?? 'Shop'}}"
+                                                alt="img">
                                         </div>
+                                        <a href="{{ route('front.category', $category->slug) }}">
+                                            <h4 data-id="{{$category->id}}">{{$category->name ?? 'Shop'}}</h4>
+                                        </a>
+                                        <p>({{count($category->products)}}) Products</p>
                                     </div>
-                                @endforeach
+                                </div>
                             @endforeach
+                            {{--                                @foreach($categories as $category)--}}
+                            {{--                                @foreach($category->products as $key => $products)--}}
+                            {{--                                    @if($key > 5)--}}
+                            {{--                                        @break--}}
+                            {{--                                    @endif--}}
+                            {{--                                    <div class="swiper-slide">--}}
+                            {{--                                        <div class="product-box" data-aos="fade-right">--}}
+                            {{--                                            <div class="pro-img">--}}
+                            {{--                                                <a href="{{ route('front.category', $category->slug) }}">--}}
+                            {{--                                                    <img--}}
+                            {{--                                                        src="{{asset('assets/images/products/'.$products->photo) ?? 'Shop'}}"--}}
+                            {{--                                                        alt="img">--}}
+                            {{--                                                </a>--}}
+                            {{--                                            </div>--}}
+                            {{--                                            <h4>{{$category->name ?? 'Shop'}}</h4>--}}
+                            {{--                                            <p>{{$category->products->count()}} Products</p>--}}
+                            {{--                                        </div>--}}
+                            {{--                                    </div>--}}
+                            {{--                                @endforeach--}}
+                            {{--                            @endforeach--}}
                         </div>
                     </div>
                 </div>
-                {{--                @forelse($products as $item)--}}
-                {{--                    {{ dd($item->photo) }}--}}
-                {{--                    <div class="col-lg-4 col-sm-6">--}}
-                {{--                        <div class="product-box" data-aos="fade-right">--}}
-                {{--                            <div class="pro-img">--}}
-                {{--                                <a href="#">--}}
-                {{--                                    <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}" alt="img">--}}
-                {{--                                </a>--}}
-                {{--                            </div>--}}
-                {{--                            <h4>{{$item->name ?? 'Shop'}}</h4>--}}
-                {{--                            <p>{{$item->category->name ?? 'Shop'}}</p>--}}
-                {{--                        </div>--}}
-                {{--                    </div>--}}
-                {{--                @endforelse--}}
+                {{--@forelse($products as $item)
+--}}{{--                                    {{ dd($item->photo) }}--}}{{--
+                    <div class="col-lg-4 col-sm-6">
+                        <div class="product-box" data-aos="fade-right">
+                            <div class="pro-img">
+                                <a href="#">
+                                    <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}" alt="img">
+                                </a>
+                            </div>
+                            <h4>{{$item->name ?? 'Shop'}}</h4>
+                            <p>{{$item->category->name ?? 'Shop'}}</p>
+                        </div>
+                    </div>
+@empty
+                    ponka
+                @endforelse--}}
             </div>
         </div>
     </section>
