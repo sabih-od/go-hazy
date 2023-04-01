@@ -57,7 +57,8 @@
         use App\Models\Category;
 
         $categories = Category::all();
-        /*@dd($categories);*/
+        /*$products_Image = $categories*/
+        /*@dd($products);*/
         $sort = 'ASC';
     @endphp
     <section class="refreshSec">
@@ -74,11 +75,16 @@
                     <div class="swiper popularSlider">
                         <div class="swiper-wrapper">
                             @foreach($categories as $category)
+                                @php
+                                    $src = count($category->products) && $category->products->first() && $category->products->first()->photo
+                                    ?  asset('assets/images/products/'.$category->products()->first()->photo)
+                                    : 'https://w0.peakpx.com/wallpaper/132/110/HD-wallpaper-404-not-found-error.jpg';
+                                @endphp
                                 <div class="swiper-slide">
                                     <div class="product-box" data-aos="fade-right">
                                         <div class="pro-img">
                                             <img
-                                                src="{{asset('assets/images/categories/'.$category->photo) ?? 'Shop'}}"
+                                                src="{{ $src }}"
                                                 alt="img">
                                         </div>
                                         <a href="{{ route('front.category', $category->slug) }}">
