@@ -165,9 +165,9 @@
 							@else
 								@include('partials.admin-role.normal')
 							@endif
-							
+
 						</ul>
-						
+
 					</nav>
 					<!-- Main Content Area Start -->
 					@yield('content')
