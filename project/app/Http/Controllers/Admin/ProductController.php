@@ -25,11 +25,13 @@ class ProductController extends AdminBaseController
     //*** JSON Request
     public function datatables(Request $request)
     {
-        if ($request->type == 'all') {
-            $datas = Product::whereProductType('normal')->latest('id')->get();
-        } else if ($request->type == 'deactive') {
-            $datas = Product::whereProductType('normal')->whereStatus(0)->latest('id')->get();
-        }
+//        if ($request->type == 'all') {
+            $datas = Product::query()->whereProductType('normal')->latest('id');
+//        } else if ($request->type == 'deactive') {
+//            $datas = Product::whereProductType('normal')->whereStatus(0)->latest('id')->get();
+//        }
+
+//        dd($request->all());
 
         //--- Integrating This Collection Into Datatables
         return Datatables::of($datas)
