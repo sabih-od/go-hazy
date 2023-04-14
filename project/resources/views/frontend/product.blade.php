@@ -85,7 +85,7 @@
                                         <li><span>/</span></li>
                                         <li>{{ $data['subcat']->name ?? 'Shop' }}</li>
                                     @endif
-                                    @if(isset($data['chiwebldcat']))
+                                    @if(isset($data['childcat']))
                                         <li><span>/</span></li>
                                         <li>{{ $data['childcat']->name ?? 'Shop' }}</li>
                                     @endif
@@ -98,15 +98,29 @@
                                     <li>
                                         <label>Show :</label>
                                         <div class="pagination">
-                                            <a href="{{ route('front.category', ['pageby' => 9]) }}">9</a>
-                                            <span>/</span>
-                                            <a href="{{ route('front.category', ['pageby' => 12]) }}">12</a>
-                                            <span>/</span>
-                                            <a href="{{ route('front.category', ['pageby' => 18]) }}">18</a>
-                                            <span>/</span>
-                                            <a href="{{ route('front.category', ['pageby' => 24]) }}">24</a>
-                                            <span>/</span>
-                                            <a href="{{ route('front.category', ['pageby' => 30]) }}">30</a>
+                                            @if(!empty(isset($category)))
+                                                <span>/</span>
+                                                <a href="{{ url()->current().'?pageby=9' }}">9</a>
+                                                <span>/</span>
+                                                <a href="{{ url()->current().'?pageby=12' }}">12</a>
+                                                <span>/</span>
+                                                <a href="{{ url()->current().'?pageby=18' }}">18</a>
+                                                <span>/</span>
+                                                <a href="{{ url()->current().'?pageby=24' }}">24</a>
+                                                <span>/</span>
+                                                <a href="{{ url()->current().'?pageby=30' }}">30</a>
+                                            @else
+                                                <a href="{{ route('front.category', ['pageby' => 9]) }}">9</a>
+                                                <span>/</span>
+                                                <a href="{{ route('front.category', ['pageby' => 12]) }}">12</a>
+                                                <span>/</span>
+                                                <a href="{{ route('front.category', ['pageby' => 18]) }}">18</a>
+                                                <span>/</span>
+                                                <a href="{{ route('front.category', ['pageby' => 24]) }}">24</a>
+                                                <span>/</span>
+                                                <a href="{{ route('front.category', ['pageby' => 30]) }}">30</a>
+                                            @endif
+
                                         </div>
                                     </li>
                                     {{--                            {{ $data['cat']->name  ?? 'Shop'}}--}}
@@ -144,7 +158,7 @@
                             <div class="container">
                                 <div class="row">
                                     @forelse($data['prods'] as $item)
-{{--                                        {{ dd($item) }}--}}
+                                        {{--                                        {{ dd($item) }}--}}
                                         <div class="col-lg-4 col-sm-6">
                                             <div class="product-box">
                                                 <div class="pro-img">
@@ -174,8 +188,8 @@
                                                 </div>
                                                 <h4>{{$item->name ?? 'Shop'}}</h4>
                                                 <p>{{$item->category->name ?? 'Shop'}}</p>
-{{--                                                {{ dd($item->price, $item->setCurrency()) }}--}}
-{{--                                                <span>${{$item->price ?? 'Shop'}}</span>--}}
+                                                {{--                                                {{ dd($item->price, $item->setCurrency()) }}--}}
+                                                {{--                                                <span>${{$item->price ?? 'Shop'}}</span>--}}
                                                 <span>{{ $item->setCurrency() ?? '0.00' }}</span>
                                                 <del>{{ $item->showPreviousPrice() ?? '0.00' }}</del>
                                             </div>
