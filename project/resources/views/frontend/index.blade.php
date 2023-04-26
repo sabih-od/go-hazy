@@ -53,6 +53,14 @@
     @endif
 
 
+    @php
+        use App\Models\Category;
+
+        $categories = Category::all();
+        /*$products_Image = $categories*/
+        /*@dd($products);*/
+        $sort = 'ASC';
+    @endphp
     <section class="refreshSec">
         <div class="container">
             <div class="refreshHeading" data-aos="fade-up">
@@ -63,35 +71,68 @@
                 <span>Shop Featured Categories.</span>
             </div>
             <div class="row">
-                @foreach($products as $key => $item)
-                    {{--                    {{ dd($category->photo) }}--}}
-                    @if($key > 2)
-                        @break
-                    @endif
+                <div class="col-12">
+                    <div class="swiper popularSlider">
+                        <div class="swiper-wrapper">
+                            @foreach($categories as $category)
+                                @php
+                                    $src = count($category->products) && $category->products->first() && $category->products->first()->photo
+                                    ?  asset('assets/images/products/'.$category->products()->first()->photo)
+                                    : 'https://w0.peakpx.com/wallpaper/132/110/HD-wallpaper-404-not-found-error.jpg';
+                                @endphp
+                                <div class="swiper-slide">
+                                    <div class="product-box" data-aos="fade-right">
+                                        <div class="pro-img">
+                                            <img
+                                                src="{{ $src }}"
+                                                alt="img">
+                                        </div>
+                                        <a href="{{ route('front.category', $category->slug) }}">
+                                            <h4 data-id="{{$category->id}}">{{$category->name ?? 'Shop'}}</h4>
+                                        </a>
+                                        <p>({{count($category->products)}}) Products</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                            {{--                                @foreach($categories as $category)--}}
+                            {{--                                @foreach($category->products as $key => $products)--}}
+                            {{--                                    @if($key > 5)--}}
+                            {{--                                        @break--}}
+                            {{--                                    @endif--}}
+                            {{--                                    <div class="swiper-slide">--}}
+                            {{--                                        <div class="product-box" data-aos="fade-right">--}}
+                            {{--                                            <div class="pro-img">--}}
+                            {{--                                                <a href="{{ route('front.category', $category->slug) }}">--}}
+                            {{--                                                    <img--}}
+                            {{--                                                        src="{{asset('assets/images/products/'.$products->photo) ?? 'Shop'}}"--}}
+                            {{--                                                        alt="img">--}}
+                            {{--                                                </a>--}}
+                            {{--                                            </div>--}}
+                            {{--                                            <h4>{{$category->name ?? 'Shop'}}</h4>--}}
+                            {{--                                            <p>{{$category->products->count()}} Products</p>--}}
+                            {{--                                        </div>--}}
+                            {{--                                    </div>--}}
+                            {{--                                @endforeach--}}
+                            {{--                            @endforeach--}}
+                        </div>
+                    </div>
+                </div>
+                {{--@forelse($products as $item)
+--}}{{--                                    {{ dd($item->photo) }}--}}{{--
                     <div class="col-lg-4 col-sm-6">
                         <div class="product-box" data-aos="fade-right">
                             <div class="pro-img">
-                                <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}" alt="img">
+                                <a href="#">
+                                    <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}" alt="img">
+                                </a>
                             </div>
-                            <h4>{{$item->category->name ?? 'Shop'}}</h4>
-                            <p>{{$item->category->count()}} Products</p>
+                            <h4>{{$item->name ?? 'Shop'}}</h4>
+                            <p>{{$item->category->name ?? 'Shop'}}</p>
                         </div>
                     </div>
-                @endforeach
-                {{--                @forelse($products as $item)--}}
-                {{--                    {{ dd($item->photo) }}--}}
-                {{--                    <div class="col-lg-4 col-sm-6">--}}
-                {{--                        <div class="product-box" data-aos="fade-right">--}}
-                {{--                            <div class="pro-img">--}}
-                {{--                                <a href="#">--}}
-                {{--                                    <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}" alt="img">--}}
-                {{--                                </a>--}}
-                {{--                            </div>--}}
-                {{--                            <h4>{{$item->name ?? 'Shop'}}</h4>--}}
-                {{--                            <p>{{$item->category->name ?? 'Shop'}}</p>--}}
-                {{--                        </div>--}}
-                {{--                    </div>--}}
-                {{--                @endforelse--}}
+@empty
+                    ponka
+                @endforelse--}}
             </div>
         </div>
     </section>
@@ -197,7 +238,11 @@
             </div>
         </div>
     </section>
-    <section class="proSec">
+
+    {{--BEST SELLERS FOR THE
+    BEST VERSION OF YOU START--}}
+
+    {{--<section class="proSec">
         <div class="container">
             <div class="refreshHeading" data-aos="fade-up">
                 <h1>Top Tranding</h1>
@@ -207,7 +252,7 @@
             </div>
             <div class="row">
                 @foreach($products as $key => $prod)
-                    {{--                    {{ dd($products) }}--}}
+                    --}}{{--                    {{ dd($products) }}--}}{{--
                     @if($key > 7)
                         @break
                     @endif
@@ -237,9 +282,15 @@
                 @endforeach
             </div>
         </div>
-    </section>
+    </section>--}}
 
-    <section class="shirtSec">
+    {{--BEST SELLERS FOR THE
+    BEST VERSION OF YOU END--}}
+
+
+    {{--SHIRT SECTION START--}}
+
+    {{--<section class="shirtSec">
         <img src="{{asset('assets/images/orangeshpae1.png')}}" class="img-fluid w-100 oneShape" alt="img">
         <img src="{{asset('assets/images/orangeshpae2.png')}}" class="img-fluid w-100 twoShape" alt="img">
         <div class="container">
@@ -302,25 +353,27 @@
                     @endif
                 @endforeach
 
-                {{--                @foreach($products as $key => $item)--}}
-                {{--                    --}}{{--                    {{ dd($category->photo) }}--}}
-                {{--                    @if($key > 2)--}}
-                {{--                        @break--}}
-                {{--                    @endif--}}
-                {{--                    <div class="col-lg-4 col-sm-6">--}}
-                {{--                        <div class="product-box" data-aos="fade-right">--}}
-                {{--                            <div class="pro-img">--}}
-                {{--                                <a href="#">--}}
-                {{--                                    <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}" alt="img">--}}
-                {{--                                </a>--}}
-                {{--                            </div>--}}
-                {{--                            <h4>{{$item->category->name ?? 'Shop'}}</h4>--}}
-                {{--                            <p>{{$item->category->count()}} Products</p>--}}
-                {{--                        </div>--}}
-                {{--                    </div>--}}
-                {{--                @endforeach--}}
+                --}}{{--SHIRT SECTION 2 START--}}{{--
 
-                {{--<div class="col-md-6" data-aos="fade-right">
+                --}}{{--                @foreach($products as $key => $item)--}}{{--
+                --}}{{--                    --}}{{----}}{{--                    {{ dd($category->photo) }}--}}{{--
+                --}}{{--                    @if($key > 2)--}}{{--
+                --}}{{--                        @break--}}{{--
+                --}}{{--                    @endif--}}{{--
+                --}}{{--                    <div class="col-lg-4 col-sm-6">--}}{{--
+                --}}{{--                        <div class="product-box" data-aos="fade-right">--}}{{--
+                --}}{{--                            <div class="pro-img">--}}{{--
+                --}}{{--                                <a href="#">--}}{{--
+                --}}{{--                                    <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}" alt="img">--}}{{--
+                --}}{{--                                </a>--}}{{--
+                --}}{{--                            </div>--}}{{--
+                --}}{{--                            <h4>{{$item->category->name ?? 'Shop'}}</h4>--}}{{--
+                --}}{{--                            <p>{{$item->category->count()}} Products</p>--}}{{--
+                --}}{{--                        </div>--}}{{--
+                --}}{{--                    </div>--}}{{--
+                --}}{{--                @endforeach--}}{{--
+
+                --}}{{--<div class="col-md-6" data-aos="fade-right">
                     <div class="shirtBox">
                         <figure>
                             <img src="{{asset('assets/images/tshrt-dres.jpg')}}" class="img-fluid" alt="img">
@@ -355,10 +408,13 @@
                             <a href="{{route('front.category')}}">Sport<br>Wear</a>
                         </figure>
                     </div>
-                </div>--}}
+                </div>--}}{{--
+
+                    --}}{{--SHIRT SECTION 2 END--}}{{--
+
             </div>
         </div>
-    </section>
+    </section>--}}
 
 
     {{--    <section class="proSec">--}}
@@ -412,11 +468,15 @@
     {{--        </div>--}}
     {{--    </section>--}}
 
-    <section class="categorySec">
+    {{--SHIRT SECTION START--}}
+
+    {{--CATEGORY SECTION START--}}
+
+    {{--<section class="categorySec">
         <div class="container">
             <div class="row">
                 @foreach($categories as $category)
-                    {{--                                                        {{ dd($category->products) }}--}}
+                    --}}{{--                                                        {{ dd($category->products) }}--}}{{--
                     @if(count($category->subs) > 0)
                         <div class="col-md-4">
                             <div class="mainCatBox">
@@ -460,7 +520,10 @@
                 @endforeach
             </div>
         </div>
-    </section>
+    </section>--}}
+
+    {{--CATEGORY SECTION END--}}
+
     <section class="signupSec">
         <div class="container">
             <div class="row justify-content-center">

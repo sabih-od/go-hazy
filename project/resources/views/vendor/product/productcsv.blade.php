@@ -30,7 +30,7 @@
 					                      <form id="geniusform" action="{{route('vendor-prod-importsubmit')}}" method="POST" enctype="multipart/form-data">
 					                        {{csrf_field()}}
 
-                        					@include('alerts.admin.form-both')  
+                        					@include('alerts.admin.form-both')
 
 											  <div class="row">
 												  <div class="col-lg-12 text-right">
@@ -57,7 +57,7 @@
 											</div>
 
 
-									
+
 
 										  <div class="row text-center">
 											  <div class="col-lg-12">

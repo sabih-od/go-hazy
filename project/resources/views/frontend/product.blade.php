@@ -49,24 +49,27 @@
                 <div class="col-xl-3">
                     <div id="sidebar" class="widget-title-bordered-full">
                         <div id="bigbazar-price-filter-list-1"
-                         class="widget bigbazar_widget_price_filter_list widget_layered_nav widget-toggle mx-3">
-                        <h2 class="widget-title">{{ __('Filter by Price') }}</h2>
-                        <ul class="price-filter-list">
-                            <form action="{{route('front.category')}}" method="GET">
-                                <div class="price-range-block">
-                                    <div id="slider-range" class="price-filter-range" name="rangeInput"></div>
-                                    <div class="livecount">
-                                        $ <input type="number" name="min" oninput="" id="min_price" value="{{$data['min'] ?? 0}}" class="price-range-field"/>
-                                        <span>
+                             class="widget bigbazar_widget_price_filter_list widget_layered_nav widget-toggle mx-3">
+                            <h2 class="widget-title">{{ __('Filter by Price') }}</h2>
+                            <ul class="price-filter-list">
+                                <form action="{{route('front.category')}}" method="GET">
+                                    <div class="price-range-block">
+                                        <div id="slider-range" class="price-filter-range" name="rangeInput"></div>
+                                        <div class="livecount">
+                                            $ <input type="number" name="min" oninput="" id="min_price"
+                                                     value="{{$data['min'] ?? 0}}" class="price-range-field"/>
+                                            <span>
                                         {{ __('To') }}
                                     </span>
-                                        $ <input type="number" name="max" oninput="" id="max_price" value="{{$data['max'] ?? 0}}" class="price-range-field"/>
+                                            $ <input type="number" name="max" oninput="" id="max_price"
+                                                     value="{{$data['max'] ?? 0}}" class="price-range-field"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <button class="filter-btn btn btn-primary mt-3 mb-4" type="submit">{{ __('Search') }}</button>
-                            </form>
-                        </ul>
-                    </div>
+                                    <button class="filter-btn btn btn-primary mt-3 mb-4"
+                                            type="submit">{{ __('Search') }}</button>
+                                </form>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
@@ -82,7 +85,7 @@
                                         <li><span>/</span></li>
                                         <li>{{ $data['subcat']->name ?? 'Shop' }}</li>
                                     @endif
-                                    @if(isset($data['chiwebldcat']))
+                                    @if(isset($data['childcat']))
                                         <li><span>/</span></li>
                                         <li>{{ $data['childcat']->name ?? 'Shop' }}</li>
                                     @endif
@@ -95,15 +98,29 @@
                                     <li>
                                         <label>Show :</label>
                                         <div class="pagination">
-                                            <a href="{{ route('front.category', ['pageby' => 9]) }}">9</a>
-                                            <span>/</span>
-                                            <a href="{{ route('front.category', ['pageby' => 12]) }}">12</a>
-                                            <span>/</span>
-                                            <a href="{{ route('front.category', ['pageby' => 18]) }}">18</a>
-                                            <span>/</span>
-                                            <a href="{{ route('front.category', ['pageby' => 24]) }}">24</a>
-                                            <span>/</span>
-                                            <a href="{{ route('front.category', ['pageby' => 30]) }}">30</a>
+                                            @if(!empty(isset($category)))
+                                                <span>/</span>
+                                                <a href="{{ url()->current().'?pageby=9' }}">9</a>
+                                                <span>/</span>
+                                                <a href="{{ url()->current().'?pageby=12' }}">12</a>
+                                                <span>/</span>
+                                                <a href="{{ url()->current().'?pageby=18' }}">18</a>
+                                                <span>/</span>
+                                                <a href="{{ url()->current().'?pageby=24' }}">24</a>
+                                                <span>/</span>
+                                                <a href="{{ url()->current().'?pageby=30' }}">30</a>
+                                            @else
+                                                <a href="{{ route('front.category', ['pageby' => 9]) }}">9</a>
+                                                <span>/</span>
+                                                <a href="{{ route('front.category', ['pageby' => 12]) }}">12</a>
+                                                <span>/</span>
+                                                <a href="{{ route('front.category', ['pageby' => 18]) }}">18</a>
+                                                <span>/</span>
+                                                <a href="{{ route('front.category', ['pageby' => 24]) }}">24</a>
+                                                <span>/</span>
+                                                <a href="{{ route('front.category', ['pageby' => 30]) }}">30</a>
+                                            @endif
+
                                         </div>
                                     </li>
                                     {{--                            {{ $data['cat']->name  ?? 'Shop'}}--}}
@@ -134,22 +151,27 @@
                         use App\Models\Category;
 
                         $categories = Category::all();
+                        $sort = 'ASC';
                     @endphp
                     <div class="row">
                         <div class="col-md-12">
                             <div class="container">
                                 <div class="row">
                                     @forelse($data['prods'] as $item)
+                                        {{--                                        {{ dd($item) }}--}}
                                         <div class="col-lg-4 col-sm-6">
                                             <div class="product-box">
                                                 <div class="pro-img">
                                                     <a href="#">
-                                                        <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}"
-                                                             alt="img">
+                                                        <img
+                                                            src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}"
+                                                            alt="img">
                                                     </a>
 
                                                     @if (round((int)$item->offPercentage()) > 0)
-                                                        <div class="on-sale">- {{ round((int)$item->offPercentage() )}}%</div>
+                                                        <div class="on-sale">- {{ round((int)$item->offPercentage() )}}
+                                                            %
+                                                        </div>
                                                     @endif
                                                     <div class="overlay">
                                                         <ul>
@@ -157,7 +179,8 @@
                                                             <li><a href="#"><i class="fal fa-heart"></i></a></li>
                                                             <li><a href="{{ route('front.product', $item['slug']) }}">
                                                                     <i class="fal fa-shopping-cart"></i></a></li>
-                                                            <li><a href="{{ route('front.product', $item['slug']) }}"><img
+                                                            <li>
+                                                                <a href="{{ route('front.product', $item['slug']) }}"><img
                                                                         src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}"
                                                                         class="img-fluid" alt="img"></a></li>
                                                         </ul>
@@ -165,9 +188,10 @@
                                                 </div>
                                                 <h4>{{$item->name ?? 'Shop'}}</h4>
                                                 <p>{{$item->category->name ?? 'Shop'}}</p>
-                                                {{--                            <span>${{$item->price ?? 'Shop'}}</span>--}}
-                                                <span>{{ $item->setCurrency() ?? 'Shop' }}</span>
-                                                <del>{{ $item->showPreviousPrice() ?? 'Shop' }}</del>
+                                                {{--                                                {{ dd($item->price, $item->setCurrency()) }}--}}
+                                                {{--                                                <span>${{$item->price ?? 'Shop'}}</span>--}}
+                                                <span>{{ $item->setCurrency() ?? '0.00' }}</span>
+                                                <del>{{ $item->showPreviousPrice() ?? '0.00' }}</del>
                                             </div>
                                         </div>
                                     @empty
@@ -176,7 +200,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="pagination listPaginate">
-{{--                                        {{ $data['prods']->links() . ($data['min'] ? '&min=' . $data['min'] : '') . ($data['max'] ? '&max=' . $data['max'] : '') }}--}}
+                                        {{--                                        {{ $data['prods']->links() . ($data['min'] ? '&min=' . $data['min'] : '') . ($data['max'] ? '&max=' . $data['max'] : '') }}--}}
                                         {{ $data['prods']->appends(request()->input())->links() }}
                                         {{--                        <ul>--}}
                                         {{--                            <li><a href="#" class="active">1</a></li>--}}

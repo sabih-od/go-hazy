@@ -38,7 +38,9 @@ class CatalogController extends FrontBaseController
         $flash = null;
         $minprice = $request->min ?? null;
         $maxprice = $request->max ?? null;
-        $sort = $request->sort;
+        $sort = '';
+        $sorts = 'ASC';
+        $sort = 'asc';
         $search = $request->search;
         $pageby = $request->pageby;
         $minprice = ($minprice / $this->curr->value);
@@ -68,8 +70,8 @@ class CatalogController extends FrontBaseController
             $childcat = Childcategory::where('slug', $slug2)->firstOrFail();
             $data['childcat'] = $childcat;
         }
-
-        $data['latest_products'] = Product::with('user')->whereStatus(1)->whereLatest(1)
+        
+        $data['latest_products'] = Product::orderBy('price', $sort)->with('user')->whereStatus(1)->whereLatest(1)
             ->home($this->language->id)
             ->get()
             ->reject(function ($item) {
@@ -81,7 +83,7 @@ class CatalogController extends FrontBaseController
                 return false;
             });
 
-        $prods = Product::when($cat, function ($query, $cat) {
+        $prods = Product::orderBy('price', $sort)->when($cat, function ($query, $cat) {
             return $query->where('category_id', $cat->id);
         })
             ->when($subcat, function ($query, $subcat) {
@@ -109,14 +111,14 @@ class CatalogController extends FrontBaseController
             ->when($title, function ($query) use ($title) {
                 return $query->where('name', 'LIKE', '%'.$title.'%');
             })
-            ->when($sort, function ($query, $sort) {
-                if ($sort == 'date_desc') {
+            ->when($sorts, function ($query, $sorts) {
+                if ($sorts == 'date_desc') {
                     return $query->latest('id');
-                } elseif ($sort == 'date_asc') {
+                } elseif ($sorts == 'date_asc') {
                     return $query->oldest('id');
-                } elseif ($sort == 'price_desc') {
+                } elseif ($sorts) {
                     return $query->latest('price');
-                } elseif ($sort == 'price_asc') {
+                } elseif ($sorts == 'price_desc') {
                     return $query->oldest('price');
                 }
             })
@@ -124,7 +126,7 @@ class CatalogController extends FrontBaseController
                 return $query->latest('id');
             });
 
-        $prods = $prods->where(function ($query) use ($cat, $subcat, $childcat, $type, $request) {
+        $prods = $prods->orderBy('price', $sort)->where(function ($query) use ($cat, $subcat, $childcat, $type, $request) {
             $flag = 0;
             if (!empty($cat)) {
                 foreach ($cat->attributes as $key => $attribute) {
@@ -186,7 +188,7 @@ class CatalogController extends FrontBaseController
             }
         });
 
-        $prods = $prods->where('language_id', $this->language->id)->where('status', 1)->get()
+        $prods = $prods->orderBy('price', $sort)->where('language_id', $this->language->id)->where('status', 1)->get()
             ->reject(function ($item) {
                 if ($item->user_id != 0) {
                     if ($item->user->is_vendor != 2) {
@@ -207,10 +209,12 @@ class CatalogController extends FrontBaseController
             })->paginate(isset($pageby) ? $pageby : $this->gs->page_count);
 
         $data['prods'] = $prods;
+
         if ($request->ajax()) {
             $data['ajax_check'] = 1;
             return view('frontend.ajax.category', $data);
         }
+
         return view('frontend.product')->with('data', $data);
     }
 
