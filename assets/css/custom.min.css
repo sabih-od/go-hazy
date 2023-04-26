@@ -1243,6 +1243,7 @@ footer {
     background: #652d90;
     color: var(--white) !important;
 }
+
 .contactForm .themeBtn:hover {
     background: #eb5d34;
 }
@@ -2463,8 +2464,6 @@ div#review_form_wrapper {
 }
 
 
-
-
 #sidebar .widget:last-child {
     margin-bottom: 0 !important;
 }
@@ -2576,8 +2575,8 @@ div#review_form_wrapper {
     width: 16px;
 }
 
-.widget.widget_layered_nav ul li:not(:last-child) {
-    margin-bottom: 15px !important;
+.widget.widget_layered_nav ul li + li {
+    margin: 0.5rem 0 0 0;
 }
 
 .widget-title-bordered-full .widget-title {
@@ -2766,6 +2765,7 @@ button.filter-btn.btn.btn-primary {
     border-radius: 0px;
     background: #d2d2d2;
 }
+
 .radio-design .checkmark::after {
     position: absolute;
     content: "";
@@ -2780,4 +2780,47 @@ button.filter-btn.btn.btn-primary {
     background: #c9030f;
     -webkit-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
+}
+
+.widget.widget_layered_nav ul li a {
+    color: #000;
+    margin: 0 !important;
+    display: block;
+}
+
+.widget.widget_layered_nav ul li .priceFilter {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.bigbazar_widget_price_filter_list + .bigbazar_widget_price_filter_list {
+    margin-top: 1rem;
+    border-top: 1px solid #070707;
+    padding-top: 1rem;
+}
+
+.widget.widget_layered_nav ul li.starCont {
+    display: flex;
+    align-items: center;
+}
+
+.widget.widget_layered_nav ul li.starCont i {
+    color: #ffa41c;
+}
+
+.widget.widget_layered_nav ul li.starCont span {
+    margin-left: 0.5rem;
+    font-weight: 500;
+}
+
+.widget.widget_layered_nav ul li .priceFilter input {
+    width: 100px;
+}
+
+.widget.widget_layered_nav ul li .priceFilter button {
+    background: var(--theme-color);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    width: 50px;
 }

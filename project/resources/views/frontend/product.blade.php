@@ -56,12 +56,12 @@
                                     <div class="price-range-block">
                                         <div id="slider-range" class="price-filter-range" name="rangeInput"></div>
                                         <div class="livecount">
-                                            $ <input type="number" name="min" oninput="" id="min_price"
+                                            $ <input type="number" name="min" min="0" oninput="" id="min_price"
                                                      value="{{$data['min'] ?? 0}}" class="price-range-field"/>
                                             <span>
                                         {{ __('To') }}
                                     </span>
-                                            $ <input type="number" name="max" oninput="" id="max_price"
+                                            $ <input type="number" name="max" min="0" oninput="" id="max_price"
                                                      value="{{$data['max'] ?? 0}}" class="price-range-field"/>
                                         </div>
                                     </div>
@@ -70,9 +70,106 @@
                                 </form>
                             </ul>
                         </div>
+                        <div id="bigbazar-price-filter-list-1"
+                             class="widget bigbazar_widget_price_filter_list widget_layered_nav widget-toggle mx-3">
+                            <h2 class="widget-title">{{ __('Price') }}</h2>
+                            <ul class="price-filter-list">
+                                <li>
+                                    <a href="">Under $25</a>
+                                </li>
+                                <li>
+                                    <a href="">$25 to $50</a>
+                                </li>
+                                <li>
+                                    <a href="">$50 to $100</a>
+                                </li>
+                                <li>
+                                    <a href="">$100 to $200</a>
+                                </li>
+                                <li>
+                                    <a href="">$200 to Above</a>
+                                </li>
+                                <li>
+                                    <form class="priceFilter" action="">
+                                        <input type="number" min="0" name="" id="">
+                                        <input type="number" min="0" name="" id="">
+                                        <button>Go</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="bigbazar-price-filter-list-1"
+                             class="widget bigbazar_widget_price_filter_list widget_layered_nav widget-toggle mx-3">
+                            <h2 class="widget-title">{{ __('Deals & Discount') }}</h2>
+                            <ul class="price-filter-list">
+                                <li>
+                                    <a href="#">All Discount</a>
+                                </li>
+                                <li>
+                                    <a href="#">Today's Deals</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="bigbazar-price-filter-list-1"
+                             class="widget bigbazar_widget_price_filter_list widget_layered_nav widget-toggle mx-3">
+                            <h2 class="widget-title">{{ __('Avg. Customer Review') }}</h2>
+                            <ul class="price-filter-list">
+                                <li class="starCont">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span>& Up</span>
+                                </li>
+                                <li class="starCont">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>& Up</span>
+                                </li>
+                                <li class="starCont">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>& Up</span>
+                                </li>
+                                <li class="starCont">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>& Up</span>
+                                </li>
+                                <li class="starCont">
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>& Up</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="bigbazar-price-filter-list-1"
+                             class="widget bigbazar_widget_price_filter_list widget_layered_nav widget-toggle mx-3">
+                            <h2 class="widget-title">{{ __('New & Upcoming') }}</h2>
+                            <ul class="price-filter-list">
+                                <li>
+                                    <a href="#">New Arrivals</a>
+                                </li>
+                                <li>
+                                    <a href="#">Coming Soon</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-
                 <div class="col-xl-9">
                     <div class="row align-items-center mb-4">
                         <div class="col-md-4">
@@ -214,8 +311,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </section>
 
