@@ -26,6 +26,7 @@ class CatalogController extends FrontBaseController
 
     public function category(Request $request, $slug = null, $slug1 = null, $slug2 = null)
     {
+//        dd(request()->route('category'),request()->route('subcategory'));
         if ($request->view_check) {
             session::put('view', $request->view_check);
         }
@@ -38,6 +39,8 @@ class CatalogController extends FrontBaseController
         $flash = null;
         $minprice = $request->min ?? null;
         $maxprice = $request->max ?? null;
+        $minPrice = $request->minPrice ?? null;
+        $maxPrice = $request->maxPrice ?? null;
         $sort = '';
         $sorts = 'ASC';
         $sort = 'asc';
@@ -55,7 +58,6 @@ class CatalogController extends FrontBaseController
         $data['min'] = $minprice;
         $data['max'] = $maxprice;
 
-
         if (!empty($slug)) {
             $cat = Category::where('slug', $slug)->firstOrFail();
             $data['cat'] = $cat;
@@ -70,7 +72,7 @@ class CatalogController extends FrontBaseController
             $childcat = Childcategory::where('slug', $slug2)->firstOrFail();
             $data['childcat'] = $childcat;
         }
-        
+
         $data['latest_products'] = Product::orderBy('price', $sort)->with('user')->whereStatus(1)->whereLatest(1)
             ->home($this->language->id)
             ->get()
@@ -102,11 +104,17 @@ class CatalogController extends FrontBaseController
             ->when($search, function ($query, $search) {
                 return $query->where('name', 'like', '%' . $search . '%')->orWhere('name', 'like', $search . '%');
             })
-            ->when($minprice, function ($query, $minprice) {
+            ->when($minprice , function ($query, $minprice) {
                 return $query->where('price', '>=', $minprice);
             })
             ->when($maxprice, function ($query, $maxprice) {
                 return $query->where('price', '<=', $maxprice);
+            })
+            ->when($minPrice, function ($query, $minPrice) {
+                return $query->where('price', '>=', $minPrice);
+            })
+            ->when($maxPrice , function ($query, $maxPrice) {
+                return $query->where('price', '<=', $maxPrice);
             })
             ->when($title, function ($query) use ($title) {
                 return $query->where('name', 'LIKE', '%'.$title.'%');
@@ -124,7 +132,21 @@ class CatalogController extends FrontBaseController
             })
             ->when(empty($sort), function ($query, $sort) {
                 return $query->latest('id');
-            });
+            })
+            ->when ($request->has('discount') && $request->discount == 'discounted', function ($q) use ($request) {
+                return $q->where('previous_price', '>', 0);
+            })
+            ->when($request->has('highest') && $request->highest === 'highest', function ($query) {
+                return $query->orderBy('price', 'desc');
+            })
+            ->when($request->has('newest') && $request->newest == 'newest', function ($query) {
+                return $query->orderBy('created_at', 'desc');
+            })
+            ->when($request->has('reviewStars'), function ($query) use ($request) {
+                $reviewStars = $request->input('reviewStars');
+                return $query->join('ratings', 'products.id', '=', 'ratings.product_id')
+                    ->where('rating', '==', $reviewStars);
+    });
 
         $prods = $prods->orderBy('price', $sort)->where(function ($query) use ($cat, $subcat, $childcat, $type, $request) {
             $flag = 0;
@@ -211,9 +233,23 @@ class CatalogController extends FrontBaseController
         $data['prods'] = $prods;
 
         if ($request->ajax()) {
-            $data['ajax_check'] = 1;
-            return view('frontend.ajax.category', $data);
+//            if ($request->has('min')) {
+                $data['ajax_check'] = 1;
+//            $rendorview = view('frontend.product')->with('data', $data)->render();
+//            return response($data);
+                $rendorview = view('frontend.ajax.filter-price')->with('data', $data)->render();
+                return response($rendorview);
+//            } else if ($request->has('discount')) {
+////                $data['ajax_check'] = 2;
+////            $rendorview = view('frontend.product')->with('data', $data)->render();
+////            return response($data);
+//                $rendorview = view('frontend.ajax.filter-price')->with('discount', $discount)->render();
+//                return response($rendorview);
+//            }
         }
+
+//        if ($request->ajax()) {
+//        }
 
         return view('frontend.product')->with('data', $data);
     }
