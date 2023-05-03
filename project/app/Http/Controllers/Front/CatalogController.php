@@ -2,13 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\{
-    Models\Product,
-    Models\Category,
-    Models\Subcategory,
-    Models\Childcategory,
-    Models\Report
-};
+use App\{Models\Order, Models\Product, Models\Category, Models\Subcategory, Models\Childcategory, Models\Report};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -43,7 +37,7 @@ class CatalogController extends FrontBaseController
         $maxPrice = $request->maxPrice ?? null;
         $sort = '';
         $sorts = 'ASC';
-        $sort = 'asc';
+        $sort = $request->has('highest') ? 'DESC' : 'ASC';
         $search = $request->search;
         $pageby = $request->pageby;
         $minprice = ($minprice / $this->curr->value);
@@ -104,7 +98,7 @@ class CatalogController extends FrontBaseController
             ->when($search, function ($query, $search) {
                 return $query->where('name', 'like', '%' . $search . '%')->orWhere('name', 'like', $search . '%');
             })
-            ->when($minprice , function ($query, $minprice) {
+            ->when($minprice, function ($query, $minprice) {
                 return $query->where('price', '>=', $minprice);
             })
             ->when($maxprice, function ($query, $maxprice) {
@@ -113,11 +107,11 @@ class CatalogController extends FrontBaseController
             ->when($minPrice, function ($query, $minPrice) {
                 return $query->where('price', '>=', $minPrice);
             })
-            ->when($maxPrice , function ($query, $maxPrice) {
+            ->when($maxPrice, function ($query, $maxPrice) {
                 return $query->where('price', '<=', $maxPrice);
             })
             ->when($title, function ($query) use ($title) {
-                return $query->where('name', 'LIKE', '%'.$title.'%');
+                return $query->where('name', 'LIKE', '%' . $title . '%');
             })
             ->when($sorts, function ($query, $sorts) {
                 if ($sorts == 'date_desc') {
@@ -133,20 +127,62 @@ class CatalogController extends FrontBaseController
             ->when(empty($sort), function ($query, $sort) {
                 return $query->latest('id');
             })
-            ->when ($request->has('discount') && $request->discount == 'discounted', function ($q) use ($request) {
+            ->when($request->has('discount') && $request->discount == 'discounted', function ($q) use ($request) {
                 return $q->where('previous_price', '>', 0);
             })
-            ->when($request->has('highest') && $request->highest === 'highest', function ($query) {
-                return $query->orderBy('price', 'desc');
+            ->when($request->has('highest') && $request->highest == 'highest', function ($q) use ($request) {
+                return $q->orderBy('price', 'desc');
             })
-            ->when($request->has('newest') && $request->newest == 'newest', function ($query) {
-                return $query->orderBy('created_at', 'desc');
+//            ->when($request->has('highest') && $request->highest === 'highest', function ($query) {
+//                return $query->orderBy('price', 'desc');
+//            })
+            ->when($request->has('newest'), function ($query) use ($request) {
+                return $query->whereDate('created_at', '=', now()->toDateString())
+//                    ->orWhereDate('updated_at', '=', now()->toDateString())
+                    ->latest('created_at');
             })
+//            ->when($request->has('newest') && $request->newest == 'newest', function ($query) {
+//                return $query->orderBy('created_at', 'desc');
+//            })
             ->when($request->has('reviewStars'), function ($query) use ($request) {
                 $reviewStars = $request->input('reviewStars');
-                return $query->join('ratings', 'products.id', '=', 'ratings.product_id')
-                    ->where('rating', '==', $reviewStars);
-    });
+                return $query->whereHas('ratings', function ($q) use ($reviewStars) {
+                    return $q->where('rating', '=', $reviewStars);
+//                ->when($request->has('bestSeller'), function ($query) use ($request) {
+//                    $reviewStars = $request->input('bestSeller');
+//                    $orders = Order::all();
+//                    $product_occurence_array = [];
+//                    foreach ($orders as $order) {
+//                        foreach (json_decode($order->cart)->items as $item) {
+//                            if (array_key_exists($item->item->id, $product_occurence_array)) {
+//                                $product_occurence_array[$item->item->id] += $item->qty;
+//                            } else {
+//                                $product_occurence_array[$item->item->id] = $item->qty;
+//                            }
+//                        }
+//                    }
+//                });
+                });
+
+            })->when($request->has('bestSeller'), function ($query) use ($request) {
+                $orders = Order::all();
+                $product_occurrence_array = [];
+                foreach ($orders as $order) {
+                    foreach (json_decode($order->cart)->items as $item) {
+                        if (array_key_exists($item->item->id, $product_occurrence_array)) {
+                            $product_occurrence_array[$item->item->id] += $item->qty;
+                        } else {
+                            $product_occurrence_array[$item->item->id] = $item->qty;
+                        }
+                    }
+                }
+                arsort($product_occurrence_array);
+                $product_occurrence_array = array_flip($product_occurrence_array);
+                $product_occurrence_array = array_values($product_occurrence_array);
+//                        $bestSeller = array_keys($product_occurrence_array);
+//                dd($product_occurrence_array);
+                return $query->whereIn('id', $product_occurrence_array);
+            });
 
         $prods = $prods->orderBy('price', $sort)->where(function ($query) use ($cat, $subcat, $childcat, $type, $request) {
             $flag = 0;
@@ -234,11 +270,11 @@ class CatalogController extends FrontBaseController
 
         if ($request->ajax()) {
 //            if ($request->has('min')) {
-                $data['ajax_check'] = 1;
+            $data['ajax_check'] = 1;
 //            $rendorview = view('frontend.product')->with('data', $data)->render();
 //            return response($data);
-                $rendorview = view('frontend.ajax.filter-price')->with('data', $data)->render();
-                return response($rendorview);
+            $rendorview = view('frontend.ajax.filter-price')->with('data', $data)->render();
+            return response($rendorview);
 //            } else if ($request->has('discount')) {
 ////                $data['ajax_check'] = 2;
 ////            $rendorview = view('frontend.product')->with('data', $data)->render();

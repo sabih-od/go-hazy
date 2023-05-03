@@ -4,6 +4,7 @@
 // ************************************ ADMIN SECTION **********************************************
 
 use App\Http\Controllers\Front\FrontendController;
+use App\Models\Order;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -1634,3 +1635,25 @@ Route::post('/item/report', 'Front\CatalogController@report')->name('product.rep
   });
   Route::post('the/genius/ocean/2441139', 'Front\FrontendController@subscription');
   Route::get('finalize', 'Front\FrontendController@finalize');
+
+//  dd(\App\Models\Product::find(383));
+//  Route::get('temp', function () {
+//      $orders = Order::where('cart->totalPrice', 6.12)->get();
+//      $orders = Order::all();
+//
+//      $product_occurence_array = [];
+//      foreach ($orders as $order) {
+//          foreach (json_decode($order->cart)->items as $item) {
+//              if (array_key_exists($item->item->id, $product_occurence_array)) {
+//                  $product_occurence_array[$item->item->id] += $item->qty;
+//              } else {
+//                  $product_occurence_array[$item->item->id] = $item->qty;
+//              }
+//          }
+//      }
+//      arsort($product_occurence_array);
+//      dd(array_values(array_flip($product_occurence_array)));
+//
+//      dd($orders);
+//  });
+//dd('here');
