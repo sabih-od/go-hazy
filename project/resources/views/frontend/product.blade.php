@@ -176,7 +176,7 @@
                                     <a href="#" class="anchorPriceFilter" data-min="0" data-max="99999">Lower to Highest</a>
                                 </li>
                                 <li>
-                                    <a href="#">Best Sellers</a>
+                                    <a href="#" class="bestSeller" data-filter = "bestSeller">Best Sellers</a>
                                 </li>
                                 <li>
                                     <a href="#" class="newestArrivalFilter" data-filter="newest">Newest Arrival</a>
@@ -472,6 +472,23 @@
                     url: "{{route('front.category',['category'=> request()->route('category'), 'subcategory' => request()->route('subcategory'),'childcategory' => request()->route('childcategory')])}}",
                     method: 'get',
                     data:{minPrice: minPrice, maxPrice: maxPrice},
+                    success: function(result){
+                        $("#filterByPrice").html(result);
+                    }
+                });
+
+                // console.log( $( this ).data('query'));
+
+            });
+
+            $( document ).on( "click", ".bestSeller", function(e) {
+                e.preventDefault();
+                const bestSeller = $(this).data('filter');
+                // const filterPrice = $( this ).data('query');
+                $.ajax({
+                    url: "{{route('front.category',['category'=> request()->route('category'), 'subcategory' => request()->route('subcategory'),'childcategory' => request()->route('childcategory')])}}",
+                    method: 'get',
+                    data:{bestSeller: bestSeller},
                     success: function(result){
                         $("#filterByPrice").html(result);
                     }
