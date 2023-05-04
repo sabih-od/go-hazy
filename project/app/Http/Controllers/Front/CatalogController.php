@@ -20,6 +20,10 @@ class CatalogController extends FrontBaseController
 
     public function category(Request $request, $slug = null, $slug1 = null, $slug2 = null)
     {
+        /*dump(\DB::listen(function ($q) {
+            echo $q->sql;
+            echo print_r($q->bindings, 1);
+        }));*/
 //        dd(request()->route('category'),request()->route('subcategory'));
         if ($request->view_check) {
             session::put('view', $request->view_check);
@@ -86,7 +90,7 @@ class CatalogController extends FrontBaseController
                 return false;
             });
 
-        $prods = Product::orderBy('price', $sort)->when($cat, function ($query, $cat) {
+        $prods = Product::when($cat, function ($query, $cat) {
             return $query->where('category_id', $cat->id);
         })
             ->when($subcat, function ($query, $subcat) {
@@ -140,9 +144,9 @@ class CatalogController extends FrontBaseController
             ->when($request->has('highest') && $request->highest == 'highest', function ($q) use ($request) {
                 return $q->orderBy('price', 'desc');
             })
-//            ->when($request->has('highest') && $request->highest === 'highest', function ($query) {
-//                return $query->orderBy('price', 'desc');
-//            })
+            ->when($request->has('lowest') && $request->lowest === 'lowest', function ($query) {
+                return $query->orderBy('price', 'ASC');
+            })
             ->when($request->has('newest'), function ($query) use ($request) {
                 return $query->whereDate('created_at', '=', now()->toDateString())
 //                    ->orWhereDate('updated_at', '=', now()->toDateString())
@@ -191,7 +195,7 @@ class CatalogController extends FrontBaseController
                 return $query->whereIn('id', $product_occurrence_array);
             });
 
-        $prods = $prods->orderBy('price', $sort)->where(function ($query) use ($cat, $subcat, $childcat, $type, $request) {
+        $prods = $prods->where(function ($query) use ($cat, $subcat, $childcat, $type, $request) {
             $flag = 0;
             if (!empty($cat)) {
                 foreach ($cat->attributes as $key => $attribute) {
@@ -253,7 +257,7 @@ class CatalogController extends FrontBaseController
             }
         });
 
-        $prods = $prods->orderBy('price', $sort)->where('language_id', $this->language->id)->where('status', 1)->get()
+        $prods = $prods->where('language_id', $this->language->id)->where('status', 1)->get()
             ->reject(function ($item) {
                 if ($item->user_id != 0) {
                     if ($item->user->is_vendor != 2) {
@@ -273,7 +277,14 @@ class CatalogController extends FrontBaseController
 
             })->paginate(isset($pageby) ? $pageby : $this->gs->page_count);
 
-        $data['prods'] = $prods;
+
+        if ($sort == 'DESC') {
+            $data['prods'] = $prods->sortByDesc('price');
+        } elseif ($sort == 'ASC') {
+            $data['prods'] = $prods->sortBy('price');
+        }
+
+//        dd($data['prods']->pluck('price'));
 
         if ($request->ajax()) {
 //            if ($request->has('min')) {

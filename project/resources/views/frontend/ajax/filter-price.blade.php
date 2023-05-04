@@ -50,10 +50,16 @@
                     <p>There Are No Products</p>
                 @endforelse
             </div>
+            @php
+                $prods = DB::table('products')
+                ->where('price', '>', 100)
+                ->orderBy('name')
+                ->paginate(10);
+            @endphp
             <div class="col-md-12">
                 <div class="pagination listPaginate">
                     {{--                                        {{ $data['prods']->links() . ($data['min'] ? '&min=' . $data['min'] : '') . ($data['max'] ? '&max=' . $data['max'] : '') }}--}}
-                    {{ $data['prods']->appends(request()->input())->links() }}
+                    {{ $prods->appends(request()->input())->links() }}
                     {{--                        <ul>--}}
                     {{--                            <li><a href="#" class="active">1</a></li>--}}
                     {{--                            <li><a href="">2</a></li>--}}
