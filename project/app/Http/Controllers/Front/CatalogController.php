@@ -35,9 +35,16 @@ class CatalogController extends FrontBaseController
         $maxprice = $request->max ?? null;
         $minPrice = $request->minPrice ?? null;
         $maxPrice = $request->maxPrice ?? null;
-        $sort = '';
         $sorts = 'ASC';
-        $sort = $request->has('highest') ? 'DESC' : 'ASC';
+        /*$sort = $request->has('highest') ? 'DESC' ?  $request->has('lowest') : 'ASC' : 'ASC';*/
+        if ($request->has('highest')) {
+            $sort = 'DESC';
+        } elseif ($request->has('lowest')) {
+            $sort = 'ASC';
+        } else {
+            // default sort order if neither 'highest' nor 'lowest' is present in the request
+            $sort = 'ASC';
+        }
         $search = $request->search;
         $pageby = $request->pageby;
         $minprice = ($minprice / $this->curr->value);

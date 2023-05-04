@@ -4,6 +4,12 @@
             <div class="row">
                 @forelse($data['prods'] as $item)
 
+                    {{--@php
+                        $price = $item ? $item->price : $item->setCurrency();
+                        $rounded_price = round($price);
+                        $price_without_decimal = number_format($rounded_price, 0, '', '');
+                    @endphp--}}
+
                     <div class="col-lg-4 col-sm-6">
                         <div class="product-box">
                             <div class="pro-img">
@@ -33,9 +39,10 @@
                             </div>
                             <h4>{{$item->name ?? 'Shop'}}</h4>
                             <p>{{$item->category->name ?? 'Shop'}}</p>
-                            {{--                                                {{ dd($item->price, $item->setCurrency()) }}--}}
+{{--                                                                            {{ dd($item->price, $item->setCurrency()) }}--}}
                             {{--                                                <span>${{$item->price ?? 'Shop'}}</span>--}}
-                            <span>{{ $item->setCurrency() ?? '0.00' }}</span>
+{{--                            @dd($item->setCurrency())--}}
+                            <span>${{ $item ? $item->price : $item->setCurrency() ?? '0.00'  }}</span>
                             <del>{{ $item->showPreviousPrice() ?? '0.00' }}</del>
                         </div>
                     </div>
