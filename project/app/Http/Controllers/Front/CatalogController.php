@@ -260,7 +260,10 @@ class CatalogController extends FrontBaseController
             }
         });
 
-        $data['prod'] = $prods->paginate(12);
+        // Pagination Work Start
+        $prodss = $prods->where('language_id', $this->language->id)->where('status', 1)
+            ->get();
+        // Pagination Work End
 
         $prods = $prods->where('language_id', $this->language->id)->where('status', 1)->get()
             ->reject(function ($item) {
@@ -280,30 +283,24 @@ class CatalogController extends FrontBaseController
                 $item->price = $item->vendorSizePrice();
                 return $item;
 
-            });
-        // comment bcz paginate per issue araha tha
-        //->paginate(isset($pageby) ? $pageby : $this->gs->page_count)
+            })->paginate(isset($pageby) ? $pageby : $this->gs->page_count);
 
+        $data['prod'] = $prodss->paginate(12);
         if ($sort == 'DESC') {
             $data['prods'] = $prods->sortByDesc('price');
         } elseif ($sort == 'ASC') {
             $data['prods'] = $prods->sortBy('price');
         }
-
 //        dd($data['prods']->count()->paginate(10));
 
-//        $prods = $data['prods'];
-//
 //        if ($prods instanceof Builder || $prods instanceof Collection) {
 //            $perPage = 10;
 //            $page = Paginator::resolveCurrentPage('10');
 //
 //            $data['results'] = $prods->paginate($perPage,  $page);
 //        }
-//
 
 //        $data['prod'] = $data['prods']->paginate(10);
-//        dd($data['prod']);
 
         if ($request->ajax()) {
 //            if ($request->has('min')) {
