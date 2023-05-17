@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Front;
 use App\{Models\Order, Models\Product, Models\Category, Models\Subcategory, Models\Childcategory, Models\Report};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 class CatalogController extends FrontBaseController
 {
@@ -257,6 +260,8 @@ class CatalogController extends FrontBaseController
             }
         });
 
+        $data['prod'] = $prods->paginate(12);
+
         $prods = $prods->where('language_id', $this->language->id)->where('status', 1)->get()
             ->reject(function ($item) {
                 if ($item->user_id != 0) {
@@ -275,8 +280,9 @@ class CatalogController extends FrontBaseController
                 $item->price = $item->vendorSizePrice();
                 return $item;
 
-            })->paginate(isset($pageby) ? $pageby : $this->gs->page_count);
-
+            });
+        // comment bcz paginate per issue araha tha
+        //->paginate(isset($pageby) ? $pageby : $this->gs->page_count)
 
         if ($sort == 'DESC') {
             $data['prods'] = $prods->sortByDesc('price');
@@ -284,7 +290,20 @@ class CatalogController extends FrontBaseController
             $data['prods'] = $prods->sortBy('price');
         }
 
-//        dd($data['prods']->pluck('price'));
+//        dd($data['prods']->count()->paginate(10));
+
+//        $prods = $data['prods'];
+//
+//        if ($prods instanceof Builder || $prods instanceof Collection) {
+//            $perPage = 10;
+//            $page = Paginator::resolveCurrentPage('10');
+//
+//            $data['results'] = $prods->paginate($perPage,  $page);
+//        }
+//
+
+//        $data['prod'] = $data['prods']->paginate(10);
+//        dd($data['prod']);
 
         if ($request->ajax()) {
 //            if ($request->has('min')) {
@@ -301,11 +320,17 @@ class CatalogController extends FrontBaseController
 //                return response($rendorview);
 //            }
         }
+//        $data['paginate'] = \DB::table('products')
+//            ->where('price', '>', 100)
+//            ->orderBy('name')
+//            ->paginate(10);
 
 //        if ($request->ajax()) {
 //        }
 
-        return view('frontend.product')->with('data', $data);
+        return view('frontend.product')->with([
+            'data' => $data,
+        ]);
     }
 
     public function getsubs(Request $request)
