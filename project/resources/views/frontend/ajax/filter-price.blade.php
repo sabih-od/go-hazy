@@ -52,7 +52,7 @@
             </div>
             <div class="col-md-12">
                 <div class="pagination listPaginate">
-                    {{ $data['prod']->links() }}
+                    {{ $data['prods']->appends($_GET)->links() }}
                     {{--{{ $prods->appends(request()->input())->links() }}--}}
                     {{--                        <ul>--}}
                     {{--                            <li><a href="#" class="active">1</a></li>--}}

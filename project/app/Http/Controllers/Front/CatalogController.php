@@ -261,8 +261,8 @@ class CatalogController extends FrontBaseController
         });
 
         // Pagination Work Start
-        $prodss = $prods->where('language_id', $this->language->id)->where('status', 1)
-            ->get();
+        /*$prod = $prods->where('language_id', $this->language->id)->where('status', 1)
+            ->get();*/
         // Pagination Work End
 
         $prods = $prods->where('language_id', $this->language->id)->where('status', 1)->get()
@@ -283,15 +283,18 @@ class CatalogController extends FrontBaseController
                 $item->price = $item->vendorSizePrice();
                 return $item;
 
-            })->paginate(isset($pageby) ? $pageby : $this->gs->page_count);
+            });
 
-        $data['prod'] = $prodss->paginate(12);
+//        $data['prods'] = $prods->paginate(isset($pageby) ? $pageby : 12);
+
         if ($sort == 'DESC') {
             $data['prods'] = $prods->sortByDesc('price');
         } elseif ($sort == 'ASC') {
             $data['prods'] = $prods->sortBy('price');
         }
-//        dd($data['prods']->count()->paginate(10));
+
+
+        $data['prods']  = $prods->paginate(isset($pageby) ? $pageby : 12);
 
 //        if ($prods instanceof Builder || $prods instanceof Collection) {
 //            $perPage = 10;
