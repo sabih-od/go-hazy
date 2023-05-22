@@ -82,12 +82,12 @@
                                 @endphp
                                 <div class="swiper-slide">
                                     <div class="product-box" data-aos="fade-right">
+                                        <a href="{{ route('front.category', $category->slug) }}">
                                         <div class="pro-img">
                                             <img
                                                 src="{{ $src }}"
                                                 alt="img">
                                         </div>
-                                        <a href="{{ route('front.category', $category->slug) }}">
                                             <h4 data-id="{{$category->id}}">{{$category->name ?? 'Shop'}}</h4>
                                         </a>
                                         <p>({{count($category->products)}}) Products</p>
@@ -230,7 +230,7 @@
                     <div class="deliveryBox purple" data-aos="fade-left">
                         <div class="deliveryContent">
                             <h5>JOIN US</h5>
-                            <p>Do you have what it takes to join Antony Garcia? Reach out to us today, and let’s get to
+                            <p>Do you have what it takes to join Antony? Reach out to us today, and let’s get to
                                 work.</p>
                         </div>
                     </div>
