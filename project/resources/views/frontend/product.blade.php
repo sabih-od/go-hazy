@@ -392,8 +392,7 @@
                     method: 'get',
                     data: {
                         min: minPrice,
-                        max: maxPrice,
-                        page: {{ $paginate }}
+                        max: maxPrice
                     },
                     success: function (result) {
                         $("#filterByPrice").html(result);
@@ -410,8 +409,7 @@
                     url: "{{route('front.category',['category'=> request()->route('category'), 'subcategory' => request()->route('subcategory'),'childcategory' => request()->route('childcategory')])}}",
                     method: 'get',
                     data: {
-                        reviewStars: reviewStars,
-                        page: {{ $paginate }}
+                        reviewStars: reviewStars
                     },
                     success: function (result) {
                         $("#filterByPrice").html(result);
@@ -428,8 +426,7 @@
                     url: "{{ route('front.category',['category'=> request()->route('category'), 'subcategory' => request()->route('subcategory'),'childcategory' => request()->route('childcategory')]) }}",
                     method: 'get',
                     data: {
-                        discount: discount,
-                        page: {{ $paginate }}
+                        discount: discount
                     },
                     success: function (result) {
                         $("#filterByPrice").html(result);
@@ -446,8 +443,7 @@
                     url: "{{ route('front.category',['category'=> request()->route('category'), 'subcategory' => request()->route('subcategory'),'childcategory' => request()->route('childcategory')]) }}",
                     method: 'get',
                     data: {
-                        newest: newest,
-                        page: {{ $paginate }}
+                        newest: newest
                     },
                     success: function (result) {
                         $("#filterByPrice").html(result);
@@ -502,8 +498,7 @@
                     method: 'get',
                     data: {
                         minPrice: minPrice,
-                        maxPrice: maxPrice,
-                        page: {{ $paginate }}
+                        maxPrice: maxPrice
                     },
                     success: function (result) {
                         $("#filterByPrice").html(result);
@@ -520,8 +515,7 @@
                     url: "{{route('front.category',['category'=> request()->route('category'), 'subcategory' => request()->route('subcategory'),'childcategory' => request()->route('childcategory')])}}",
                     method: 'get',
                     data: {
-                        bestSeller: bestSeller,
-                        page: {{ $paginate }}
+                        bestSeller: bestSeller
                     },
                     success: function (result) {
                         $("#filterByPrice").html(result);
