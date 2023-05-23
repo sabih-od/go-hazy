@@ -357,6 +357,7 @@
         (function ($) {
             "use strict";
 
+            var paginate = {{ $paginate }};
             $(function () {
                 $("#slider-range").slider({
                     range: true,
@@ -461,7 +462,7 @@
                     method: 'get',
                     data: {
                         highest: highest,
-                        page: {{ $paginate }},
+                        page: paginate,
                     },
                     success: function (result) {
                         $("#filterByPrice").html(result);
@@ -479,7 +480,7 @@
                     method: 'get',
                     data: {
                         lowest: lowest,
-                        page: {{ $paginate }},
+                        page: paginate,
                     },
                     success: function (result) {
                         $("#filterByPrice").html(result);
