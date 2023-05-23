@@ -283,15 +283,12 @@ class CatalogController extends FrontBaseController
                 $item->price = $item->vendorSizePrice();
                 return $item;
 
-            })/*->paginate(isset($pageby) ? $pageby : 12)*/;
+            });
 
-
-//        $data['prods'] = $prods->paginate(isset($pageby) ? $pageby : 12);
         if ($sort == 'DESC') {
-            $data['prods'] = $prods->sortByDesc('price')->paginate(isset($pageby) ? $pageby : 12);;
-//            dd($data['prods']->pluck('price'));
+            $data['prods'] = $prods->sortByDesc('price')->paginate(isset($pageby) ? $pageby : 12);
         } elseif ($sort == 'ASC') {
-            $data['prods'] = $prods->sortBy('price')->paginate(isset($pageby) ? $pageby : 12);;
+            $data['prods'] = $prods->sortBy('price')->paginate(isset($pageby) ? $pageby : 12);
         }
 
 //        $data['prods']  = $prods->paginate(isset($pageby) ? $pageby : 12);

@@ -208,6 +208,10 @@
                                 </ul>
                             </div>
                         </div>
+                        @php
+                        $currentUrl = url()->current();
+                        $paginate = app('request')->input('page');
+                        @endphp
                         <div class="col-md-8">
                             <div class="shopLabel">
                                 <ul>
@@ -216,25 +220,25 @@
                                         <div class="pagination">
                                             @if(!empty(isset($category)))
                                                 <span>/</span>
-                                                <a href="{{ url()->current().'?pageby=9' }}">9</a>
+                                                <a href="{{ $currentUrl.'?pageby=9' . '&page=' . $paginate }}">9</a>
                                                 <span>/</span>
-                                                <a href="{{ url()->current().'?pageby=12' }}">12</a>
+                                                <a href="{{ $currentUrl.'?pageby=12' . '&page=' . $paginate }}">12</a>
                                                 <span>/</span>
-                                                <a href="{{ url()->current().'?pageby=18' }}">18</a>
+                                                <a href="{{ $currentUrl.'?pageby=18' . '&page=' . $paginate }}">18</a>
                                                 <span>/</span>
-                                                <a href="{{ url()->current().'?pageby=24' }}">24</a>
+                                                <a href="{{ $currentUrl.'?pageby=24' . '&page=' . $paginate }}">24</a>
                                                 <span>/</span>
-                                                <a href="{{ url()->current().'?pageby=30' }}">30</a>
+                                                <a href="{{ $currentUrl.'?pageby=30' . '&page=' . $paginate }}">30</a>
                                             @else
-                                                <a href="{{ route('front.category', ['pageby' => 9]) }}">9</a>
+                                                <a href="{{ route('front.category', ['pageby' => 9, 'page' => $paginate]) }}">9</a>
                                                 <span>/</span>
-                                                <a href="{{ route('front.category', ['pageby' => 12]) }}">12</a>
+                                                <a href="{{ route('front.category', ['pageby' => 12, 'page' => $paginate]) }}">12</a>
                                                 <span>/</span>
-                                                <a href="{{ route('front.category', ['pageby' => 18]) }}">18</a>
+                                                <a href="{{ route('front.category', ['pageby' => 18, 'page' => $paginate]) }}">18</a>
                                                 <span>/</span>
-                                                <a href="{{ route('front.category', ['pageby' => 24]) }}">24</a>
+                                                <a href="{{ route('front.category', ['pageby' => 24, 'page' => $paginate]) }}">24</a>
                                                 <span>/</span>
-                                                <a href="{{ route('front.category', ['pageby' => 30]) }}">30</a>
+                                                <a href="{{ route('front.category', ['pageby' => 30, 'page' => $paginate]) }}">30</a>
                                             @endif
 
                                         </div>
@@ -388,7 +392,8 @@
                     method: 'get',
                     data: {
                         min: minPrice,
-                        max: maxPrice
+                        max: maxPrice,
+                        page: {{ $paginate }}
                     },
                     success: function (result) {
                         $("#filterByPrice").html(result);
@@ -405,7 +410,8 @@
                     url: "{{route('front.category',['category'=> request()->route('category'), 'subcategory' => request()->route('subcategory'),'childcategory' => request()->route('childcategory')])}}",
                     method: 'get',
                     data: {
-                        reviewStars: reviewStars
+                        reviewStars: reviewStars,
+                        page: {{ $paginate }}
                     },
                     success: function (result) {
                         $("#filterByPrice").html(result);
@@ -422,7 +428,8 @@
                     url: "{{ route('front.category',['category'=> request()->route('category'), 'subcategory' => request()->route('subcategory'),'childcategory' => request()->route('childcategory')]) }}",
                     method: 'get',
                     data: {
-                        discount: discount
+                        discount: discount,
+                        page: {{ $paginate }}
                     },
                     success: function (result) {
                         $("#filterByPrice").html(result);
@@ -439,7 +446,8 @@
                     url: "{{ route('front.category',['category'=> request()->route('category'), 'subcategory' => request()->route('subcategory'),'childcategory' => request()->route('childcategory')]) }}",
                     method: 'get',
                     data: {
-                        newest: newest
+                        newest: newest,
+                        page: {{ $paginate }}
                     },
                     success: function (result) {
                         $("#filterByPrice").html(result);
@@ -453,10 +461,11 @@
                 const highest = $(this).data('filter');
                 // const filterPrice = $( this ).data('query');
                 $.ajax({
-                    url: "{{ route('front.category',['category'=> request()->route('category'), 'subcategory' => request()->route('subcategory'),'childcategory' => request()->route('childcategory')]) }}",
+                    url: "{{ route('front.category',['category'=> request()->route('category' . '&page=' . $paginate), 'subcategory' => request()->route('subcategory' . '&page=' . $paginate),'childcategory' => request()->route('childcategory' . '&page=' . $paginate)]) }}",
                     method: 'get',
                     data: {
-                        highest: highest
+                        highest: highest,
+                        page: {{ $paginate }}
                     },
                     success: function (result) {
                         $("#filterByPrice").html(result);
@@ -470,10 +479,11 @@
                 const lowest = $(this).data('filter');
                 // const filterPrice = $( this ).data('query');
                 $.ajax({
-                    url: "{{ route('front.category',['category'=> request()->route('category'), 'subcategory' => request()->route('subcategory'),'childcategory' => request()->route('childcategory')]) }}",
+                    url: "{{ route('front.category',['category'=> request()->route('category' . '&page=' . $paginate), 'subcategory' => request()->route('subcategory' . '&page=' . $paginate),'childcategory' => request()->route('childcategory' . '&page=' . $paginate)]) }}",
                     method: 'get',
                     data: {
-                        lowest: lowest
+                        lowest: lowest,
+                        page: {{ $paginate }}
                     },
                     success: function (result) {
                         $("#filterByPrice").html(result);
@@ -492,7 +502,8 @@
                     method: 'get',
                     data: {
                         minPrice: minPrice,
-                        maxPrice: maxPrice
+                        maxPrice: maxPrice,
+                        page: {{ $paginate }}
                     },
                     success: function (result) {
                         $("#filterByPrice").html(result);
@@ -509,7 +520,8 @@
                     url: "{{route('front.category',['category'=> request()->route('category'), 'subcategory' => request()->route('subcategory'),'childcategory' => request()->route('childcategory')])}}",
                     method: 'get',
                     data: {
-                        bestSeller: bestSeller
+                        bestSeller: bestSeller,
+                        page: {{ $paginate }}
                     },
                     success: function (result) {
                         $("#filterByPrice").html(result);
