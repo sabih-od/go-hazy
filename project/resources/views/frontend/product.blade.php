@@ -357,7 +357,7 @@
         (function ($) {
             "use strict";
 
-            var paginate = {{ $paginate }} ?? null;
+            var paginate = {!! json_encode(app('request')->input('page') ?? null) !!};
             $(function () {
                 $("#slider-range").slider({
                     range: true,
