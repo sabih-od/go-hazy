@@ -357,7 +357,7 @@
         (function ($) {
             "use strict";
 
-            var paginate = {{ $paginate }};
+            var paginate = {{ $paginate }} ?? null;
             $(function () {
                 $("#slider-range").slider({
                     range: true,
