@@ -455,10 +455,12 @@
 
             $(document).on("click", ".highestToLowest", function (e) {
                 e.preventDefault();
+                var currentURL = window.location.href;
+                var category = currentURL.split('/').pop();
                 const highest = $(this).data('filter');
                 // const filterPrice = $( this ).data('query');
                 $.ajax({
-                    url: "{{ route('front.category',['category'=> request()->route('category' . '&page=' . $paginate), 'subcategory' => request()->route('subcategory' . '&page=' . $paginate),'childcategory' => request()->route('childcategory' . '&page=' . $paginate)]) }}",
+                    url: category,
                     method: 'get',
                     data: {
                         highest: highest,
@@ -473,10 +475,13 @@
 
             $(document).on("click", ".lowestToHighest", function (e) {
                 e.preventDefault();
+                var currentURL = window.location.href;
+                var category = currentURL.split('/').pop();
                 const lowest = $(this).data('filter');
                 // const filterPrice = $( this ).data('query');
                 $.ajax({
-                    url: "{{ route('front.category',['category'=> request()->route('category' . '&page=' . $paginate), 'subcategory' => request()->route('subcategory' . '&page=' . $paginate),'childcategory' => request()->route('childcategory' . '&page=' . $paginate)]) }}",
+                    url: category,
+                    /*url: "{{ route('front.category',['category'=> request()->route('category' . '&page=' . $paginate), 'subcategory' => request()->route('subcategory' . '&page=' . $paginate),'childcategory' => request()->route('childcategory' . '&page=' . $paginate)]) }}",*/
                     method: 'get',
                     data: {
                         lowest: lowest,
