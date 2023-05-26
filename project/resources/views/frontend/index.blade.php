@@ -79,10 +79,19 @@
                                     $src = count($category->products) && $category->products->first() && $category->products->first()->photo
                                     ?  asset('assets/images/products/'.$category->products()->first()->photo)
                                     : 'https://w0.peakpx.com/wallpaper/132/110/HD-wallpaper-404-not-found-error.jpg';
+
+                                    foreach ($category->products as $product) {
+                                        $data = $product['slug'];
+                                        break;
+                                    }
                                 @endphp
                                 <div class="swiper-slide">
                                     <div class="product-box" data-aos="fade-right">
-                                        <a href="{{ route('front.category', $category->slug) }}">
+                                        @if(!empty($category) && count($category->products) > 0)
+                                            <a href="{{ route('front.product', $data) }}">
+                                        @else
+                                            <a href="{{ route('front.category', $category->slug) }}">
+                                        @endif
                                         <div class="pro-img">
                                             <img
                                                 src="{{ $src }}"
