@@ -68,6 +68,52 @@
                 <h5>GO-HAZY</h5>
                 <h2>Antony’s Popular Products</h2>
                 <h6>Looks for the season ahead</h6>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="swiper popularSlider">
+                            <div class="swiper-wrapper">
+                                @foreach($categories as $category)
+                                    @php
+                                        // Get the category name
+                                        $categoryName = $category->name;
+
+                                        if (!in_array($categoryName, ['Fishing', 'OutDoor', 'Veteran'])) {
+                                            continue;
+                                        }
+
+
+                                        $categoryImage = $category->image ? asset('assets/images/products/' . $category->image) : null;
+
+
+                                        if (!$categoryImage) {
+                                            $categoryImage = 'https://w0.peakpx.com/wallpaper/132/110/HD-wallpaper-404-not-found-error.jpg';
+                                        }
+
+                                        $firstProduct = $category->products->first();
+                                        if ($firstProduct && $firstProduct->photo) {
+                                            $productImage = asset('assets/images/products/' . $firstProduct->photo);
+                                        } else {
+                                            $productImage = $categoryImage;
+                                        }
+                                    @endphp
+                                    <div class="swiper-slide">
+                                        <div class="product-box" data-aos="fade-right">
+                                            <a href="{{ route('front.category', $category->slug) }}">
+                                                <div class="pro-img">
+                                                    <img src="{{ $productImage }}" alt="img">
+                                                </div>
+                                                <h4 data-id="{{ $category->id }}">{{ $categoryName ?? 'Shop' }}</h4>
+                                            </a>
+                                            <p>({{ count($category->products) }}) Products</p>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
                 <span>Shop Featured Categories.</span>
             </div>
             <div class="row">
