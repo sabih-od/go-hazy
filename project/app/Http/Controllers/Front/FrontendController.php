@@ -90,10 +90,14 @@ class FrontendController extends FrontBaseController
         $data['products'] = Product::where('language_id', 1)->get();
         $data['ratings'] = Rating::get();
         $data['categories'] = Category::where('status', 1)->get();
+        $new_categories = Category::where('status', 1)
+            ->whereIn('name', ['Fishing', 'Outdoor', 'Veteran'])
+            ->get();
+
+
         $data['blogs'] = Blog::where('language_id', $this->language->id)->latest()->take(3)->get();
 
-
-        return view('frontend.index', $data);
+        return view('frontend.index', $data ,compact('new_categories'));
     }
 
     // Home Page Ajax Display

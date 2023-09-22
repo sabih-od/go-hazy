@@ -67,7 +67,9 @@
                 <h1>New Arrivals</h1>
                 <h5>GO-HAZY</h5>
                 <h2>Antony’s Popular Products</h2>
+                @include('partials.category.category_product')
                 <h6>Looks for the season ahead</h6>
+
                 <span>Shop Featured Categories.</span>
             </div>
             <div class="row">
