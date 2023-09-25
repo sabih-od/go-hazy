@@ -39,9 +39,7 @@ class ThirtyPercentAdd extends Command
      */
     public function handle()
     {
-        Log::info("thirty-percent-add === Start Comment");
         try {
-            \DB::connection()->enableQueryLog();
             $percentageToAdd = 30;
 
             $products = Product::get();
@@ -54,10 +52,8 @@ class ThirtyPercentAdd extends Command
             }
 
         } catch (\Exception $e) {
-//            dump("Error: " . $e->getMessage());
             Log::error($e->getMessage());
         }
-        Log::info("thirty-percent-add === End Comment");
 
         return 0;
     }
