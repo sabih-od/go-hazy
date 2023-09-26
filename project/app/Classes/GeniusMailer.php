@@ -11,7 +11,8 @@ namespace App\Classes;
 use App\{
     Models\Order,
     Models\EmailTemplate,
-    Models\Generalsetting
+    Models\Generalsetting,
+    Traits\PHPCustomMail
 };
 use PDF;
 use PHPMailer\PHPMailer\PHPMailer;
@@ -20,7 +21,7 @@ use Illuminate\Support\Str;
 
 class GeniusMailer
 {
-
+    use PHPCustomMail;
     public $mail;
     public $gs;
 
@@ -38,7 +39,7 @@ class GeniusMailer
             $this->mail->Username   = $this->gs->mail_user;   // SMTP username
             $this->mail->Password   = $this->gs->mail_pass;   // SMTP password
             $this->mail->SMTPSecure = $this->gs->mail_encryption;      // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-            $this->mail->Port       = $this->gs->mail_port; 
+            $this->mail->Port       = $this->gs->mail_port;
 
         }
     }
@@ -67,14 +68,14 @@ class GeniusMailer
             $this->mail->addAddress($mailData['to']);     // Add a recipient
 
             // Attachments
-            $this->mail->addAttachment($fileName);         
+            $this->mail->addAttachment($fileName);
 
             // Content
-            $this->mail->isHTML(true);  
+            $this->mail->isHTML(true);
 
-            $this->mail->Subject = $temp->email_subject; 
+            $this->mail->Subject = $temp->email_subject;
 
-            $this->mail->Body = $body; 
+            $this->mail->Body = $body;
 
             $this->mail->send();
 
@@ -88,7 +89,7 @@ class GeniusMailer
             if(is_file($file))
             unlink($file); //delete file
         }
-        
+
         return true;
 
 
@@ -113,11 +114,11 @@ class GeniusMailer
             $this->mail->addAddress($mailData['to']);     // Add a recipient
 
             // Content
-            $this->mail->isHTML(true);  
+            $this->mail->isHTML(true);
 
-            $this->mail->Subject = $temp->email_subject; 
+            $this->mail->Subject = $temp->email_subject;
 
-            $this->mail->Body = $body; 
+            $this->mail->Body = $body;
 
             $this->mail->send();
 
@@ -135,17 +136,19 @@ class GeniusMailer
         try{
 
             //Recipients
-            $this->mail->setFrom($this->gs->from_email, $this->gs->from_name);
-            $this->mail->addAddress($mailData['to']);     // Add a recipient
+//            $this->mail->setFrom($this->gs->from_email, $this->gs->from_name);
+//            $this->mail->addAddress($mailData['to']);     // Add a recipient
+//
+//            // Content
+//            $this->mail->isHTML(true);
+//
+//            $this->mail->Subject = $mailData['subject'];
+//
+//            $this->mail->Body = $mailData['body'];
+//
+//            $this->mail->send();
 
-            // Content
-            $this->mail->isHTML(true);  
-
-            $this->mail->Subject = $mailData['subject']; 
-
-            $this->mail->Body = $mailData['body']; 
-
-            $this->mail->send();
+            $this->customMail($this->gs->from_email, $mailData['to'], $mailData['subject'], $mailData['body']);
 
         }
         catch (Exception $e){

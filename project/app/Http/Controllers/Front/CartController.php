@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\{Classes\GeniusMailer, Models\Cart, Models\Product};
+use App\{Classes\GeniusMailer, Models\Cart, Models\Product, Models\VeteranDiscount};
 use App\Models\Country;
 use App\Models\Currency;
 use App\Models\Generalsetting;
@@ -913,16 +913,22 @@ class CartController extends FrontBaseController
 
         try {
             $email = $request->input('email');
-//            dd($email);
             $otp = mt_rand(100000, 999999);
             $data = [
                 'to' => $email,
                 'from' => "Go-hazy.com",
                 'subject' => "Otp Verification code " ,
-                'body' => 'this is your OTP code' . $otp,
+                'body' => 'this is your OTP code '  . $otp,
             ];
-            Session::put('email', $email);
-            Session::put('otp', $otp);
+//            Session::put('email', $email);
+//            Session::put('otp', $otp);
+
+             $veteran_discount = new VeteranDiscount();
+             $veteran_discount->email = $email;
+             $veteran_discount->otp = $otp;
+             $veteran_discount->percentage = 20;
+             $veteran_discount->save();
+
             $mailer = new GeniusMailer();
             $mailer->sendCustomMail($data);
 
@@ -935,15 +941,28 @@ class CartController extends FrontBaseController
     public function verifyOTP(Request $request)
     {
 
+//        $userOTP = $request->input('otp');
+//        $storedOTP = Session::get('otp');
+//        $email = Session::get('email');
+//
+//
+//        if ($userOTP == $storedOTP) {
+//
+//            Session::forget('email');
+//            Session::forget('otp');
+//
+//            return response()->json(['message' => 'OTP verified successfully']);
+//        }
+
         $userOTP = $request->input('otp');
-        $storedOTP = Session::get('otp');
-        $email = Session::get('email');
 
+        $get_otp = VeteranDiscount::where('otp','=',$userOTP)->first();
 
-        if ($userOTP == $storedOTP) {
-
-            Session::forget('email');
-            Session::forget('otp');
+        if ($get_otp) {
+            $discount_id =$get_otp->id;
+            $email = $get_otp->email;
+            Session::put('discount_id',$discount_id);
+            Session::put('email', $email);
 
             return response()->json(['message' => 'OTP verified successfully']);
         }

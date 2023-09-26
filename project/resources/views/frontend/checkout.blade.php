@@ -305,21 +305,31 @@
                             </form>
                         </div>
                         <hr class="w-100">
+                        @php
+                            $get_percentage = App\Models\VeteranDiscount::where('id',Session::get('discount_id'))->first();
+                        @endphp
                         <div class="col-md-12 {{Session::has('coupon') ? '' : 'd-none'}}
                             d-flex align-items-center justify-content-between" id="discount-bar">
                             <span>Discounts</span>
-                            <strong id="discount_amount">{{ Session::has('coupon') ? Session::get('coupon') : 0 }}
-                                $</strong>
+                            <strong id="discount_amount">{{ Session::has('coupon') ? Session::get('coupon') : $get_percentage->percentage }}
+                                %</strong>
                         </div>
                         <hr class="w-100">
                         <div class="col-md-12 d-flex align-items-center justify-content-between">
                             <span>Total</span>
                             <strong
                                 id="grand_total">
+
                                 {{ Session::has('cart') ?
-                                   Session::has('coupon') ?
-                                   (App\Models\Product::convertPrice((int)(Session::get('cart')->totalPrice) - (int)Session::get('coupon'))) :
-                                    App\Models\Product::convertPrice((int)Session::get('cart')->totalPrice) : '0.00' }}
+                                    (Session::has('coupon') ?
+                                        App\Models\Product::convertPrice((int)(Session::get('cart')->totalPrice) - (int)Session::get('coupon')) . ' (' . Session::get('coupon_percentage') . '% Off)' :
+                                        App\Models\Product::convertPrice((int)Session::get('cart')->totalPrice - ((int)Session::get('cart')->totalPrice * $get_percentage->percentage / 100))) :
+                                    '0.00' }}
+
+{{--                                {{ Session::has('cart') ?--}}
+{{--                                   Session::has('coupon') ?--}}
+{{--                                   (App\Models\Product::convertPrice((int)(Session::get('cart')->totalPrice) - (int)Session::get('coupon'))) :--}}
+{{--                                    App\Models\Product::convertPrice((int)Session::get('cart')->totalPrice) : '0.00' }}--}}
                             </strong>
 {{--                            <strong--}}
 {{--                                id="grand_total">--}}

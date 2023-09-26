@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers\Payment\Checkout;
 
-use App\{Models\Cart, Models\Order, Models\PaymentGateway, Classes\GeniusMailer, Traits\PHPCustomMail};
+use App\{Models\Cart,
+    Models\Order,
+    Models\PaymentGateway,
+    Classes\GeniusMailer,
+    Models\VeteranDiscount,
+    Traits\PHPCustomMail};
 use App\Models\Country;
 use App\Models\State;
 use Illuminate\Http\Request;
@@ -26,11 +31,19 @@ class StripeController extends CheckoutBaseControlller
 
     public function store(Request $request)
     {
+
         $input = $request->all();
 
         $data = PaymentGateway::whereKeyword('stripe')->first();
-//        dd($request->all());
-        $total = $request->total;
+
+//        $total = $request->total;
+
+        $totalPrice = Session::has('cart') ? (int)Session::get('cart')->totalPrice : 0;
+
+        $get_percentage = VeteranDiscount::where('id', Session::get('discount_id'))->first();
+
+        $total = $totalPrice - (($totalPrice * $get_percentage->percentage) / 100);
+
 
         if($request->pass_check) {
             $auth = OrderHelper::auth_check($input); // For Authentication Checking
@@ -140,6 +153,11 @@ class StripeController extends CheckoutBaseControlller
                     $order->fill($input)->save();
                     $order->tracks()->create(['order_id' => $order->id,'title' => 'Pending', 'text' => 'You have successfully placed your order.' ]);
                     $order->notifications()->create();
+
+                    $insert_order_id = VeteranDiscount::where('id',Session::get('discount_id'))->first();
+                    $insert_order_id->order_id = $order->id;
+                    $insert_order_id->avail = 1;
+                    $insert_order_id->update();
 
                     if($input['coupon_id'] != "") {
                         OrderHelper::coupon_check($input['coupon_id']); // For Coupon Checking

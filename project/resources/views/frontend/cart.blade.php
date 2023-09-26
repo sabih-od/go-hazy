@@ -91,9 +91,17 @@
                     <div class="text-center">
 {{--                        <a href="{{count($products) != 0 ? route('front.checkout') : route('front.category' )}}"--}}
 {{--                           class="btnStyle my-5">{{count($products) != 0 ? 'Proceed To Pay' : 'Shop Now'}}</a>--}}
+
+                            @if(Session::has('cart'))
                         <button type="button" class="btnStyle my-5" data-toggle="modal" data-target="#exampleModalCenter">
                             Proceed To Pay
                         </button>
+                        @else
+                            <button type="button" class="btnStyle my-5">
+                                Proceed To Pay
+                            </button>
+                        @endif
+
 
                   {{--   modal work --}}
                         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -109,9 +117,9 @@
                                         <div id="radio">
                                             Are you veteran ?
                                         <form>
-                                        <input type="radio" id="html" name="fav_language" value="HTML">
+                                        <input type="radio" id="html" name="fav_language" value="HTML" class="click_first_number_radio">
                                         <label for="html">First member </label><br>
-                                        <input type="radio" id="css" name="fav_language" value="CSS">
+                                        <input type="radio" id="css" name="fav_language" value="CSS" class="click_veteran_radio">
                                         <label for="css">Veteran</label>
                                         </form>
                                         </div>
@@ -130,11 +138,12 @@
                                                 <button type="submit"  class="btn btn-primary">Verify OTP</button>
                                             </form>
                                         </div>
+                                         <h2 class="text-center show_msg"style="display: none">Please Wait</h2>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" id="hidden" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                        <button type="button" id="visible" class="btn btn-primary">Proceed</button>
-                                        <button type="button" id="otp_verification" style="display: none" class="btn btn-primary">Proceed</button>
+                                        <button type="button" id="hidden" class="btn btn-secondary cancel_btn_hide" data-dismiss="modal">Cancel</button>
+{{--                                        <button type="button" id="visible" class="btn btn-primary">Proceed</button>--}}
+{{--                                        <a href="{{route('front.checkout')}}" id="otp_verification" style="display: none" class="btn btn-primary">Proceed</a>--}}
 
                                     </div>
                                 </div>
@@ -265,40 +274,46 @@
 
     <script>
         $(document).ready(function() {
-            $("#visible").click(function() {
-                if ($('input[name="fav_language"]:checked').val() === "CSS") {
-                    $("#email").show();
-                    $("#radio").hide();
-                    $("#visible").hide();
-                    $("#otp").hide();
-                    $("#otp_verification").show();
-                    $("#success-message").hide();
-                } else {
-                    $("#email").show();
-                    $("#otp").hide();
-                    $("#success-message").hide();
-                }
-            });
+            // $("#visible").click(function() {
+            //     if ($('input[name="fav_language"]:checked').val() === "CSS") {
+            //         $("#email").show();
+            //         $("#radio").hide();
+            //         $("#visible").hide();
+            //         $("#otp").hide();
+            //         $("#otp_verification").show();
+            //         $("#success-message").hide();
+            //     } else {
+            //         $("#email").show();
+            //         $("#otp").hide();
+            //         $("#success-message").hide();
+            //     }
+            // });
+            //
+            // $("#hidden").click(function() {
+            //     $("#radio").show();
+            //     $("#email").hide();
+            //     $("#otp").hide()
+            //     $("#otp_verification").hide();
+            //     $("#success-message").hide();
+            //     $("#otp_verification").hide();
+            // });
+            //
+            // $("#otp_verification").click(function() {
+            //     if ($("#email-form").is(":visible")) {
+            //         $("#otp").show();
+            //         $("#radio").hide();
+            //         $("#email").hide();
+            //         $("#visible").hide();
+            //         $("#success-message").hide();
+            //     }
+            // });
 
-            $("#hidden").click(function() {
-                $("#radio").show();
-                $("#email").hide();
-                $("#otp").hide()
-                $("#otp_verification").hide();
-                $("#success-message").hide();
-                $("#otp_verification").hide();
-            });
-
-            $("#otp_verification").click(function() {
-                if ($("#email-form").is(":visible")) {
-                    $("#otp").show();
-                    $("#radio").hide();
-                    $("#email").hide();
-                    $("#visible").hide();
-                    $("#success-message").hide();
-                }
-            });
-
+            $('.click_first_number_radio').click(function(){
+                $("#email").fadeIn();
+            })
+            $('.click_veteran_radio').click(function(){
+                $("#email").fadeIn();
+            })
             $("#email-form").submit(function(e) {
                 e.preventDefault();
                 var email = $("#email-input").val();
@@ -313,7 +328,9 @@
                     },
                     success: function(response) {
                         toastr.success(response.message);
-                        $("#otp_verification").show();
+                        $("#otp").fadeIn();
+                        $('#radio').hide();
+                        $('#email').hide();
                     },
                     error: function(error) {
                         toastr.error(error.responseJSON.message);
@@ -335,8 +352,12 @@
                     success: function(response) {
                         toastr.success(response.message);
                         $("#otp").hide();
-                        $("#visible").hide();
-                        $("#success-message").show();
+                        // $("#visible").hide();
+                        $(".cancel_btn_hide").hide();
+                        // $("#otp_verification").show();
+                        $(".show_msg").show();
+                        // $("#success-message").show();
+                        window.location.href = "{{route('front.checkout')}}";
                     },
                     error: function(error) {
                         toastr.error(error.responseJSON.message);
