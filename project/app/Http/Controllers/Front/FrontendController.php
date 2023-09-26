@@ -91,7 +91,7 @@ class FrontendController extends FrontBaseController
         $data['ratings'] = Rating::get();
         $data['categories'] = Category::where('status', 1)->get();
         $new_categories = Category::where('status', 1)
-            ->whereIn('name', ['Fishing', 'Outdoor', 'Veteran'])
+            ->whereIn('name', ['Fishing', 'Outdoor', 'Veteran', 'Office Security'])
             ->get();
 
 
