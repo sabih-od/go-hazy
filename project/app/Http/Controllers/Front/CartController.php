@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\{
-    Models\Cart,
-    Models\Product
-};
+use App\{Classes\GeniusMailer, Models\Cart, Models\Product};
 use App\Models\Country;
 use App\Models\Currency;
 use App\Models\Generalsetting;
@@ -908,5 +905,49 @@ class CartController extends FrontBaseController
 
         return response()->json($data);
 
+    }
+
+    //Veteran work
+    public function submitEmail(Request $request)
+    {
+
+        try {
+            $email = $request->input('email');
+//            dd($email);
+            $otp = mt_rand(100000, 999999);
+            $data = [
+                'to' => $email,
+                'from' => "Go-hazy.com",
+                'subject' => "Otp Verification code " ,
+                'body' => 'this is your OTP code' . $otp,
+            ];
+            Session::put('email', $email);
+            Session::put('otp', $otp);
+            $mailer = new GeniusMailer();
+            $mailer->sendCustomMail($data);
+
+            return response()->json(['message' => 'Email sent successfully']);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        };
+    }
+
+    public function verifyOTP(Request $request)
+    {
+
+        $userOTP = $request->input('otp');
+        $storedOTP = Session::get('otp');
+        $email = Session::get('email');
+
+
+        if ($userOTP == $storedOTP) {
+
+            Session::forget('email');
+            Session::forget('otp');
+
+            return response()->json(['message' => 'OTP verified successfully']);
+        }
+
+        return response()->json(['message' => 'Invalid OTP'], 400);
     }
 }
