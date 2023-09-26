@@ -300,10 +300,12 @@
 
                                                                         <td>{{ \PriceHelper::showCurrencyPrice(($order->pay_amount) + $order->coupon_discount)  }}
                                                                         </td>
-
-                                                                        <td>{{ \PriceHelper::showCurrencyPrice($order->coupon_discount)  }}
-                                                                            <small>{{ $product['discount'] == 0 ? '' : '('.$product['discount'].'% '.__('Off').')' }}</small>
+                                                                        <td>{{ \PriceHelper::showCurrencyPrice($order->getPercentage->percentage)  }}
                                                                         </td>
+
+{{--                                                                        <td>{{ \PriceHelper::showCurrencyPrice($order->coupon_discount)  }}--}}
+{{--                                                                            <small>{{ $product['discount'] == 0 ? '' : '('.$product['discount'].'% '.__('Off').')' }}</small>--}}
+{{--                                                                        </td>--}}
 
                                                                         <td>{{ \PriceHelper::showOrderCurrencyPrice((($order->pay_amount+$order->wallet_price) * $order->currency_value),$order->currency_sign) }}
                                                                             <small>{{ $product['discount'] == 0 ? '' : '('.$product['discount'].'% '.__('Off').')' }}</small>
