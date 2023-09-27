@@ -33,6 +33,7 @@
             </div>
             <div class="row cartItemCard">
                 <input type="hidden" name="cart_id" class="id" value="">
+
                 @forelse($products as $product)
                     <div class="col-md-1">
                         <img src="{{ asset('assets/images/products/'.$product['item']['photo']) }}" alt="">
@@ -57,21 +58,21 @@
                     <div class="col-md-2">
                         <strong class="price">${{ $product['item']->price ?? '' }}</strong>
                     </div>
-                    <div class="col-md-2">
-                        <div class="proCounter">
-                            <input type="hidden" class="prodid" value="{{$product['item']['id']}}">
-                            <!-- Other input fields for size, color, and quantity -->
+{{--                    <div class="col-md-2">--}}
+{{--                        <div class="proCounter">--}}
+{{--                            <input type="hidden" class="prodid" value="{{$product['item']['id']}}">--}}
+{{--                            <!-- Other input fields for size, color, and quantity -->--}}
 
-                            <!-- Discount logic -->
-                            @php
-                                $originalPrice = $product['item']->price;
-                                $discountPercentage = 20; // 20% discount
-                                $discountAmount = ($originalPrice * $discountPercentage) / 100;
-                                $discountedPrice = $originalPrice - $discountAmount;
-                            @endphp
-                            <strong class="discounted-price">${{ number_format($discountedPrice, 2) }}</strong>
-                        </div>
-                    </div>
+{{--                            <!-- Discount logic -->--}}
+{{--                            @php--}}
+{{--                                $originalPrice = $product['item']->price;--}}
+{{--                                $discountPercentage = 20; // 20% discount--}}
+{{--                                $discountAmount = ($originalPrice * $discountPercentage) / 100;--}}
+{{--                                $discountedPrice = $originalPrice - $discountAmount;--}}
+{{--                            @endphp--}}
+{{--                            <strong class="discounted-price">${{ number_format($discountedPrice, 2) }}</strong>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                     <div class="col-md-1">
                         <strong class="price">${{ $product['price'] ?? ''}}</strong>
                     </div>
@@ -327,10 +328,16 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
-                        toastr.success(response.message);
-                        $("#otp").fadeIn();
-                        $('#radio').hide();
-                        $('#email').hide();
+                        if(response.message){
+                            toastr.success(response.message);
+                            $("#otp").fadeIn();
+                            $('#radio').hide();
+                            $('#email').hide();
+                        }else {
+                            toastr.error(response.error);
+
+                        }
+
                     },
                     error: function(error) {
                         toastr.error(error.responseJSON.message);
@@ -341,7 +348,6 @@
             $("#otp-form").submit(function(e) {
                 e.preventDefault();
                 var otp = $("#otp-input").val();
-
                 $.ajax({
                     type: "POST",
                     url: "{{ route('verify_otp') }}",
@@ -350,14 +356,17 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
-                        toastr.success(response.message);
-                        $("#otp").hide();
-                        // $("#visible").hide();
-                        $(".cancel_btn_hide").hide();
-                        // $("#otp_verification").show();
-                        $(".show_msg").show();
-                        // $("#success-message").show();
-                        window.location.href = "{{route('front.checkout')}}";
+
+                        if(response.message){
+                            toastr.success(response.message);
+                            $("#otp").hide();
+                            $(".cancel_btn_hide").hide();
+                            $(".show_msg").show();
+                            window.location.href = "{{route('front.checkout')}}";
+                        }else {
+                            toastr.error(response.error);
+                        }
+
                     },
                     error: function(error) {
                         toastr.error(error.responseJSON.message);

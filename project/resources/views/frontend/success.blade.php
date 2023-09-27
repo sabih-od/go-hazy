@@ -212,8 +212,8 @@
                                                                         <p>{{ __('Discount:') }}
 
                                                                             @if($order->method != "Wallet")
-                                                                                {{ \PriceHelper::showCurrencyPrice($order->coupon_discount)  }}
-
+{{--                                                                                {{ \PriceHelper::showCurrencyPrice($order->coupon_discount)  }}--}}
+                                                                                {{ \PriceHelper::showCurrencyPrice($order->getPercentage->percentage)  }}
                                                                             @else
                                                                                 {{ \PriceHelper::showOrderCurrencyPrice(($order->wallet_price * $order->currency_value),$order->currency_sign) }}
                                                                             @endif

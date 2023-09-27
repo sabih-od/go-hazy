@@ -304,6 +304,7 @@
                                 </div>
                             </form>
                         </div>
+
                         <hr class="w-100">
                         @php
                             $get_percentage = App\Models\VeteranDiscount::where('id',Session::get('discount_id'))->first();
@@ -517,6 +518,7 @@
                     url: mainurl + "/carts/coupon/check",
                     data: {code: val, total: total, shipping_cost: ship},
                     success: function (data) {
+                        console.log(data);
                         if (data == 0) {
                             toastr.error('{{__('Coupon not found')}}');
                             $("#code").val("");

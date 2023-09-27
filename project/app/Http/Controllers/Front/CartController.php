@@ -15,6 +15,7 @@ class CartController extends FrontBaseController
 
     public function cart(Request $request)
     {
+
         if (!Session::has('cart')) {
             $products = [];
             return view('frontend.cart', compact('products'));
@@ -38,6 +39,7 @@ class CartController extends FrontBaseController
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
         $products = $cart->items;
+
         $totalPrice = $cart->totalPrice;
         $mainTotal = $totalPrice;
 //        dd($products);
@@ -51,11 +53,13 @@ class CartController extends FrontBaseController
 
     public function cartview()
     {
+
         return view('load.cart');
     }
 
     public function view_cart()
     {
+
         if (!Session::has('cart')) {
             return view('frontend.cart');
         }
@@ -354,6 +358,7 @@ class CartController extends FrontBaseController
 
     public function addnumcart(Request $request)
     {
+
 //        dd($request->all());
         $id = $_GET['id'];
         $qty = $_GET['qty'];
@@ -509,6 +514,7 @@ class CartController extends FrontBaseController
 
     public function addtonumcart(Request $request)
     {
+
         $id = $_GET['id'];
         $qty = $_GET['qty'];
         $size = str_replace(' ', '-', $_GET['size']);
@@ -913,26 +919,33 @@ class CartController extends FrontBaseController
 
         try {
             $email = $request->input('email');
-            $otp = mt_rand(100000, 999999);
-            $data = [
-                'to' => $email,
-                'from' => "Go-hazy.com",
-                'subject' => "Otp Verification code " ,
-                'body' => 'this is your OTP code '  . $otp,
-            ];
+            $already_check_email = VeteranDiscount::where('email','=',$email)->first();
+
+            if($already_check_email){
+                return response()->json(['error' => 'Your Email Already Use']);
+            }else{
+                $otp = mt_rand(100000, 999999);
+                $data = [
+                    'to' => $email,
+                    'from' => "Go-hazy.com",
+                    'subject' => "Otp Verification code " ,
+                    'body' => 'this is your OTP code '  . $otp,
+                ];
 //            Session::put('email', $email);
 //            Session::put('otp', $otp);
 
-             $veteran_discount = new VeteranDiscount();
-             $veteran_discount->email = $email;
-             $veteran_discount->otp = $otp;
-             $veteran_discount->percentage = 20;
-             $veteran_discount->save();
+                $veteran_discount = new VeteranDiscount();
+                $veteran_discount->email = $email;
+                $veteran_discount->otp = $otp;
+                $veteran_discount->percentage = 20;
+                $veteran_discount->save();
 
-            $mailer = new GeniusMailer();
-            $mailer->sendCustomMail($data);
+                $mailer = new GeniusMailer();
+                $mailer->sendCustomMail($data);
 
-            return response()->json(['message' => 'Email sent successfully']);
+                return response()->json(['message' => 'Email sent successfully']);
+            }
+
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         };
@@ -956,17 +969,23 @@ class CartController extends FrontBaseController
 
         $userOTP = $request->input('otp');
 
-        $get_otp = VeteranDiscount::where('otp','=',$userOTP)->first();
+        $get_otp = VeteranDiscount::where('otp', '=', $userOTP)->first();
 
-        if ($get_otp) {
-            $discount_id =$get_otp->id;
+        if (!$get_otp) {
+            return response()->json(['error' => 'Invalid OTP']);
+        }
+
+        if ($get_otp->avail === 1) {
+            return response()->json(['error' => 'This OTP has already been applied']);
+        } else {
+            $discount_id = $get_otp->id;
             $email = $get_otp->email;
-            Session::put('discount_id',$discount_id);
+            Session::put('discount_id', $discount_id);
             Session::put('email', $email);
 
             return response()->json(['message' => 'OTP verified successfully']);
         }
 
-        return response()->json(['message' => 'Invalid OTP'], 400);
+
     }
 }

@@ -41,8 +41,13 @@ class StripeController extends CheckoutBaseControlller
         $totalPrice = Session::has('cart') ? (int)Session::get('cart')->totalPrice : 0;
 
         $get_percentage = VeteranDiscount::where('id', Session::get('discount_id'))->first();
+        if($get_percentage){
+            $total = $totalPrice - (($totalPrice * $get_percentage->percentage) / 100);
+       }else{
+            $total = $totalPrice;
+        }
 
-        $total = $totalPrice - (($totalPrice * $get_percentage->percentage) / 100);
+
 
 
         if($request->pass_check) {
@@ -154,10 +159,10 @@ class StripeController extends CheckoutBaseControlller
                     $order->tracks()->create(['order_id' => $order->id,'title' => 'Pending', 'text' => 'You have successfully placed your order.' ]);
                     $order->notifications()->create();
 
-                    $insert_order_id = VeteranDiscount::where('id',Session::get('discount_id'))->first();
-                    $insert_order_id->order_id = $order->id;
-                    $insert_order_id->avail = 1;
-                    $insert_order_id->update();
+//                    $insert_order_id = VeteranDiscount::where('id',Session::get('discount_id'))->first();
+                    $get_percentage->order_id = $order->id;
+                    $get_percentage->avail = 1;
+                    $get_percentage->update();
 
                     if($input['coupon_id'] != "") {
                         OrderHelper::coupon_check($input['coupon_id']); // For Coupon Checking
