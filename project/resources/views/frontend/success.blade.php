@@ -213,7 +213,7 @@
 
                                                                             @if($order->method != "Wallet")
 {{--                                                                                {{ \PriceHelper::showCurrencyPrice($order->coupon_discount)  }}--}}
-                                                                                {{ \PriceHelper::showCurrencyPrice($order->getPercentage->percentage)  }}
+                                                                                {{ \PriceHelper::showCurrencyPrice(!is_null($order->getPercentage) ? $order->getPercentage->percentage : 0)  }}
                                                                             @else
                                                                                 {{ \PriceHelper::showOrderCurrencyPrice(($order->wallet_price * $order->currency_value),$order->currency_sign) }}
                                                                             @endif
@@ -300,7 +300,7 @@
 
                                                                         <td>{{ \PriceHelper::showCurrencyPrice(($order->pay_amount) + $order->coupon_discount)  }}
                                                                         </td>
-                                                                        <td>{{ \PriceHelper::showCurrencyPrice($order->getPercentage->percentage)  }}
+                                                                        <td>{{ \PriceHelper::showCurrencyPrice(!is_null($order->getPercentage) ? $order->getPercentage->percentage : 0)  }}
                                                                         </td>
 
 {{--                                                                        <td>{{ \PriceHelper::showCurrencyPrice($order->coupon_discount)  }}--}}

@@ -142,7 +142,8 @@
                                          <h2 class="text-center show_msg"style="display: none">Please Wait</h2>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" id="hidden" class="btn btn-secondary cancel_btn_hide" data-dismiss="modal">Cancel</button>
+                                        <a href="{{route('front.checkout')}}" class="btn btn-primary cancel_btn_hide">Cancel</a>
+{{--                                        <button type="button" id="hidden" class="btn btn-secondary cancel_btn_hide" data-dismiss="modal">Cancel</button>--}}
 {{--                                        <button type="button" id="visible" class="btn btn-primary">Proceed</button>--}}
 {{--                                        <a href="{{route('front.checkout')}}" id="otp_verification" style="display: none" class="btn btn-primary">Proceed</a>--}}
 
@@ -275,39 +276,6 @@
 
     <script>
         $(document).ready(function() {
-            // $("#visible").click(function() {
-            //     if ($('input[name="fav_language"]:checked').val() === "CSS") {
-            //         $("#email").show();
-            //         $("#radio").hide();
-            //         $("#visible").hide();
-            //         $("#otp").hide();
-            //         $("#otp_verification").show();
-            //         $("#success-message").hide();
-            //     } else {
-            //         $("#email").show();
-            //         $("#otp").hide();
-            //         $("#success-message").hide();
-            //     }
-            // });
-            //
-            // $("#hidden").click(function() {
-            //     $("#radio").show();
-            //     $("#email").hide();
-            //     $("#otp").hide()
-            //     $("#otp_verification").hide();
-            //     $("#success-message").hide();
-            //     $("#otp_verification").hide();
-            // });
-            //
-            // $("#otp_verification").click(function() {
-            //     if ($("#email-form").is(":visible")) {
-            //         $("#otp").show();
-            //         $("#radio").hide();
-            //         $("#email").hide();
-            //         $("#visible").hide();
-            //         $("#success-message").hide();
-            //     }
-            // });
 
             $('.click_first_number_radio').click(function(){
                 $("#email").fadeIn();

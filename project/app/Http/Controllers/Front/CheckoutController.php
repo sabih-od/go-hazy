@@ -7,7 +7,7 @@ use App\Models\State;
 use DB;
 use Auth;
 use Session;
-
+use App\Models\Coupon;
 
 class CheckoutController extends FrontBaseController
 {
@@ -51,8 +51,6 @@ class CheckoutController extends FrontBaseController
 
     public function checkout()
     {
-
-
         if (!Session::has('cart')) {
             return redirect()->route('front.cart')->with('success', __("You don't have any product to checkout."));
         }
@@ -74,6 +72,64 @@ class CheckoutController extends FrontBaseController
         // If a user is Authenticated then there is no problm user can go for checkout
 
 //        dd(Auth::check());
+
+        //Discount functionality
+
+          if(Session::has('discount_id')){
+              $get_veteran_percentage = VeteranDiscount::where('id',Session::get('discount_id'))->first();
+              if (Session::has('coupon')) {
+                  $get_coupon_code = Coupon::where('code', Session::get('coupon_code'))->first();
+
+                  if ($get_coupon_code) {
+                      // Coupon Amount Discount
+                      if ($get_coupon_code->type === 1) {
+                          $get_total_price = Session::get('cart')->totalPrice;
+                          $veteran_discount_percentage = $get_veteran_percentage->percentage;
+
+                          $veteran_discount = $get_total_price - (($get_total_price * $veteran_discount_percentage) / 100);
+
+                          $get_coupon_discount = $get_coupon_code->price - $veteran_discount;
+
+                          $total_discount_price = abs($get_coupon_discount);
+
+                          // Coupon Percentage Discount
+                      } elseif ($get_coupon_code->type === 0) {
+                          $get_total_price = Session::get('cart')->totalPrice;
+                          $veteran_discount_percentage = $get_veteran_percentage->percentage;
+
+                          $veteran_discount = $get_total_price - (($get_total_price * $veteran_discount_percentage) / 100);
+
+                          $get_coupon_discount = $get_total_price - (($get_coupon_code->price * $veteran_discount) / 100);
+
+                          $total_discount_price = abs($get_coupon_discount);
+                      }
+                  }
+                  } elseif(Session::has('discount_id')){
+                      $get_total_price = Session::get('cart')->totalPrice;
+                      //Veteran_Discount_Percentage
+                      $veteran_discount_percentage = $get_veteran_percentage->percentage;
+                      $veteran_discount = $get_total_price - (($get_total_price * $veteran_discount_percentage) / 100);
+
+                      $total_discount_price = abs($veteran_discount);
+                  }else{
+                      //All Without Discount Ammount
+                      $get_total_price = Session::get('cart')->totalPrice;
+                      $total_discount_price = abs($get_total_price);
+                  }
+              }else{
+                  //All Without Discount Ammount
+                  $get_total_price = Session::get('cart')->totalPrice;
+                  $total_discount_price = abs($get_total_price);
+              }
+
+//        if(Session::has('cate_id')){
+//            $get_cate_id =Session::get('cate_id');
+//            if(is_null($get_cate_id)){
+//                $get_coupon_code = Coupon::where('category',$get_cate_id)->first();
+//                $show_coupon_code = $get_coupon_code->code ?? 0;
+//            }
+//
+//        }
 
 
         if (Auth::check()) {
@@ -120,7 +176,7 @@ class CheckoutController extends FrontBaseController
             }
 
 
-            return view('frontend.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'digital' => $dp, 'curr' => $curr, 'shipping_data' => $shipping_data, 'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id, 'paystack' => $paystackData]);
+            return view('frontend.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'digital' => $dp, 'curr' => $curr, 'shipping_data' => $shipping_data, 'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id, 'paystack' => $paystackData ,'total_discount_price'=>$total_discount_price]);
         } else {
 
 
@@ -174,7 +230,7 @@ class CheckoutController extends FrontBaseController
                     }
                 }
 //                dd($total);
-                return view('frontend.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'digital' => $dp, 'curr' => $curr, 'shipping_data' => $shipping_data, 'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id, 'paystack' => $paystackData]);
+                return view('frontend.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'digital' => $dp, 'curr' => $curr, 'shipping_data' => $shipping_data, 'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id, 'paystack' => $paystackData,'total_discount_price'=>$total_discount_price]);
             } // If guest checkout is Deactivated then display pop up form with proper error message
 
             else {
@@ -211,7 +267,7 @@ class CheckoutController extends FrontBaseController
                     $total = $total;
                 }
                 $ck = 1;
-                return view('frontend.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'digital' => $dp, 'curr' => $curr, 'shipping_data' => $shipping_data, 'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id, 'paystack' => $paystackData]);
+                return view('frontend.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'digital' => $dp, 'curr' => $curr, 'shipping_data' => $shipping_data, 'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id, 'paystack' => $paystackData,'total_discount_price'=>$total_discount_price]);
             }
         }
     }

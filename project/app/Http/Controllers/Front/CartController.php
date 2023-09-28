@@ -360,7 +360,14 @@ class CartController extends FrontBaseController
     {
 
 //        dd($request->all());
-        $id = $_GET['id'];
+         $id = $_GET['id'];
+         $get_cate_id=Product::where('id',$id)->first();
+         if($get_cate_id){
+             $store_cate_id=$get_cate_id->category_id;
+             Session::put('cate_id',$store_cate_id);
+         }
+
+
         $qty = $_GET['qty'];
         $size = str_replace(' ', '-', $_GET['size']);
         $color = $_GET['color'] ?? '';
