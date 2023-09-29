@@ -97,6 +97,31 @@ class StripeController extends CheckoutBaseControlller
                 $get_total_price = Session::get('cart')->totalPrice;
                 $total = abs($get_total_price);
             }
+        } elseif (Session::has('coupon')) {
+            $get_coupon_code = Coupon::where('code', Session::get('coupon_code'))->first();
+
+            if ($get_coupon_code) {
+                // Coupon Amount Discount Current Price
+                if ($get_coupon_code->type === 1) {
+                    $get_total_price = Session::get('cart')->totalPrice;
+
+                    $get_coupon_price = $get_coupon_code->price;
+
+                    $current_discount = $get_total_price - $get_coupon_price;
+
+                    $total = abs($current_discount);
+
+                    // Coupon Percentage Discount Current Price
+                } elseif ($get_coupon_code->type === 0) {
+                    $get_total_price = Session::get('cart')->totalPrice;
+
+                    $get_coupon_price = $get_coupon_code->price;
+
+                    $current_discount = $get_total_price - (($get_total_price * $get_coupon_price) / 100);
+
+                    $total = abs($current_discount);
+                }
+            }
         } else {
             //All Without Discount Ammount
             $get_total_price = Session::get('cart')->totalPrice;

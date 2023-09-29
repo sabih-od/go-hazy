@@ -28,7 +28,8 @@
                         <h2>Billing Address</h2>
                         <h4>Fill the form below to complete your purchase</h4>
                         <p class="checkout-subheading"><span>Already Registered?</span> Click here to <a
-                                href="{{ route('user.login') }}" data-toggle="modal" data-target="#signIn">Login now</a></p>
+                                href="{{ route('user.login') }}" data-toggle="modal" data-target="#signIn">Login now</a>
+                        </p>
                     </div>
                 </div>
                 {{ csrf_field() }}
@@ -283,7 +284,7 @@
                     <div class="row no-gutters">
                         <div class="col-md-12 d-flex align-items-center justify-content-between">
                             <span>Subtotal ({{ Session::has('cart') ? count(Session::get('cart')->items) : '0' }} items)</span>
-                            <strong>{{ Session::has('cart') ? (Session::get('cart')->totalPrice) : '0.00' }}</strong>
+                            <strong>{{ Session::has('cart') ? (Session::get('cart')->totalPrice) : '0.00' }} $</strong>
                             <input type="hidden" id="ttotal"
                                    value="{{ Session::has('cart') ? (Session::get('cart')->totalPrice) : '0' }}">
                         </div>
@@ -316,37 +317,47 @@
                                 <strong id="discount_amount">0%</strong>
                             @endif
                         </div>
+                        <hr class="w-100">
+                        @if(Session::has('cate_id'))
+                            @php
+                                $get_cate_id = Session::get('cate_id');
+                                if(!is_null($get_cate_id)){
+                                    $get_coupon_code =  App\Models\Coupon::where('category', $get_cate_id)->first();
+                                    $show_coupon_code = $get_coupon_code ? $get_coupon_code->code : '0';
+                                }
+                                else {
+                                    $show_coupon_code = '0';
+                                }
+                            @endphp
+                        @endif
 
-                        {{-- @if($show_coupon_code)--}}
-{{--                        <div class="col-md-12--}}
-{{--                            d-flex align-items-center justify-content-between" id="discount-bar">--}}
-{{--                        <span>Coupon</span>--}}
-{{--                        <strong id="discount_amount2">--}}
-{{--                            {{$show_coupon_code ?? '0'}}--}}
-{{--                            {{ Session::has('coupon') ? Session::get('coupon_code') : 'Not Available'}}--}}
-{{--                            </strong>--}}
-{{--                        </div>--}}
-{{--                        @else--}}
-{{--                        @endif--}}
+                        <div class="col-md-12 d-flex align-items-center justify-content-between" id="discount-bar">
+                            <span>Coupon</span>
+                            <strong id="discount_amount2">
+                                {{ $show_coupon_code ?: 'Not Available' }}
+                            </strong>
+                        </div>
+
+
                         <hr class="w-100">
                         <div class="col-md-12 d-flex align-items-center justify-content-between">
                             <span>Total</span>
                             <strong
                                 id="grand_total">
-                                {{$total_discount_price}}
+                                {{$total_discount_price}} $
 
                                 {{-- {{ Session::has('cart') ?--}}
-{{--                                   Session::has('coupon') ?--}}
-{{--                                   (App\Models\Product::convertPrice((int)(Session::get('cart')->totalPrice) - (int)Session::get('coupon'))) :--}}
-{{--                                    App\Models\Product::convertPrice((int)Session::get('cart')->totalPrice) : '0.00' }}--}}
+                                {{--                                   Session::has('coupon') ?--}}
+                                {{--                                   (App\Models\Product::convertPrice((int)(Session::get('cart')->totalPrice) - (int)Session::get('coupon'))) :--}}
+                                {{--                                    App\Models\Product::convertPrice((int)Session::get('cart')->totalPrice) : '0.00' }}--}}
                             </strong>
-{{--                            <strong--}}
-{{--                                id="grand_total">--}}
-{{--                                {{ Session::has('cart') ?--}}
-{{--                                   Session::has('coupon') ?--}}
-{{--                                   (App\Models\Product::convertPrice((Session::get('cart')->totalPrice) - Session::get('coupon'))) :--}}
-{{--                                    App\Models\Product::convertPrice(Session::get('cart')->totalPrice) : '0.00' }}--}}
-{{--                            </strong>--}}
+                            {{--                            <strong--}}
+                            {{--                                id="grand_total">--}}
+                            {{--                                {{ Session::has('cart') ?--}}
+                            {{--                                   Session::has('coupon') ?--}}
+                            {{--                                   (App\Models\Product::convertPrice((Session::get('cart')->totalPrice) - Session::get('coupon'))) :--}}
+                            {{--                                    App\Models\Product::convertPrice(Session::get('cart')->totalPrice) : '0.00' }}--}}
+                            {{--                            </strong>--}}
                         </div>
                         <hr class="w-100">
                     </div>
