@@ -129,7 +129,7 @@
                                                 @csrf
                                                 <label for="email">Enter your Email</label><br>
                                                 <input type="email" id="email-input" name="email" placeholder="example@gmail.com" class="form-group" required >
-                                                <button type="submit" class="btn btn-primary">Submit Email</button>
+                                                <button type="submit" class="btn btn-primary submit_email_disable">Submit Email</button>
                                             </form>
                                         </div>
                                         <div id="otp" style="display: none">
@@ -285,6 +285,7 @@
             })
             $("#email-form").submit(function(e) {
                 e.preventDefault();
+                $('.submit_email_disable').prop('disabled', true);
                 var email = $("#email-input").val();
                 // console.log('email', $email);
 
@@ -303,7 +304,7 @@
                             $('#email').hide();
                         }else {
                             toastr.error(response.error);
-
+                            $('.submit_email_disable').prop('disabled', false);
                         }
 
                     },
@@ -315,6 +316,8 @@
 
             $("#otp-form").submit(function(e) {
                 e.preventDefault();
+                $('.submit_email_disable').prop('disabled', true);
+
                 var otp = $("#otp-input").val();
                 $.ajax({
                     type: "POST",
@@ -333,6 +336,8 @@
                             window.location.href = "{{route('front.checkout')}}";
                         }else {
                             toastr.error(response.error);
+                            $('.submit_email_disable').prop('disabled', false);
+
                         }
 
                     },

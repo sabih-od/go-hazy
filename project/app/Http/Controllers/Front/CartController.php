@@ -983,7 +983,7 @@ class CartController extends FrontBaseController
         }
 
         if ($get_otp->avail === 1) {
-            return response()->json(['error' => 'This OTP has already been applied']);
+            return response()->json(['error' => 'This OTP has been already applied']);
         } else {
             $discount_id = $get_otp->id;
             $email = $get_otp->email;

@@ -81,4 +81,5 @@ class Order extends Model
     {
         return $this->hasOne('App\Models\VeteranDiscount','order_id');
     }
+
 }

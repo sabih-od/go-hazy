@@ -227,7 +227,7 @@
                                                                                 @endif
                                                                             </p>
                                                                         @elseif (Session::has('coupon_code'))
-                                                                            <p>{{ __('Discount:') }}
+                                                                            <p>{{ __('Coupon:') }}
                                                                                 @if ($order->method != "Wallet")
                                                                                     @php
                                                                                         $get_coupon_code = App\Models\Coupon::where('code', Session::get('coupon_code'))->first();
@@ -348,7 +348,7 @@
                                                                                     @endif
                                                                                 </p>
                                                                             @elseif (Session::has('coupon_code'))
-                                                                                <p>{{ __('Discount:') }}
+                                                                                <p>{{ __('Coupon:') }}
                                                                                     @if ($order->method != "Wallet")
                                                                                         @php
                                                                                             $get_coupon_code = App\Models\Coupon::where('code', Session::get('coupon_code'))->first();

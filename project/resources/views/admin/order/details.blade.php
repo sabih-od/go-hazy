@@ -239,6 +239,7 @@
                                                         <tr>
                                                             <th width="45%">{{ __('Coupon Discount') }}</th>
                                                             <th width="10%">:</th>
+
                                                             @if($gs->currency_format == 0)
                                                             <td width="45%">
                                                                 {{ $order->currency_sign }}{{ $order->coupon_discount }}
@@ -248,6 +249,21 @@
                                                             @endif
                                                         </tr>
                                                         @endif
+                                                        @if(!is_null($order->getPercentage))
+                                                            <tr>
+                                                                <th width="45%">{{ __('Veteran Discount') }}</th>
+                                                                <th width="10%">:</th>
+
+                                                                @if($gs->currency_format == 0)
+                                                                    <td width="45%">
+                                                                       {{ $order->getPercentage->percentage }}
+                                                                    </td>
+                                                                @else
+                                                                    <td width="45%">0%</td>
+                                                                @endif
+                                                            </tr>
+                                                        @endif
+
                                                         @if($order->affilate_user != null)
                                                         <tr>
                                                             <th width="45%">{{ __('Affilate User') }}</th>
