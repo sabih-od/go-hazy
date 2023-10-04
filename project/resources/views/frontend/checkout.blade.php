@@ -19,7 +19,6 @@
             </div>
         </div>
     </section>
-
     <!-- Begin: Step 2 -->
     <div class="checkOutStyle">
         <div class="container">
@@ -29,7 +28,8 @@
                         <h2>Billing Address</h2>
                         <h4>Fill the form below to complete your purchase</h4>
                         <p class="checkout-subheading"><span>Already Registered?</span> Click here to <a
-                                href="{{ route('user.login') }}" data-toggle="modal" data-target="#signIn">Login now</a></p>
+                                href="{{ route('user.login') }}" data-toggle="modal" data-target="#signIn">Login now</a>
+                        </p>
                     </div>
                 </div>
                 {{ csrf_field() }}
@@ -276,7 +276,6 @@
                 </div>
             </form>
 
-
             @if(Session::has('cart'))
                 <div class="col-md-12 title my-5 text-center">
                     <h2>Order Summary</h2>
@@ -285,7 +284,7 @@
                     <div class="row no-gutters">
                         <div class="col-md-12 d-flex align-items-center justify-content-between">
                             <span>Subtotal ({{ Session::has('cart') ? count(Session::get('cart')->items) : '0' }} items)</span>
-                            <strong>{{ Session::has('cart') ? (Session::get('cart')->totalPrice) : '0.00' }}</strong>
+                            <strong>{{ Session::has('cart') ? (Session::get('cart')->totalPrice) : '0.00' }} $</strong>
                             <input type="hidden" id="ttotal"
                                    value="{{ Session::has('cart') ? (Session::get('cart')->totalPrice) : '0' }}">
                         </div>
@@ -304,30 +303,61 @@
                                 </div>
                             </form>
                         </div>
+
                         <hr class="w-100">
-                        <div class="col-md-12 {{Session::has('coupon') ? '' : 'd-none'}}
-                            d-flex align-items-center justify-content-between" id="discount-bar">
+                        @php
+                            $get_veteran_percentage = App\Models\VeteranDiscount::where('id', Session::get('discount_id'))->first();
+                        @endphp
+
+                        <div class="col-md-12 d-flex align-items-center justify-content-between" id="discount-bar">
                             <span>Discounts</span>
-                            <strong id="discount_amount">{{ Session::has('coupon') ? Session::get('coupon') : 0 }}
-                                $</strong>
+                            @if(!is_null($get_veteran_percentage) && !is_null($get_veteran_percentage->percentage))
+                                <strong id="discount_amount">{{ $get_veteran_percentage->percentage }}%</strong>
+                            @else
+                                <strong id="discount_amount">0%</strong>
+                            @endif
                         </div>
                         <hr class="w-100">
+{{--                        @if(Session::has('cate_id'))--}}
+{{--                            @php--}}
+{{--                                $get_cate_id = Session::get('cate_id');--}}
+{{--                                if(!is_null($get_cate_id)){--}}
+{{--                                    $get_coupon_code =  App\Models\Coupon::where('category', $get_cate_id)->first();--}}
+{{--                                    $show_coupon_code = $get_coupon_code ? $get_coupon_code->code : '0';--}}
+{{--                                }--}}
+{{--                                else {--}}
+{{--                                    $show_coupon_code = '0';--}}
+{{--                                }--}}
+{{--                            @endphp--}}
+{{--                        @endif--}}
+
+{{--                        <div class="col-md-12 d-flex align-items-center justify-content-between" id="discount-bar">--}}
+{{--                            <span>Coupon</span>--}}
+{{--                            <strong id="discount_amount2">--}}
+{{--                                {{ $show_coupon_code ?: 'Not Available' }}--}}
+{{--                            </strong>--}}
+{{--                        </div>--}}
+
+
+{{--                        <hr class="w-100">--}}
                         <div class="col-md-12 d-flex align-items-center justify-content-between">
                             <span>Total</span>
                             <strong
                                 id="grand_total">
-                                {{ Session::has('cart') ?
-                                   Session::has('coupon') ?
-                                   (App\Models\Product::convertPrice((int)(Session::get('cart')->totalPrice) - (int)Session::get('coupon'))) :
-                                    App\Models\Product::convertPrice((int)Session::get('cart')->totalPrice) : '0.00' }}
+                                {{$total_discount_price}} $
+
+                                {{-- {{ Session::has('cart') ?--}}
+                                {{--                                   Session::has('coupon') ?--}}
+                                {{--                                   (App\Models\Product::convertPrice((int)(Session::get('cart')->totalPrice) - (int)Session::get('coupon'))) :--}}
+                                {{--                                    App\Models\Product::convertPrice((int)Session::get('cart')->totalPrice) : '0.00' }}--}}
                             </strong>
-{{--                            <strong--}}
-{{--                                id="grand_total">--}}
-{{--                                {{ Session::has('cart') ?--}}
-{{--                                   Session::has('coupon') ?--}}
-{{--                                   (App\Models\Product::convertPrice((Session::get('cart')->totalPrice) - Session::get('coupon'))) :--}}
-{{--                                    App\Models\Product::convertPrice(Session::get('cart')->totalPrice) : '0.00' }}--}}
-{{--                            </strong>--}}
+                            {{--                            <strong--}}
+                            {{--                                id="grand_total">--}}
+                            {{--                                {{ Session::has('cart') ?--}}
+                            {{--                                   Session::has('coupon') ?--}}
+                            {{--                                   (App\Models\Product::convertPrice((Session::get('cart')->totalPrice) - Session::get('coupon'))) :--}}
+                            {{--                                    App\Models\Product::convertPrice(Session::get('cart')->totalPrice) : '0.00' }}--}}
+                            {{--                            </strong>--}}
                         </div>
                         <hr class="w-100">
                     </div>
@@ -495,6 +525,49 @@
             });
 
             // Validate Coupon
+            {{--$("#check-coupon-form").on('submit', function (e) {--}}
+            {{--    e.preventDefault();--}}
+
+            {{--    var val = $("#code").val();--}}
+            {{--    var total = $("#total").val();--}}
+            {{--    var ship = 0;--}}
+
+            {{--    $.ajax({--}}
+            {{--        type: "GET",--}}
+            {{--        url: mainurl + "/carts/coupon/check",--}}
+            {{--        data: {code: val, total: total, shipping_cost: ship},--}}
+            {{--        success: function (data) {--}}
+            {{--            console.log(data);--}}
+            {{--            if (data == 0) {--}}
+            {{--                toastr.error('{{__('Coupon not found')}}');--}}
+            {{--                $("#code").val("");--}}
+            {{--            } else if (data == 2) {--}}
+            {{--                toastr.error('{{__('Coupon already have been taken')}}');--}}
+            {{--                $("#code").val("");--}}
+            {{--            } else {--}}
+            {{--                // $("#check-coupon-form").toggle();--}}
+            {{--                $("#discount-bar").removeClass('d-none');--}}
+            {{--                $("#discount-bar").addClass('d-flex');--}}
+
+            {{--                $('#grandtotal').val(data[0]);--}}
+            {{--                $('#grand_total').html(data[0]);--}}
+            {{--                $('#tgrandtotal').val(data[0]);--}}
+            {{--                $('#coupon_code').val(data[1]);--}}
+            {{--                $('#coupon_discount').val(data[2]);--}}
+            {{--                $('#discount_amount').html(data[2] + '$');--}}
+            {{--                if (data[4] != 0) {--}}
+            {{--                    $('.dpercent').html('(' + data[4] + ')');--}}
+            {{--                } else {--}}
+            {{--                    $('.dpercent').html('');--}}
+            {{--                }--}}
+            {{--                // window.location.reload();--}}
+            {{--                toastr.success("Coupon Activated");--}}
+            {{--                $("#code").val("");--}}
+            {{--            }--}}
+            {{--        }--}}
+            {{--    });--}}
+            {{--    return false;--}}
+            {{--});--}}
             $("#check-coupon-form").on('submit', function (e) {
                 e.preventDefault();
 
@@ -507,36 +580,23 @@
                     url: mainurl + "/carts/coupon/check",
                     data: {code: val, total: total, shipping_cost: ship},
                     success: function (data) {
-                        if (data == 0) {
-                            toastr.error('{{__('Coupon not found')}}');
+                        if (data.status === 'error') {
+                            toastr.error(data.message);
                             $("#code").val("");
-                        } else if (data == 2) {
-                            toastr.error('{{__('Coupon already have been taken')}}');
-                            $("#code").val("");
-                        } else {
-                            // $("#check-coupon-form").toggle();
-                            $("#discount-bar").removeClass('d-none');
-                            $("#discount-bar").addClass('d-flex');
-
-                            $('#grandtotal').val(data[0]);
-                            $('#grand_total').html(data[0]);
-                            $('#tgrandtotal').val(data[0]);
-                            $('#coupon_code').val(data[1]);
-                            $('#coupon_discount').val(data[2]);
-                            $('#discount_amount').html(data[2] + '$');
-                            if (data[4] != 0) {
-                                $('.dpercent').html('(' + data[4] + ')');
-                            } else {
-                                $('.dpercent').html('');
-                            }
-                            // window.location.reload();
+                        } else if (data.status === 'success') {
+                            location.reload(true);
                             toastr.success("Coupon Activated");
-                            $("#code").val("");
                         }
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle AJAX error, if needed
+                        console.error(xhr.responseText);
                     }
                 });
+
                 return false;
             });
+
         });
     </script>
 @endsection

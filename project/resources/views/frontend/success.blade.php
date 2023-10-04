@@ -205,19 +205,59 @@
                                                                             {{ \PriceHelper::showOrderCurrencyPrice((($order->tax) / $order->currency_value),$order->currency_sign) }}
                                                                         </p>
 
-                                                                        <p>{{ __('Total Amount :') }}
-                                                                            {{ \PriceHelper::showCurrencyPrice(($order->pay_amount) + $order->coupon_discount)  }}
-                                                                        </p>
+{{--                                                                        <p>{{ __('Total Amount :') }}--}}
+{{--                                                                            {{ \PriceHelper::showCurrencyPrice(($order->pay_amount) + $order->coupon_discount)  }}--}}
+{{--                                                                        </p>--}}
 
-                                                                        <p>{{ __('Discount:') }}
 
-                                                                            @if($order->method != "Wallet")
-                                                                                {{ \PriceHelper::showCurrencyPrice($order->coupon_discount)  }}
+                                                                        @if (!is_null($order->getPercentage) && Session::has('coupon_code'))
+                                                                            <p>{{ __('Discount:') }}
+                                                                                @if ($order->method != "Wallet")
+                                                                                    {{(!is_null($order->getPercentage) ? $order->getPercentage->percentage : 0) }}%
+                                                                                @endif
+                                                                            </p>
 
-                                                                            @else
-                                                                                {{ \PriceHelper::showOrderCurrencyPrice(($order->wallet_price * $order->currency_value),$order->currency_sign) }}
-                                                                            @endif
-                                                                        </p>
+                                                                            <p>{{ __('Coupon:') }}
+                                                                                @if ($order->method != "Wallet")
+                                                                                    @php
+                                                                                        $get_coupon_code = App\Models\Coupon::where('code', Session::get('coupon_code'))->first();
+                                                                                        $show_coupon_price = $get_coupon_code ? $get_coupon_code->price : 0;
+                                                                                    @endphp
+                                                                                    @if($get_coupon_code->type === 0)
+                                                                                        {{ $show_coupon_price }}%
+                                                                                    @elseif($get_coupon_code->type === 1)
+                                                                                        {{ $show_coupon_price }}$
+                                                                                    @endif
+                                                                                @endif
+                                                                            </p>
+                                                                        @elseif (Session::has('coupon_code'))
+                                                                            <p>{{ __('Coupon:') }}
+                                                                                @if ($order->method != "Wallet")
+                                                                                    @php
+                                                                                        $get_coupon_code = App\Models\Coupon::where('code', Session::get('coupon_code'))->first();
+                                                                                        $show_coupon_price = $get_coupon_code ? $get_coupon_code->price : 0;
+                                                                                    @endphp
+                                                                                    @if($get_coupon_code->type === 0)
+                                                                                        {{ $show_coupon_price }}%
+                                                                                    @elseif($get_coupon_code->type === 1)
+                                                                                        {{ $show_coupon_price }}$
+                                                                                    @endif
+                                                                                @endif
+                                                                            </p>
+                                                                        @elseif (!is_null($order->getPercentage))
+                                                                            <p>{{ __('Discount:') }}
+                                                                                @if ($order->method != "Wallet")
+                                                                                    {{(!is_null($order->getPercentage) ? $order->getPercentage->percentage : 0) }}%
+
+                                                                                    {{--                                                                                    {{ \PriceHelper::showCurrencyPrice(!is_null($order->getPercentage) ? $order->getPercentage->percentage : 0) }}%--}}
+                                                                                @endif
+                                                                            </p>
+                                                                        @else
+                                                                            <p>{{ __('Discount:') }}
+                                                                                0$
+                                                                            </p>
+                                                                        @endif
+
 
                                                                         <p>{{ __('Paid Amount:') }}
 
@@ -297,13 +337,64 @@
                                                                             @endif
 
                                                                         </td>
+                                                                        <td>{{ $product['item']['price'] }}$
+{{--                                                                        <td>{{ \PriceHelper::showCurrencyPrice(($order->pay_amount) + $order->coupon_discount)  }}--}}
+                                                                        </td>
+                                                                        <td>
+                                                                            @if (!is_null($order->getPercentage) && Session::has('coupon_code'))
+                                                                                <p>{{ __('Discount:') }}
+                                                                                    @if ($order->method != "Wallet")
+                                                                                        {{(!is_null($order->getPercentage) ? $order->getPercentage->percentage : 0) }}%
+                                                                                    @endif
+                                                                                </p>
 
-                                                                        <td>{{ \PriceHelper::showCurrencyPrice(($order->pay_amount) + $order->coupon_discount)  }}
+                                                                                <p>{{ __('Coupon:') }}
+                                                                                    @if ($order->method != "Wallet")
+                                                                                        @php
+                                                                                            $get_coupon_code = App\Models\Coupon::where('code', Session::get('coupon_code'))->first();
+                                                                                            $show_coupon_price = $get_coupon_code ? $get_coupon_code->price : 0;
+                                                                                        @endphp
+                                                                                         @if($get_coupon_code->type === 0)
+                                                                                        {{ $show_coupon_price }}%
+                                                                                             @elseif($get_coupon_code->type === 1)
+                                                                                            {{ $show_coupon_price }}$
+                                                                                             @endif
+                                                                                    @endif
+                                                                                </p>
+                                                                            @elseif (Session::has('coupon_code'))
+                                                                                <p>{{ __('Coupon:') }}
+                                                                                    @if ($order->method != "Wallet")
+                                                                                        @php
+                                                                                            $get_coupon_code = App\Models\Coupon::where('code', Session::get('coupon_code'))->first();
+                                                                                            $show_coupon_price = $get_coupon_code ? $get_coupon_code->price : 0;
+                                                                                        @endphp
+                                                                                        @if($get_coupon_code->type === 0)
+                                                                                            {{ $show_coupon_price }}%
+                                                                                        @elseif($get_coupon_code->type === 1)
+                                                                                            {{ $show_coupon_price }}$
+                                                                                        @endif
+                                                                                    @endif
+                                                                                </p>
+                                                                            @elseif (!is_null($order->getPercentage))
+                                                                                <p>{{ __('Discount:') }}
+                                                                                    @if ($order->method != "Wallet")
+                                                                                        {{(!is_null($order->getPercentage) ? $order->getPercentage->percentage : 0) }}%
+                                                                                    @endif
+                                                                                </p>
+                                                                            @else
+                                                                                <p>{{ __('Discount:') }}
+                                                                                    0$
+                                                                                </p>
+                                                                            @endif
                                                                         </td>
 
-                                                                        <td>{{ \PriceHelper::showCurrencyPrice($order->coupon_discount)  }}
-                                                                            <small>{{ $product['discount'] == 0 ? '' : '('.$product['discount'].'% '.__('Off').')' }}</small>
-                                                                        </td>
+{{--                                                                        <td>--}}
+{{--                                                                            {{ \PriceHelper::showCurrencyPrice(!is_null($order->getPercentage) ? $order->getPercentage->percentage : 0)  }}--}}
+{{--                                                                        </td>--}}
+
+{{--                                                                        <td>{{ \PriceHelper::showCurrencyPrice($order->coupon_discount)  }}--}}
+{{--                                                                            <small>{{ $product['discount'] == 0 ? '' : '('.$product['discount'].'% '.__('Off').')' }}</small>--}}
+{{--                                                                        </td>--}}
 
                                                                         <td>{{ \PriceHelper::showOrderCurrencyPrice((($order->pay_amount+$order->wallet_price) * $order->currency_value),$order->currency_sign) }}
                                                                             <small>{{ $product['discount'] == 0 ? '' : '('.$product['discount'].'% '.__('Off').')' }}</small>

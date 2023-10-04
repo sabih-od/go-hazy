@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-     
+
 @section('styles')
 
 <style type="text/css">
@@ -107,7 +107,7 @@
                                                     <td width="10%">:</td>
                                                     <td width="45%">{{ \PriceHelper::showOrderCurrencyPrice(($order->wallet_price  * $order->currency_value),$order->currency_sign) }}</td>
                                                 </tr>
-    
+
                                                     @if($order->method != "Wallet")
                                                     <tr>
                                                         <th width="45%">{{$order->method}}</th>
@@ -121,7 +121,9 @@
                                                 <tr>
                                                     <th width="45%">{{ __('Total Cost') }}</th>
                                                     <td width="10%">:</td>
-                                                    <td width="45%">{{ \PriceHelper::showOrderCurrencyPrice((($order->pay_amount + $order->wallet_price)  * $order->currency_value),$order->currency_sign) }}</td>
+                                                    <td width="45%">
+                                                        {{ \PriceHelper::showOrderCurrencyPrice((($order->pay_amount + $order->wallet_price)  * $order->currency_value),$order->currency_sign) }}
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <th width="45%">{{ __('Ordered Date') }}</th>
@@ -133,20 +135,20 @@
                                                     <td width="10%">:</td>
                                                     <td width="45%">{{$order->method}}</td>
                                                 </tr>
-                
+
                                                 @if($order->method != "Cash On Delivery" && $order->method != "Wallet")
                                                 @if($order->method=="Stripe")
                                                 <tr>
                                                     <th width="45%">{{$order->method}} {{ __('Charge ID') }}</th>
                                                     <td width="10%">:</td>
                                                     <td width="45%">{{$order->charge_id}}</td>
-                                                </tr>                        
+                                                </tr>
                                                 @endif
                                                 <tr>
                                                     <th width="45%">{{$order->method}} {{ __('Transaction ID') }}</th>
                                                     <td width="10%">:</td>
                                                     <td width="45%">{{$order->txnid}}</td>
-                                                </tr>                         
+                                                </tr>
                                                 @endif
 
 
@@ -155,7 +157,7 @@
 
                                                     @if($order->payment_status == 'Pending')
                                                         <span class='badge badge-danger'>{{__('Unpaid')}}</span>
-                                                    @else 
+                                                    @else
                                                         <span class='badge badge-success'>{{__('Paid')}}</span>
                                                     @endif
 
@@ -177,7 +179,7 @@
                                     <div class="special-box">
                                         <div class="heading-area">
                                             <h4 class="title">
-                                            {{ __('Billing Details') }} 
+                                            {{ __('Billing Details') }}
                                             <a class="f15" href="javascript:;" data-toggle="modal" data-target="#billing-details-edit"><i class="fas fa-edit"></i>{{ __("Edit") }}</a>
                                             </h4>
                                         </div>
@@ -237,13 +239,31 @@
                                                         <tr>
                                                             <th width="45%">{{ __('Coupon Discount') }}</th>
                                                             <th width="10%">:</th>
+
                                                             @if($gs->currency_format == 0)
-                                                            <td width="45%">{{ $order->currency_sign }}{{ $order->coupon_discount }}</td>
-                                                            @else 
+                                                            <td width="45%">
+                                                                {{ $order->currency_sign }}{{ $order->coupon_discount }}
+                                                            </td>
+                                                            @else
                                                             <td width="45%">{{ $order->coupon_discount }}{{ $order->currency_sign }}</td>
                                                             @endif
                                                         </tr>
                                                         @endif
+                                                        @if(!is_null($order->getPercentage))
+                                                            <tr>
+                                                                <th width="45%">{{ __('Veteran Discount') }}</th>
+                                                                <th width="10%">:</th>
+
+                                                                @if($gs->currency_format == 0)
+                                                                    <td width="45%">
+                                                                       {{ $order->getPercentage->percentage }}
+                                                                    </td>
+                                                                @else
+                                                                    <td width="45%">0%</td>
+                                                                @endif
+                                                            </tr>
+                                                        @endif
+
                                                         @if($order->affilate_user != null)
                                                         <tr>
                                                             <th width="45%">{{ __('Affilate User') }}</th>
@@ -251,7 +271,7 @@
                                                             <td width="45%">
                                                                 @if( App\Models\User::where('id', $order->affilate_user)->exists() )
                                                                 {{  App\Models\User::where('id', $order->affilate_user)->first()->name  }}
-                                                                @else 
+                                                                @else
                                                                 {{ __('Deleted') }}
                                                                 @endif
                                                             </td>
@@ -278,7 +298,7 @@
                                     <div class="special-box">
                                         <div class="heading-area">
                                             <h4 class="title">
-                                            {{ __('Shipping Details') }} 
+                                            {{ __('Shipping Details') }}
                                             <a class="f15" href="javascript:;" data-toggle="modal" data-target="#shipping-details-edit"><i class="fas fa-edit"></i>{{ __("Edit") }}</a>
                                             </h4>
                                         </div>
@@ -374,10 +394,10 @@
                                                         </thead>
                                                         <tbody>
 
-                                                          
+
                                             @foreach($cart['items'] as $key1 => $product)
                                                 <tr>
-                                        
+
                                             <td><input type="hidden" value="{{$key1}}">{{ $product['item']['id'] }}</td>
 
                                             <td>
@@ -390,7 +410,7 @@
                                                 @else
                                                 {{ __('Vendor Removed') }}
                                                 @endif
-                                                @else 
+                                                @else
                                                 <a  href="javascript:;">{{ App\Models\Admin::find(1)->shop_name }}</a>
                                                 @endif
 
@@ -399,8 +419,8 @@
                                                 @if($product['item']['user_id'] != 0)
                                                 @php
                                                 $user = App\Models\VendorOrder::where('order_id','=',$order->id)->where('user_id','=',$product['item']['user_id'])->first();
-                                              
-                                                
+
+
                                                 @endphp
 
                                                     @if($order->dp == 1 && $order->payment_status == 'Completed')
@@ -437,10 +457,10 @@
                                                 @else
                                                 <a target="_blank" href="{{ route('front.product', $product['item']['slug']) }}">{{mb_strlen($product['item']['name'],'utf-8') > 30 ? mb_substr($product['item']['name'],0,30,'utf-8').'...' : $product['item']['name']}}</a>
                                                 @endif
-                                                @else 
+                                                @else
 
                                                 <a target="_blank" href="{{ route('front.product', $product['item']['slug']) }}">{{mb_strlen($product['item']['name'],'utf-8') > 30 ? mb_substr($product['item']['name'],0,30,'utf-8').'...' : $product['item']['name']}}</a>
-                                            
+
                                                 @endif
 
 
@@ -478,7 +498,7 @@
                                                     @foreach( array_combine(explode(',', $product['keys']), explode(',', $product['values']))  as $key => $value)
                                                     <p>
 
-                                                        <b>{{ ucwords(str_replace('_', ' ', $key))  }} : </b> {{ $value }} 
+                                                        <b>{{ ucwords(str_replace('_', ' ', $key))  }} : </b> {{ $value }}
 
                                                     </p>
                                                     @endforeach
@@ -583,7 +603,7 @@
 {{--  EDIT PRODUCT MODAL --}}
 
 <div class="modal fade" id="edit-product-modal" tabindex="-1" role="dialog" aria-labelledby="edit-product-modal" aria-hidden="true">
-																		
+
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="submit-loader">
@@ -617,31 +637,31 @@
 <div class="modal fade" id="delete-product-modal" tabindex="-1" role="dialog" aria-labelledby="modal1" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-  
+
       <div class="modal-header d-block text-center">
           <h4 class="modal-title d-inline-block">{{ __('Confirm Delete') }}</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
               </button>
       </div>
-  
+
         <!-- Modal body -->
         <div class="modal-body">
               <p class="text-center">{{ __('You are about to delete this item from this cart.') }}</p>
               <p class="text-center">{{ __('Do you want to proceed?') }}</p>
         </div>
-  
+
         <!-- Modal footer -->
         <div class="modal-footer justify-content-center">
               <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('Cancel') }}</button>
               <a class="btn btn-danger btn-ok">{{ __('Delete') }}</a>
 
         </div>
-  
+
       </div>
     </div>
   </div>
-  
+
   {{-- DELETE PRODUCT MODAL ENDS --}}
 
 
@@ -762,8 +782,8 @@ $('#example2').dataTable( {
      $(document).on('click','.license' , function(e){
         var id = $(this).parent().find('input[type=hidden]').val();
         var key = $(this).parent().parent().find('input[type=hidden]').val();
-        $('#key').html(id);  
-        $('#license-key').val(key);    
+        $('#key').html(id);
+        $('#license-key').val(key);
     });
     $(document).on('click','#license-edit' , function(e){
         $(this).hide();

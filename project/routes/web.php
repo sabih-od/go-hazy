@@ -3,6 +3,7 @@
 
 // ************************************ ADMIN SECTION **********************************************
 
+use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\FrontendController;
 use App\Models\Order;
 use Illuminate\Support\Facades\Artisan;
@@ -1503,6 +1504,10 @@ Route::post('/item/report', 'Front\CatalogController@report')->name('product.rep
     Route::get('/upcolor','Front\CartController@upcolor');
     Route::get('/removecart/{id}','Front\CartController@removecart')->name('product.cart.remove');
     Route::get('/carts/coupon','Front\CouponController@coupon');
+    //Veteran discount work
+    Route::post('/submit-email', [CartController::class, 'submitEmail'])->name('submit_email');
+    Route::post('/verify-otp', [CartController::class, 'verifyOTP'])->name('verify_otp');
+
     // CART SECTION ENDS
 
     // COMPARE SECTION
