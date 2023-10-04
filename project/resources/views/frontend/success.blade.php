@@ -26,48 +26,48 @@
     <!-- breadcrumb -->
     <section class="tempcart">
 
-    @if(!empty($tempcart))
-     <div class="container">
-         <div class="row justify-content-center">
-             <div class="col-lg-10">
-                 <!-- Starting of Dashboard data-table area -->
-                 <div class="content-box section-padding add-product-1">
-                     <div class="top-area">
-                         <div class="content order-de">
-                             <h4 class="heading">
-                                 {{ __('THANK YOU FOR YOUR PURCHASE.') }}
-                             </h4>
-                             <p class="text">
-                                 {{ __("We'll email you an order confirmation with details and tracking info.") }}
-                             </p>
-                             <a href="{{ route('front.index') }}" class="link">
-                                 <h5>{{ __('Get Back To Our Homepage') }}</h5></a>
-                         </div>
-                     </div>
-                     <div class="row">
-                         <div class="col-lg-12">
-                             <div class="product__header">
-                                 <div class="row reorder-xs">
-                                     <div class="col-lg-12">
-                                         <div class="product-header-title">
-                                             <h4>{{ __('Order#') }} {{$order->order_number}}</h4>
-                                         </div>
-                                     </div>
-                                     @include('alerts.form-success')
-                                     <div class="col-md-12" id="tempview">
-                                         <div class="dashboard-content">
-                                             <div class="view-order-page" id="print">
-                                                 <p class="order-date">{{ __('Order Date') }}
-                                                     {{date('d-M-Y',strtotime($order->created_at))}}</p>
+        @if(!empty($tempcart))
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <!-- Starting of Dashboard data-table area -->
+                        <div class="content-box section-padding add-product-1">
+                            <div class="top-area">
+                                <div class="content order-de">
+                                    <h4 class="heading">
+                                        {{ __('THANK YOU FOR YOUR PURCHASE.') }}
+                                    </h4>
+                                    <p class="text">
+                                        {{ __("We'll email you an order confirmation with details and tracking info.") }}
+                                    </p>
+                                    <a href="{{ route('front.index') }}" class="link">
+                                        <h5>{{ __('Get Back To Our Homepage') }}</h5></a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="product__header">
+                                        <div class="row reorder-xs">
+                                            <div class="col-lg-12">
+                                                <div class="product-header-title">
+                                                    <h4>{{ __('Order#') }} {{$order->order_number}}</h4>
+                                                </div>
+                                            </div>
+                                            @include('alerts.form-success')
+                                            <div class="col-md-12" id="tempview">
+                                                <div class="dashboard-content">
+                                                    <div class="view-order-page" id="print">
+                                                        <p class="order-date">{{ __('Order Date') }}
+                                                            {{date('d-M-Y',strtotime($order->created_at))}}</p>
                                                         @if($order->dp == 1)
-                                                     <div class="billing-add-area">
-                                                         <div class="row">
-                                                             <div class="col-md-6">
-                                                                 <h5>{{ __('Shipping Address') }}</h5>
-                                                                 <address>
-                                                                     {{ __('Name:') }} {{$order->customer_name}}
-                                                                     <br>
-                                                                     {{ __('Email:') }} {{$order->customer_email}}
+                                                            <div class="billing-add-area">
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <h5>{{ __('Shipping Address') }}</h5>
+                                                                        <address>
+                                                                            {{ __('Name:') }} {{$order->customer_name}}
+                                                                            <br>
+                                                                            {{ __('Email:') }} {{$order->customer_email}}
                                                                             <br>
                                                                             {{ __('Phone:') }} {{$order->customer_phone}}
                                                                             <br>
@@ -311,17 +311,17 @@
                                                                             <b>{{ __('Quantity') }}</b>: {{$product['qty']}}
                                                                             <br>
                                                                             @if(!empty($product['size']))
-                                                                                <b>{{ __('Size') }}</b>:
+                                                                                <b>{{ __('Variation') }}</b>:
                                                                                 {{ $product['item']['measure'] }}{{str_replace('-',' ',$product['size'])}}
                                                                                 <br>
                                                                             @endif
-                                                                            @if(!empty($product['color']))
-                                                                                <div class="d-flex mt-2">
-                                                                                    <b>{{ __('Color') }}</b> : <span
-                                                                                        id="color-bar"
-                                                                                        style="border: 10px solid #{{$product['color'] == "" ? "white" : $product['color']}};"></span>
-                                                                                </div>
-                                                                            @endif
+                                                                            {{--                                                                            @if(!empty($product['color']))--}}
+                                                                            {{--                                                                                <div class="d-flex mt-2">--}}
+                                                                            {{--                                                                                    <b>{{ __('Color') }}</b> : <span--}}
+                                                                            {{--                                                                                        id="color-bar"--}}
+                                                                            {{--                                                                                        style="border: 10px solid #{{$product['color'] == "" ? "white" : $product['color']}};"></span>--}}
+                                                                            {{--                                                                                </div>--}}
+                                                                            {{--                                                                            @endif--}}
 
                                                                             @if(!empty($product['keys']))
 

@@ -12,7 +12,8 @@ use App\{Jobs\ReadCsvFile,
     Models\Attribute,
     Models\Subcategory,
     Models\Childcategory,
-    Models\AttributeOption};
+    Models\AttributeOption
+};
 use Illuminate\{Http\Request, Support\Facades\Auth, Support\Facades\File, Support\Str};
 
 use DB;
@@ -26,7 +27,7 @@ class ProductController extends AdminBaseController
     public function datatables(Request $request)
     {
 //        if ($request->type == 'all') {
-            $datas = Product::query()->whereProductType('normal')->latest('id');
+        $datas = Product::query()->whereProductType('normal')->latest('id');
 //        } else if ($request->type == 'deactive') {
 //            $datas = Product::whereProductType('normal')->whereStatus(0)->latest('id')->get();
 //        }
@@ -534,7 +535,6 @@ class ProductController extends AdminBaseController
 
         $file = fopen(public_path('assets/temp_files/' . $filename), "r");
         $i = 1;
-
 
         while (($line = fgetcsv($file)) !== FALSE) {
 
