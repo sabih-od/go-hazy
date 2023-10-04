@@ -40,18 +40,19 @@
                     </div>
                     <div class="col-md-5 text-left">
                         <strong>{{ $product['item']->name ?? '' }}</strong>
-                        @if(!empty($product['color']))
-                            <p class="m-0" style="display: flex;">
-                                <strong class="color">{{ __('Color') }} :</strong>
-                                <span id="color-bar"
-                                      style="border: 10px solid {{$product['color'] == "" ? "white" : '#'.$product['color']}};
-                                          width: 20px; height: 10px;border-radius: 50%;">
-                    </span>
-                            </p>
-                        @endif
+                        {{--                        @if(!empty($product['color']))--}}
+                        {{--                            <p class="m-0" style="display: flex;">--}}
+                        {{--                                <strong class="color">{{ __('Color') }} :</strong>--}}
+                        {{--                                <span id="color-bar"--}}
+                        {{--                                      style="border: 10px solid {{$product['color'] == "" ? "white" : '#'.$product['color']}};--}}
+                        {{--                                          width: 20px; height: 10px;border-radius: 50%;">--}}
+                        {{--                            </span>--}}
+                        {{--                            </p>--}}
+                        {{--                        @endif--}}
                         @if(!empty($product['size']))
-                            <p class="m-0">
-                                <strong class="color">{{ __('Size') }} : {{str_replace('-',' ',$product['size'])}}</strong>
+                            <p class="mb-2">
+                                <strong class="color">{{ __('Variation') }}
+                                    : {{str_replace('-',' ',$product['size'])}}</strong>
                             </p>
                         @endif
                     </div>
@@ -253,7 +254,7 @@
                         color: color,
                         size_qty: size_qty,
                         size_price: size_price,
-                        qty : qty,
+                        qty: qty,
                         minimum_qty: minimum_qty,
                     },
                     success: function (data) {

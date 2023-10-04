@@ -18,7 +18,6 @@
             </div>
         </div>
     </section>
-
     <section class="productDetail">
         <div class="container">
             <div class="row">
@@ -81,58 +80,27 @@
                                 {{-- Product Size Option--}}
                                 @if(!empty($productt->size))
                                     <div class="product-size">
-                                        <p class="title">{{ __('Size :') }}</p>
+                                        <p class="title">{{ __('Variations :') }}</p>
                                         <select name="size" id="size" class="form-control">
                                             @foreach(array_unique($productt->size) as $key => $data1)
                                                 <option value="{{ str_replace(' ','',$data1) }}">{{ $data1 }}</option>
-                                                {{--                                            <input type="hidden" class="size" value="{{$data1}}">--}}
-                                                {{--                                            <input type="hidden" class="size_key" value="{{$key}}">--}}
                                             @endforeach
                                         </select>
-                                        {{--                                        <ul class="siz-list">--}}
-                                        {{--                                            @foreach(array_unique($productt->size) as $key => $data1)--}}
-                                        {{--                                                <li class="{{ $loop->first ? 'active' : '' }}"--}}
-                                        {{--                                                    data-key="{{ str_replace(' ','',$data1) }}">--}}
-                                        {{--                                                <span class="box">--}}
-                                        {{--                                                  {{ $data1 }}--}}
-                                        {{--                                                </span>--}}
-                                        {{--                                                </li>--}}
-                                        {{--                                            @endforeach--}}
-                                        {{--                                        </ul>--}}
                                     </div>
                                 @endif
                                 {{-- PRODUCT COLOR SECTION  --}}
-                                @if(!empty($productt->color))
-                                    <div class="product-color">
-                                        <div class="title">{{ __('Color :') }}</div>
-                                        <select name="color" id="color" onChange="update()" style="border-radius: 3px;">
-                                            @foreach($productt->color as $key => $color1)
-                                                <option value="{{ $color1 }}"
-                                                        style="background-color: {{ $color1 }};"></option>
-                                            @endforeach
-                                        </select>
-                                        {{--                                        <ul class="color-list">--}}
-                                        {{--                                            @foreach($productt->color as $key => $data1)--}}
-                                        {{--                                                <li class="{{ $loop->first ? 'active' : '' }}--}}
-                                        {{--                                                {{ $productt->IsSizeColor($productt->size[$key]) ? str_replace(' ','',$productt->size[$key]) : ''  }} {{ $productt->size[$key] == $productt->size[0] ? 'show-colors' : '' }}">--}}
-                                        {{--                                                <span class="box" data-color="{{ $productt->color[$key] }}"--}}
-                                        {{--                                                      style="background-color: {{ $productt->color[$key] }};--}}
-                                        {{--                                                          width: 20px; height: 20px; border-right: 10px;">--}}
+                                {{--                                @if(!empty($productt->color))--}}
+                                {{--                                    <div class="product-color">--}}
+                                {{--                                        <div class="title">{{ __('Color :') }}</div>--}}
+                                {{--                                        <select name="color" id="color" onChange="update()" style="border-radius: 3px;">--}}
+                                {{--                                            @foreach($productt->color as $key => $color1)--}}
+                                {{--                                                <option value="{{ $color1 }}"--}}
+                                {{--                                                        style="background-color: {{ $color1 }};"></option>--}}
+                                {{--                                            @endforeach--}}
+                                {{--                                        </select>--}}
+                                {{--                                    </div>--}}
 
-                                        {{--                                                  <input type="hidden" class="size" value="{{ $productt->size[$key] }}">--}}
-                                        {{--                                                  <input type="hidden" class="size_qty"--}}
-                                        {{--                                                         value="{{ $productt->size_qty[$key] }}">--}}
-                                        {{--                                                  <input type="hidden" class="size_key" value="{{$key}}">--}}
-                                        {{--                                                  <input type="hidden" class="size_price"--}}
-                                        {{--                                                         value="{{ round($productt->size_price[$key] * $curr->value,2) }}">--}}
-
-                                        {{--                                                </span>--}}
-                                        {{--                                                </li>--}}
-                                        {{--                                            @endforeach--}}
-                                        {{--                                        </ul>--}}
-                                    </div>
-
-                                @endif
+                                {{--                                @endif--}}
                                 {{-- PRODUCT COLOR SECTION ENDS  --}}
                             @else
                                 @if(!empty($productt->size_all))
@@ -178,63 +146,63 @@
             <div class="row">
                 <div class="col-8">
                     @foreach($productt->ratings as $product_review)
-                    <div id="comments">
-                        <h2 class="woocommerce-Reviews-title my-3"> {{ __('Ratings & Reviews') }}</h2>
-                        <div class="reating-area">
-                            <div class="stars">
-                                <span id="star-rating"></span>
-                                @for($i = 0; $i < $product_review->rating; $i++)
-                                    <i class="fas fa-star"></i>
-                                @endfor
+                        <div id="comments">
+                            <h2 class="woocommerce-Reviews-title my-3"> {{ __('Ratings & Reviews') }}</h2>
+                            <div class="reating-area">
+                                <div class="stars">
+                                    <span id="star-rating"></span>
+                                    @for($i = 0; $i < $product_review->rating; $i++)
+                                        <i class="fas fa-star"></i>
+                                    @endfor
+                                </div>
                             </div>
-                        </div>
-                        <ul class="all-comments">
-                            <li>
-                                <div class="single-comment">
-                                    <div class="left-area">
-                                        <img
-                                            src="{{ $product_review->user->photo ? asset('assets/images/users/'.$product_review->user->photo):asset('assets/images/'.$gs->user_image) }}"
-                                            alt="">
-                                        <div class="header-area">
-                                            <div class="stars-area">
-                                                <ul class="stars">
-                                                    <div class="ratings">
-                                                        <div class="empty-stars"></div>
-{{--                                                        <div class="empty-stars"></div>--}}
-{{--                                                        <div class="empty-stars"></div>--}}
-{{--                                                        <div class="empty-stars"></div>--}}
-{{--                                                        <div class="empty-stars"></div>--}}
-                                                        {{--                                                    <div class="full-stars" style="width:{{$review->rating*20}}%"></div>--}}
-                                                    </div>
-                                                </ul>
+                            <ul class="all-comments">
+                                <li>
+                                    <div class="single-comment">
+                                        <div class="left-area">
+                                            <img
+                                                src="{{ $product_review->user->photo ? asset('assets/images/users/'.$product_review->user->photo):asset('assets/images/'.$gs->user_image) }}"
+                                                alt="">
+                                            <div class="header-area">
+                                                <div class="stars-area">
+                                                    <ul class="stars">
+                                                        <div class="ratings">
+                                                            <div class="empty-stars"></div>
+                                                            {{--                                                        <div class="empty-stars"></div>--}}
+                                                            {{--                                                        <div class="empty-stars"></div>--}}
+                                                            {{--                                                        <div class="empty-stars"></div>--}}
+                                                            {{--                                                        <div class="empty-stars"></div>--}}
+                                                            {{--                                                    <div class="full-stars" style="width:{{$review->rating*20}}%"></div>--}}
+                                                        </div>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="right-area">
-                                        <div class="comment-body">
-                                            <div class="nameBox">
-                                                <h5 class="name">
-                                                    {{ $product_review->user->name }}
-                                                </h5>
-                                                <p class="date">
-                                                    {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$product_review->review_date)->diffForHumans() }}
+                                        <div class="right-area">
+                                            <div class="comment-body">
+                                                <div class="nameBox">
+                                                    <h5 class="name">
+                                                        {{ $product_review->user->name }}
+                                                    </h5>
+                                                    <p class="date">
+                                                        {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$product_review->review_date)->diffForHumans() }}
+                                                    </p>
+                                                </div>
+                                                <p>
+                                                    {{ $product_review->review }}
                                                 </p>
                                             </div>
-                                            <p>
-                                                {{ $product_review->review }}
-                                            </p>
                                         </div>
                                     </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     @endforeach
 
-                        @if($productt->ratings->isEmpty())
-                            <p>No reviews found.</p>
-                        @endif
-{{--                    <p>{{ __('No Review Found.') }}</p>--}}
+                    @if($productt->ratings->isEmpty())
+                        <p>No reviews found.</p>
+                    @endif
+                    {{--                    <p>{{ __('No Review Found.') }}</p>--}}
                     <div id="review_form_wrapper">
                         <div class="write-comment-area">
                             <div class="gocover"
@@ -242,7 +210,7 @@
                             </div>
                             <form id="reviewform" action="{{ route('front.review.submit') }}"
                                   data-href="{{ route('front.customerreviews',$productt->id) }}"
-                                  data-side-href="{{ route('front.side.reviews',$productt->id) }}" method="post" >
+                                  data-side-href="{{ route('front.side.reviews',$productt->id) }}" method="post">
                                 @csrf
                                 <div class="review-area">
                                     <h4 class="title">{{ __('Reviews') }}</h4>
@@ -300,132 +268,132 @@
                     </div>
 
 
-{{--            <div class="row">--}}
-{{--                <div class="col-8">--}}
-{{--                    @foreach($productt->ratings as $product_review)--}}
-{{--                    <div id="comments">--}}
-{{--                        <h2 class="woocommerce-Reviews-title my-3"> {{ __('Ratings & Reviews') }}</h2>--}}
-{{--                        <div class="reating-area">--}}
-{{--                            <div class="stars">--}}
-{{--                                <span id="star-rating"></span>--}}
-{{--                                @for($i = 0; $i < $product_review->rating; $i++)--}}
-{{--                                    <i class="fas fa-star"></i>--}}
-{{--                                @endfor--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <ul class="all-comments">--}}
-{{--                            <li>--}}
-{{--                                <div class="single-comment">--}}
-{{--                                    <div class="left-area">--}}
-{{--                                        <img--}}
-{{--                                            src="{{ $product_review->user->photo ? asset('assets/images/users/'.$product_review->user->photo):asset('assets/images/'.$gs->user_image) }}"--}}
-{{--                                            alt="">--}}
-{{--                                        <div class="header-area">--}}
-{{--                                            <div class="stars-area">--}}
-{{--                                                <ul class="stars">--}}
-{{--                                                    <div class="ratings">--}}
-{{--                                                        <div class="empty-stars"></div>--}}
-{{--                                                        <div class="empty-stars"></div>--}}
-{{--                                                        <div class="empty-stars"></div>--}}
-{{--                                                        <div class="empty-stars"></div>--}}
-{{--                                                        <div class="empty-stars"></div>--}}
-{{--                                                        --}}{{--                                                    <div class="full-stars" style="width:{{$review->rating*20}}%"></div>--}}
-{{--                                                    </div>--}}
-{{--                                                </ul>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="right-area">--}}
-{{--                                        <div class="comment-body">--}}
-{{--                                            <div class="nameBox">--}}
-{{--                                                <h5 class="name">--}}
-{{--                                                    {{ $product_review->user->name }}--}}
-{{--                                                </h5>--}}
-{{--                                                <p class="date">--}}
-{{--                                                    {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$product_review->review_date)->diffForHumans() }}--}}
-{{--                                                </p>--}}
-{{--                                            </div>--}}
-{{--                                            <p>--}}
-{{--                                                {{ $product_review->review }}--}}
-{{--                                            </p>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </li>--}}
-{{--                        </ul>--}}
-{{--                    </div>--}}
-{{--                    @endforeach--}}
+                    {{--            <div class="row">--}}
+                    {{--                <div class="col-8">--}}
+                    {{--                    @foreach($productt->ratings as $product_review)--}}
+                    {{--                    <div id="comments">--}}
+                    {{--                        <h2 class="woocommerce-Reviews-title my-3"> {{ __('Ratings & Reviews') }}</h2>--}}
+                    {{--                        <div class="reating-area">--}}
+                    {{--                            <div class="stars">--}}
+                    {{--                                <span id="star-rating"></span>--}}
+                    {{--                                @for($i = 0; $i < $product_review->rating; $i++)--}}
+                    {{--                                    <i class="fas fa-star"></i>--}}
+                    {{--                                @endfor--}}
+                    {{--                            </div>--}}
+                    {{--                        </div>--}}
+                    {{--                        <ul class="all-comments">--}}
+                    {{--                            <li>--}}
+                    {{--                                <div class="single-comment">--}}
+                    {{--                                    <div class="left-area">--}}
+                    {{--                                        <img--}}
+                    {{--                                            src="{{ $product_review->user->photo ? asset('assets/images/users/'.$product_review->user->photo):asset('assets/images/'.$gs->user_image) }}"--}}
+                    {{--                                            alt="">--}}
+                    {{--                                        <div class="header-area">--}}
+                    {{--                                            <div class="stars-area">--}}
+                    {{--                                                <ul class="stars">--}}
+                    {{--                                                    <div class="ratings">--}}
+                    {{--                                                        <div class="empty-stars"></div>--}}
+                    {{--                                                        <div class="empty-stars"></div>--}}
+                    {{--                                                        <div class="empty-stars"></div>--}}
+                    {{--                                                        <div class="empty-stars"></div>--}}
+                    {{--                                                        <div class="empty-stars"></div>--}}
+                    {{--                                                        --}}{{--                                                    <div class="full-stars" style="width:{{$review->rating*20}}%"></div>--}}
+                    {{--                                                    </div>--}}
+                    {{--                                                </ul>--}}
+                    {{--                                            </div>--}}
+                    {{--                                        </div>--}}
+                    {{--                                    </div>--}}
+                    {{--                                    <div class="right-area">--}}
+                    {{--                                        <div class="comment-body">--}}
+                    {{--                                            <div class="nameBox">--}}
+                    {{--                                                <h5 class="name">--}}
+                    {{--                                                    {{ $product_review->user->name }}--}}
+                    {{--                                                </h5>--}}
+                    {{--                                                <p class="date">--}}
+                    {{--                                                    {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$product_review->review_date)->diffForHumans() }}--}}
+                    {{--                                                </p>--}}
+                    {{--                                            </div>--}}
+                    {{--                                            <p>--}}
+                    {{--                                                {{ $product_review->review }}--}}
+                    {{--                                            </p>--}}
+                    {{--                                        </div>--}}
+                    {{--                                    </div>--}}
+                    {{--                                </div>--}}
+                    {{--                            </li>--}}
+                    {{--                        </ul>--}}
+                    {{--                    </div>--}}
+                    {{--                    @endforeach--}}
 
-{{--                        @if($productt->ratings->isEmpty())--}}
-{{--                            <p>No reviews found.</p>--}}
-{{--                        @endif--}}
-{{--                    <p>{{ __('No Review Found.') }}</p>--}}
-{{--                    <div id="review_form_wrapper">--}}
-{{--                        <div class="review-area">--}}
-{{--                            <h4 class="title">{{ __('Reviews') }}</h4>--}}
-{{--                            <div class="star-area">--}}
-{{--                                <ul class="star-list">--}}
-{{--                                    <li class="stars" data-val="1">--}}
-{{--                                        <i class="fas fa-star"></i>--}}
-{{--                                    </li>--}}
-{{--                                    <li class="stars" data-val="2">--}}
-{{--                                        <i class="fas fa-star"></i>--}}
-{{--                                        <i class="fas fa-star"></i>--}}
-{{--                                    </li>--}}
-{{--                                    <li class="stars" data-val="3">--}}
-{{--                                        <i class="fas fa-star"></i>--}}
-{{--                                        <i class="fas fa-star"></i>--}}
-{{--                                        <i class="fas fa-star"></i>--}}
-{{--                                    </li>--}}
-{{--                                    <li class="stars" data-val="4">--}}
-{{--                                        <i class="fas fa-star"></i>--}}
-{{--                                        <i class="fas fa-star"></i>--}}
-{{--                                        <i class="fas fa-star"></i>--}}
-{{--                                        <i class="fas fa-star"></i>--}}
-{{--                                    </li>--}}
-{{--                                    <li class="stars active" data-val="5">--}}
-{{--                                        <i class="fas fa-star"></i>--}}
-{{--                                        <i class="fas fa-star"></i>--}}
-{{--                                        <i class="fas fa-star"></i>--}}
-{{--                                        <i class="fas fa-star"></i>--}}
-{{--                                        <i class="fas fa-star"></i>--}}
-{{--                                    </li>--}}
-{{--                                </ul>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="write-comment-area">--}}
-{{--                            <div class="gocover"--}}
-{{--                                 style="background: url({{ asset('assets/images/'.$gs->loader) }}) no-repeat scroll center center rgba(45, 45, 45, 0.5);">--}}
-{{--                            </div>--}}
-{{--                            <form id="reviewform" action="{{ route('front.review.submit') }}"--}}
-{{--                                  data-href="{{ route('front.customerreviews',$productt->id) }}"--}}
-{{--                                  data-side-href="{{ route('front.side.reviews',$productt->id) }}" method="post" >--}}
-{{--                                @csrf--}}
-{{--                                <input type="hidden" id="rating" name="rating" value="5">--}}
-{{--                                <input type="hidden" name="user_id" value="{{ Auth::user()->id ?? '' }}">--}}
-{{--                                <input type="hidden" name="product_id" value="{{ $productt->id }}">--}}
-{{--                                <div class="row">--}}
-{{--                                    <div class="col-lg-12">--}}
-{{--                                <textarea name="review" placeholder="{{ __('Write Your Review *') }}"--}}
-{{--                                          required></textarea>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                                @auth--}}
-{{--                                <div class="row">--}}
-{{--                                    <div class="col-lg-12">--}}
-{{--                                        <button class="btnStyle" type="submit">{{ __('Submit') }}</button>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                                @endauth--}}
-{{--                                @guest--}}
-{{--                                    <a href="{{route('user.login')}}" class="btnStyle">Submit</a>--}}
-{{--                                @endguest--}}
-{{--                            </form>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
+                    {{--                        @if($productt->ratings->isEmpty())--}}
+                    {{--                            <p>No reviews found.</p>--}}
+                    {{--                        @endif--}}
+                    {{--                    <p>{{ __('No Review Found.') }}</p>--}}
+                    {{--                    <div id="review_form_wrapper">--}}
+                    {{--                        <div class="review-area">--}}
+                    {{--                            <h4 class="title">{{ __('Reviews') }}</h4>--}}
+                    {{--                            <div class="star-area">--}}
+                    {{--                                <ul class="star-list">--}}
+                    {{--                                    <li class="stars" data-val="1">--}}
+                    {{--                                        <i class="fas fa-star"></i>--}}
+                    {{--                                    </li>--}}
+                    {{--                                    <li class="stars" data-val="2">--}}
+                    {{--                                        <i class="fas fa-star"></i>--}}
+                    {{--                                        <i class="fas fa-star"></i>--}}
+                    {{--                                    </li>--}}
+                    {{--                                    <li class="stars" data-val="3">--}}
+                    {{--                                        <i class="fas fa-star"></i>--}}
+                    {{--                                        <i class="fas fa-star"></i>--}}
+                    {{--                                        <i class="fas fa-star"></i>--}}
+                    {{--                                    </li>--}}
+                    {{--                                    <li class="stars" data-val="4">--}}
+                    {{--                                        <i class="fas fa-star"></i>--}}
+                    {{--                                        <i class="fas fa-star"></i>--}}
+                    {{--                                        <i class="fas fa-star"></i>--}}
+                    {{--                                        <i class="fas fa-star"></i>--}}
+                    {{--                                    </li>--}}
+                    {{--                                    <li class="stars active" data-val="5">--}}
+                    {{--                                        <i class="fas fa-star"></i>--}}
+                    {{--                                        <i class="fas fa-star"></i>--}}
+                    {{--                                        <i class="fas fa-star"></i>--}}
+                    {{--                                        <i class="fas fa-star"></i>--}}
+                    {{--                                        <i class="fas fa-star"></i>--}}
+                    {{--                                    </li>--}}
+                    {{--                                </ul>--}}
+                    {{--                            </div>--}}
+                    {{--                        </div>--}}
+                    {{--                        <div class="write-comment-area">--}}
+                    {{--                            <div class="gocover"--}}
+                    {{--                                 style="background: url({{ asset('assets/images/'.$gs->loader) }}) no-repeat scroll center center rgba(45, 45, 45, 0.5);">--}}
+                    {{--                            </div>--}}
+                    {{--                            <form id="reviewform" action="{{ route('front.review.submit') }}"--}}
+                    {{--                                  data-href="{{ route('front.customerreviews',$productt->id) }}"--}}
+                    {{--                                  data-side-href="{{ route('front.side.reviews',$productt->id) }}" method="post" >--}}
+                    {{--                                @csrf--}}
+                    {{--                                <input type="hidden" id="rating" name="rating" value="5">--}}
+                    {{--                                <input type="hidden" name="user_id" value="{{ Auth::user()->id ?? '' }}">--}}
+                    {{--                                <input type="hidden" name="product_id" value="{{ $productt->id }}">--}}
+                    {{--                                <div class="row">--}}
+                    {{--                                    <div class="col-lg-12">--}}
+                    {{--                                <textarea name="review" placeholder="{{ __('Write Your Review *') }}"--}}
+                    {{--                                          required></textarea>--}}
+                    {{--                                    </div>--}}
+                    {{--                                </div>--}}
+                    {{--                                @auth--}}
+                    {{--                                <div class="row">--}}
+                    {{--                                    <div class="col-lg-12">--}}
+                    {{--                                        <button class="btnStyle" type="submit">{{ __('Submit') }}</button>--}}
+                    {{--                                    </div>--}}
+                    {{--                                </div>--}}
+                    {{--                                @endauth--}}
+                    {{--                                @guest--}}
+                    {{--                                    <a href="{{route('user.login')}}" class="btnStyle">Submit</a>--}}
+                    {{--                                @endguest--}}
+                    {{--                            </form>--}}
+                    {{--                        </div>--}}
+                    {{--                    </div>--}}
 
-{{--                </div>--}}
-{{--            </div>--}}
+                    {{--                </div>--}}
+                    {{--            </div>--}}
 
                 </div>
             </div>

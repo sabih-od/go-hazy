@@ -30,7 +30,7 @@ class ReadCsvFile implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($line, $log,$i)
+    public function __construct($line, $log, $i)
     {
         $this->line = $line;
 //        $this->request = $request;
@@ -65,7 +65,6 @@ class ReadCsvFile implements ShouldQueue
                 'slug' => Str::slug($this->line[1]),
                 'language_id' => 1
             ]);
-
             if ($mcat->exists()) {
                 $input['category_id'] = $mcat->id;
 
