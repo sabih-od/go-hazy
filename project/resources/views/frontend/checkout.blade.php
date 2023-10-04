@@ -318,28 +318,28 @@
                             @endif
                         </div>
                         <hr class="w-100">
-                        @if(Session::has('cate_id'))
-                            @php
-                                $get_cate_id = Session::get('cate_id');
-                                if(!is_null($get_cate_id)){
-                                    $get_coupon_code =  App\Models\Coupon::where('category', $get_cate_id)->first();
-                                    $show_coupon_code = $get_coupon_code ? $get_coupon_code->code : '0';
-                                }
-                                else {
-                                    $show_coupon_code = '0';
-                                }
-                            @endphp
-                        @endif
+{{--                        @if(Session::has('cate_id'))--}}
+{{--                            @php--}}
+{{--                                $get_cate_id = Session::get('cate_id');--}}
+{{--                                if(!is_null($get_cate_id)){--}}
+{{--                                    $get_coupon_code =  App\Models\Coupon::where('category', $get_cate_id)->first();--}}
+{{--                                    $show_coupon_code = $get_coupon_code ? $get_coupon_code->code : '0';--}}
+{{--                                }--}}
+{{--                                else {--}}
+{{--                                    $show_coupon_code = '0';--}}
+{{--                                }--}}
+{{--                            @endphp--}}
+{{--                        @endif--}}
 
-                        <div class="col-md-12 d-flex align-items-center justify-content-between" id="discount-bar">
-                            <span>Coupon</span>
-                            <strong id="discount_amount2">
-                                {{ $show_coupon_code ?: 'Not Available' }}
-                            </strong>
-                        </div>
+{{--                        <div class="col-md-12 d-flex align-items-center justify-content-between" id="discount-bar">--}}
+{{--                            <span>Coupon</span>--}}
+{{--                            <strong id="discount_amount2">--}}
+{{--                                {{ $show_coupon_code ?: 'Not Available' }}--}}
+{{--                            </strong>--}}
+{{--                        </div>--}}
 
 
-                        <hr class="w-100">
+{{--                        <hr class="w-100">--}}
                         <div class="col-md-12 d-flex align-items-center justify-content-between">
                             <span>Total</span>
                             <strong

@@ -223,7 +223,11 @@
                                                                                         $get_coupon_code = App\Models\Coupon::where('code', Session::get('coupon_code'))->first();
                                                                                         $show_coupon_price = $get_coupon_code ? $get_coupon_code->price : 0;
                                                                                     @endphp
-                                                                                    {{ $show_coupon_price }}
+                                                                                    @if($get_coupon_code->type === 0)
+                                                                                        {{ $show_coupon_price }}%
+                                                                                    @elseif($get_coupon_code->type === 1)
+                                                                                        {{ $show_coupon_price }}$
+                                                                                    @endif
                                                                                 @endif
                                                                             </p>
                                                                         @elseif (Session::has('coupon_code'))
@@ -233,13 +237,19 @@
                                                                                         $get_coupon_code = App\Models\Coupon::where('code', Session::get('coupon_code'))->first();
                                                                                         $show_coupon_price = $get_coupon_code ? $get_coupon_code->price : 0;
                                                                                     @endphp
-                                                                                    {{ $show_coupon_price}}$
+                                                                                    @if($get_coupon_code->type === 0)
+                                                                                        {{ $show_coupon_price }}%
+                                                                                    @elseif($get_coupon_code->type === 1)
+                                                                                        {{ $show_coupon_price }}$
+                                                                                    @endif
                                                                                 @endif
                                                                             </p>
                                                                         @elseif (!is_null($order->getPercentage))
                                                                             <p>{{ __('Discount:') }}
                                                                                 @if ($order->method != "Wallet")
-                                                                                    {{ \PriceHelper::showCurrencyPrice(!is_null($order->getPercentage) ? $order->getPercentage->percentage : 0) }}
+                                                                                    {{(!is_null($order->getPercentage) ? $order->getPercentage->percentage : 0) }}%
+
+                                                                                    {{--                                                                                    {{ \PriceHelper::showCurrencyPrice(!is_null($order->getPercentage) ? $order->getPercentage->percentage : 0) }}%--}}
                                                                                 @endif
                                                                             </p>
                                                                         @else
@@ -344,7 +354,11 @@
                                                                                             $get_coupon_code = App\Models\Coupon::where('code', Session::get('coupon_code'))->first();
                                                                                             $show_coupon_price = $get_coupon_code ? $get_coupon_code->price : 0;
                                                                                         @endphp
-                                                                                        {{ $show_coupon_price }}
+                                                                                         @if($get_coupon_code->type === 0)
+                                                                                        {{ $show_coupon_price }}%
+                                                                                             @elseif($get_coupon_code->type === 1)
+                                                                                            {{ $show_coupon_price }}$
+                                                                                             @endif
                                                                                     @endif
                                                                                 </p>
                                                                             @elseif (Session::has('coupon_code'))
@@ -354,7 +368,11 @@
                                                                                             $get_coupon_code = App\Models\Coupon::where('code', Session::get('coupon_code'))->first();
                                                                                             $show_coupon_price = $get_coupon_code ? $get_coupon_code->price : 0;
                                                                                         @endphp
-                                                                                        {{ $show_coupon_price}}$
+                                                                                        @if($get_coupon_code->type === 0)
+                                                                                            {{ $show_coupon_price }}%
+                                                                                        @elseif($get_coupon_code->type === 1)
+                                                                                            {{ $show_coupon_price }}$
+                                                                                        @endif
                                                                                     @endif
                                                                                 </p>
                                                                             @elseif (!is_null($order->getPercentage))

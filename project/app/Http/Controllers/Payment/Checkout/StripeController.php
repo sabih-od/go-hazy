@@ -79,7 +79,7 @@ class StripeController extends CheckoutBaseControlller
 
                         $veteran_discount = $get_total_price - (($get_total_price * $veteran_discount_percentage) / 100);
 
-                        $get_coupon_discount = $get_total_price - (($get_coupon_code->price * $veteran_discount) / 100);
+                        $get_coupon_discount = $veteran_discount - (($get_coupon_code->price * $veteran_discount) / 100);
 
                         $total = abs($get_coupon_discount);
                     }

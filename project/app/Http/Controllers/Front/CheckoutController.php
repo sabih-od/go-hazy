@@ -99,7 +99,8 @@ class CheckoutController extends FrontBaseController
 
                         $veteran_discount = $get_total_price - (($get_total_price * $veteran_discount_percentage) / 100);
 
-                        $get_coupon_discount = $get_total_price - (($get_coupon_code->price * $veteran_discount) / 100);
+                        $get_coupon_discount = $veteran_discount - (($get_coupon_code->price * $veteran_discount) / 100);
+
 
                         $total_discount_price = abs($get_coupon_discount);
                     }
@@ -111,11 +112,12 @@ class CheckoutController extends FrontBaseController
                 $veteran_discount = $get_total_price - (($get_total_price * $veteran_discount_percentage) / 100);
 
                 $total_discount_price = abs($veteran_discount);
-            } else {
-                //All Without Discount Ammount
-                $get_total_price = Session::get('cart')->totalPrice;
-                $total_discount_price = abs($get_total_price);
             }
+//            else {
+//                //All Without Discount Ammount
+//                $get_total_price = Session::get('cart')->totalPrice;
+//                $total_discount_price = abs($get_total_price);
+//            }
         } elseif (Session::has('coupon')) {
             $get_coupon_code = Coupon::where('code', Session::get('coupon_code'))->first();
 
