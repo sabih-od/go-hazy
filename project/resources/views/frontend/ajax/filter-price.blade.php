@@ -13,10 +13,16 @@
                     <div class="col-lg-4 col-sm-6">
                         <div class="product-box">
                             <div class="pro-img">
-                                <a href="#">
+                                <a href="{{ route('front.product', $item['slug']) }}">
+                                    @if(!empty($item->photo) && file_exists(public_path('assets/images/products/'.$item->photo )))
                                     <img
-                                        src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}"
+                                        src="{{asset('assets/images/products/'.$item->photo)}}"
                                         alt="img">
+                                    @else
+                                        <img
+                                            src="{{asset('assets/images/noimage.png')}}"
+                                            alt="img">
+                                    @endif
                                 </a>
 
                                 @if (round((int)$item->offPercentage()) > 0)

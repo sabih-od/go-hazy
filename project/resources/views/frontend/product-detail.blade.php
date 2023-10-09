@@ -53,19 +53,38 @@
                             @endforeach
                             {{--                            @endif--}}
                         </div>
+
                     </div>
+                    <div id="div_img"></div>
                 </div>
                 <div class="col-md-6">
                     <div class="prodctdetailContent">
                         <h2>{{ $productt->name ?? '' }}
                         </h2>
-                        <span>{{ $productt->setCurrency() ?? '' }}</span>
-                        <del>{{ $productt->showPreviousPrice() ?? '' }}</del>
-                        @if (round((int)$productt->offPercentage()) > 0)
-                            <div class="on-sale">{{ round((int)$productt->offPercentage() )}}% Off</div>
-                        @endif
+                        <div id="original_price">
+                            <span>{{ $productt->setCurrency() ?? '' }}</span>
+                            <del>{{ $productt->showPreviousPrice() ?? '' }}</del>
+                            @if (round((int)$productt->offPercentage()) > 0)
+                                <div class="on-sale">{{ round((int)$productt->offPercentage() )}}% Off</div>
+                            @endif
+                        </div>
+                        <div id="variation_price" style="display: none"></div>
                         <p>{!! $productt->details !!}
                         </p>
+
+
+                        @foreach ($variation as $categoryName => $categoryItems)
+                            <h2 class="mb-4">{{ $categoryName }}</h2>
+                            <select class="form-control mb-3 click_variation_option">
+                                <option value="">select {{ $categoryName }}</option>
+                                @foreach ($categoryItems as $item)
+                                    <option value="{{ $item->option_id}}">{{ $item->option_name }}</option>
+                                @endforeach
+                            </select>
+                        @endforeach
+                        <input type="hidden" id="selected_option_ids" name="selected_option_ids" value="">
+
+
                     </div>
                     <form action="{{ route('product.cart.quickadd', $productt->id) }}" method="POST"
                           enctype="multipart/form-data">
@@ -76,58 +95,67 @@
                                    value="1">
                             <span class="plus">+</span>
 
-                            @if ($productt->stock_check == 1)
-                                {{-- Product Size Option--}}
-                                @if(!empty($productt->size))
-                                    <div class="product-size">
-                                        <p class="title">{{ __('Variations :') }}</p>
-                                        <select name="size" id="size" class="form-control">
-                                            @foreach(array_unique($productt->size) as $key => $data1)
-                                                <option value="{{ str_replace(' ','',$data1) }}">{{ $data1 }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                @endif
-                                {{-- PRODUCT COLOR SECTION  --}}
-                                {{--                                @if(!empty($productt->color))--}}
-                                {{--                                    <div class="product-color">--}}
-                                {{--                                        <div class="title">{{ __('Color :') }}</div>--}}
-                                {{--                                        <select name="color" id="color" onChange="update()" style="border-radius: 3px;">--}}
-                                {{--                                            @foreach($productt->color as $key => $color1)--}}
-                                {{--                                                <option value="{{ $color1 }}"--}}
-                                {{--                                                        style="background-color: {{ $color1 }};"></option>--}}
-                                {{--                                            @endforeach--}}
-                                {{--                                        </select>--}}
-                                {{--                                    </div>--}}
+                            {{--                            @if ($productt->stock_check == 1)--}}
+                            {{--                                --}}{{-- Product Size Option--}}
+                            {{--                                @if(!empty($productt->size))--}}
+                            {{--                                    <div class="product-size">--}}
+                            {{--                                        <p class="title">{{ __('Variations :') }}</p>--}}
+                            {{--                                        <select name="size" id="size" class="form-control">--}}
+                            {{--                                            @foreach(array_unique($productt->size) as $key => $data1)--}}
+                            {{--                                                <option value="{{ str_replace(' ','',$data1) }}">{{ $data1 }}</option>--}}
+                            {{--                                            @endforeach--}}
+                            {{--                                        </select>--}}
+                            {{--                                    </div>--}}
+                            {{--                                @endif--}}
+                            {{--                                 PRODUCT COLOR SECTION  --}}
+                            {{--                                                                @if(!empty($productt->color))--}}
+                            {{--                                                                    <div class="product-color">--}}
+                            {{--                                                                        <div class="title">{{ __('Color :') }}</div>--}}
+                            {{--                                                                        <select name="color" id="color" onChange="update()" style="border-radius: 3px;">--}}
+                            {{--                                                                            @foreach($productt->color as $key => $color1)--}}
+                            {{--                                                                                <option value="{{ $color1 }}"--}}
+                            {{--                                                                                        style="background-color: {{ $color1 }};"></option>--}}
+                            {{--                                                                            @endforeach--}}
+                            {{--                                                                        </select>--}}
+                            {{--                                                                    </div>--}}
 
-                                {{--                                @endif--}}
-                                {{-- PRODUCT COLOR SECTION ENDS  --}}
-                            @else
-                                @if(!empty($productt->size_all))
-                                    <div class="product-size" data-key="false">
-                                        <span class="title">{{ __('Size :') }}</span>
-                                        <select name="size" id="size" class="form-control">
-                                            @foreach(array_unique(explode(',',$productt->size_all)) as $key => $data1)
-                                                <option value="{{ str_replace(' ','',$data1) }}">{{ $data1 }}</option>
-                                                {{--                                            <input type="hidden" class="size" value="{{$data1}}">--}}
-                                                {{--                                            <input type="hidden" class="size_key" value="{{$key}}">--}}
-                                            @endforeach
-                                        </select>
+                            {{--                                                                @endif--}}
+                            {{--                                 PRODUCT COLOR SECTION ENDS  --}}
+                            {{--                            @else--}}
+                            {{--                                @if(!empty($productt->size_all))--}}
+                            {{--                                    <div class="product-size" data-key="false">--}}
+                            {{--                                        <span class="title">{{ __('Size :') }}</span>--}}
+                            {{--                                        <select name="size" id="size" class="form-control">--}}
+                            {{--                                            @foreach(array_unique(explode(',',$productt->size_all)) as $key => $data1)--}}
+                            {{--                                                <option value="{{ str_replace(' ','',$data1) }}">{{ $data1 }}</option>--}}
+                            {{--                                                                                            <input type="hidden" class="size" value="{{$data1}}">--}}
+                            {{--                                                                                            <input type="hidden" class="size_key" value="{{$key}}">--}}
+                            {{--                                            @endforeach--}}
+                            {{--                                        </select>--}}
 
-                                    </div>
-                                @endif
-                                @if(!empty($productt->color_all))
-                                    <div class="product-color" data-key="false">
-                                        <div class="title">{{ __('Color :') }}</div>
-                                        <select name="color" id="color" onChange="update()" style="border-radius: 3px;">
-                                            @foreach(explode(',', $productt->color_all) as $key => $color1)
-                                                <option value="{{ $color1 }}"
-                                                        style="background-color: {{ $color1 }};"></option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                @endif
-                            @endif
+                            {{--                                    </div>--}}
+                            {{--                                @endif--}}
+                            {{--                                @if(!empty($productt->color_all))--}}
+                            {{--                                    <div class="product-color" data-key="false">--}}
+                            {{--                                        <div class="title">{{ __('Color :') }}</div>--}}
+                            {{--                                        <select name="color" id="color" onChange="update()" style="border-radius: 3px;">--}}
+                            {{--                                            @foreach(explode(',', $productt->color_all) as $key => $color1)--}}
+                            {{--                                                <option value="{{ $color1 }}"--}}
+                            {{--                                                        style="background-color: {{ $color1 }};"></option>--}}
+                            {{--                                            @endforeach--}}
+                            {{--                                        </select>--}}
+                            {{--                                    </div>--}}
+                            {{--                                @endif--}}
+                            {{--                            @endif--}}
+
+
+                            {{--                                 <select>--}}
+                            {{--                                     @foreach($productt->productVariants->option_type as $option_variation)--}}
+                            {{--                                         <option value="{{$option_variation}}">{{$option_variation}}</option>--}}
+                            {{--                                     @endforeach--}}
+                            {{--                                 </select>--}}
+
+
                             <input type="hidden" id="product_id" name="product_id"
                                    value="{{ $productt->id }}">
                             <div class="cartBtn">
@@ -522,6 +550,61 @@
                     window.location.reload();
                 },
             });
+        });
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('.click_variation_option').on('change', function () {
+
+            var ids = []
+            const prd_id = "{{ $productt->id }}"
+            $('.click_variation_option').each(function () {
+                ids.push($(this).val());
+            });
+
+            if (ids.length > 0) {
+                $.ajax({
+                    url: "{{ route('front.variation.item') }}",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        prd_id,
+                        ids
+                    },
+                    success: function (data) {
+                        if (data?.items) {
+                            const img = data.items.filter(item => item?.option_image && item.option_image.length > 0).map(item => item.option_image)
+
+                            if (img.length > 0) {
+                                var imageUrl = "{{ asset('assets/images/variation/') }}" + '/' + img[0];
+                                $('#div_img').html('<img class="img-fluid" src="' + imageUrl + '">');
+                                $('.productImgMain').hide();
+                            } else {
+                                $('#div_img').html("");
+                                $('.productImgMain').show();
+                            }
+
+                            if (data?.price?.original_price) {
+                                $('#original_price').hide()
+                                $('#variation_price').html(`<span>$${data.price.original_price}</span>`).show();
+                            } else {
+                                $('#original_price').show()
+                                $('#variation_price').html("").hide()
+                            }
+
+                        }
+                    }
+                });
+            } else {
+                $('#original_price').show()
+                $('#variation_price').html("").hide()
+                $('#div_img').html("");
+                $('.productImgMain').show();
+            }
         });
 
     </script>
