@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\CrudGenerator::class,
         Commands\ThirtyPercentAdd::class,
+        Commands\PVImageJobDispatch::class,
 
 
         //
@@ -43,4 +44,5 @@ class Kernel extends ConsoleKernel
 
         require base_path('routes/console.php');
     }
+
 }
