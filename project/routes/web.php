@@ -1476,6 +1476,9 @@ Route::post('/item/report', 'Front\CatalogController@report')->name('product.rep
     Route::get('/item/view/side/review/{id}','Front\ProductDetailsController@sideReviews')->name('front.side.reviews');
     // PRODCT SECTION ENDS
 
+    //Product Variation Option
+    Route::post('item','Front\ProductDetailsController@getProductVariation')->name('front.variation.item');
+
     // COMMENT SECTION
     Route::post('/item/comment/store', 'Front\ProductDetailsController@comment')->name('product.comment');
     Route::post('/item/comment/edit/{id}', 'Front\ProductDetailsController@commentedit')->name('product.comment.edit');
