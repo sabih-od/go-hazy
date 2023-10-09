@@ -519,4 +519,14 @@ class Product extends Model
 
     }
 
+    public function productVariants()
+    {
+        return $this->hasMany(ProductVariation::class);
+    }
+
+    public function productPrices()
+    {
+        return $this->hasMany(ProductVariationPrice::class);
+    }
+
 }
