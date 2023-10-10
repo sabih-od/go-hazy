@@ -140,10 +140,17 @@ class StripeController extends CheckoutBaseControlller
 
         if ($request->pass_check) {
             $auth = OrderHelper::auth_check($input); // For Authentication Checking
-            if (!$auth['auth_success']) {
+
+            if ($auth && isset($auth['auth_success']) && !$auth['auth_success']) {
                 return redirect()->back()->with('unsuccess', $auth['error_message']);
             }
         }
+//        if ($request->pass_check) {
+//            $auth = OrderHelper::auth_check($input); // For Authentication Checking
+//            if (!$auth['auth_success']) {
+//                return redirect()->back()->with('unsuccess', $auth['error_message']);
+//            }
+//        }
 
         if (!Session::has('cart')) {
             return redirect()->route('front.cart')->with('success', __("You don't have any product to checkout."));

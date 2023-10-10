@@ -76,7 +76,7 @@
 {{--                        {{dd($variation)}}--}}
                         @foreach ($variation as $categoryName => $categoryItems)
                             <h2 class="mb-4">{{ $categoryName }}</h2>
-                            <select class="form-control mb-3 click_variation_option">
+                            <select class="form-control mb-3 click_variation_option" name="{{ $categoryName }}">
                                 <option value="">select {{ $categoryName }}</option>
                                 @foreach ($categoryItems as $item)
                                     <option value="{{ $item->option_id}}">{{ $item->option_name }}</option>
@@ -489,8 +489,9 @@
         $(document).on("click", "#addcrt", function () {
             var qty = $(".qttotal").val() ? $(".qttotal").val() : 1;
             var pid = $("#product_id").val();
-            var colors = $('select[name="color"]').find(":selected").val();
-            var sizes = $('select[name="size"]').find(":selected").text();
+            var colors = $('select[name="Color"]').find(":selected").val();
+            var sizes = $('select[name="Size"]').find(":selected").text();
+
 
             var ids = [];
 
@@ -587,9 +588,8 @@
                 ids.push($(this).val());
             });
 
-            if (ids.length > 0) {
 
-                console.log(ids);
+            if (ids.length > 0) {
                 $.ajax({
                     url: "{{ route('front.variation.item') }}",
                     type: "post",
@@ -599,7 +599,6 @@
                         ids
                     },
                     success: function (data) {
-                        console.log(data.price);
                         if (data?.items) {
                             const img = data.items.filter(item => item?.option_image && item.option_image.length > 0).map(item => item.option_image)
 
