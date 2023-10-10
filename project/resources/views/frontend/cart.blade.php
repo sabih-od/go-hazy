@@ -20,7 +20,6 @@
         </div>
     </section>
 
-
     <!-- Begin: Step 1 -->
     <div class="checkOutStyle">
         <div class="container">
@@ -36,6 +35,7 @@
 
                 @forelse($products as $product)
                     <div class="col-md-1">
+
                         <img src="{{ asset('assets/images/products/'.$product['item']['photo']) }}" alt="">
                     </div>
                     <div class="col-md-5 text-left">
@@ -56,8 +56,17 @@
                             </p>
                         @endif
                     </div>
+
                     <div class="col-md-2">
-                        <strong class="price">${{ $product['item']->price ?? '' }}</strong>
+                        <strong class="price">
+                            @if (isset($product['originalPrice']) && $product['originalPrice'] != null)
+                                ${{ $product['originalPrice'] }}
+                            @elseif ($product['item']->price !=null)
+                                ${{ $product['item']->price }}
+                            @else
+                              -
+                            @endif
+                        </strong>
                     </div>
 {{--                    <div class="col-md-2">--}}
 {{--                        <div class="proCounter">--}}
@@ -75,7 +84,15 @@
 {{--                        </div>--}}
 {{--                    </div>--}}
                     <div class="col-md-1">
-                        <strong class="price">${{ $product['price'] ?? ''}}</strong>
+                        <strong class="price">
+                            @if (isset($product['totalPrice']) && $product['totalPrice'] != null)
+                                ${{ $product['totalPrice'] }}
+                            @elseif ($product['item']->price !=null)
+                                ${{ $product['item']->price }}
+                            @else
+                                -
+                            @endif
+                        </strong>
                     </div>
                     <div class="col-md-1">
                         <a href="#" class="remove cart-remove delete"

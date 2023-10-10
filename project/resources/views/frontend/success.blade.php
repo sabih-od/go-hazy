@@ -3,6 +3,7 @@
 @section('content')
     @include('partials.global.common-header')
 
+
     <!-- breadcrumb -->
     <div class="full-row bg-light overlay-dark py-5"
          style="background-image: url({{ $gs->breadcrumb_banner ? asset('assets/images/'.$gs->breadcrumb_banner):asset('assets/images/noimage.png') }}); background-position: center center; background-size: cover;">
@@ -297,24 +298,25 @@
                                                                     <th width="35%">{{ __('Name') }}</th>
                                                                     <th width="20%">{{ __('Details') }}</th>
                                                                     <th>{{ __('Price') }}</th>
-                                                                    <th>{{ __('Discount') }}</th>
+{{--                                                                    <th>{{ __('Discount') }}</th>--}}
                                                                     <th>{{ __('Total') }}</th>
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
 
-                                                                @foreach($tempcart->items as $product)
+                                                                @php
+                                                                $pro = json_decode($tempcart);
+                                                                @endphp
+                                                                @foreach($pro as $product)
+
+
                                                                     <tr>
 
-                                                                        <td>{{ $product['item']['name'] }}</td>
+                                                                        <td>{{ $product->item->name }}</td>
                                                                         <td>
-                                                                            <b>{{ __('Quantity') }}</b>: {{$product['qty']}}
+                                                                            <b>{{ __('Quantity') }}</b>: {{$product->qty}}
                                                                             <br>
-                                                                            @if(!empty($product['size']))
-                                                                                <b>{{ __('Variation') }}</b>:
-                                                                                {{ $product['item']['measure'] }}{{str_replace('-',' ',$product['size'])}}
-                                                                                <br>
-                                                                            @endif
+
                                                                             {{--                                                                            @if(!empty($product['color']))--}}
                                                                             {{--                                                                                <div class="d-flex mt-2">--}}
                                                                             {{--                                                                                    <b>{{ __('Color') }}</b> : <span--}}
@@ -323,69 +325,14 @@
                                                                             {{--                                                                                </div>--}}
                                                                             {{--                                                                            @endif--}}
 
-                                                                            @if(!empty($product['keys']))
 
-                                                                                @foreach( array_combine(explode(',',
-                                                                                $product['keys']), explode(',', $product['values']))
-                                                                                as $key => $value)
-
-                                                                                    <b>{{ ucwords(str_replace('_', ' ', $key))  }}
-                                                                                        :
-                                                                                    </b> {{ $value }} <br>
-                                                                                @endforeach
-
-                                                                            @endif
 
                                                                         </td>
-                                                                        <td>{{ $product['item']['price'] }}$
+                                                                        <td>{{ $product->originalPrice }}$
 {{--                                                                        <td>{{ \PriceHelper::showCurrencyPrice(($order->pay_amount) + $order->coupon_discount)  }}--}}
                                                                         </td>
-                                                                        <td>
-                                                                            @if (!is_null($order->getPercentage) && Session::has('coupon_code'))
-                                                                                <p>{{ __('Discount:') }}
-                                                                                    @if ($order->method != "Wallet")
-                                                                                        {{(!is_null($order->getPercentage) ? $order->getPercentage->percentage : 0) }}%
-                                                                                    @endif
-                                                                                </p>
-
-                                                                                <p>{{ __('Coupon:') }}
-                                                                                    @if ($order->method != "Wallet")
-                                                                                        @php
-                                                                                            $get_coupon_code = App\Models\Coupon::where('code', Session::get('coupon_code'))->first();
-                                                                                            $show_coupon_price = $get_coupon_code ? $get_coupon_code->price : 0;
-                                                                                        @endphp
-                                                                                         @if($get_coupon_code->type === 0)
-                                                                                        {{ $show_coupon_price }}%
-                                                                                             @elseif($get_coupon_code->type === 1)
-                                                                                            {{ $show_coupon_price }}$
-                                                                                             @endif
-                                                                                    @endif
-                                                                                </p>
-                                                                            @elseif (Session::has('coupon_code'))
-                                                                                <p>{{ __('Coupon:') }}
-                                                                                    @if ($order->method != "Wallet")
-                                                                                        @php
-                                                                                            $get_coupon_code = App\Models\Coupon::where('code', Session::get('coupon_code'))->first();
-                                                                                            $show_coupon_price = $get_coupon_code ? $get_coupon_code->price : 0;
-                                                                                        @endphp
-                                                                                        @if($get_coupon_code->type === 0)
-                                                                                            {{ $show_coupon_price }}%
-                                                                                        @elseif($get_coupon_code->type === 1)
-                                                                                            {{ $show_coupon_price }}$
-                                                                                        @endif
-                                                                                    @endif
-                                                                                </p>
-                                                                            @elseif (!is_null($order->getPercentage))
-                                                                                <p>{{ __('Discount:') }}
-                                                                                    @if ($order->method != "Wallet")
-                                                                                        {{(!is_null($order->getPercentage) ? $order->getPercentage->percentage : 0) }}%
-                                                                                    @endif
-                                                                                </p>
-                                                                            @else
-                                                                                <p>{{ __('Discount:') }}
-                                                                                    0$
-                                                                                </p>
-                                                                            @endif
+                                                                        <td>{{ $product->originalPrice }}$
+                                                                            {{--                                                                        <td>{{ \PriceHelper::showCurrencyPrice(($order->pay_amount) + $order->coupon_discount)  }}--}}
                                                                         </td>
 
 {{--                                                                        <td>--}}
@@ -396,11 +343,9 @@
 {{--                                                                            <small>{{ $product['discount'] == 0 ? '' : '('.$product['discount'].'% '.__('Off').')' }}</small>--}}
 {{--                                                                        </td>--}}
 
-                                                                        <td>{{ \PriceHelper::showOrderCurrencyPrice((($order->pay_amount+$order->wallet_price) * $order->currency_value),$order->currency_sign) }}
-                                                                            <small>{{ $product['discount'] == 0 ? '' : '('.$product['discount'].'% '.__('Off').')' }}</small>
-                                                                        </td>
 
                                                                     </tr>
+
                                                                 @endforeach
 
                                                                 </tbody>

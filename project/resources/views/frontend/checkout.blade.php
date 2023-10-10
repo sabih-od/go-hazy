@@ -276,6 +276,14 @@
                 </div>
             </form>
 
+      @php
+          $data = Session::get('cart');
+          $total = 0;
+          foreach($data->items as $price)
+          {
+              $total = $total + $price['totalPrice'];
+          }
+      @endphp
             @if(Session::has('cart'))
                 <div class="col-md-12 title my-5 text-center">
                     <h2>Order Summary</h2>
@@ -284,9 +292,9 @@
                     <div class="row no-gutters">
                         <div class="col-md-12 d-flex align-items-center justify-content-between">
                             <span>Subtotal ({{ Session::has('cart') ? count(Session::get('cart')->items) : '0' }} items)</span>
-                            <strong>{{ Session::has('cart') ? (Session::get('cart')->totalPrice) : '0.00' }} $</strong>
+                            <strong>{{ $total ? ($total) : '0.00' }} $</strong>
                             <input type="hidden" id="ttotal"
-                                   value="{{ Session::has('cart') ? (Session::get('cart')->totalPrice) : '0' }}">
+                                   value="{{ $total ? ($total) : '0' }}">
                         </div>
                         {{--                        <hr class="w-100">--}}
                         {{--                        <div class="col-md-12 d-flex align-items-center justify-content-between">--}}
@@ -344,7 +352,7 @@
                             <span>Total</span>
                             <strong
                                 id="grand_total">
-                                {{$total_discount_price}} $
+                                {{$total}} $
 
                                 {{-- {{ Session::has('cart') ?--}}
                                 {{--                                   Session::has('coupon') ?--}}

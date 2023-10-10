@@ -98,6 +98,8 @@ class StripeController extends CheckoutBaseControlller
                 $total = abs($get_total_price);
             }
         } elseif (Session::has('coupon')) {
+
+
             $get_coupon_code = Coupon::where('code', Session::get('coupon_code'))->first();
 
             if ($get_coupon_code) {
@@ -123,9 +125,16 @@ class StripeController extends CheckoutBaseControlller
                 }
             }
         } else {
+            $get_total_price = Session::get('cart');
+            $total = 0;
+            foreach ($get_total_price->items as $price)
+            {
+                $total = $total + $price['totalPrice'];
+            }
+
             //All Without Discount Ammount
-            $get_total_price = Session::get('cart')->totalPrice;
-            $total = abs($get_total_price);
+//            $get_total_price = Session::get('cart')->totalPrice;
+//            $total = abs($get_total_price);
         }
 
 
@@ -140,6 +149,7 @@ class StripeController extends CheckoutBaseControlller
             return redirect()->route('front.cart')->with('success', __("You don't have any product to checkout."));
         }
 
+
         $item_name = $this->gs->title . " Order";
         $item_number = Str::random(4) . time();
         $item_amount = $total;
@@ -153,6 +163,7 @@ class StripeController extends CheckoutBaseControlller
             'month' => 'required',
             'year' => 'required',
         ]);
+
 
 
         if ($validator->passes()) {
@@ -180,22 +191,28 @@ class StripeController extends CheckoutBaseControlller
                 if ($charge['status'] == 'succeeded') {
 
                     $oldCart = Session::get('cart');
-                    $cart = new Cart($oldCart);
-                    OrderHelper::license_check($cart); // For License Checking
-                    $t_oldCart = Session::get('cart');
-                    $t_cart = new Cart($t_oldCart);
-                    $new_cart = [];
-                    $new_cart['totalQty'] = $t_cart->totalQty;
-                    $new_cart['totalPrice'] = $t_cart->totalPrice;
-                    $new_cart['items'] = $t_cart->items;
-                    $new_cart = json_encode($new_cart);
-                    $temp_affilate_users = OrderHelper::product_affilate_check($cart); // For Product Based Affilate Checking
-                    $affilate_users = $temp_affilate_users == null ? null : json_encode($temp_affilate_users);
+//                    $cart = new Cart($oldCart);
+//                    OrderHelper::license_check($cart); // For License Checking
+//                    $t_oldCart = Session::get('cart');
+//                    $t_cart = new Cart($t_oldCart);
+//                    $new_cart = [];
+//                    $new_cart['totalQty'] = $t_cart->totalQty;
+//                    $new_cart['totalPrice'] = $total;
+//                    $new_cart['items'] = $t_cart->items;
+//                    $new_cart = json_encode($new_cart);
+//                    $temp_affilate_users = OrderHelper::product_affilate_check($cart); // For Product Based Affilate Checking
+//                    $affilate_users = $temp_affilate_users == null ? null : json_encode($temp_affilate_users);
+
+
+
+                    $cart = json_encode(Session::get('cart')->items);
+
+
 
                     $order = new Order;
-                    $input['cart'] = $new_cart;
+                    $input['cart'] = $cart;
                     $input['user_id'] = Auth::check() ? Auth::user()->id : NULL;
-                    $input['affilate_users'] = $affilate_users;
+                    $input['affilate_users'] = '0';
                     $input['pay_amount'] = (int)$item_amount / (int)$this->curr->value;
                     $input['order_number'] = $item_number;
                     $input['wallet_price'] = $request->wallet_price / $this->curr->value;
@@ -218,13 +235,7 @@ class StripeController extends CheckoutBaseControlller
                         $val = $request->total / $this->curr->value;
                         $val = $val / 100;
                         $sub = $val * $this->gs->affilate_charge;
-                        if ($temp_affilate_users != null) {
-                            $t_sub = 0;
-                            foreach ($temp_affilate_users as $t_cost) {
-                                $t_sub += $t_cost['charge'];
-                            }
-                            $sub = $sub - $t_sub;
-                        }
+
                         if ($sub > 0) {
                             $user = OrderHelper::affilate_check(Session::get('affilate'), $sub, $input['dp']); // For Affiliate Checking
                             $input['affilate_user'] = Session::get('affilate');
