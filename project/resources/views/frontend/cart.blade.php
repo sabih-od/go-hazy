@@ -51,8 +51,18 @@
                         {{--                        @endif--}}
                         @if(!empty($product['size']))
                             <p class="mb-2">
-                                <strong class="color">{{ __('Variation') }}
-                                    : {{str_replace('-',' ',$product['size'])}}</strong>
+                                <strong class="color">
+                                    {{ __('Variation') }} : {{str_replace('-',' ',$product['size'])}}
+                                </strong>
+                            </p>
+                            <p class="mb-1">
+                                <strong class="color">
+                                    {{ __('Qty') }} : {{str_replace('-',' ',$product['qty'])}}
+                                </strong>
+                            </p>
+
+                            <p class="mb-2">
+                                <strong class="color"></strong>
                             </p>
                         @endif
                     </div>
@@ -67,6 +77,9 @@
                               -
                             @endif
                         </strong>
+                    </div>
+                    <div class="col-md-2">
+
                     </div>
 {{--                    <div class="col-md-2">--}}
 {{--                        <div class="proCounter">--}}
