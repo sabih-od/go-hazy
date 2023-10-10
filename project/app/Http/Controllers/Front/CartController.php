@@ -20,6 +20,7 @@ class CartController extends FrontBaseController
             $products = [];
             return view('frontend.cart', compact('products'));
         }
+
         if (Session::has('already')) {
             Session::forget('already');
         }
@@ -358,8 +359,6 @@ class CartController extends FrontBaseController
 
     public function addnumcart(Request $request)
     {
-
-//        dd($request->all());
          $id = $_GET['id'];
          $get_cate_id=Product::where('id',$id)->first();
          if($get_cate_id){
@@ -490,9 +489,26 @@ class CartController extends FrontBaseController
             }
         }
 
-        $cart->addnum($prod, $prod->id, $qty, $size, $color, $size_qty, $size_price, $size_key, $keys, $values, $affilate_user);
+        $cart->addnum(
+            $prod,
+            $prod->id,
+            $qty,
+            $size,
+            $color,
+            $size_qty,
+            $size_price,
+            $size_key,
+            $keys,
+            $values,
+            $affilate_user,
+            $request->originalPrice,
+            $request->productPriceID,
+            $request->productoptionsID,
+        );
 
 
+
+//        dd($cart);
         if ($cart->items[$id . $size . $color . str_replace(str_split(' ,'), '', $values)]['dp'] == 1) {
             return 'digital';
         }
@@ -507,9 +523,17 @@ class CartController extends FrontBaseController
                 }
             }
         }
-
-
         $cart->totalPrice = 0;
+
+        $newCart = [];
+        $newCart['product_id'] =    $prod->id;
+        $newCart['quantity']   =    $request->qty;
+        $newCart['originalPrice']   =    $request->originalPrice;
+        $newCart['totalPrice']   =    $request->totalPrice;
+
+        Session::put('modifyCart', $newCart);
+
+
         foreach ($cart->items as $data)
             $cart->totalPrice += $data['price'];
         Session::put('cart', $cart);

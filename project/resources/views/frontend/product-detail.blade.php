@@ -73,6 +73,7 @@
                         </p>
 
 
+{{--                        {{dd($variation)}}--}}
                         @foreach ($variation as $categoryName => $categoryItems)
                             <h2 class="mb-4">{{ $categoryName }}</h2>
                             <select class="form-control mb-3 click_variation_option">
@@ -83,7 +84,9 @@
                             </select>
                         @endforeach
                         <input type="hidden" id="selected_option_ids" name="selected_option_ids" value="">
-
+                        <input type="hidden" id="originalPrice" name="originalPrice" value="">
+                        <input type="hidden" id="productPriceID" name="productPriceID" value="">
+                        <input type="hidden" id="productoptionsID" name="productoptionsID" value="">
 
                     </div>
                     <form action="{{ route('product.cart.quickadd', $productt->id) }}" method="POST"
@@ -489,6 +492,19 @@
             var colors = $('select[name="color"]').find(":selected").val();
             var sizes = $('select[name="size"]').find(":selected").text();
 
+            var ids = [];
+
+
+            $('.click_variation_option').each(function () {
+                ids.push($(this).val());
+            });
+
+            console.log(ids);
+
+            var originalPrice = $('#originalPrice').val();
+            var productPriceID = $('#productPriceID').val();
+            var productoptionsID = $('#productoptionsID').val();
+
             if ($(".product-attr").length > 0) {
                 values = $(".product-attr:checked")
                     .map(function () {
@@ -532,6 +548,11 @@
                     keys: keys,
                     values: values,
                     prices: prices,
+                    originalPrice: originalPrice,
+                    totalPrice: originalPrice*qty,
+                    productPriceID: productPriceID,
+                    productoptionsID: productoptionsID,
+
                 },
                 success: function (data) {
                     if (data == "digital") {
@@ -567,6 +588,8 @@
             });
 
             if (ids.length > 0) {
+
+                console.log(ids);
                 $.ajax({
                     url: "{{ route('front.variation.item') }}",
                     type: "post",
@@ -576,6 +599,7 @@
                         ids
                     },
                     success: function (data) {
+                        console.log(data.price);
                         if (data?.items) {
                             const img = data.items.filter(item => item?.option_image && item.option_image.length > 0).map(item => item.option_image)
 
@@ -591,6 +615,12 @@
                             if (data?.price?.original_price) {
                                 $('#original_price').hide()
                                 $('#variation_price').html(`<span>$${data.price.original_price}</span>`).show();
+                                $('#originalPrice').val(data.price.original_price);
+                                $('#productPriceID').val(data.price.product_id);
+                                $('#productoptionsID').val(data.price.option_ids);
+
+
+
                             } else {
                                 $('#original_price').show()
                                 $('#variation_price').html("").hide()

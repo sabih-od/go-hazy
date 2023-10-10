@@ -333,9 +333,10 @@ class CheckoutController extends FrontBaseController
     public function payreturn()
     {
         if (Session::has('tempcart')) {
-            $oldCart = Session::get('tempcart');
-            $tempcart = new Cart($oldCart);
+
             $order = Session::get('temporder');
+            $tempcart = Session::get('temporder')->cart;
+
         } else {
             $tempcart = '';
             return redirect()->back();
