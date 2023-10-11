@@ -25,18 +25,19 @@
                     <div class="productImgMain">
                         <div class="product-detail-slider swiper">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-{{--                                    @foreach($productt->galleries as $gal)--}}
+                                @foreach($productt->galleries as $gal)
+                                    <div class="swiper-slide">
                                         <figure class="position-relative">
                                             <img
-                                                class="zoom" data-magnify-src="{{asset('assets/images/galleries/'.$gal->photo) ?? ''}}"
+                                                class="zoom"
+                                                data-magnify-src="{{asset('assets/images/galleries/'.$gal->photo) ?? ''}}"
                                                 src="{{asset('assets/images/galleries/'.$gal->photo) ?? ''}}"
                                                 alt="">
                                             {{--                                    <img class="" src="{{asset('assets/images/galleries/'.$gal->photo) ?? ''}}"--}}
                                             {{--                                         alt="Thumb Image"/>--}}
                                         </figure>
-{{--                                    @endforeach--}}
-                                </div>
+                                    </div>
+                                @endforeach
                             </div>
 
                             {{--                            @if($productt->galleries == null || count($productt->galleries) == 0)--}}
