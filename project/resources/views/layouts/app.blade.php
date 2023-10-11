@@ -96,6 +96,7 @@
     <link rel="stylesheet" href="{{asset('assets/css/all.min.css')}}"/>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" href="{{asset('assets/css/magnify.css')}}"/>
     <link rel="stylesheet" href="{{asset('assets/css/custom.min.css')}}"/>
     <link rel="stylesheet" href="{{asset('assets/css/slider.css')}}"/>
     <link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}"/>
@@ -253,8 +254,8 @@
             </div>
             <div class="col-md-4">
                 <div class="fotrLogo">
-{{--                    <a href="#" class="footerLogo"><img src="{{asset('assets/images/min1.png')}}" class="img-fluid"--}}
-{{--                                                        alt="img"></a>--}}
+                    {{--                    <a href="#" class="footerLogo"><img src="{{asset('assets/images/min1.png')}}" class="img-fluid"--}}
+                    {{--                                                        alt="img"></a>--}}
                     <p>Go-Hazy is a Veteran-owned online store that sells high-quality men’s and women’s apparel – from
                         clothing to accessories, cosmetics, and consumer electronics – we offer it all. By combining
                         cutting-edge design with an affordable price tag, we bring you the newest styles at an
@@ -353,6 +354,7 @@
 <script src="{{asset('assets/js/gsap.js')}}"></script>
 <script src="{{asset('assets/js/slick.min.js')}}"></script>
 <script src="{{asset('assets/js/scrollTrigger.js')}}"></script>
+<script src="{{asset('assets/js/jquery.magnify.js')}}"></script>
 <script src="{{asset('assets/js/custom.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
@@ -415,7 +417,6 @@
 
 </script>
 @yield('script')
-
 
 </body>
 
