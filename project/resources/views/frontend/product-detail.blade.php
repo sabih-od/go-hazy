@@ -23,14 +23,22 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="productImgMain">
-                        <div class="product-detail-slider">
-
-                            @foreach($productt->galleries as $gal)
-                                <div>
-                                    <img class="" src="{{asset('assets/images/galleries/'.$gal->photo) ?? ''}}"
-                                         alt="Thumb Image"/>
+                        <div class="product-detail-slider swiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+{{--                                    @foreach($productt->galleries as $gal)--}}
+                                        <figure class="position-relative">
+                                            <img
+                                                class="zoom" data-magnify-src="{{asset('assets/images/galleries/'.$gal->photo) ?? ''}}"
+                                                src="{{asset('assets/images/galleries/'.$gal->photo) ?? ''}}"
+                                                alt="">
+                                            {{--                                    <img class="" src="{{asset('assets/images/galleries/'.$gal->photo) ?? ''}}"--}}
+                                            {{--                                         alt="Thumb Image"/>--}}
+                                        </figure>
+{{--                                    @endforeach--}}
                                 </div>
-                            @endforeach
+                            </div>
+
                             {{--                            @if($productt->galleries == null || count($productt->galleries) == 0)--}}
                             {{--                                    <div>--}}
                             {{--                                        <img src="{{asset('assets/images/products/'.$productt->photo) ?? ''}}"--}}
@@ -73,7 +81,7 @@
                         </p>
 
 
-{{--                        {{dd($variation)}}--}}
+                        {{--                        {{dd($variation)}}--}}
                         @foreach ($variation as $categoryName => $categoryItems)
                             <h2 class="mb-4">{{ $categoryName }}</h2>
                             <select class="form-control mb-3 click_variation_option" name="{{ $categoryName }}">
@@ -550,7 +558,7 @@
                     values: values,
                     prices: prices,
                     originalPrice: originalPrice,
-                    totalPrice: originalPrice*qty,
+                    totalPrice: originalPrice * qty,
                     productPriceID: productPriceID,
                     productoptionsID: productoptionsID,
 
@@ -617,7 +625,6 @@
                                 $('#originalPrice').val(data.price.original_price);
                                 $('#productPriceID').val(data.price.product_id);
                                 $('#productoptionsID').val(data.price.option_ids);
-
 
 
                             } else {
