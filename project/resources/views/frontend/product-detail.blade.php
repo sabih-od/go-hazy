@@ -619,7 +619,7 @@
 
                             if (img.length > 0) {
                                 var imageUrl = "{{ asset('assets/images/variation/') }}" + '/' + img[0];
-                                $('#div_img').html('<img class="img-fluid" src="' + imageUrl + '">');
+                                $('#div_img').html('<img data-magnify-src="' + imageUrl + '" class="img-fluid zoom" src="' + imageUrl + '">');
                                 $('.productImgMain').hide();
                             } else {
                                 $('#div_img').html("");
