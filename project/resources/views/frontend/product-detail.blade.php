@@ -621,6 +621,9 @@
                                 var imageUrl = "{{ asset('assets/images/variation/') }}" + '/' + img[0];
                                 $('#div_img').html('<img data-magnify-src="' + imageUrl + '" class="img-fluid zoom" src="' + imageUrl + '">');
                                 $('.productImgMain').hide();
+                                setTimeout(()=>{
+                                    $('.zoom').magnify();
+                                }, 2000)
                             } else {
                                 $('#div_img').html("");
                                 $('.productImgMain').show();
@@ -648,7 +651,6 @@
                 $('#div_img').html("");
                 $('.productImgMain').show();
             }
-            $('.zoom').magnify();
         });
 
     </script>
