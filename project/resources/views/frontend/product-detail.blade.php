@@ -47,19 +47,23 @@
                             {{--                                    </div>--}}
                             {{--                            @else--}}
                         </div>
-                        <div class="product-detail-nav">
-                            {{--                            @foreach($productt->galleries as $gal)--}}
-                            {{--                                <div>--}}
-                            {{--                                    <img class="ml-10" src="{{asset('assets/images/galleries/'.$gal->photo) ?? ''}}"--}}
-                            {{--                                         alt="Thumb Image"/>--}}
-                            {{--                                </div>--}}
-                            {{--                                @endforeach--}}
-                            @foreach($productt->galleries as $gal)
-                                <div>
-                                    <img class="" src="{{asset('assets/images/galleries/'.$gal->photo) ?? ''}}"
-                                         alt="Thumb Image"/>
-                                </div>
-                            @endforeach
+                        <div class="product-detail-nav swiper">
+                            <div class="swiper-wrapper">
+                                {{--                            @foreach($productt->galleries as $gal)--}}
+                                {{--                                <div>--}}
+                                {{--                                    <img class="ml-10" src="{{asset('assets/images/galleries/'.$gal->photo) ?? ''}}"--}}
+                                {{--                                         alt="Thumb Image"/>--}}
+                                {{--                                </div>--}}
+                                {{--                                @endforeach--}}
+                                @foreach($productt->galleries as $gal)
+                                    <div class="swiper-slide">
+                                        <div>
+                                            <img class="" src="{{asset('assets/images/galleries/'.$gal->photo) ?? ''}}"
+                                                 alt="Thumb Image"/>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
                             {{--                            @endif--}}
                         </div>
 
@@ -450,6 +454,7 @@
 
             select.style.backgroundColor = option.value;
             select.style.color = option.value;
+            $('.zoom').magnify();
         }
 
         $(window).on('load', function () {
@@ -482,6 +487,7 @@
                 $(this).addClass('active');
                 $('#rating').val($(this).data('val'));
             })
+            $('.zoom').magnify();
         });
 
         var mainurl = "<?php echo e(url('/')); ?>";
@@ -642,6 +648,7 @@
                 $('#div_img').html("");
                 $('.productImgMain').show();
             }
+            $('.zoom').magnify();
         });
 
     </script>
