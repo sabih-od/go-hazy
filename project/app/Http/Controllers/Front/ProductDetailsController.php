@@ -124,7 +124,10 @@ class ProductDetailsController extends FrontBaseController
             $option_ids[] = $id;
         }
         if (!empty($option_ids)) {
-            $data['price'] = ProductVariationPrice::query()->where('option_ids', implode(',', $option_ids))->first();
+            $data['price'] = ProductVariationPrice::query()
+                ->where('option_ids', implode(',', $option_ids))
+                ->where('product_id', $request->prd_id)
+                ->first();
         }
 
 
