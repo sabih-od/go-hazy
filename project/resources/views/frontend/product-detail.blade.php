@@ -88,7 +88,7 @@
                             <select class="form-control mb-3 click_variation_option" name="{{ $categoryName }}">
                                 <option value="">select {{ $categoryName }}</option>
                                 @foreach ($categoryItems as $item)
-                                    <option value="{{ $item->option_id}}">{{ $item->option_name }}</option>
+                                    <option value="{{ $item->option_id}}">{{ $item->option_display_name }}</option>
                                 @endforeach
                             </select>
                         @endforeach
