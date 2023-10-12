@@ -632,6 +632,14 @@
                             if (data?.price?.original_price) {
                                 $('#original_price').hide()
                                 $('#variation_price').html(`<span>$${data.price.original_price}</span>`).show();
+                                if (data?.price?.sale_price && data?.price?.sale_price !== 0){
+                                    const salePrice = data.price.sale_price;
+                                    const originalPrice = data.price.original_price;
+
+                                    const discountPercentage = ((originalPrice - salePrice) / originalPrice) * 100;
+
+                                    $('#variation_price').html(`<span>$${data.price.sale_price}</span><del>$${data.price.original_price}</del>  <div class="on-sale">${discountPercentage.toFixed(0)}% Off</div>`).show();
+                                }
                                 $('#originalPrice').val(data.price.original_price);
                                 $('#productPriceID').val(data.price.product_id);
                                 $('#productoptionsID').val(data.price.option_ids);
