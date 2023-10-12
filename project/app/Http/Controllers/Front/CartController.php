@@ -20,64 +20,66 @@ class CartController extends FrontBaseController
         $products = [];
         $totalProductPrice = 0;
 
-        foreach ($productData as $product) {
+        if (!empty($productData)) {
+            foreach ($productData as $product) {
 
-            $get_product = Product::where('id', $product['id'])->first();
-            $productInfo = [
-                'id' => $get_product->id,
-                'product_name' => $get_product->name,
-                'qty' => $product['qty'],
-            ];
+                $get_product = Product::where('id', $product['id'])->first();
+                $productInfo = [
+                    'id' => $get_product->id,
+                    'product_name' => $get_product->name,
+                    'qty' => $product['qty'],
+                ];
 
-            // variation product
-            if (isset($product['productPriceID'])) {
-                $productsVarPrice = $get_product->productPrices()
-                    ->where('id', $product['productPriceID'])
-                    ->first();
+                // variation products
+                if (isset($product['productPriceID'])) {
+                    $productsVarPrice = $get_product->productPrices()
+                        ->where('id', $product['productPriceID'])
+                        ->first();
 
-                $productInfo['original_price'] = $productsVarPrice->original_price;
-                $productInfo['sale_price'] = $productsVarPrice->sale_price;
+                    $productInfo['original_price'] = $productsVarPrice->original_price;
+                    $productInfo['sale_price'] = $productsVarPrice->sale_price;
 
-                if ($productsVarPrice->original_price != 0) {
+                    if ($productsVarPrice->original_price != 0) {
 //                    $priceDifference = $productsVarPrice->original_price - $productsVarPrice->sale_price;
 //                    $productInfo['product_total'] = $priceDifference;
 
-                    $discountPercentage = ($productsVarPrice->sale_price / $productsVarPrice->original_price) * 100;
-                    $productInfo['discount_percentage'] = number_format($discountPercentage, 2) . '%';
-                }
+                        $discountPercentage = ($productsVarPrice->sale_price / $productsVarPrice->original_price) * 100;
+                        $productInfo['discount_percentage'] = number_format($discountPercentage, 2) . '%';
+                    }
 
-                $productsVar = $get_product->productVariants()
-                    ->where('product_id', $get_product->id)
-                    ->first();
-                $productInfo['variation'] = $productsVar->option_name;
-                $productInfo['variation_product_image'] = $productsVar->option_image;
+                    $productsVar = $get_product->productVariants()
+                        ->where('product_id', $get_product->id)
+                        ->first();
+                    $productInfo['variation'] = $productsVar->option_name;
+                    $productInfo['variation_product_image'] = $productsVar->option_image;
 
-                // total
-                $productInfo['total'] = $productsVarPrice->sale_price * $product['qty'];
-                $totalProductPrice += $productsVarPrice->sale_price * $product['qty'];
-            } else {
+                    // total
+                    $productInfo['total'] = $productsVarPrice->sale_price * $product['qty'];
+                    $totalProductPrice += $productsVarPrice->sale_price * $product['qty'];
+                } else {
 
-                // without variation product
+                    // without variation product
 //                $productInfo['previous_price'] = $get_product->previous_price;
 //                $productInfo['price'] = $get_product->price;
-                $productInfo['original_price'] = $get_product->previous_price;
-                $productInfo['sale_price'] = $get_product->price;
-                $productInfo['product_image'] = $get_product->thumbnail;
+                    $productInfo['original_price'] = $get_product->previous_price;
+                    $productInfo['sale_price'] = $get_product->price;
+                    $productInfo['product_image'] = $get_product->thumbnail;
 
-                if ($get_product->previous_price != 0) {
-                    $discountPercentage = ($get_product->previous_price / $get_product->price) * 100;
-                    $productInfo['discount_percentage'] = number_format($discountPercentage, 2) . '%';
+                    if ($get_product->previous_price != 0) {
+                        $discountPercentage = ($get_product->previous_price / $get_product->price) * 100;
+                        $productInfo['discount_percentage'] = number_format($discountPercentage, 2) . '%';
+                    }
+
+                    // total
+                    $productInfo['total'] = $get_product->price * $product['qty'];
+                    $totalProductPrice += $get_product->price * $product['qty'];
                 }
 
-                // total
-                $productInfo['total'] = $get_product->price * $product['qty'];
-                $totalProductPrice += $get_product->price * $product['qty'];
+                $products[] = $productInfo;
             }
-
-            $products[] = $productInfo;
         }
-
         return view('frontend.cart', compact('products', 'totalProductPrice'));
+
 
 
 //        if (!Session::has('cart')) {
