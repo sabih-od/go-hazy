@@ -49,7 +49,7 @@
                         <strong>{{ $product['product_name'] ?? '' }}</strong>
                         <p class="mb-2">
                             <strong class="color">
-                                {{--                                {{ __('Variation') }} : {{str_replace('-',' ',$product['variation'])}}--}}
+                                {{ __('Variation') }} : {{str_replace('-',' ',$product['variation'])}}
                             </strong>
                         </p>
                         <p class="mb-1">

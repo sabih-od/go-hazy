@@ -21,6 +21,7 @@ class CartController extends FrontBaseController
         $totalProductPrice = 0;
 
         foreach ($productData as $product) {
+
             $get_product = Product::where('id', $product['id'])->first();
             $productInfo = [
                 'id' => $get_product->id,
@@ -51,6 +52,7 @@ class CartController extends FrontBaseController
                 $productInfo['variation'] = $productsVar->option_name;
                 $productInfo['variation_product_image'] = $productsVar->option_image;
 
+                // total
                 $productInfo['total'] = $productsVarPrice->sale_price * $product['qty'];
                 $totalProductPrice += $productsVarPrice->sale_price * $product['qty'];
             } else {
@@ -67,11 +69,11 @@ class CartController extends FrontBaseController
                     $productInfo['discount_percentage'] = number_format($discountPercentage, 2) . '%';
                 }
 
+                // total
                 $productInfo['total'] = $get_product->price * $product['qty'];
                 $totalProductPrice += $get_product->price * $product['qty'];
             }
 
-            // Append the productInfo to the products array
             $products[] = $productInfo;
         }
 
