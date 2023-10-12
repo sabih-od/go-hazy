@@ -15,41 +15,103 @@ class CartController extends FrontBaseController
 
     public function cart(Request $request)
     {
+        $productData = Session::get('NewCart');
 
-        if (!Session::has('cart')) {
-            $products = [];
-            return view('frontend.cart', compact('products'));
+        $products = [];
+        $totalProductPrice = 0;
+
+        foreach ($productData as $product) {
+            $get_product = Product::where('id', $product['id'])->first();
+            $productInfo = [
+                'id' => $get_product->id,
+                'product_name' => $get_product->name,
+                'qty' => $product['qty'],
+            ];
+
+            // variation product
+            if (isset($product['productPriceID'])) {
+                $productsVarPrice = $get_product->productPrices()
+                    ->where('id', $product['productPriceID'])
+                    ->first();
+
+                $productInfo['original_price'] = $productsVarPrice->original_price;
+                $productInfo['sale_price'] = $productsVarPrice->sale_price;
+
+                if ($productsVarPrice->original_price != 0) {
+//                    $priceDifference = $productsVarPrice->original_price - $productsVarPrice->sale_price;
+//                    $productInfo['product_total'] = $priceDifference;
+
+                    $discountPercentage = ($productsVarPrice->sale_price / $productsVarPrice->original_price) * 100;
+                    $productInfo['discount_percentage'] = number_format($discountPercentage, 2) . '%';
+                }
+
+                $productsVar = $get_product->productVariants()
+                    ->where('product_id', $get_product->id)
+                    ->first();
+                $productInfo['variation'] = $productsVar->option_name;
+                $productInfo['variation_product_image'] = $productsVar->option_image;
+
+                $productInfo['total'] = $productsVarPrice->sale_price * $product['qty'];
+                $totalProductPrice += $productsVarPrice->sale_price * $product['qty'];
+            } else {
+
+                // without variation product
+//                $productInfo['previous_price'] = $get_product->previous_price;
+//                $productInfo['price'] = $get_product->price;
+                $productInfo['original_price'] = $get_product->previous_price;
+                $productInfo['sale_price'] = $get_product->price;
+                $productInfo['product_image'] = $get_product->thumbnail;
+
+                if ($get_product->previous_price != 0) {
+                    $discountPercentage = ($get_product->previous_price / $get_product->price) * 100;
+                    $productInfo['discount_percentage'] = number_format($discountPercentage, 2) . '%';
+                }
+
+                $productInfo['total'] = $get_product->price * $product['qty'];
+                $totalProductPrice += $get_product->price * $product['qty'];
+            }
+
+            // Append the productInfo to the products array
+            $products[] = $productInfo;
         }
 
-        if (Session::has('already')) {
-            Session::forget('already');
-        }
-        if (Session::has('coupon')) {
-            Session::forget('coupon');
-        }
-        if (Session::has('coupon_total')) {
-            Session::forget('coupon_total');
-        }
-        if (Session::has('coupon_total1')) {
-            Session::forget('coupon_total1');
-        }
-        if (Session::has('coupon_percentage')) {
-            Session::forget('coupon_percentage');
-        }
+        return view('frontend.cart', compact('products', 'totalProductPrice'));
 
-        $oldCart = Session::get('cart');
-        $cart = new Cart($oldCart);
-        $products = $cart->items;
 
-        $totalPrice = $cart->totalPrice;
-        $mainTotal = $totalPrice;
-//        dd($products);
-
-//        dd(Session::has('cart'), $products);
-        if ($request->ajax()) {
-            return view('frontend.ajax.cart-page', compact('products', 'totalPrice', 'mainTotal'));
-        }
-        return view('frontend.cart', compact('products', 'totalPrice', 'mainTotal'));
+//        if (!Session::has('cart')) {
+//            $products = [];
+//            return view('frontend.cart', compact('products'));
+//        }
+//
+//        if (Session::has('already')) {
+//            Session::forget('already');
+//        }
+//        if (Session::has('coupon')) {
+//            Session::forget('coupon');
+//        }
+//        if (Session::has('coupon_total')) {
+//            Session::forget('coupon_total');
+//        }
+//        if (Session::has('coupon_total1')) {
+//            Session::forget('coupon_total1');
+//        }
+//        if (Session::has('coupon_percentage')) {
+//            Session::forget('coupon_percentage');
+//        }
+//
+//        $oldCart = Session::get('cart');
+//        $cart = new Cart($oldCart);
+//        $products = $cart->items;
+//
+//        $totalPrice = $cart->totalPrice;
+//        $mainTotal = $totalPrice;
+////        dd($products);
+//
+////        dd(Session::has('cart'), $products);
+//        if ($request->ajax()) {
+//            return view('frontend.ajax.cart-page', compact('products', 'totalPrice', 'mainTotal'));
+//        }
+//        return view('frontend.cart', compact('products', 'totalPrice', 'mainTotal'));
     }
 
     public function cartview()
@@ -357,190 +419,58 @@ class CartController extends FrontBaseController
     }
 
 
+    // add to cart
     public function addnumcart(Request $request)
     {
-         $id = $_GET['id'];
-         $get_cate_id=Product::where('id',$id)->first();
-         if($get_cate_id){
-             $store_cate_id=$get_cate_id->category_id;
-             Session::put('cate_id',$store_cate_id);
-         }
 
+        $id = $_GET['id'];
+        $get_product = Product::where('id', $id)->first();
 
-        $qty = $_GET['qty'];
-        $size = str_replace(' ', '-', $_GET['size']);
-        $color = $_GET['color'] ?? '';
-        $size_qty = $_GET['size_qty'];
-        $size_price = (double)$_GET['size_price'];
-        $size_key = $_GET['size_key'];
-        $keys = $_GET['keys'];
-        $values = $_GET['values'];
-        $prices = $_GET['prices'];
-        $affilate_user = isset($_GET['affilate_user']) ? $_GET['affilate_user'] : '0';
-        $keys = $keys == "" ? '' : implode(',', $keys);
-        $values = $values == "" ? '' : implode(',', $values);
-        $curr = $this->curr;
-
-        $size_price = ($size_price / $curr->value);
-        $prod = Product::where('id', '=', $id)->first(['id', 'user_id', 'slug', 'name', 'photo', 'size', 'size_qty', 'size_price', 'color', 'price', 'stock', 'type', 'file', 'link', 'license', 'license_qty', 'measure', 'whole_sell_qty', 'whole_sell_discount', 'attributes', 'minimum_qty', 'stock_check', 'size_all', 'color_all']);
-        if ($prod->type != 'Physical') {
-            $qty = 1;
+        if (!$get_product) {
+            return response()->json('Product not found');
         }
 
+        $hasVariations = $get_product->productVariants()->exists();
 
-        if ($prod->user_id != 0) {
-            $prc = $prod->price + $this->gs->fixed_commission + ($prod->price / 100) * $this->gs->percentage_commission;
-            $prod->price = round($prc, 2);
-        }
-        if (!empty($prices)) {
-            foreach ($prices as $data) {
-                $prod->price += ($data / $curr->value);
-            }
-
+        if ($hasVariations && is_null($request->productPriceID)) {
+            return response()->json('variation');
         }
 
-        if (!empty($prod->license_qty)) {
-            $lcheck = 1;
-            foreach ($prod->license_qty as $ttl => $dtl) {
-                if ($dtl < 1) {
-                    $lcheck = 0;
-                } else {
-                    $lcheck = 1;
-                    break;
-                }
-            }
-            if ($lcheck == 0) {
-                return 0;
-            }
-        }
+        if ($hasVariations && !is_null($request->productPriceID)) {
+            // check variation product stock
+            $variation = $get_product->productPrices()
+                ->where('id', $request->productPriceID)
+                ->first();
 
-
-        if (empty($size)) {
-            if (!empty($prod->size)) {
-                $size = trim($prod->size[0]);
-            }
-            $size = str_replace(' ', '-', $size);
-        }
-
-        if ($size_qty == '0' && $prod->stock_check == 1) {
-
-            return 0;
-        }
-
-        if (empty($color)) {
-            if (!empty($prod->color)) {
-                $color = $prod->color[0];
-            }
-        }
-
-
-        if ($prod->stock_check == 0) {
-            if (empty($size)) {
-
-                if (!empty($prod->size_all)) {
-                    $size = trim(explode(',', $prod->size_all)[0]);
-                }
-                $size = str_replace(' ', '-', $size);
-            }
-
-            if (empty($color)) {
-                if (!empty($prod->color_all)) {
-                    $color = explode(',', $prod->color_all)[0];
-                }
-            }
-        }
-
-
-        $color = str_replace('#', '', $color);
-        $oldCart = Session::has('cart') ? Session::get('cart') : null;
-        $cart = new Cart($oldCart);
-
-        if (!empty($cart->items)) {
-            if (!empty($cart->items[$id . $size . $color . str_replace(str_split(' ,'), '', $values)])) {
-                $minimum_qty = (int)$prod->minimum_qty;
-                if ($cart->items[$id . $size . $color . str_replace(str_split(' ,'), '', $values)]['qty'] < $minimum_qty) {
-                    $data = array();
-                    $data[1] = true;
-                    $data[2] = $minimum_qty;
-                    return response()->json($data);
-                }
-            } else {
-
-                if ($prod->minimum_qty != null) {
-                    $minimum_qty = (int)$prod->minimum_qty;
-                    if ($qty < $minimum_qty) {
-                        $data = array();
-                        $data[1] = true;
-                        $data[2] = $minimum_qty;
-                        return response()->json($data);
-                    }
-                }
+            if ($variation && $variation->available_quantity < $request->qty) {
+                return response()->json('Out Of Stock');
             }
         } else {
-
-            if ($prod->minimum_qty != null) {
-                $minimum_qty = (int)$prod->minimum_qty;
-                if ($qty < $minimum_qty) {
-                    $data = array();
-                    $data[3] = true;
-                    $data[4] = $minimum_qty;
-                    return response()->json($data);
-                }
+            // check product stock
+            if ($get_product->stock < $request->qty) {
+                return response()->json('Out Of Stock');
             }
         }
 
-        $cart->addnum(
-            $prod,
-            $prod->id,
-            $qty,
-            $size,
-            $color,
-            $size_qty,
-            $size_price,
-            $size_key,
-            $keys,
-            $values,
-            $affilate_user,
-            $request->originalPrice,
-            $request->productPriceID,
-            $request->productoptionsID,
-        );
+        $cart = Session::get('NewCart', []);
+        $key = array_search($request->productPriceID, array_column($cart, 'productPriceID'));
 
-
-
-//        dd($cart);
-        if ($cart->items[$id . $size . $color . str_replace(str_split(' ,'), '', $values)]['dp'] == 1) {
-            return 'digital';
-        }
-        if ($cart->items[$id . $size . $color . str_replace(str_split(' ,'), '', $values)]['stock'] < 0) {
-
-            return 0;
-        }
-        if ($prod->stock_check == 1) {
-            if ($cart->items[$id . $size . $color . str_replace(str_split(' ,'), '', $values)]['size_qty']) {
-                if ($cart->items[$id . $size . $color . str_replace(str_split(' ,'), '', $values)]['qty'] > $cart->items[$id . $size . $color . str_replace(str_split(' ,'), '', $values)]['size_qty']) {
-                    return 0;
-                }
+        if ($key !== false) {
+            $cart[$key]['qty'] += $request->qty;
+        } else {
+            $newCartItem = [
+                'id' => $request->id,
+                'qty' => $request->qty,
+            ];
+            if (!is_null($request->productPriceID)) {
+                $newCartItem['productPriceID'] = $request->productPriceID;
             }
+            $cart[] = $newCartItem;
         }
-        $cart->totalPrice = 0;
 
-        $newCart = [];
-        $newCart['product_id'] =    $prod->id;
-        $newCart['quantity']   =    $request->qty;
-        $newCart['originalPrice']   =    $request->originalPrice;
-        $newCart['totalPrice']   =    $request->totalPrice;
+        Session::put('NewCart', $cart);
 
-        Session::put('modifyCart', $newCart);
-
-
-        foreach ($cart->items as $data)
-            $cart->totalPrice += $data['price'];
-        Session::put('cart', $cart);
-        $data[0] = count($cart->items);
-        $data[1] = $cart->totalPrice;
-        $data[1] = \PriceHelper::showCurrencyPrice($data[1] * $curr->value);
-        return response()->json($data);
+        return response()->json($cart);
     }
 
     public function addtonumcart(Request $request)
@@ -950,17 +880,17 @@ class CartController extends FrontBaseController
 
         try {
             $email = $request->input('email');
-            $already_check_email = VeteranDiscount::where('email','=',$email)->first();
+            $already_check_email = VeteranDiscount::where('email', '=', $email)->first();
 
-            if($already_check_email){
+            if ($already_check_email) {
                 return response()->json(['error' => 'Your Email Already Use']);
-            }else{
+            } else {
                 $otp = mt_rand(100000, 999999);
                 $data = [
                     'to' => $email,
                     'from' => "Go-hazy.com",
-                    'subject' => "Otp Verification code " ,
-                    'body' => 'this is your OTP code '  . $otp,
+                    'subject' => "Otp Verification code ",
+                    'body' => 'this is your OTP code ' . $otp,
                 ];
 //            Session::put('email', $email);
 //            Session::put('otp', $otp);

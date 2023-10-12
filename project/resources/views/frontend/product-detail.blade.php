@@ -556,35 +556,35 @@
                 data: {
                     id: pid,
                     qty: qty,
-                    size: sizes,
-                    color: colors,
-                    size_qty: size_qty,
-                    size_price: size_price,
-                    size_key: size_key,
-                    keys: keys,
-                    values: values,
-                    prices: prices,
-                    originalPrice: originalPrice,
-                    totalPrice: originalPrice * qty,
+                    // size: sizes,
+                    // color: colors,
+                    // size_qty: size_qty,
+                    // size_price: size_price,
+                    // size_key: size_key,
+                    // keys: keys,
+                    // values: values,
+                    // prices: prices,
+                    // originalPrice: originalPrice,
+                    // totalPrice: originalPrice * qty,
                     productPriceID: productPriceID,
                     productoptionsID: productoptionsID,
 
                 },
                 success: function (data) {
-                    if (data == "digital") {
-                        toastr.error("Already Added To Cart");
-                    } else if (data == 0) {
+                    console.log(data)
+                    if (data == "variation") {
+                        toastr.error("Please select variation");
+                    } else if (data == "Out Of Stock") {
                         toastr.error("Out Of Stock");
-                    } else if (data[3]) {
-                        toastr.error(lang.minimum_qty_error + " " + data[4]);
                     } else {
-                        $("#cart-count").html(data[0]);
-                        $("#cart-count1").html(data[0]);
-                        $(".cart-popup").load(mainurl + "/carts/view");
-                        $("#cart-items").load(mainurl + "/carts/view");
+                        // $("#cart-count").html(data[0]);
+                        // $("#cart-count1").html(data[0]);
+                        // $(".cart-popup").load(mainurl + "/carts/view");
+                        // $("#cart-items").load(mainurl + "/carts/view");
                         toastr.success("Successfully Added To Cart");
+                        window.location.reload();
                     }
-                    window.location.reload();
+
                 },
             });
         });
@@ -614,6 +614,7 @@
                         ids
                     },
                     success: function (data) {
+                        console.log(data)
                         if (data?.items) {
                             const img = data.items.filter(item => item?.option_image && item.option_image.length > 0).map(item => item.option_image)
 
@@ -641,7 +642,7 @@
                                     $('#variation_price').html(`<span>$${data.price.sale_price}</span><del>$${data.price.original_price}</del>  <div class="on-sale">${discountPercentage.toFixed(0)}% Off</div>`).show();
                                 }
                                 $('#originalPrice').val(data.price.original_price);
-                                $('#productPriceID').val(data.price.product_id);
+                                $('#productPriceID').val(data.price.id);
                                 $('#productoptionsID').val(data.price.option_ids);
 
 
