@@ -33,43 +33,35 @@
             <div class="row cartItemCard">
                 <input type="hidden" name="cart_id" class="id" value="">
 
-                @forelse($products as $product)
+                @forelse($productData as $row)
                     <div class="col-md-1">
-
-                        @if(!empty($product['variation_product_image']))
-                            <img src="{{ $product['variation_product_image'] }}" alt="">
-                        @elseif(!empty($product['product_image']))
-                            <img src="{{ asset('assets/images/products/'.$product['product_image']) }}" alt="">
-                        @else
-                            <img src="" alt="">
-                        @endif
-
+                        <img src="{{ $row['image'] }}" alt="">
                     </div>
                     <div class="col-md-5 text-left">
-                        <strong>{{ $product['product_name'] ?? '' }}</strong>
-                        <p class="mb-2">
-                            <strong class="color">
-                                {{ __('Variation') }} : {{str_replace('-',' ',$product['variation'])}}
-                            </strong>
-                        </p>
-                        <p class="mb-1">
-                            <strong class="color">
-                                {{ __('Qty') }} : {{str_replace('-',' ',$product['qty'])}}
-                            </strong>
-                        </p>
-
-                        <p class="mb-2">
-                            <strong class="color"></strong>
-                        </p>
-                    </div>
-
-                    <div class="col-md-2">
-                        <strong class="price">
-                            @if(!empty($product['sale_price']))
-                                ${{$product['sale_price']}}
-                            @else
-                                ${{ $product['original_price'] }}
+                        <strong>{{ $row['product']->name ?? '' }}</strong>
+                        <div class="mb-3">
+                            @if(isset($row['options']))
+                                <p class="mb-0">
+                                    <strong>
+                                        {{ __('Variation' . (count($row['options']) > 1 ? 's': '')) }}
+                                        :
+                                        @foreach($row['options'] as $option)
+                                            ({{ $option->option_type }}: {{ $option->option_display_name }})
+                                        @endforeach
+                                    </strong>
+                                </p>
                             @endif
+                            <p class="mb-0">
+                                <strong>
+                                    {{ __('Quantity') }} : {{ $row['qty'] }}
+                                </strong>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <strong class="price">
+                            ${{ $row['show_price'] }}
 
                         </strong>
                     </div>
@@ -78,14 +70,12 @@
                     </div>
                     <div class="col-md-1">
                         <strong class="price">
-                            ${{ $product['total'] }}
+                            ${{ $row['show_total_price'] }}
                         </strong>
                     </div>
                     <div class="col-md-1">
-                        {{--                        <a href="#" class="remove cart-remove delete"--}}
-                        {{--                           data-class="cremove{{ $product['item']['id'].$product['size'].$product['color'].str_replace(str_split(' ,'),'',$product['values']) }}"--}}
-                        {{--                           data-href="{{ route('product.cart.remove',$product['item']['id'].$product['size'].$product['color'].str_replace(str_split(' ,'),'',$product['values'])) }}"><i--}}
-                        {{--                                class="far fa-trash-alt"></i></a>--}}
+                        <a href="{{ route('cart.remove', $row['row_id'] ?? 0) }}" class="remove cart-remove delete"><i
+                                class="far fa-trash-alt"></i></a>
                     </div>
                 @empty
                     <p class="text-danger ml-5 my-2">Product Not Found</p>
@@ -104,18 +94,15 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="text-center">
-                        {{--                        <a href="{{count($products) != 0 ? route('front.checkout') : route('front.category' )}}"--}}
-                        {{--                           class="btnStyle my-5">{{count($products) != 0 ? 'Proceed To Pay' : 'Shop Now'}}</a>--}}
-
-                        @if(Session::has('NewCart'))
+                        @if(\App\Helpers\CartHelper::getCartTotalQty() > 0)
                             <button type="button" class="btnStyle my-5" data-toggle="modal"
                                     data-target="#exampleModalCenter">
                                 Proceed To Pay
                             </button>
-                        @else
-                            <button type="button" class="btnStyle my-5">
-                                Proceed To Pay
-                            </button>
+{{--                        @else--}}
+{{--                            <button type="button" class="btnStyle my-5">--}}
+{{--                                Proceed To Pay--}}
+{{--                            </button>--}}
                         @endif
 
 

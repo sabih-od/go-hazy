@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Payment\Checkout;
 
-use App\{Models\Cart,
+use App\{Helpers\CartHelper,
+    Models\Cart,
     Models\Coupon,
     Models\Order,
     Models\PaymentGateway,
     Classes\GeniusMailer,
     Models\VeteranDiscount,
-    Traits\PHPCustomMail
-};
+    Traits\PHPCustomMail};
 use App\Models\Country;
 use App\Models\State;
 use Illuminate\Http\Request;
@@ -39,9 +39,12 @@ class StripeController extends CheckoutBaseControlller
 
         $data = PaymentGateway::whereKeyword('stripe')->first();
 
+        $cart = new CartHelper();
+        $cartData = $cart->getData();
+
 //        $total = $request->total;
 
-//        $totalPrice = Session::has('cart') ? (int)Session::get('cart')->totalPrice : 0;
+//        $totalPrice = Session::has('cart') ? (int)$cart->getTotalPrice() : 0;
 
 
 //        $get_percentage = VeteranDiscount::where('id', Session::get('discount_id'))->first();
@@ -61,7 +64,7 @@ class StripeController extends CheckoutBaseControlller
                 if ($get_coupon_code) {
                     // Coupon Amount Discount
                     if ($get_coupon_code->type === 1) {
-                        $get_total_price = Session::get('cart')->totalPrice;
+                        $get_total_price = $cart->getTotalPrice();
 
                         $veteran_discount_percentage = $get_veteran_percentage->percentage;
 
@@ -73,7 +76,7 @@ class StripeController extends CheckoutBaseControlller
 
                         // Coupon Percentage Discount
                     } elseif ($get_coupon_code->type === 0) {
-                        $get_total_price = Session::get('cart')->totalPrice;
+                        $get_total_price = $cart->getTotalPrice();
 
                         $veteran_discount_percentage = $get_veteran_percentage->percentage;
 
@@ -86,7 +89,7 @@ class StripeController extends CheckoutBaseControlller
                 }
             } elseif (Session::has('discount_id')) {
                 //Veteran_Discount_Percentage
-                $get_total_price = Session::get('cart')->totalPrice;
+                $get_total_price = $cart->getTotalPrice();
 
                 $veteran_discount_percentage = $get_veteran_percentage->percentage;
                 $veteran_discount = $get_total_price - (($get_total_price * $veteran_discount_percentage) / 100);
@@ -94,7 +97,7 @@ class StripeController extends CheckoutBaseControlller
                 $total = abs($veteran_discount);
             } else {
                 //All Without Discount Ammount
-                $get_total_price = Session::get('cart')->totalPrice;
+                $get_total_price = $cart->getTotalPrice();
                 $total = abs($get_total_price);
             }
         } elseif (Session::has('coupon')) {
@@ -105,7 +108,7 @@ class StripeController extends CheckoutBaseControlller
             if ($get_coupon_code) {
                 // Coupon Amount Discount Current Price
                 if ($get_coupon_code->type === 1) {
-                    $get_total_price = Session::get('cart')->totalPrice;
+                    $get_total_price = $cart->getTotalPrice();
 
                     $get_coupon_price = $get_coupon_code->price;
 
@@ -115,7 +118,7 @@ class StripeController extends CheckoutBaseControlller
 
                     // Coupon Percentage Discount Current Price
                 } elseif ($get_coupon_code->type === 0) {
-                    $get_total_price = Session::get('cart')->totalPrice;
+                    $get_total_price = $cart->getTotalPrice();
 
                     $get_coupon_price = $get_coupon_code->price;
 
@@ -125,15 +128,15 @@ class StripeController extends CheckoutBaseControlller
                 }
             }
         } else {
-            $get_total_price = Session::get('cart');
-            $total = 0;
-            foreach ($get_total_price->items as $price)
-            {
-                $total = $total + $price['totalPrice'];
-            }
+            $get_total_price = $cart->getTotalPrice();
+            $total = $get_total_price;
+//            foreach ($get_total_price->items as $price)
+//            {
+//                $total = $total + $price['totalPrice'];
+//            }
 
             //All Without Discount Ammount
-//            $get_total_price = Session::get('cart')->totalPrice;
+//            $get_total_price = $cart->getTotalPrice();
 //            $total = abs($get_total_price);
         }
 
@@ -152,7 +155,7 @@ class StripeController extends CheckoutBaseControlller
 //            }
 //        }
 
-        if (!Session::has('cart')) {
+        if (CartHelper::isCartEmpty()) {
             return redirect()->route('front.cart')->with('success', __("You don't have any product to checkout."));
         }
 
@@ -197,7 +200,7 @@ class StripeController extends CheckoutBaseControlller
 
                 if ($charge['status'] == 'succeeded') {
 
-                    $oldCart = Session::get('cart');
+//                    $oldCart = Session::get('cart');
 //                    $cart = new Cart($oldCart);
 //                    OrderHelper::license_check($cart); // For License Checking
 //                    $t_oldCart = Session::get('cart');
@@ -212,7 +215,7 @@ class StripeController extends CheckoutBaseControlller
 
 
 
-                    $cart = json_encode(Session::get('cart')->items);
+                    $cart = json_encode($cartData);
 
 
 

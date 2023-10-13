@@ -2,84 +2,160 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\{Classes\GeniusMailer, Models\Cart, Models\Product, Models\VeteranDiscount};
+use App\{Classes\GeniusMailer,
+    Helpers\CartHelper,
+    Models\Cart,
+    Models\Product,
+    Models\ProductVariation,
+    Models\ProductVariationPrice,
+    Models\VeteranDiscount
+};
 use App\Models\Country;
 use App\Models\Currency;
 use App\Models\Generalsetting;
 use App\Models\State;
 use Illuminate\Http\Request;
-use Session;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\Rule;
 
 class CartController extends FrontBaseController
 {
 
     public function cart(Request $request)
     {
-        $productData = Session::get('NewCart');
+        try {
+            $productData = new CartHelper();
+            $totalProductPrice = $productData->getTotalPrice();
+            $productData = $productData->getData();
 
-        $products = [];
-        $totalProductPrice = 0;
+//            $prd_ids = $productData->pluck('id')->filter(function ($item) {
+//                return !empty($item);
+//            })->toArray();
+//
+//            $products = collect([]);
+//            if (!empty($prd_ids)) {
+//                $products = Product::query()->whereIn('id', $prd_ids)->get();
+//            }
+//
+//            $price_ids = $productData->pluck('productPriceID')->filter(function ($item) {
+//                return !empty($item);
+//            })->toArray();
+//
+//            $prd_prices = collect([]);
+//            if (!empty($price_ids)) {
+//                $prd_prices = ProductVariationPrice::query()->whereIn('id', $price_ids)->get();
+//            }
+//
+//            $option_ids = $prd_prices->map(function ($item) {
+//                return [
+//                    'option_ids' => explode(',', $item->option_ids),
+//                    'product_id' => $item->product_id
+//                ];
+//            });
+//            $product_ids = $option_ids->pluck('product_id')->flatten()->toArray();
+//            $option_ids = $option_ids->pluck('option_ids')->flatten()->toArray();
+//
+//            $options = collect([]);
+//            if (!empty($product_ids) && !empty($option_ids)) {
+//                $options = ProductVariation::query()
+//                    ->select('product_id', 'option_id', 'option_display_name', 'option_type')
+//                    ->whereIn('product_id', $product_ids)
+//                    ->whereIn('option_id', $option_ids)->get();
+//            }
+//
+//            $totalProductPrice = 0;
+//            $productData = $productData->map(function ($item) use (&$totalProductPrice, $options, $prd_prices, $products) {
+//                $prd = $products->where('id', $item['id'])->first();
+//                if ($prd) {
+//                    $show_price = !empty($prd->previous_price) ? $prd->price : $prd->previous_price;
+//                    $img = asset('assets/images/products/' . $prd->thumbnail);
+//                    // if variation product
+//                    if (isset($item['productPriceID']) && $prd_price = $prd_prices->where('id', $item['productPriceID'])->first()) {
+//                        $show_price = !empty($prd_price->sale_price) ? $prd_price->sale_price : $prd_price->original_price;
+//                        $item['price'] = $prd_price;
+//                        $item['options'] = [];
+//                        $options_ids = explode(',', $prd_price->option_ids);
+//                        foreach ($options_ids as $o_id) {
+//                            $option = $options->where('option_id', $o_id)->where('product_id', $item['id'])->first();
+//                            $img = !empty($option->option_image) ? asset("assets/images/variation/" . $option->option_image) : $img;
+//                            $item['options'][] = $option;
+//                        }
+//                    }
+//                    $item['image'] = $img;
+//                    $item['show_price'] = $show_price;
+//                    $item['show_total_price'] = $show_price * intval($item['qty']);
+//                    $totalProductPrice += $item['show_total_price'];
+//                }
+//                $item['product'] = $prd;
+//                return $item;
+//            });
 
-        if (!empty($productData)) {
-            foreach ($productData as $product) {
-
-                $get_product = Product::where('id', $product['id'])->first();
-                $productInfo = [
-                    'id' => $get_product->id,
-                    'product_name' => $get_product->name,
-                    'qty' => $product['qty'],
-                ];
-
-                // variation products
-                if (isset($product['productPriceID'])) {
-                    $productsVarPrice = $get_product->productPrices()
-                        ->where('id', $product['productPriceID'])
-                        ->first();
-
-                    $productInfo['original_price'] = $productsVarPrice->original_price;
-                    $productInfo['sale_price'] = $productsVarPrice->sale_price;
-
-                    if ($productsVarPrice->original_price != 0) {
-//                    $priceDifference = $productsVarPrice->original_price - $productsVarPrice->sale_price;
-//                    $productInfo['product_total'] = $priceDifference;
-
-                        $discountPercentage = ($productsVarPrice->sale_price / $productsVarPrice->original_price) * 100;
-                        $productInfo['discount_percentage'] = number_format($discountPercentage, 2) . '%';
-                    }
-
-                    $productsVar = $get_product->productVariants()
-                        ->where('product_id', $get_product->id)
-                        ->first();
-                    $productInfo['variation'] = $productsVar->option_name;
-                    $productInfo['variation_product_image'] = $productsVar->option_image;
-
-                    // total
-                    $productInfo['total'] = $productsVarPrice->sale_price * $product['qty'];
-                    $totalProductPrice += $productsVarPrice->sale_price * $product['qty'];
-                } else {
-
-                    // without variation product
-//                $productInfo['previous_price'] = $get_product->previous_price;
-//                $productInfo['price'] = $get_product->price;
-                    $productInfo['original_price'] = $get_product->previous_price;
-                    $productInfo['sale_price'] = $get_product->price;
-                    $productInfo['product_image'] = $get_product->thumbnail;
-
-                    if ($get_product->previous_price != 0) {
-                        $discountPercentage = ($get_product->previous_price / $get_product->price) * 100;
-                        $productInfo['discount_percentage'] = number_format($discountPercentage, 2) . '%';
-                    }
-
-                    // total
-                    $productInfo['total'] = $get_product->price * $product['qty'];
-                    $totalProductPrice += $get_product->price * $product['qty'];
-                }
-
-                $products[] = $productInfo;
-            }
+//            dd($productData->toArray());
+            return view('frontend.cart', compact('productData', 'totalProductPrice'));
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
         }
-        return view('frontend.cart', compact('products', 'totalProductPrice'));
 
+
+//        $products = [];
+//        $totalProductPrice = 0;
+
+//        foreach ($productData as $product) {
+//            $get_product = Product::where('id', $product['id'])->first();
+//            $productInfo = [
+//                'id' => $get_product->id,
+//                'product_name' => $get_product->name,
+//                'qty' => $product['qty'],
+//            ];
+//
+//            // variation products
+//            if (isset($product['productPriceID'])) {
+//                $productsVarPrice = $get_product->productPrices()
+//                    ->where('id', $product['productPriceID'])
+//                    ->first();
+//
+//                $productInfo['original_price'] = $productsVarPrice->original_price;
+//                $productInfo['sale_price'] = $productsVarPrice->sale_price;
+//
+//                if ($productsVarPrice->original_price != 0) {
+////                    $priceDifference = $productsVarPrice->original_price - $productsVarPrice->sale_price;
+////                    $productInfo['product_total'] = $priceDifference;
+//
+//                    $discountPercentage = ($productsVarPrice->sale_price / $productsVarPrice->original_price) * 100;
+//                    $productInfo['discount_percentage'] = number_format($discountPercentage, 2) . '%';
+//                }
+//
+//                $productsVar = $get_product->productVariants()
+//                    ->where('product_id', $get_product->id)
+//                    ->first();
+//                $productInfo['variation'] = $productsVar->option_name;
+//                $productInfo['variation_product_image'] = $productsVar->option_image;
+//
+//                // total
+//                $productInfo['total'] = $productsVarPrice->sale_price * $product['qty'];
+//                $totalProductPrice += $productsVarPrice->sale_price * $product['qty'];
+//            } else {
+//
+//                // without variation product
+////                $productInfo['previous_price'] = $get_product->previous_price;
+////                $productInfo['price'] = $get_product->price;
+//                $productInfo['original_price'] = $get_product->previous_price;
+//                $productInfo['sale_price'] = $get_product->price;
+//                $productInfo['product_image'] = $get_product->thumbnail;
+//
+//                if ($get_product->previous_price != 0) {
+//                    $discountPercentage = ($get_product->previous_price / $get_product->price) * 100;
+//                    $productInfo['discount_percentage'] = number_format($discountPercentage, 2) . '%';
+//                }
+//
+//                // total
+//                $productInfo['total'] = $get_product->price * $product['qty'];
+//                $totalProductPrice += $get_product->price * $product['qty'];
+//            }
+//
+//            $products[] = $productInfo;
+//        }
+//        return view('frontend.cart', compact('products', 'totalProductPrice'));
 
 
 //        if (!Session::has('cart')) {
@@ -426,55 +502,66 @@ class CartController extends FrontBaseController
     // add to cart
     public function addnumcart(Request $request)
     {
+        $request->validate([
+            'id' => ['required', Rule::exists('products')],
+            'qty' => 'required|numeric|min:1',
+            'productPriceID' => 'nullable'
+        ]);
 
-        $id = $_GET['id'];
-        $get_product = Product::where('id', $id)->first();
-
-        if (!$get_product) {
-            return response()->json('Product not found');
-        }
+        $qty = $request->qty;
+        $id = $request->id;
+        $productPriceID = $request->productPriceID;
+        $get_product = Product::query()->find($id);
 
         $hasVariations = $get_product->productVariants()->exists();
 
-        if ($hasVariations && is_null($request->productPriceID)) {
-            return response()->json('variation');
+        if ($hasVariations && empty($productPriceID)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Select product variation.'
+            ]);
         }
 
-        if ($hasVariations && !is_null($request->productPriceID)) {
+        $cart = new CartHelper();
+
+        if ($hasVariations) {
             // check variation product stock
             $variation = $get_product->productPrices()
-                ->where('id', $request->productPriceID)
+                ->where('id', $productPriceID)
                 ->first();
 
-            if ($variation && $variation->available_quantity < $request->qty) {
-                return response()->json('Out Of Stock');
+            if (empty($variation)) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Invalid price id!'
+                ]);
             }
+
+            if ($variation && $variation->available_quantity < $qty) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Out of stock!'
+                ]);
+            }
+
+            $cart->addItem($id, $qty, $variation->id);
+
         } else {
             // check product stock
-            if ($get_product->stock < $request->qty) {
-                return response()->json('Out Of Stock');
+            if ($get_product->stock < $qty) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Out of stock!'
+                ]);
             }
+
+            $cart->addItem($id, $qty);
         }
 
-        $cart = Session::get('NewCart', []);
-        $key = array_search($request->productPriceID, array_column($cart, 'productPriceID'));
-
-        if ($key !== false) {
-            $cart[$key]['qty'] += $request->qty;
-        } else {
-            $newCartItem = [
-                'id' => $request->id,
-                'qty' => $request->qty,
-            ];
-            if (!is_null($request->productPriceID)) {
-                $newCartItem['productPriceID'] = $request->productPriceID;
-            }
-            $cart[] = $newCartItem;
-        }
-
-        Session::put('NewCart', $cart);
-
-        return response()->json($cart);
+        return response()->json([
+            'status' => true,
+            'data' => $cart->totalQty()
+        ]);
     }
 
     public function addtonumcart(Request $request)
@@ -775,53 +862,59 @@ class CartController extends FrontBaseController
         return response()->json($data);
     }
 
-    public function removecart($id)
+    public function removeCart($id)
     {
         try {
-            $curr = $this->curr;
-            $oldCart = Session::has('cart') ? Session::get('cart') : null;
-            $cart = new Cart($oldCart);
-            $cart->removeItem($id);
-            Session::forget('cart');
-            Session::forget('already');
-            Session::forget('coupon');
-            Session::forget('coupon_total');
-            Session::forget('coupon_total1');
-            Session::forget('coupon_percentage');
-            if (count($cart->items) > 0) {
-                Session::put('cart', $cart);
-                $data[0] = $cart->totalPrice;
-                $data[3] = $data[0];
-
-
-                if ($this->gs->currency_format == 0) {
-                    $data[0] = $curr->sign . round($data[0] * $curr->value, 2);
-                    $data[3] = $curr->sign . round($data[3] * $curr->value, 2);
-
-                } else {
-                    $data[0] = round($data[0] * $curr->value, 2) . $curr->sign;
-                    $data[3] = round($data[3] * $curr->value, 2) . $curr->sign;
-                }
-
-                $data[1] = count($cart->items);
-                return redirect()->back()->with('success', 'Remove Item Successfully');
-            } else {
-
-                $data[0] = 0;
-
-                if ($this->gs->currency_format == 0) {
-                    $data[1] = $curr->sign . round($data[0] * $curr->value, 2);
-
-                } else {
-                    $data[1] = round($data[0] * $curr->value, 2) . $curr->sign;
-                }
-
-//            return response()->json($data);
-                return redirect()->back()->with('success', 'Product Remove Successfully');
-            }
-        } catch (\Exception $exception) {
-            return redirect()->back();
+            CartHelper::removeRow($id);
+            return back()->with('success', "Remove Item Successfully");
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
         }
+//        try {
+//            $curr = $this->curr;
+//            $oldCart = Session::has('cart') ? Session::get('cart') : null;
+//            $cart = new Cart($oldCart);
+//            $cart->removeItem($id);
+//            Session::forget('cart');
+//            Session::forget('already');
+//            Session::forget('coupon');
+//            Session::forget('coupon_total');
+//            Session::forget('coupon_total1');
+//            Session::forget('coupon_percentage');
+//            if (count($cart->items) > 0) {
+//                Session::put('cart', $cart);
+//                $data[0] = $cart->totalPrice;
+//                $data[3] = $data[0];
+//
+//
+//                if ($this->gs->currency_format == 0) {
+//                    $data[0] = $curr->sign . round($data[0] * $curr->value, 2);
+//                    $data[3] = $curr->sign . round($data[3] * $curr->value, 2);
+//
+//                } else {
+//                    $data[0] = round($data[0] * $curr->value, 2) . $curr->sign;
+//                    $data[3] = round($data[3] * $curr->value, 2) . $curr->sign;
+//                }
+//
+//                $data[1] = count($cart->items);
+//                return redirect()->back()->with('success', 'Remove Item Successfully');
+//            } else {
+//
+//                $data[0] = 0;
+//
+//                if ($this->gs->currency_format == 0) {
+//                    $data[1] = $curr->sign . round($data[0] * $curr->value, 2);
+//
+//                } else {
+//                    $data[1] = round($data[0] * $curr->value, 2) . $curr->sign;
+//                }
+//
+////            return response()->json($data);
+//                return redirect()->back()->with('success', 'Product Remove Successfully');
+//            }
+//        } catch (\Exception $exception) {
+//            return redirect()->back();
+//        }
     }
 
 

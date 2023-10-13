@@ -97,9 +97,7 @@
                             </select>
                         @endforeach
                         <input type="hidden" id="selected_option_ids" name="selected_option_ids" value="">
-                        <input type="hidden" id="originalPrice" name="originalPrice" value="">
                         <input type="hidden" id="productPriceID" name="productPriceID" value="">
-                        <input type="hidden" id="productoptionsID" name="productoptionsID" value="">
 
                     </div>
                     <form action="{{ route('product.cart.quickadd', $productt->id) }}" method="POST"
@@ -110,67 +108,6 @@
                             <input class="product_qty qttotal" id="product_qty" name="quantity"
                                    value="1">
                             <span class="plus">+</span>
-
-                            {{--                            @if ($productt->stock_check == 1)--}}
-                            {{--                                --}}{{-- Product Size Option--}}
-                            {{--                                @if(!empty($productt->size))--}}
-                            {{--                                    <div class="product-size">--}}
-                            {{--                                        <p class="title">{{ __('Variations :') }}</p>--}}
-                            {{--                                        <select name="size" id="size" class="form-control">--}}
-                            {{--                                            @foreach(array_unique($productt->size) as $key => $data1)--}}
-                            {{--                                                <option value="{{ str_replace(' ','',$data1) }}">{{ $data1 }}</option>--}}
-                            {{--                                            @endforeach--}}
-                            {{--                                        </select>--}}
-                            {{--                                    </div>--}}
-                            {{--                                @endif--}}
-                            {{--                                 PRODUCT COLOR SECTION  --}}
-                            {{--                                                                @if(!empty($productt->color))--}}
-                            {{--                                                                    <div class="product-color">--}}
-                            {{--                                                                        <div class="title">{{ __('Color :') }}</div>--}}
-                            {{--                                                                        <select name="color" id="color" onChange="update()" style="border-radius: 3px;">--}}
-                            {{--                                                                            @foreach($productt->color as $key => $color1)--}}
-                            {{--                                                                                <option value="{{ $color1 }}"--}}
-                            {{--                                                                                        style="background-color: {{ $color1 }};"></option>--}}
-                            {{--                                                                            @endforeach--}}
-                            {{--                                                                        </select>--}}
-                            {{--                                                                    </div>--}}
-
-                            {{--                                                                @endif--}}
-                            {{--                                 PRODUCT COLOR SECTION ENDS  --}}
-                            {{--                            @else--}}
-                            {{--                                @if(!empty($productt->size_all))--}}
-                            {{--                                    <div class="product-size" data-key="false">--}}
-                            {{--                                        <span class="title">{{ __('Size :') }}</span>--}}
-                            {{--                                        <select name="size" id="size" class="form-control">--}}
-                            {{--                                            @foreach(array_unique(explode(',',$productt->size_all)) as $key => $data1)--}}
-                            {{--                                                <option value="{{ str_replace(' ','',$data1) }}">{{ $data1 }}</option>--}}
-                            {{--                                                                                            <input type="hidden" class="size" value="{{$data1}}">--}}
-                            {{--                                                                                            <input type="hidden" class="size_key" value="{{$key}}">--}}
-                            {{--                                            @endforeach--}}
-                            {{--                                        </select>--}}
-
-                            {{--                                    </div>--}}
-                            {{--                                @endif--}}
-                            {{--                                @if(!empty($productt->color_all))--}}
-                            {{--                                    <div class="product-color" data-key="false">--}}
-                            {{--                                        <div class="title">{{ __('Color :') }}</div>--}}
-                            {{--                                        <select name="color" id="color" onChange="update()" style="border-radius: 3px;">--}}
-                            {{--                                            @foreach(explode(',', $productt->color_all) as $key => $color1)--}}
-                            {{--                                                <option value="{{ $color1 }}"--}}
-                            {{--                                                        style="background-color: {{ $color1 }};"></option>--}}
-                            {{--                                            @endforeach--}}
-                            {{--                                        </select>--}}
-                            {{--                                    </div>--}}
-                            {{--                                @endif--}}
-                            {{--                            @endif--}}
-
-
-                            {{--                                 <select>--}}
-                            {{--                                     @foreach($productt->productVariants->option_type as $option_variation)--}}
-                            {{--                                         <option value="{{$option_variation}}">{{$option_variation}}</option>--}}
-                            {{--                                     @endforeach--}}
-                            {{--                                 </select>--}}
-
 
                             <input type="hidden" id="product_id" name="product_id"
                                    value="{{ $productt->id }}">
@@ -504,88 +441,43 @@
         $(document).on("click", "#addcrt", function () {
             var qty = $(".qttotal").val() ? $(".qttotal").val() : 1;
             var pid = $("#product_id").val();
-            var colors = $('select[name="Color"]').find(":selected").val();
-            var sizes = $('select[name="Size"]').find(":selected").text();
-
-
-            var ids = [];
-
-
-            $('.click_variation_option').each(function () {
-                ids.push($(this).val());
-            });
-
-            console.log(ids);
-
-            var originalPrice = $('#originalPrice').val();
             var productPriceID = $('#productPriceID').val();
-            var productoptionsID = $('#productoptionsID').val();
-
-            if ($(".product-attr").length > 0) {
-                values = $(".product-attr:checked")
-                    .map(function () {
-                        return $(this).val();
-                    })
-                    .get();
-
-                keys = $(".product-attr:checked")
-                    .map(function () {
-                        return $(this).data("key");
-                    })
-                    .get();
-
-                prices = $(".product-attr:checked")
-                    .map(function () {
-                        return $(this).data("price");
-                    })
-                    .get();
-
-                if (!isNaN(size_qty)) {
-                    if (size_qty == "0") {
-                        toastr.error(lang.cart_out);
-                        return false;
-                    }
-                } else {
-                    size_qty = null;
-                }
-            }
 
             $.ajax({
-                type: "GET",
-                url: mainurl + "/addnumcart",
+                type: "POST",
+                url: "{{ route('details.cart') }}",
                 data: {
                     id: pid,
                     qty: qty,
-                    // size: sizes,
-                    // color: colors,
-                    // size_qty: size_qty,
-                    // size_price: size_price,
-                    // size_key: size_key,
-                    // keys: keys,
-                    // values: values,
-                    // prices: prices,
-                    // originalPrice: originalPrice,
-                    // totalPrice: originalPrice * qty,
-                    productPriceID: productPriceID,
-                    productoptionsID: productoptionsID,
+                    productPriceID: productPriceID
 
                 },
                 success: function (data) {
-                    console.log(data)
-                    if (data == "variation") {
-                        toastr.error("Please select variation");
-                    } else if (data == "Out Of Stock") {
-                        toastr.error("Out Of Stock");
+                    console.log("cart response", data)
+                    if (!data?.status) {
+                        toastr.error(data?.message ?? 'Server error!');
                     } else {
-                        // $("#cart-count").html(data[0]);
-                        // $("#cart-count1").html(data[0]);
-                        // $(".cart-popup").load(mainurl + "/carts/view");
-                        // $("#cart-items").load(mainurl + "/carts/view");
-                        toastr.success("Successfully Added To Cart");
+                        toastr.success(data?.message ?? 'Successfully Added To Cart');
                         window.location.reload();
                     }
 
+                    // if (data == "variation") {
+                    //     toastr.error("Please select variation");
+                    // } else if (data == "Out Of Stock") {
+                    //     toastr.error("Out Of Stock");
+                    // } else {
+                    //     // $("#cart-count").html(data[0]);
+                    //     // $("#cart-count1").html(data[0]);
+                    //     // $(".cart-popup").load(mainurl + "/carts/view");
+                    //     // $("#cart-items").load(mainurl + "/carts/view");
+                    //     toastr.success("Successfully Added To Cart");
+                    //     // window.location.reload();
+                    // }
+
                 },
+                error: function (err) {
+                    toastr.error(err?.responseJSON?.message ?? "Server error!");
+                }
             });
         });
 
@@ -602,6 +494,7 @@
             $('.click_variation_option').each(function () {
                 ids.push($(this).val());
             });
+            $('#productPriceID').val('');
 
 
             if (ids.length > 0) {
@@ -622,7 +515,7 @@
                                 var imageUrl = "{{ asset('assets/images/variation/') }}" + '/' + img[0];
                                 $('#div_img').html('<img data-magnify-src="' + imageUrl + '" class="img-fluid zoom" src="' + imageUrl + '">');
                                 $('.productImgMain').hide();
-                                setTimeout(()=>{
+                                setTimeout(() => {
                                     $('.zoom').magnify();
                                 }, 2000)
                             } else {
@@ -633,7 +526,7 @@
                             if (data?.price?.original_price) {
                                 $('#original_price').hide()
                                 $('#variation_price').html(`<span>$${data.price.original_price}</span>`).show();
-                                if (data?.price?.sale_price && data?.price?.sale_price !== 0){
+                                if (data?.price?.sale_price && data?.price?.sale_price !== 0) {
                                     const salePrice = data.price.sale_price;
                                     const originalPrice = data.price.original_price;
 
@@ -641,9 +534,7 @@
 
                                     $('#variation_price').html(`<span>$${data.price.sale_price}</span><del>$${data.price.original_price}</del>  <div class="on-sale">${discountPercentage.toFixed(0)}% Off</div>`).show();
                                 }
-                                $('#originalPrice').val(data.price.original_price);
                                 $('#productPriceID').val(data.price.id);
-                                $('#productoptionsID').val(data.price.option_ids);
 
 
                             } else {
