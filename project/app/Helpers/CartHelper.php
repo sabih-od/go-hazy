@@ -112,7 +112,7 @@ class CartHelper
         $options = collect([]);
         if (!empty($product_ids) && !empty($option_ids)) {
             $options = ProductVariation::query()
-                ->select('product_id', 'option_id', 'option_display_name', 'option_type')
+                ->select('product_id', 'option_id', 'option_display_name', 'option_type', 'option_image')
                 ->whereIn('product_id', $product_ids)
                 ->whereIn('option_id', $option_ids)->get();
         }
@@ -122,7 +122,7 @@ class CartHelper
             $prd = $products->where('id', $item['id'])->first();
             if ($prd) {
                 $show_price = !empty($prd->previous_price) ? $prd->price : $prd->previous_price;
-                $img = asset('assets/images/products/' . $prd->thumbnail);
+                $img = asset('assets/images/products/' . $prd->photo);
                 // if variation product
                 if (isset($item['productPriceID']) && $prd_price = $prd_prices->where('id', $item['productPriceID'])->first()) {
                     $show_price = !empty($prd_price->sale_price) ? $prd_price->sale_price : $prd_price->original_price;
