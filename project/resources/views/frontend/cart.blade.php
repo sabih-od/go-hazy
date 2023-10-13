@@ -33,110 +33,82 @@
             <div class="row cartItemCard">
                 <input type="hidden" name="cart_id" class="id" value="">
 
-                @forelse($products as $product)
+                @forelse($productData as $row)
                     <div class="col-md-1">
-
-                        <img src="{{ asset('assets/images/products/'.$product['item']['photo']) }}" alt="">
+                        <img src="{{ $row['image'] }}" alt="">
                     </div>
                     <div class="col-md-5 text-left">
-                        <strong>{{ $product['item']->name ?? '' }}</strong>
-                        {{--                        @if(!empty($product['color']))--}}
-                        {{--                            <p class="m-0" style="display: flex;">--}}
-                        {{--                                <strong class="color">{{ __('Color') }} :</strong>--}}
-                        {{--                                <span id="color-bar"--}}
-                        {{--                                      style="border: 10px solid {{$product['color'] == "" ? "white" : '#'.$product['color']}};--}}
-                        {{--                                          width: 20px; height: 10px;border-radius: 50%;">--}}
-                        {{--                            </span>--}}
-                        {{--                            </p>--}}
-                        {{--                        @endif--}}
-                        @if(!empty($product['size']))
-                            <p class="mb-2">
-                                <strong class="color">
-                                    {{ __('Variation') }} : {{str_replace('-',' ',$product['size'])}}
+                        <strong>{{ $row['product']->name ?? '' }}</strong>
+                        <div class="mb-3">
+                            @if(isset($row['options']))
+                                <p class="mb-0">
+                                    <strong>
+                                        {{ __('Variation' . (count($row['options']) > 1 ? 's': '')) }}
+                                        :
+                                        @foreach($row['options'] as $option)
+                                            ({{ $option->option_type }}: {{ $option->option_display_name }})
+                                        @endforeach
+                                    </strong>
+                                </p>
+                            @endif
+                            <p class="mb-0">
+                                <strong>
+                                    {{ __('Quantity') }} : {{ $row['qty'] }}
                                 </strong>
                             </p>
-                            <p class="mb-1">
-                                <strong class="color">
-                                    {{ __('Qty') }} : {{str_replace('-',' ',$product['qty'])}}
-                                </strong>
-                            </p>
-
-                            <p class="mb-2">
-                                <strong class="color"></strong>
-                            </p>
-                        @endif
+                        </div>
                     </div>
 
                     <div class="col-md-2">
                         <strong class="price">
-                            @if (isset($product['originalPrice']) && $product['originalPrice'] != null)
-                                ${{ $product['originalPrice'] }}
-                            @elseif ($product['item']->price !=null)
-                                ${{ $product['item']->price }}
-                            @else
-                              -
-                            @endif
+                            ${{ $row['show_price'] }}
+
                         </strong>
                     </div>
                     <div class="col-md-2">
 
                     </div>
-{{--                    <div class="col-md-2">--}}
-{{--                        <div class="proCounter">--}}
-{{--                            <input type="hidden" class="prodid" value="{{$product['item']['id']}}">--}}
-{{--                            <!-- Other input fields for size, color, and quantity -->--}}
-
-{{--                            <!-- Discount logic -->--}}
-{{--                            @php--}}
-{{--                                $originalPrice = $product['item']->price;--}}
-{{--                                $discountPercentage = 20; // 20% discount--}}
-{{--                                $discountAmount = ($originalPrice * $discountPercentage) / 100;--}}
-{{--                                $discountedPrice = $originalPrice - $discountAmount;--}}
-{{--                            @endphp--}}
-{{--                            <strong class="discounted-price">${{ number_format($discountedPrice, 2) }}</strong>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
                     <div class="col-md-1">
                         <strong class="price">
-                            @if (isset($product['totalPrice']) && $product['totalPrice'] != null)
-                                ${{ $product['totalPrice'] }}
-                            @elseif ($product['item']->price !=null)
-                                ${{ $product['item']->price }}
-                            @else
-                                -
-                            @endif
+                            ${{ $row['show_total_price'] }}
                         </strong>
                     </div>
                     <div class="col-md-1">
-                        <a href="#" class="remove cart-remove delete"
-                           data-class="cremove{{ $product['item']['id'].$product['size'].$product['color'].str_replace(str_split(' ,'),'',$product['values']) }}"
-                           data-href="{{ route('product.cart.remove',$product['item']['id'].$product['size'].$product['color'].str_replace(str_split(' ,'),'',$product['values'])) }}"><i
+                        <a href="{{ route('cart.remove', $row['row_id'] ?? 0) }}" class="remove cart-remove delete"><i
                                 class="far fa-trash-alt"></i></a>
                     </div>
                 @empty
                     <p class="text-danger ml-5 my-2">Product Not Found</p>
                 @endforelse
+                @if(!empty($totalProductPrice))
+                    <div class="col-lg-12">
+                        <div class="text-center" style="float: right;padding-right: 10%;">
+                            <strong>{{ __('Total') }} : {{ $totalProductPrice }}</strong>
+                        </div>
+                    </div>
+                @endif
+
+
             </div>
 
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="text-center">
-{{--                        <a href="{{count($products) != 0 ? route('front.checkout') : route('front.category' )}}"--}}
-{{--                           class="btnStyle my-5">{{count($products) != 0 ? 'Proceed To Pay' : 'Shop Now'}}</a>--}}
-
-                            @if(Session::has('cart'))
-                        <button type="button" class="btnStyle my-5" data-toggle="modal" data-target="#exampleModalCenter">
-                            Proceed To Pay
-                        </button>
-                        @else
-                            <button type="button" class="btnStyle my-5">
+                        @if(\App\Helpers\CartHelper::getCartTotalQty() > 0)
+                            <button type="button" class="btnStyle my-5" data-toggle="modal"
+                                    data-target="#exampleModalCenter">
                                 Proceed To Pay
                             </button>
+{{--                        @else--}}
+{{--                            <button type="button" class="btnStyle my-5">--}}
+{{--                                Proceed To Pay--}}
+{{--                            </button>--}}
                         @endif
 
 
-                  {{--   modal work --}}
-                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        {{--   modal work --}}
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -148,35 +120,41 @@
                                     <div class="modal-body">
                                         <div id="radio">
                                             Are you veteran ?
-                                        <form>
-                                        <input type="radio" id="html" name="fav_language" value="HTML" class="click_first_number_radio">
-                                        <label for="html">First member </label><br>
-                                        <input type="radio" id="css" name="fav_language" value="CSS" class="click_veteran_radio">
-                                        <label for="css">Veteran</label>
-                                        </form>
+                                            <form>
+                                                <input type="radio" id="html" name="fav_language" value="HTML"
+                                                       class="click_first_number_radio">
+                                                <label for="html">First member </label><br>
+                                                <input type="radio" id="css" name="fav_language" value="CSS"
+                                                       class="click_veteran_radio">
+                                                <label for="css">Veteran</label>
+                                            </form>
                                         </div>
                                         <div id="email" style="display: none">
                                             <form id="email-form" action="{{ route('submit_email') }}" method="POST">
                                                 @csrf
                                                 <label for="email">Enter your Email</label><br>
-                                                <input type="email" id="email-input" name="email" placeholder="example@gmail.com" class="form-group" required >
-                                                <button type="submit" class="btn btn-primary submit_email_disable">Submit Email</button>
+                                                <input type="email" id="email-input" name="email"
+                                                       placeholder="example@gmail.com" class="form-group" required>
+                                                <button type="submit" class="btn btn-primary submit_email_disable">
+                                                    Submit Email
+                                                </button>
                                             </form>
                                         </div>
                                         <div id="otp" style="display: none">
                                             <form id="otp-form">
                                                 <label>OTP Verification</label><br>
-                                                <input type="text" name="otp" id="otp-input" placeholder="6-digit number" class="form-group" required>
-                                                <button type="submit"  class="btn btn-primary">Verify OTP</button>
+                                                <input type="text" name="otp" id="otp-input"
+                                                       placeholder="6-digit number" class="form-group" required>
+                                                <button type="submit" class="btn btn-primary">Verify OTP</button>
                                             </form>
                                         </div>
-                                         <h2 class="text-center show_msg"style="display: none">Please Wait</h2>
+                                        <h2 class="text-center show_msg" style="display: none">Please Wait</h2>
                                     </div>
                                     <div class="modal-footer">
                                         <a href="{{route('front.checkout')}}" class="btn btn-primary cancel_btn_hide">Cancel</a>
-{{--                                        <button type="button" id="hidden" class="btn btn-secondary cancel_btn_hide" data-dismiss="modal">Cancel</button>--}}
-{{--                                        <button type="button" id="visible" class="btn btn-primary">Proceed</button>--}}
-{{--                                        <a href="{{route('front.checkout')}}" id="otp_verification" style="display: none" class="btn btn-primary">Proceed</a>--}}
+                                        {{--                                        <button type="button" id="hidden" class="btn btn-secondary cancel_btn_hide" data-dismiss="modal">Cancel</button>--}}
+                                        {{--                                        <button type="button" id="visible" class="btn btn-primary">Proceed</button>--}}
+                                        {{--                                        <a href="{{route('front.checkout')}}" id="otp_verification" style="display: none" class="btn btn-primary">Proceed</a>--}}
 
                                     </div>
                                 </div>
@@ -306,15 +284,15 @@
     </script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
 
-            $('.click_first_number_radio').click(function(){
+            $('.click_first_number_radio').click(function () {
                 $("#email").fadeIn();
             })
-            $('.click_veteran_radio').click(function(){
+            $('.click_veteran_radio').click(function () {
                 $("#email").fadeIn();
             })
-            $("#email-form").submit(function(e) {
+            $("#email-form").submit(function (e) {
                 e.preventDefault();
                 $('.submit_email_disable').prop('disabled', true);
                 var email = $("#email-input").val();
@@ -323,29 +301,29 @@
                 $.ajax({
                     type: "POST",
                     url: "{{ route('submit_email') }}",
-                    data: { email: email },
+                    data: {email: email},
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    success: function(response) {
-                        if(response.message){
+                    success: function (response) {
+                        if (response.message) {
                             toastr.success(response.message);
                             $("#otp").fadeIn();
                             $('#radio').hide();
                             $('#email').hide();
-                        }else {
+                        } else {
                             toastr.error(response.error);
                             $('.submit_email_disable').prop('disabled', false);
                         }
 
                     },
-                    error: function(error) {
+                    error: function (error) {
                         toastr.error(error.responseJSON.message);
                     }
                 });
             });
 
-            $("#otp-form").submit(function(e) {
+            $("#otp-form").submit(function (e) {
                 e.preventDefault();
                 $('.submit_email_disable').prop('disabled', true);
 
@@ -353,26 +331,26 @@
                 $.ajax({
                     type: "POST",
                     url: "{{ route('verify_otp') }}",
-                    data: { otp: otp },
+                    data: {otp: otp},
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    success: function(response) {
+                    success: function (response) {
 
-                        if(response.message){
+                        if (response.message) {
                             toastr.success(response.message);
                             $("#otp").hide();
                             $(".cancel_btn_hide").hide();
                             $(".show_msg").show();
                             window.location.href = "{{route('front.checkout')}}";
-                        }else {
+                        } else {
                             toastr.error(response.error);
                             $('.submit_email_disable').prop('disabled', false);
 
                         }
 
                     },
-                    error: function(error) {
+                    error: function (error) {
                         toastr.error(error.responseJSON.message);
                     }
                 });

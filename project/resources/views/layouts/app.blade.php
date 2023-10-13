@@ -214,7 +214,7 @@
                                 <li><a href="#search"><i class="far fa-search"></i></a></li>
                                 <li><a href="{{route('front.cart')}}"><i class="fal fa-shopping-cart"></i>
                                         <span>
-                                            {{ Session::has('cart') ? count(Session::get('cart')->items) : '0' }}
+                                            {{ \App\Helpers\CartHelper::getCartTotalQty() }}
                                         </span></a>
                                 </li>
                                 @if(\Illuminate\Support\Facades\Auth::check())

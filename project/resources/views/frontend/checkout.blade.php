@@ -176,7 +176,7 @@
                 <input type="hidden" id="original_tax" value="0">
                 <input type="hidden" id="wallet-price" name="wallet_price" value="0">
                 <input type="hidden" id="ttotal"
-                       value="{{ Session::has('cart') ? App\Models\Product::convertPrice(Session::get('cart')->totalPrice) : '0' }}">
+                       value="{{ $totalPrice }}">
                 <input type="hidden" name="coupon_code" id="coupon_code"
                        value="{{ Session::has('coupon_code') ? Session::get('coupon_code') : '' }}">
                 <input type="hidden" name="coupon_discount" id="coupon_discount"
@@ -276,25 +276,25 @@
                 </div>
             </form>
 
-      @php
-          $data = Session::get('cart');
-          $total = 0;
-          foreach($data->items as $price)
-          {
-              $total = $total + $price['totalPrice'];
-          }
-      @endphp
-            @if(Session::has('cart'))
+{{--      @php--}}
+{{--          $data = Session::get('cart');--}}
+{{--          $total = 0;--}}
+{{--          foreach($data->items as $price)--}}
+{{--          {--}}
+{{--              $total = $total + $price['totalPrice'];--}}
+{{--          }--}}
+{{--      @endphp--}}
+            @if(\App\Helpers\CartHelper::getCartTotalQty() > 0)
                 <div class="col-md-12 title my-5 text-center">
                     <h2>Order Summary</h2>
                 </div>
                 <div class="col-md-12 order-summery">
                     <div class="row no-gutters">
                         <div class="col-md-12 d-flex align-items-center justify-content-between">
-                            <span>Subtotal ({{ Session::has('cart') ? count(Session::get('cart')->items) : '0' }} items)</span>
-                            <strong>{{ $total ? ($total) : '0.00' }} $</strong>
+                            <span>Subtotal ({{ \App\Helpers\CartHelper::getCartTotalQty() }} items)</span>
+                            <strong>{{ $totalPrice }} $</strong>
                             <input type="hidden" id="ttotal"
-                                   value="{{ $total ? ($total) : '0' }}">
+                                   value="{{ $totalPrice }}">
                         </div>
                         {{--                        <hr class="w-100">--}}
                         {{--                        <div class="col-md-12 d-flex align-items-center justify-content-between">--}}
@@ -352,7 +352,7 @@
                             <span>Total</span>
                             <strong
                                 id="grand_total">
-                                {{$total}} $
+                                {{ $totalPrice }} $
 
                                 {{-- {{ Session::has('cart') ?--}}
                                 {{--                                   Session::has('coupon') ?--}}
@@ -423,70 +423,70 @@
     {{--        </div>--}}
     {{--    </div>--}}
 
-    @if(Session::has('cart'))
-        <div class="col-md-12 title my-5 text-center d-none">
-            <h2>Payment Info</h2>
-        </div>
-        <div class="col-md-12 order-summery d-none">
-            <div class="row no-gutters">
-                <div class="col-md-12">
-                    <div class="nav flex-column" role="tablist"
-                         aria-orientation="vertical">
-                        @foreach($gateways as $gt)
-                            @if($gt->type == 'manual')
-                                @if($digital == 0)
-                                    <a class="nav-link payment" data-val=""
-                                       data-show="{{$gt->showForm()}}"
-                                       data-form="{{ $gt->showCheckoutLink() }}"
-                                       data-href="{{ route('front.load.payment',['slug1' => $gt->showKeyword(),'slug2' => $gt->id]) }}"
-                                       id="v-pills-tab{{ $gt->id }}-tab"
-                                       data-toggle="pill"
-                                       href="#v-pills-tab{{ $gt->id }}" role="tab"
-                                       aria-controls="v-pills-tab{{ $gt->id }}"
-                                       aria-selected="false">
-                                        <div class="icon">
-                                            <span class="radio"></span>
-                                        </div>
-                                        <p>
-                                            {{ $gt->title }}
-                                            @if($gt->subtitle != null)
-                                                <small>
-                                                    {{ $gt->subtitle }}
-                                                </small>
-                                            @endif
-                                        </p>
-                                    </a>
-                                @endif
-                            @else
-                                <a class="nav-link payment"
-                                   data-val="{{ $gt->keyword }}"
-                                   data-show="{{$gt->showForm()}}"
-                                   data-form="{{ $gt->showCheckoutLink() }}"
-                                   data-href="{{ route('front.load.payment',['slug1' => $gt->showKeyword(),'slug2' => $gt->id]) }}"
-                                   id="v-pills-tab{{ $gt->id }}-tab"
-                                   data-toggle="pill"
-                                   href="#v-pills-tab{{ $gt->id }}" role="tab"
-                                   aria-controls="v-pills-tab{{ $gt->id }}"
-                                   aria-selected="false">
-                                    <div class="icon">
-                                        <span class="radio"></span>
-                                    </div>
-                                    <p>
-                                        {{ $gt->name }}
-                                        @if($gt->information != null)
-                                            <small>
-                                                {{ $gt->getAutoDataText() }}
-                                            </small>
-                                        @endif
-                                    </p>
-                                </a>
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
+{{--    @if(Session::has('cart'))--}}
+{{--        <div class="col-md-12 title my-5 text-center d-none">--}}
+{{--            <h2>Payment Info</h2>--}}
+{{--        </div>--}}
+{{--        <div class="col-md-12 order-summery d-none">--}}
+{{--            <div class="row no-gutters">--}}
+{{--                <div class="col-md-12">--}}
+{{--                    <div class="nav flex-column" role="tablist"--}}
+{{--                         aria-orientation="vertical">--}}
+{{--                        @foreach($gateways as $gt)--}}
+{{--                            @if($gt->type == 'manual')--}}
+{{--                                @if($digital == 0)--}}
+{{--                                    <a class="nav-link payment" data-val=""--}}
+{{--                                       data-show="{{$gt->showForm()}}"--}}
+{{--                                       data-form="{{ $gt->showCheckoutLink() }}"--}}
+{{--                                       data-href="{{ route('front.load.payment',['slug1' => $gt->showKeyword(),'slug2' => $gt->id]) }}"--}}
+{{--                                       id="v-pills-tab{{ $gt->id }}-tab"--}}
+{{--                                       data-toggle="pill"--}}
+{{--                                       href="#v-pills-tab{{ $gt->id }}" role="tab"--}}
+{{--                                       aria-controls="v-pills-tab{{ $gt->id }}"--}}
+{{--                                       aria-selected="false">--}}
+{{--                                        <div class="icon">--}}
+{{--                                            <span class="radio"></span>--}}
+{{--                                        </div>--}}
+{{--                                        <p>--}}
+{{--                                            {{ $gt->title }}--}}
+{{--                                            @if($gt->subtitle != null)--}}
+{{--                                                <small>--}}
+{{--                                                    {{ $gt->subtitle }}--}}
+{{--                                                </small>--}}
+{{--                                            @endif--}}
+{{--                                        </p>--}}
+{{--                                    </a>--}}
+{{--                                @endif--}}
+{{--                            @else--}}
+{{--                                <a class="nav-link payment"--}}
+{{--                                   data-val="{{ $gt->keyword }}"--}}
+{{--                                   data-show="{{$gt->showForm()}}"--}}
+{{--                                   data-form="{{ $gt->showCheckoutLink() }}"--}}
+{{--                                   data-href="{{ route('front.load.payment',['slug1' => $gt->showKeyword(),'slug2' => $gt->id]) }}"--}}
+{{--                                   id="v-pills-tab{{ $gt->id }}-tab"--}}
+{{--                                   data-toggle="pill"--}}
+{{--                                   href="#v-pills-tab{{ $gt->id }}" role="tab"--}}
+{{--                                   aria-controls="v-pills-tab{{ $gt->id }}"--}}
+{{--                                   aria-selected="false">--}}
+{{--                                    <div class="icon">--}}
+{{--                                        <span class="radio"></span>--}}
+{{--                                    </div>--}}
+{{--                                    <p>--}}
+{{--                                        {{ $gt->name }}--}}
+{{--                                        @if($gt->information != null)--}}
+{{--                                            <small>--}}
+{{--                                                {{ $gt->getAutoDataText() }}--}}
+{{--                                            </small>--}}
+{{--                                        @endif--}}
+{{--                                    </p>--}}
+{{--                                </a>--}}
+{{--                            @endif--}}
+{{--                        @endforeach--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    @endif--}}
     <!-- END: Step 2 -->
 
     <!-- Begin: End 3 -->

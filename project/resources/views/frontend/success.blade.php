@@ -206,15 +206,16 @@
                                                                             {{ \PriceHelper::showOrderCurrencyPrice((($order->tax) / $order->currency_value),$order->currency_sign) }}
                                                                         </p>
 
-{{--                                                                        <p>{{ __('Total Amount :') }}--}}
-{{--                                                                            {{ \PriceHelper::showCurrencyPrice(($order->pay_amount) + $order->coupon_discount)  }}--}}
-{{--                                                                        </p>--}}
+                                                                        {{--                                                                        <p>{{ __('Total Amount :') }}--}}
+                                                                        {{--                                                                            {{ \PriceHelper::showCurrencyPrice(($order->pay_amount) + $order->coupon_discount)  }}--}}
+                                                                        {{--                                                                        </p>--}}
 
 
                                                                         @if (!is_null($order->getPercentage) && Session::has('coupon_code'))
                                                                             <p>{{ __('Discount:') }}
                                                                                 @if ($order->method != "Wallet")
-                                                                                    {{(!is_null($order->getPercentage) ? $order->getPercentage->percentage : 0) }}%
+                                                                                    {{(!is_null($order->getPercentage) ? $order->getPercentage->percentage : 0) }}
+                                                                                    %
                                                                                 @endif
                                                                             </p>
 
@@ -248,7 +249,8 @@
                                                                         @elseif (!is_null($order->getPercentage))
                                                                             <p>{{ __('Discount:') }}
                                                                                 @if ($order->method != "Wallet")
-                                                                                    {{(!is_null($order->getPercentage) ? $order->getPercentage->percentage : 0) }}%
+                                                                                    {{(!is_null($order->getPercentage) ? $order->getPercentage->percentage : 0) }}
+                                                                                    %
 
                                                                                     {{--                                                                                    {{ \PriceHelper::showCurrencyPrice(!is_null($order->getPercentage) ? $order->getPercentage->percentage : 0) }}%--}}
                                                                                 @endif
@@ -298,23 +300,24 @@
                                                                     <th width="35%">{{ __('Name') }}</th>
                                                                     <th width="20%">{{ __('Details') }}</th>
                                                                     <th>{{ __('Price') }}</th>
-{{--                                                                    <th>{{ __('Discount') }}</th>--}}
+                                                                    {{--                                                                    <th>{{ __('Discount') }}</th>--}}
                                                                     <th>{{ __('Total') }}</th>
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
 
                                                                 @php
-                                                                $pro = json_decode($tempcart);
+                                                                    $pro = json_decode($tempcart);
                                                                 @endphp
-                                                                @foreach($pro as $product)
+                                                                @foreach($pro as $row)
+{{--                                                                    @dd($row)--}}
 
 
                                                                     <tr>
 
-                                                                        <td>{{ $product->item->name }}</td>
+                                                                        <td>{{ $row->product->name }}</td>
                                                                         <td>
-                                                                            <b>{{ __('Quantity') }}</b>: {{$product->qty}}
+                                                                            <b>{{ __('Quantity') }}</b>: {{$row->qty}}
                                                                             <br>
 
                                                                             {{--                                                                            @if(!empty($product['color']))--}}
@@ -326,22 +329,21 @@
                                                                             {{--                                                                            @endif--}}
 
 
-
                                                                         </td>
-                                                                        <td>{{ $product->originalPrice }}$
-{{--                                                                        <td>{{ \PriceHelper::showCurrencyPrice(($order->pay_amount) + $order->coupon_discount)  }}--}}
+                                                                        <td>{{ $row->show_price }}$
+                                                                            {{--                                                                        <td>{{ \PriceHelper::showCurrencyPrice(($order->pay_amount) + $order->coupon_discount)  }}--}}
                                                                         </td>
-                                                                        <td>{{ $product->originalPrice }}$
+                                                                        <td>{{ $row->show_total_price }}$
                                                                             {{--                                                                        <td>{{ \PriceHelper::showCurrencyPrice(($order->pay_amount) + $order->coupon_discount)  }}--}}
                                                                         </td>
 
-{{--                                                                        <td>--}}
-{{--                                                                            {{ \PriceHelper::showCurrencyPrice(!is_null($order->getPercentage) ? $order->getPercentage->percentage : 0)  }}--}}
-{{--                                                                        </td>--}}
+                                                                        {{--                                                                        <td>--}}
+                                                                        {{--                                                                            {{ \PriceHelper::showCurrencyPrice(!is_null($order->getPercentage) ? $order->getPercentage->percentage : 0)  }}--}}
+                                                                        {{--                                                                        </td>--}}
 
-{{--                                                                        <td>{{ \PriceHelper::showCurrencyPrice($order->coupon_discount)  }}--}}
-{{--                                                                            <small>{{ $product['discount'] == 0 ? '' : '('.$product['discount'].'% '.__('Off').')' }}</small>--}}
-{{--                                                                        </td>--}}
+                                                                        {{--                                                                        <td>{{ \PriceHelper::showCurrencyPrice($order->coupon_discount)  }}--}}
+                                                                        {{--                                                                            <small>{{ $product['discount'] == 0 ? '' : '('.$product['discount'].'% '.__('Off').')' }}</small>--}}
+                                                                        {{--                                                                        </td>--}}
 
 
                                                                     </tr>
