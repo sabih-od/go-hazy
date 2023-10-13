@@ -112,7 +112,7 @@ class CartHelper
         $options = collect([]);
         if (!empty($product_ids) && !empty($option_ids)) {
             $options = ProductVariation::query()
-                ->select('product_id', 'option_id', 'option_display_name', 'option_type')
+                ->select('product_id', 'option_id', 'option_display_name', 'option_type', 'option_image')
                 ->whereIn('product_id', $product_ids)
                 ->whereIn('option_id', $option_ids)->get();
         }

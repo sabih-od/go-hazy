@@ -28,69 +28,6 @@ class CartController extends FrontBaseController
             $totalProductPrice = $productData->getTotalPrice();
             $productData = $productData->getData();
 
-//            $prd_ids = $productData->pluck('id')->filter(function ($item) {
-//                return !empty($item);
-//            })->toArray();
-//
-//            $products = collect([]);
-//            if (!empty($prd_ids)) {
-//                $products = Product::query()->whereIn('id', $prd_ids)->get();
-//            }
-//
-//            $price_ids = $productData->pluck('productPriceID')->filter(function ($item) {
-//                return !empty($item);
-//            })->toArray();
-//
-//            $prd_prices = collect([]);
-//            if (!empty($price_ids)) {
-//                $prd_prices = ProductVariationPrice::query()->whereIn('id', $price_ids)->get();
-//            }
-//
-//            $option_ids = $prd_prices->map(function ($item) {
-//                return [
-//                    'option_ids' => explode(',', $item->option_ids),
-//                    'product_id' => $item->product_id
-//                ];
-//            });
-//            $product_ids = $option_ids->pluck('product_id')->flatten()->toArray();
-//            $option_ids = $option_ids->pluck('option_ids')->flatten()->toArray();
-//
-//            $options = collect([]);
-//            if (!empty($product_ids) && !empty($option_ids)) {
-//                $options = ProductVariation::query()
-//                    ->select('product_id', 'option_id', 'option_display_name', 'option_type')
-//                    ->whereIn('product_id', $product_ids)
-//                    ->whereIn('option_id', $option_ids)->get();
-//            }
-//
-//            $totalProductPrice = 0;
-//            $productData = $productData->map(function ($item) use (&$totalProductPrice, $options, $prd_prices, $products) {
-//                $prd = $products->where('id', $item['id'])->first();
-//                if ($prd) {
-//                    $show_price = !empty($prd->previous_price) ? $prd->price : $prd->previous_price;
-//                    $img = asset('assets/images/products/' . $prd->thumbnail);
-//                    // if variation product
-//                    if (isset($item['productPriceID']) && $prd_price = $prd_prices->where('id', $item['productPriceID'])->first()) {
-//                        $show_price = !empty($prd_price->sale_price) ? $prd_price->sale_price : $prd_price->original_price;
-//                        $item['price'] = $prd_price;
-//                        $item['options'] = [];
-//                        $options_ids = explode(',', $prd_price->option_ids);
-//                        foreach ($options_ids as $o_id) {
-//                            $option = $options->where('option_id', $o_id)->where('product_id', $item['id'])->first();
-//                            $img = !empty($option->option_image) ? asset("assets/images/variation/" . $option->option_image) : $img;
-//                            $item['options'][] = $option;
-//                        }
-//                    }
-//                    $item['image'] = $img;
-//                    $item['show_price'] = $show_price;
-//                    $item['show_total_price'] = $show_price * intval($item['qty']);
-//                    $totalProductPrice += $item['show_total_price'];
-//                }
-//                $item['product'] = $prd;
-//                return $item;
-//            });
-
-//            dd($productData->toArray());
             return view('frontend.cart', compact('productData', 'totalProductPrice'));
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
