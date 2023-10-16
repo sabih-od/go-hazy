@@ -241,18 +241,18 @@ class CheckoutController extends FrontBaseController
 //                        break;
 //                    }
 //                }
-                $total = $cart->getTotalPrice();
-                $coupon = Session::has('coupon') ? Session::get('coupon') : 0;
-//                dd($total, $coupon);
-
-                if (!Session::has('coupon_total')) {
-                    $total = $total - $coupon;
-                    $total = $total + 0;
-//                    dd($total);
-                } else {
-                    $total = Session::get('coupon_total');
-                    $total = str_replace($curr->sign, '', $total) + round(0 * $curr->value, 2);
-                }
+//                $total = $cart->getTotalPrice();
+//                $coupon = Session::has('coupon') ? Session::get('coupon') : 0;
+////                dd($total, $coupon);
+//
+//                if (!Session::has('coupon_total')) {
+//                    $total = $total - $coupon;
+//                    $total = $total + 0;
+////                    dd($total);
+//                } else {
+//                    $total = Session::get('coupon_total');
+//                    $total = str_replace($curr->sign, '', $total) + round(0 * $curr->value, 2);
+//                }
 //                foreach ($products as $prod) {
 //                    if ($prod['item']['type'] != 'Physical') {
 //                        if (!Auth::check()) {
@@ -275,10 +275,10 @@ class CheckoutController extends FrontBaseController
 //                        }
 //                    }
 //                }
-//                dd($total);
+//                dd($get_total_price, $total_discount_price);
                 return view('frontend.checkout', [
                     'products' => $cartData,
-                    'totalPrice' => $total,
+                    'totalPrice' => $get_total_price,
                     'pickups' => $pickups,
                     'totalQty' => CartHelper::getCartTotalQty(),
                     'gateways' => $gateways,
@@ -290,7 +290,7 @@ class CheckoutController extends FrontBaseController
                     'vendor_shipping_id' => $vendor_shipping_id,
                     'vendor_packing_id' => $vendor_packing_id,
                     'paystack' => $paystackData,
-                    'total_discount_price' => $total_discount_price
+                    'total_discount_price' => (float)number_format($total_discount_price, 2)
                 ]);
             } // If guest checkout is Deactivated then display pop up form with proper error message
 

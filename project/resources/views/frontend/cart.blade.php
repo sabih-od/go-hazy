@@ -95,14 +95,17 @@
                 <div class="col-lg-6">
                     <div class="text-center">
                         @if(\App\Helpers\CartHelper::getCartTotalQty() > 0)
-                            <button type="button" class="btnStyle my-5" data-toggle="modal"
-                                    data-target="#exampleModalCenter">
+                            {{--                            <button type="button" class="btnStyle my-5" data-toggle="modal"--}}
+                            {{--                                    data-target="#exampleModalCenter">--}}
+                            {{--                                Proceed To Pay--}}
+                            {{--                            </button>--}}
+                            <a href="{{route('front.checkout')}}" class="btnStyle my-5">
                                 Proceed To Pay
-                            </button>
-{{--                        @else--}}
-{{--                            <button type="button" class="btnStyle my-5">--}}
-{{--                                Proceed To Pay--}}
-{{--                            </button>--}}
+                            </a>
+                            {{--                        @else--}}
+                            {{--                            <button type="button" class="btnStyle my-5">--}}
+                            {{--                                Proceed To Pay--}}
+                            {{--                            </button>--}}
                         @endif
 
 

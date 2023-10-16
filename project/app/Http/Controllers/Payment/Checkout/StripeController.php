@@ -9,7 +9,8 @@ use App\{Helpers\CartHelper,
     Models\PaymentGateway,
     Classes\GeniusMailer,
     Models\VeteranDiscount,
-    Traits\PHPCustomMail};
+    Traits\PHPCustomMail
+};
 use App\Models\Country;
 use App\Models\State;
 use Illuminate\Http\Request;
@@ -36,6 +37,7 @@ class StripeController extends CheckoutBaseControlller
     {
 
         $input = $request->all();
+//        dd($input);
 
         $data = PaymentGateway::whereKeyword('stripe')->first();
 
@@ -175,7 +177,6 @@ class StripeController extends CheckoutBaseControlller
         ]);
 
 
-
         if ($validator->passes()) {
             $stripe = Stripe::make(\Config::get('services.stripe.secret'));
             try {
@@ -214,21 +215,20 @@ class StripeController extends CheckoutBaseControlller
 //                    $affilate_users = $temp_affilate_users == null ? null : json_encode($temp_affilate_users);
 
 
-
                     $cart = json_encode($cartData);
-
 
 
                     $order = new Order;
                     $input['cart'] = $cart;
                     $input['user_id'] = Auth::check() ? Auth::user()->id : NULL;
                     $input['affilate_users'] = '0';
-                    $input['pay_amount'] = (int)$item_amount / (int)$this->curr->value;
+                    $input['pay_amount'] = abs((float)$item_amount / (float)$this->curr->value);
                     $input['order_number'] = $item_number;
                     $input['wallet_price'] = $request->wallet_price / $this->curr->value;
                     $input['payment_status'] = "Completed";
                     $input['txnid'] = $charge['balance_transaction'];
                     $input['charge_id'] = $charge['id'];
+                    $input['coupon_discount'] = ($d = abs($get_total_price - $total)) > 0 ? $d : 0;
 //                    if($input['tax_type'] == 'state_tax'){
 //                        $input['tax_location'] = State::findOrFail($input['tax'])->state;
 //                    }else{
@@ -259,11 +259,11 @@ class StripeController extends CheckoutBaseControlller
                     $order->tracks()->create(['order_id' => $order->id, 'title' => 'Pending', 'text' => 'You have successfully placed your order.']);
                     $order->notifications()->create();
 
-                    if (!is_null($get_veteran_percentage)) {
-                        $get_veteran_percentage->order_id = $order->id;
-                        $get_veteran_percentage->avail = 1;
-                        $get_veteran_percentage->update();
-                    }
+//                    if (!is_null($get_veteran_percentage)) {
+//                        $get_veteran_percentage->order_id = $order->id;
+//                        $get_veteran_percentage->avail = 1;
+//                        $get_veteran_percentage->update();
+//                    }
 
 
                     if ($input['coupon_id'] != "") {
