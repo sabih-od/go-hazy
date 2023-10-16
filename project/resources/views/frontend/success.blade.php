@@ -310,7 +310,7 @@
                                                                     $pro = json_decode($tempcart);
                                                                 @endphp
                                                                 @foreach($pro as $row)
-{{--                                                                    @dd($row)--}}
+                                                                    {{--                                                                    @dd($row)--}}
 
 
                                                                     <tr>
@@ -351,6 +351,29 @@
                                                                 @endforeach
 
                                                                 </tbody>
+                                                                <tfoot>
+                                                                <tr>
+                                                                    <th colspan="2"></th>
+                                                                    <th>Total:</th>
+                                                                    <th>
+                                                                        {{ collect($pro)->sum('show_total_price') }}$
+                                                                    </th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th colspan="2"></th>
+                                                                    <th>Discount:</th>
+                                                                    <th>
+                                                                        {{ ($d = $order->coupon_discount) > 0 ? '-'.$d.'$':'0$' }}
+                                                                    </th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th colspan="2"></th>
+                                                                    <th>Total Paid:</th>
+                                                                    <th>
+                                                                        {{ \PriceHelper::showOrderCurrencyPrice((($order->pay_amount + $order->wallet_price) * $order->currency_value),$order->currency_sign) }}
+                                                                    </th>
+                                                                </tr>
+                                                                </tfoot>
                                                             </table>
                                                         </div>
                                                     </div>

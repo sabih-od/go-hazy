@@ -36,7 +36,7 @@
                     <div class="product-description">
                       <div class="body-area">
                         <div class="gocover" style="background: url({{asset('assets/images/'.$gs->admin_loader)}}) no-repeat scroll center center rgba(45, 45, 45, 0.5);"></div>
-                        @include('includes.admin.form-both') 
+                        @include('includes.admin.form-both')
                       <form id="geniusform" action="{{route('admin-coupon-update',$data->id)}}" method="POST" enctype="multipart/form-data">
                         {{csrf_field()}}
 
@@ -55,11 +55,11 @@
                         <div class="row">
                           <div class="col-lg-4">
                             <div class="left-area">
-                                <h4 class="heading">{{ __('Allow Product Type') }}*</h4>
+                                <h4 class="heading">{{ __('Allow Product Type') }}</h4>
                             </div>
                           </div>
                           <div class="col-lg-7">
-                              <select  name="coupon_type" required="" id="select_type_coupon">
+                              <select  name="coupon_type" id="select_type_coupon">
                                   <option value="">{{ __('Select Type') }}</option>
                                   <option value="category" {{$data->coupon_type == 'category' ? 'selected' : ''}} >{{ __('Category') }}</option>
                                   <option value="sub_category" {{$data->coupon_type == 'sub_category' ? 'selected' : ''}}>{{ __('Sub Category') }}</option>
@@ -131,7 +131,7 @@
                           </div>
                         </div>
 
-                        
+
 
                         <div class="row hidden">
                           <div class="col-lg-4">
@@ -198,7 +198,7 @@
                         <div class="row">
                           <div class="col-lg-4">
                             <div class="left-area">
-                              
+
                             </div>
                           </div>
                           <div class="col-lg-7">
@@ -282,7 +282,7 @@
     }
     else{
     selector.find('input').val("");
-    selector.hide();    
+    selector.hide();
     }
 
 })();
@@ -296,7 +296,7 @@
     }
     else{
     selector.find('input').val("");
-    selector.hide();    
+    selector.hide();
     }
 });
 

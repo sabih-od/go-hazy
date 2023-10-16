@@ -1571,17 +1571,17 @@ section.accountAccesSec p {
     margin: 20px 0;
 }
 
-.order-summery .applyCoupon {
+.applyCoupon {
     display: flex;
 }
 
-.order-summery .applyCoupon .form-control {
+.applyCoupon .form-control {
     width: calc(100% - 150px);
     margin: 0;
     border-radius: 5px 0 0 5px;
 }
 
-.order-summery .applyCoupon .btnStyle {
+.applyCoupon .btnStyle {
     width: 150px;
     border-radius: 0 5px 5px 0;
 }

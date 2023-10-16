@@ -106,42 +106,53 @@
                     </div>
                 </div>
 
-                <div class="row w-100" id="shipping_address_form">
-                    <div class="col-md-12">
-                        <label for="shipping_address">ADDRESS</label>
-                        <input type="text" class="form-control" name="shipping_address">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="">COUNTRY</label>
-                        <select name="shipping_country" id="s_country"
-                                class="form-control requiredField ">
-                            @include('includes.countries')
-                        </select>
-                        <small class="text-danger errorField" style="display: none"></small>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="">CITY</label>
-                        <input type="text" name="shipping_city" id="s_city"
-                               class="form-control requiredField "
-                               value="">
-                        <small class="text-danger errorField" style="display: none"></small>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="">ZIP/POSTAL CODE</label>
-                        <input type="text" name="shipping_zip" id="s_zip_code"
-                               class="form-control requiredField "
-                               value="">
-                        <small class="text-danger errorField" style="display: none"></small>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="">STATE/PROVINCE</label>
-                        <input type="text" name="shipping_state" id="s_state"
-                               class="form-control requiredField "
-                               value="">
-                        <small class="text-danger errorField" style="display: none"></small>
+                <div class="col-md-12" id="shipping_address_form">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="shipping_address">ADDRESS</label>
+                            <input type="text" class="form-control" name="shipping_address">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">COUNTRY</label>
+                            <select name="shipping_country" id="s_country"
+                                    class="form-control requiredField ">
+                                @include('includes.countries')
+                            </select>
+                            <small class="text-danger errorField" style="display: none"></small>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">CITY</label>
+                            <input type="text" name="shipping_city" id="s_city"
+                                   class="form-control requiredField "
+                                   value="">
+                            <small class="text-danger errorField" style="display: none"></small>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">ZIP/POSTAL CODE</label>
+                            <input type="text" name="shipping_zip" id="s_zip_code"
+                                   class="form-control requiredField "
+                                   value="">
+                            <small class="text-danger errorField" style="display: none"></small>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">STATE/PROVINCE</label>
+                            <input type="text" name="shipping_state" id="s_state"
+                                   class="form-control requiredField "
+                                   value="">
+                            <small class="text-danger errorField" style="display: none"></small>
+                        </div>
                     </div>
                 </div>
                 {{--Ship to a different address end--}}
+
+                <div class="col-md-12">
+                    <div class="checkbox">
+                        <input type="checkbox" id="is_veteran"
+                               name="is_veteran" {{ session()->has('already') ?'checked': '' }}>
+                        <label for="is_veteran">I am a Veteran. </label>
+                    </div>
+                    @include('frontend.includes.coupon')
+                </div>
 
                 <input type="hidden" id="shipping-cost" name="shipping_cost" value="0">
                 <input type="hidden" id="packing-cost" name="packing_cost" value="0">
@@ -186,7 +197,7 @@
                 <input type="hidden" name="user_id" id="user_id"
                        value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->id : '' }}">
 
-                <div class="payment-information">
+                <div class="payment-information mt-4">
                     <h4 class="title">
                         {{ __('Payment Info') }}
                     </h4>
@@ -276,14 +287,14 @@
                 </div>
             </form>
 
-{{--      @php--}}
-{{--          $data = Session::get('cart');--}}
-{{--          $total = 0;--}}
-{{--          foreach($data->items as $price)--}}
-{{--          {--}}
-{{--              $total = $total + $price['totalPrice'];--}}
-{{--          }--}}
-{{--      @endphp--}}
+            {{--      @php--}}
+            {{--          $data = Session::get('cart');--}}
+            {{--          $total = 0;--}}
+            {{--          foreach($data->items as $price)--}}
+            {{--          {--}}
+            {{--              $total = $total + $price['totalPrice'];--}}
+            {{--          }--}}
+            {{--      @endphp--}}
             @if(\App\Helpers\CartHelper::getCartTotalQty() > 0)
                 <div class="col-md-12 title my-5 text-center">
                     <h2>Order Summary</h2>
@@ -301,58 +312,50 @@
                         {{--                            <span>Shipping fee</span>--}}
                         {{--                            <strong>USD 5.00</strong>--}}
                         {{--                        </div>--}}
-                        <hr class="w-100">
-                        <div class="col-md-12">
-                            <form action="#" id="check-coupon-form" class="w-100">
-                                <div class="applyCoupon">
-                                    <input type="text" class="form-control" placeholder="Enter Voucher Code"
-                                           id="code" value="">
-                                    <button class="btnStyle" type="submit">Apply</button>
-                                </div>
-                            </form>
-                        </div>
 
                         <hr class="w-100">
-                        @php
-                            $get_veteran_percentage = App\Models\VeteranDiscount::where('id', Session::get('discount_id'))->first();
-                        @endphp
+                        {{--                        @php--}}
+                        {{--                            $get_veteran_percentage = App\Models\VeteranDiscount::where('id', Session::get('discount_id'))->first();--}}
+                        {{--                        @endphp--}}
 
                         <div class="col-md-12 d-flex align-items-center justify-content-between" id="discount-bar">
                             <span>Discounts</span>
-                            @if(!is_null($get_veteran_percentage) && !is_null($get_veteran_percentage->percentage))
-                                <strong id="discount_amount">{{ $get_veteran_percentage->percentage }}%</strong>
-                            @else
-                                <strong id="discount_amount">0%</strong>
-                            @endif
+                            <strong id="discount_amount">{{ abs($totalPrice - $total_discount_price) }}
+                                $</strong>
+                            {{--                            @if(!is_null($get_veteran_percentage) && !is_null($get_veteran_percentage->percentage))--}}
+                            {{--                                <strong id="discount_amount">{{ $get_veteran_percentage->percentage }}%</strong>--}}
+                            {{--                            @else--}}
+                            {{--                                <strong id="discount_amount">0%</strong>--}}
+                            {{--                            @endif--}}
                         </div>
                         <hr class="w-100">
-{{--                        @if(Session::has('cate_id'))--}}
-{{--                            @php--}}
-{{--                                $get_cate_id = Session::get('cate_id');--}}
-{{--                                if(!is_null($get_cate_id)){--}}
-{{--                                    $get_coupon_code =  App\Models\Coupon::where('category', $get_cate_id)->first();--}}
-{{--                                    $show_coupon_code = $get_coupon_code ? $get_coupon_code->code : '0';--}}
-{{--                                }--}}
-{{--                                else {--}}
-{{--                                    $show_coupon_code = '0';--}}
-{{--                                }--}}
-{{--                            @endphp--}}
-{{--                        @endif--}}
+                        {{--                        @if(Session::has('cate_id'))--}}
+                        {{--                            @php--}}
+                        {{--                                $get_cate_id = Session::get('cate_id');--}}
+                        {{--                                if(!is_null($get_cate_id)){--}}
+                        {{--                                    $get_coupon_code =  App\Models\Coupon::where('category', $get_cate_id)->first();--}}
+                        {{--                                    $show_coupon_code = $get_coupon_code ? $get_coupon_code->code : '0';--}}
+                        {{--                                }--}}
+                        {{--                                else {--}}
+                        {{--                                    $show_coupon_code = '0';--}}
+                        {{--                                }--}}
+                        {{--                            @endphp--}}
+                        {{--                        @endif--}}
 
-{{--                        <div class="col-md-12 d-flex align-items-center justify-content-between" id="discount-bar">--}}
-{{--                            <span>Coupon</span>--}}
-{{--                            <strong id="discount_amount2">--}}
-{{--                                {{ $show_coupon_code ?: 'Not Available' }}--}}
-{{--                            </strong>--}}
-{{--                        </div>--}}
+                        {{--                        <div class="col-md-12 d-flex align-items-center justify-content-between" id="discount-bar">--}}
+                        {{--                            <span>Coupon</span>--}}
+                        {{--                            <strong id="discount_amount2">--}}
+                        {{--                                {{ $show_coupon_code ?: 'Not Available' }}--}}
+                        {{--                            </strong>--}}
+                        {{--                        </div>--}}
 
 
-{{--                        <hr class="w-100">--}}
+                        {{--                        <hr class="w-100">--}}
                         <div class="col-md-12 d-flex align-items-center justify-content-between">
                             <span>Total</span>
                             <strong
                                 id="grand_total">
-                                {{ $totalPrice }} $
+                                {{ $total_discount_price }} $
 
                                 {{-- {{ Session::has('cart') ?--}}
                                 {{--                                   Session::has('coupon') ?--}}
@@ -423,70 +426,70 @@
     {{--        </div>--}}
     {{--    </div>--}}
 
-{{--    @if(Session::has('cart'))--}}
-{{--        <div class="col-md-12 title my-5 text-center d-none">--}}
-{{--            <h2>Payment Info</h2>--}}
-{{--        </div>--}}
-{{--        <div class="col-md-12 order-summery d-none">--}}
-{{--            <div class="row no-gutters">--}}
-{{--                <div class="col-md-12">--}}
-{{--                    <div class="nav flex-column" role="tablist"--}}
-{{--                         aria-orientation="vertical">--}}
-{{--                        @foreach($gateways as $gt)--}}
-{{--                            @if($gt->type == 'manual')--}}
-{{--                                @if($digital == 0)--}}
-{{--                                    <a class="nav-link payment" data-val=""--}}
-{{--                                       data-show="{{$gt->showForm()}}"--}}
-{{--                                       data-form="{{ $gt->showCheckoutLink() }}"--}}
-{{--                                       data-href="{{ route('front.load.payment',['slug1' => $gt->showKeyword(),'slug2' => $gt->id]) }}"--}}
-{{--                                       id="v-pills-tab{{ $gt->id }}-tab"--}}
-{{--                                       data-toggle="pill"--}}
-{{--                                       href="#v-pills-tab{{ $gt->id }}" role="tab"--}}
-{{--                                       aria-controls="v-pills-tab{{ $gt->id }}"--}}
-{{--                                       aria-selected="false">--}}
-{{--                                        <div class="icon">--}}
-{{--                                            <span class="radio"></span>--}}
-{{--                                        </div>--}}
-{{--                                        <p>--}}
-{{--                                            {{ $gt->title }}--}}
-{{--                                            @if($gt->subtitle != null)--}}
-{{--                                                <small>--}}
-{{--                                                    {{ $gt->subtitle }}--}}
-{{--                                                </small>--}}
-{{--                                            @endif--}}
-{{--                                        </p>--}}
-{{--                                    </a>--}}
-{{--                                @endif--}}
-{{--                            @else--}}
-{{--                                <a class="nav-link payment"--}}
-{{--                                   data-val="{{ $gt->keyword }}"--}}
-{{--                                   data-show="{{$gt->showForm()}}"--}}
-{{--                                   data-form="{{ $gt->showCheckoutLink() }}"--}}
-{{--                                   data-href="{{ route('front.load.payment',['slug1' => $gt->showKeyword(),'slug2' => $gt->id]) }}"--}}
-{{--                                   id="v-pills-tab{{ $gt->id }}-tab"--}}
-{{--                                   data-toggle="pill"--}}
-{{--                                   href="#v-pills-tab{{ $gt->id }}" role="tab"--}}
-{{--                                   aria-controls="v-pills-tab{{ $gt->id }}"--}}
-{{--                                   aria-selected="false">--}}
-{{--                                    <div class="icon">--}}
-{{--                                        <span class="radio"></span>--}}
-{{--                                    </div>--}}
-{{--                                    <p>--}}
-{{--                                        {{ $gt->name }}--}}
-{{--                                        @if($gt->information != null)--}}
-{{--                                            <small>--}}
-{{--                                                {{ $gt->getAutoDataText() }}--}}
-{{--                                            </small>--}}
-{{--                                        @endif--}}
-{{--                                    </p>--}}
-{{--                                </a>--}}
-{{--                            @endif--}}
-{{--                        @endforeach--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    @endif--}}
+    {{--    @if(Session::has('cart'))--}}
+    {{--        <div class="col-md-12 title my-5 text-center d-none">--}}
+    {{--            <h2>Payment Info</h2>--}}
+    {{--        </div>--}}
+    {{--        <div class="col-md-12 order-summery d-none">--}}
+    {{--            <div class="row no-gutters">--}}
+    {{--                <div class="col-md-12">--}}
+    {{--                    <div class="nav flex-column" role="tablist"--}}
+    {{--                         aria-orientation="vertical">--}}
+    {{--                        @foreach($gateways as $gt)--}}
+    {{--                            @if($gt->type == 'manual')--}}
+    {{--                                @if($digital == 0)--}}
+    {{--                                    <a class="nav-link payment" data-val=""--}}
+    {{--                                       data-show="{{$gt->showForm()}}"--}}
+    {{--                                       data-form="{{ $gt->showCheckoutLink() }}"--}}
+    {{--                                       data-href="{{ route('front.load.payment',['slug1' => $gt->showKeyword(),'slug2' => $gt->id]) }}"--}}
+    {{--                                       id="v-pills-tab{{ $gt->id }}-tab"--}}
+    {{--                                       data-toggle="pill"--}}
+    {{--                                       href="#v-pills-tab{{ $gt->id }}" role="tab"--}}
+    {{--                                       aria-controls="v-pills-tab{{ $gt->id }}"--}}
+    {{--                                       aria-selected="false">--}}
+    {{--                                        <div class="icon">--}}
+    {{--                                            <span class="radio"></span>--}}
+    {{--                                        </div>--}}
+    {{--                                        <p>--}}
+    {{--                                            {{ $gt->title }}--}}
+    {{--                                            @if($gt->subtitle != null)--}}
+    {{--                                                <small>--}}
+    {{--                                                    {{ $gt->subtitle }}--}}
+    {{--                                                </small>--}}
+    {{--                                            @endif--}}
+    {{--                                        </p>--}}
+    {{--                                    </a>--}}
+    {{--                                @endif--}}
+    {{--                            @else--}}
+    {{--                                <a class="nav-link payment"--}}
+    {{--                                   data-val="{{ $gt->keyword }}"--}}
+    {{--                                   data-show="{{$gt->showForm()}}"--}}
+    {{--                                   data-form="{{ $gt->showCheckoutLink() }}"--}}
+    {{--                                   data-href="{{ route('front.load.payment',['slug1' => $gt->showKeyword(),'slug2' => $gt->id]) }}"--}}
+    {{--                                   id="v-pills-tab{{ $gt->id }}-tab"--}}
+    {{--                                   data-toggle="pill"--}}
+    {{--                                   href="#v-pills-tab{{ $gt->id }}" role="tab"--}}
+    {{--                                   aria-controls="v-pills-tab{{ $gt->id }}"--}}
+    {{--                                   aria-selected="false">--}}
+    {{--                                    <div class="icon">--}}
+    {{--                                        <span class="radio"></span>--}}
+    {{--                                    </div>--}}
+    {{--                                    <p>--}}
+    {{--                                        {{ $gt->name }}--}}
+    {{--                                        @if($gt->information != null)--}}
+    {{--                                            <small>--}}
+    {{--                                                {{ $gt->getAutoDataText() }}--}}
+    {{--                                            </small>--}}
+    {{--                                        @endif--}}
+    {{--                                    </p>--}}
+    {{--                                </a>--}}
+    {{--                            @endif--}}
+    {{--                        @endforeach--}}
+    {{--                    </div>--}}
+    {{--                </div>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    @endif--}}
     <!-- END: Step 2 -->
 
     <!-- Begin: End 3 -->
@@ -576,7 +579,7 @@
             {{--    });--}}
             {{--    return false;--}}
             {{--});--}}
-            $("#check-coupon-form").on('submit', function (e) {
+            $("#check-coupon-form button").on('click', function (e) {
                 e.preventDefault();
 
                 var val = $("#code").val();
@@ -590,21 +593,30 @@
                     success: function (data) {
                         if (data.status === 'error') {
                             toastr.error(data.message);
-                            $("#code").val("");
+                            // $("#code").val("");
                         } else if (data.status === 'success') {
-                            location.reload(true);
                             toastr.success("Coupon Activated");
+                            window.location.reload()
+                            // location.reload(true);
                         }
                     },
                     error: function (xhr, status, error) {
                         // Handle AJAX error, if needed
                         console.error(xhr.responseText);
+                        toastr.error("Server Error!");
                     }
                 });
 
                 return false;
             });
 
+            $('#is_veteran').on('change', function (e) {
+                const check = $(this).prop('checked')
+                if (check)
+                    $('#check-coupon-form').show()
+                else
+                    $('#check-coupon-form').hide()
+            })
         });
     </script>
 @endsection
