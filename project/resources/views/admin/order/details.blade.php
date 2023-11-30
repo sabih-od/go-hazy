@@ -555,7 +555,7 @@
                                     </tr>
                                 @empty
                                     <p>Sorry no cart items found!</p>
-                                    @endforeach
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
