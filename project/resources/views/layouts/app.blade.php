@@ -130,88 +130,101 @@
                         <span class="fa fa-bars"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav m-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="{{route('front.index')}}">Home <span
-                                        class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle"
-                                   onclick="window.location.href='{{route('front.category')}}'"
-                                   href="{{route('front.category')}}" id="navbarDropdown" role="button"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Shop
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <div class="container-fluid d-block p-0">
-                                        <div class="row no-gutters">
-                                            <div class="col-3">
-                                                <div class="mainCat">
-                                                    <h4>Store Category</h4>
-                                                    <ul class="nav flex-column">
-                                                        @foreach($categories as $category)
-                                                            <li class="nav-item category_element"
-                                                            ><a
-                                                                    href="{{ route('front.category', $category->slug) }}"
-                                                                    class="nav-link"
-                                                                    data-id="as{{$category->id}}">{{$category->name ?? ''}}</a>
-                                                            </li>
-                                                        @endforeach
-                                                    </ul>
+                        <div class="header-main__nav">
+                            <ul class="navbar-nav m-auto">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="{{route('front.index')}}">Home <span
+                                            class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle"
+                                       onclick="window.location.href='{{route('front.category')}}'"
+                                       href="{{route('front.category')}}" id="navbarDropdown" role="button"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Shop
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <div class="container-fluid d-block p-0">
+                                            <div class="row no-gutters">
+                                                <div class="col-3">
+                                                    <div class="mainCat">
+                                                        <h4>Store Category</h4>
+                                                        <ul class="nav flex-column">
+                                                            @foreach($categories as $category)
+                                                                <li class="nav-item category_element"
+                                                                ><a
+                                                                        href="{{ route('front.category', $category->slug) }}"
+                                                                        class="nav-link"
+                                                                        data-id="as{{$category->id}}">{{$category->name ?? ''}}</a>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-9">
-                                                @foreach($categories as $category)
-                                                    <div class="subCat" id="as{{$category->id}}">
-                                                        <div class="container-fluid d-block">
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <div class="container-fluid d-block">
-                                                                        <div class="row">
-                                                                            @foreach($category->subs as $subscategory)
-                                                                                <div
-                                                                                    class="col-md-3 sub_category_element"
-                                                                                    data-parent="{{$category->id}}">
-                                                                                    <a href="{{ route('front.category', [$category->slug,$subscategory->slug]) }}"><span
-                                                                                            class="text-uppercase text-white">{{ $subscategory->name ?? '' }}</span></a>
-                                                                                    @if(isset($subscategory->childs) != null)
-                                                                                        <ul class="nav flex-column">
-                                                                                            @foreach($subscategory->childs as $child)
-                                                                                                <li class="nav-item">
-                                                                                                    <a class="nav-link active"
-                                                                                                       href="{{ route('front.category', [$category->slug, $subscategory->slug, $child->slug]) }}">
-                                                                                                        {{ $child->name ?? '' }}</a>
-                                                                                                </li>
-                                                                                            @endforeach
-                                                                                        </ul>
-                                                                                    @endif
-                                                                                </div>
-                                                                            @endforeach
+                                                <div class="col-9">
+                                                    @foreach($categories as $category)
+                                                        <div class="subCat" id="as{{$category->id}}">
+                                                            <div class="container-fluid d-block">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="container-fluid d-block">
+                                                                            <div class="row">
+                                                                                @foreach($category->subs as $subscategory)
+                                                                                    <div
+                                                                                        class="col-md-3 sub_category_element"
+                                                                                        data-parent="{{$category->id}}">
+                                                                                        <a href="{{ route('front.category', [$category->slug,$subscategory->slug]) }}"><span
+                                                                                                class="text-uppercase text-white">{{ $subscategory->name ?? '' }}</span></a>
+                                                                                        @if(isset($subscategory->childs) != null)
+                                                                                            <ul class="nav flex-column">
+                                                                                                @foreach($subscategory->childs as $child)
+                                                                                                    <li class="nav-item">
+                                                                                                        <a class="nav-link active"
+                                                                                                           href="{{ route('front.category', [$category->slug, $subscategory->slug, $child->slug]) }}">
+                                                                                                            {{ $child->name ?? '' }}</a>
+                                                                                                    </li>
+                                                                                                @endforeach
+                                                                                            </ul>
+                                                                                        @endif
+                                                                                    </div>
+                                                                                @endforeach
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                @endforeach
+                                                    @endforeach
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('front.blog')}}">Blogs</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('front.about')}}">About Us</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('front.contact')}}">Contact Us</a>
-                            </li>
-                        </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('front.blog')}}">Blogs</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('front.about')}}">About Us</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('front.contact')}}">Contact Us</a>
+                                </li>
+                            </ul>
+                            <div class="searchForm">
+
+                                <form method="GET" action="{{route('front.category')}}">
+                                    @csrf
+                                    <input type="text" placeholder="Search here..." value="" name="title">
+                                    <div class="srch-btn">
+                                        <button type="submit"><i class="far fa-search"></i></button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
                         <div class="form-inline">
                             <ul>
-                                <li><a href="#search"><i class="far fa-search"></i></a></li>
+                                {{--                                <li><a href="#search"><i class="far fa-search"></i></a></li>--}}
                                 <li><a href="{{route('front.cart')}}"><i class="fal fa-shopping-cart"></i>
                                         <span>
                                             {{ \App\Helpers\CartHelper::getCartTotalQty() }}
@@ -332,16 +345,16 @@
 </footer>
 <!-- END: Footer -->
 
-<div id="search">
-    <button class="close" type="button">×</button>
-    <form method="GET" action="{{route('front.category')}}">
-        @csrf
-        <input placeholder="SEARCH" type="search" value="" name="title">
-        <div class="srch-btn">
-            <button href="#" class="themeBtn" type="submit">Search</button>
-        </div>
-    </form>
-</div>
+{{--<div id="search">--}}
+{{--    <button class="close" type="button">×</button>--}}
+{{--    <form method="GET" action="{{route('front.category')}}">--}}
+{{--        @csrf--}}
+{{--        <input placeholder="SEARCH" type="search" value="" name="title">--}}
+{{--        <div class="srch-btn">--}}
+{{--            <button href="#" class="themeBtn" type="submit">Search</button>--}}
+{{--        </div>--}}
+{{--    </form>--}}
+{{--</div>--}}
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
