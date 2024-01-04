@@ -171,10 +171,10 @@
                             <h2 class="widget-title">{{ __('New & Upcoming') }}</h2>
                             <ul class="price-filter-list">
                                 <li>
-                                    <a href="#" class="highestToLowest" data-filter="highest">Highest to Lower</a>
+                                    <a href="#" class="highestToLowest" data-filter="highest">Highest to Lowest </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="lowestToHighest" data-filter="lowest">Lower to Highest</a>
+                                    <a href="#" class="lowestToHighest" data-filter="lowest">Lowest to Highest</a>
                                 </li>
                                 <li>
                                     <a href="#" class="bestSeller" data-filter="bestSeller">Best Sellers</a>
@@ -209,8 +209,8 @@
                             </div>
                         </div>
                         @php
-                        $currentUrl = url()->current();
-                        $paginate = app('request')->input('page');
+                            $currentUrl = url()->current();
+                            $paginate = app('request')->input('page');
                         @endphp
                         <div class="col-md-8">
                             <div class="shopLabel">
