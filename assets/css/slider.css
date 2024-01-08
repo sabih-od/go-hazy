@@ -5,7 +5,7 @@ header {
 }
 
 .navbar-brand img {
-    max-width: 110px;
+    max-width: 200px;
 }
 
 .navbar-nav {
@@ -616,7 +616,7 @@ a.themeBtn.themeBtn1 {
 .navbar .dropdown-menu {
     border: none;
     max-height: 80vh;
-    overflow-x:hidden;
+    overflow-x: hidden;
     overflow-y: scroll;
 }
 
@@ -805,9 +805,6 @@ a.themeBtn.themeBtn1 {
     white-space: nowrap;
     position: relative;
 }
-
-
-
 
 
 .price-range-block #slider-range {
