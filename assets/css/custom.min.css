@@ -2829,17 +2829,41 @@ button.filter-btn.btn.btn-primary {
     width: 100%;
     display: flex;
     align-items: center;
-    flex-flow: wrap column;
-    margin-bottom: 2rem;
+    flex-flow: wrap column-reverse;
+    margin-top: 2rem;
 }
+
+.searchForm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    width: 90%;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 2.25rem;
+}
+
+.searchForm .deliver {
+    font-size: 1rem;
+    text-transform: capitalize;
+    color: #939393;
+}
+
+.searchForm .deliver span {
+    font-size: 1.125rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: var(--black);
+}
+
 .header-main__nav .searchForm form {
     display: flex;
     align-items: center;
 }
 .header-main__nav .searchForm form input {
     display: inline-block;
-    width: fit-content;
-    padding: 0.5rem;
+    width: 500px;
+    padding: 0.8rem;
     border: 2px solid #0000001a;
     border-right: 0;
     border-radius: 0.5rem 0 0 0.5rem;
@@ -2849,7 +2873,7 @@ button.filter-btn.btn.btn-primary {
 .header-main__nav .searchForm form button {
     border: none;
     outline: none;
-    padding: 0.625rem 1rem;
+    padding: 0.925rem 1.5rem;
     background: var(--theme-color);
     border-radius: 0 0.5rem 0.5rem 0;
     color: var(--white);

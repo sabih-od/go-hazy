@@ -211,7 +211,7 @@
                                 </li>
                             </ul>
                             <div class="searchForm">
-
+                                <div class="deliver text-center">deliver to <span class="d-block"><i class="fas fa-map-marker-alt"></i> USA</span></div>
                                 <form method="GET" action="{{route('front.category')}}">
                                     @csrf
                                     <input type="text" placeholder="Search here..." value="" name="title">
