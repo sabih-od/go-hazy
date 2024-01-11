@@ -1479,6 +1479,7 @@ Route::group(['middleware' => 'maintenance'], function () {
     // Checkout
     Route::get('/checkout', 'Front\CheckoutController@checkout')->name('front.checkout');
     Route::get('/carts/coupon/check', 'Front\CouponController@couponcheck');
+    Route::get('carts/coupon/deactivate', 'Front\CouponController@couponDeactivate');
     Route::get('/checkout/payment/{slug1}/{slug2}', 'Front\CheckoutController@loadpayment')->name('front.load.payment');
     Route::get('/checkout/payment/return', 'Front\CheckoutController@payreturn')->name('front.payment.return');
     Route::get('/checkout/payment/cancle', 'Front\CheckoutController@paycancle')->name('front.payment.cancle');

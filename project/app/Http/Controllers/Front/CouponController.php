@@ -285,6 +285,59 @@ class CouponController extends FrontBaseController
 //        }
 //    }
 
+    public function couponDeactivate()
+    {
+        $code = request()->input('code');
+        $coupon = Coupon::where('code', '=', $code)->first();
+        $curr = $this->curr;
+        $cart = new CartHelper();
+        $cartData = $cart->getData();
+
+        $discount_items = collect($cartData)->filter(function ($item) use ($coupon) {
+            $product = $item['product'];
+
+            if (empty($coupon->coupon_type)) {
+                return true;
+            } elseif ($coupon->coupon_type == 'category') {
+                if ($product->category_id == $coupon->category) {
+                    return true;
+                }
+            } elseif ($coupon->coupon_type == 'sub_category') {
+                if ($product->sub_category == $coupon->sub_category) {
+                    return true;
+                }
+            } elseif ($coupon->coupon_type == 'child_category') {
+                if ($product->child_category == $coupon->child_category) {
+                    return true;
+                }
+            }
+            return false;
+        });
+
+        $total_discount_prd_price = $discount_items->sum(function ($item) {
+            return $item['show_total_price'];
+        });
+
+        $coupon_price = $coupon->type == 0 ? (float)number_format(($total_discount_prd_price * $coupon->price) / 100, 2) : $coupon->price;
+
+        $total = $cart->getTotalPrice() + round($coupon_price * $curr->value, 2);
+        $data[0] = $total;
+        $data[1] = $code;
+        $data[2] = $coupon_price * $curr->value;
+        $data[3] = $coupon->id;
+        $data[4] = \PriceHelper::showCurrencyPrice($data[2]);
+        $data[0] = \PriceHelper::showCurrencyPrice($data[0]);
+        Session::forget('coupon', $data[2]);
+        Session::forget('coupon_code', $code);
+        Session::forget('coupon_id', $coupon->id);
+        Session::put('coupon_deactive_total', round($total, 2));
+        Session::forget('coupon_total');
+        Session::forget('is_veteran');
+        Session::forget('is_discount_coupon');
+
+        return response()->json(['status' => 'success', 'data' => $data]);
+
+    }
 
     public function couponcheck()
     {
