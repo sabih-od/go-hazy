@@ -149,7 +149,7 @@
                     <div class="checkbox">
                         <input type="checkbox" id="is_veteran"
                                name="is_veteran" value="is_veteran" {{ session()->has('is_veteran') ? 'checked' : '' }}
-                            {{ session()->has('is_veteran') ? '' : 'disabled' }}>
+                            {{ session()->has('is_discount_coupon') ? 'disabled' : '' }}>
                         <label for="is_veteran">I am a Veteran.</label>
                     </div>
 
@@ -157,7 +157,7 @@
                         <input type="checkbox" id="discount_coupon"
                                name="discount_coupon"
                                value="is_discount_coupon" {{ session()->has('is_discount_coupon') ? 'checked' : '' }}
-                            {{ session()->has('is_discount_coupon') ? '' : 'disabled' }}>
+                            {{ session()->has('is_veteran') ? 'disabled' : '' }}>
                         <label for="discount_coupon">Discount Coupon</label>
                     </div>
 
@@ -326,10 +326,12 @@
                         {{--                        @php--}}
                         {{--                            $get_veteran_percentage = App\Models\VeteranDiscount::where('id', Session::get('discount_id'))->first();--}}
                         {{--                        @endphp--}}
-
+                        {{--                        @dd(session()->get('coupon_total1'))--}}
                         <div class="col-md-12 d-flex align-items-center justify-content-between" id="discount-bar">
                             <span>Discounts</span>
-                            <strong id="discount_amount">{{ abs($totalPrice - $total_discount_price) }}
+                            <strong
+                                id="discount_amount">{{ session()->get('coupon_deactive_total') ? 0
+                                :  abs($totalPrice - $total_discount_price) }}
                                 $</strong>
                             {{--                            @if(!is_null($get_veteran_percentage) && !is_null($get_veteran_percentage->percentage))--}}
                             {{--                                <strong id="discount_amount">{{ $get_veteran_percentage->percentage }}%</strong>--}}
@@ -627,18 +629,84 @@
 
             $('#is_veteran').on('change', function (e) {
                 const check = $(this).prop('checked')
-                if (check)
+                console.log("check", check);
+
+                if (check) {
                     $('#check-coupon-form').show()
-                else
+
+                } else {
+
                     $('#check-coupon-form').hide()
+
+                    var val = $("#code").val();
+                    if (val) {
+                        $.ajax({
+                            type: "GET",
+                            url: mainurl + "/carts/coupon/deactivate",
+                            data: {
+                                code: val,
+                            },
+                            success: function (data) {
+                                if (data.status === 'error') {
+                                    toastr.error(data.message);
+                                    // $("#code").val("");
+                                } else if (data.status === 'success') {
+                                    toastr.success("Coupon Deactivated");
+                                    window.location.reload()
+                                    // location.reload(true);
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                // Handle AJAX error, if needed
+                                console.error(xhr.responseText);
+                                toastr.error("Server Error!");
+                            }
+                        });
+                    }
+
+                }
+
             })
 
             $('#discount_coupon').on('change', function (e) {
                 const check = $(this).prop('checked')
-                if (check)
+                console.log("check", check);
+                if (check) {
                     $('#check-coupon-form').show()
-                else
+
+                } else {
+
                     $('#check-coupon-form').hide()
+
+                    var val = $("#code").val();
+                    if (val) {
+                        $.ajax({
+                            type: "GET",
+                            url: mainurl + "/carts/coupon/deactivate",
+                            data: {
+                                code: val,
+                            },
+                            success: function (data) {
+                                if (data.status === 'error') {
+                                    toastr.error(data.message);
+                                    // $("#code").val("");
+                                } else if (data.status === 'success') {
+                                    toastr.success("Coupon Deactivated");
+                                    $total_discount_price = 0;
+                                    window.location.reload()
+                                    // location.reload(true);
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                // Handle AJAX error, if needed
+                                console.error(xhr.responseText);
+                                toastr.error("Server Error!");
+                            }
+                        });
+                    }
+
+                }
+
             })
 
             $('input[type="checkbox"]').click(function () {
