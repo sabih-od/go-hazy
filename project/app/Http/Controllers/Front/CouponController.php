@@ -290,6 +290,8 @@ class CouponController extends FrontBaseController
     {
         $gs = $this->gs;
         $code = request()->input('code');
+        $couponType = request()->input('coupon_type');
+
         $coupon = Coupon::where('code', '=', $code)->first();
 
         if (!$coupon) {
@@ -342,9 +344,10 @@ class CouponController extends FrontBaseController
 
         if ($from <= $today && $to >= $today) {
             if ($coupon->status == 1) {
-                $val = Session::get('already');
+                $val = Session::get('is_veteran');
+                $val1 = Session::get('is_discount_coupon');
 
-                if ($val == $code) {
+                if ($val == $code || $val1 == $code) {
                     return response()->json(['status' => 'error', 'message' => __('Coupon already taken')]);
                 }
 
@@ -354,7 +357,8 @@ class CouponController extends FrontBaseController
                     return response()->json(['status' => 'error', 'message' => __('Coupon price is higher than the total')]);
                 }
 
-                Session::put('already', $code);
+
+                Session::put($couponType, $code);
                 $total = $cart->getTotalPrice() - round($coupon_price * $curr->value, 2);
                 $data[0] = $total;
                 $data[1] = $code;
