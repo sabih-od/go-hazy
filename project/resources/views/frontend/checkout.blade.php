@@ -148,9 +148,19 @@
                 <div class="col-md-12">
                     <div class="checkbox">
                         <input type="checkbox" id="is_veteran"
-                               name="is_veteran" {{ session()->has('already') ?'checked': '' }}>
-                        <label for="is_veteran">I am a Veteran. </label>
+                               name="is_veteran" value="is_veteran" {{ session()->has('is_veteran') ? 'checked' : '' }}
+                            {{ session()->has('is_veteran') ? '' : 'disabled' }}>
+                        <label for="is_veteran">I am a Veteran.</label>
                     </div>
+
+                    <div class="checkbox">
+                        <input type="checkbox" id="discount_coupon"
+                               name="discount_coupon"
+                               value="is_discount_coupon" {{ session()->has('is_discount_coupon') ? 'checked' : '' }}
+                            {{ session()->has('is_discount_coupon') ? '' : 'disabled' }}>
+                        <label for="discount_coupon">Discount Coupon</label>
+                    </div>
+
                     @include('frontend.includes.coupon')
                 </div>
 
@@ -286,7 +296,6 @@
                     <button class="btnStyle" type="submit">proceed to checkout</button>
                 </div>
             </form>
-
             {{--      @php--}}
             {{--          $data = Session::get('cart');--}}
             {{--          $total = 0;--}}
@@ -585,11 +594,17 @@
                 var val = $("#code").val();
                 var total = $("#total").val();
                 var ship = 0;
+                var coupon_type = $('input[type="checkbox"]:checked').val()
 
                 $.ajax({
                     type: "GET",
                     url: mainurl + "/carts/coupon/check",
-                    data: {code: val, total: total, shipping_cost: ship},
+                    data: {
+                        code: val,
+                        total: total,
+                        shipping_cost: ship,
+                        coupon_type: coupon_type
+                    },
                     success: function (data) {
                         if (data.status === 'error') {
                             toastr.error(data.message);
@@ -617,6 +632,19 @@
                 else
                     $('#check-coupon-form').hide()
             })
+
+            $('#discount_coupon').on('change', function (e) {
+                const check = $(this).prop('checked')
+                if (check)
+                    $('#check-coupon-form').show()
+                else
+                    $('#check-coupon-form').hide()
+            })
+
+            $('input[type="checkbox"]').click(function () {
+                $('input[type="checkbox"]').not(this).prop('checked', false);
+            });
+
         });
     </script>
 @endsection
