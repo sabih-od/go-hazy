@@ -4,7 +4,7 @@ header {
     padding: 0.4rem 0;
 }
 
-.navbar-brand img {
+.navbar-brand :is(img, video) {
     max-width: 200px;
 }
 
@@ -925,4 +925,8 @@ button.filter-btn.btn.btn-primary {
     border: none;
     border-radius: 0px;
     background: #d2d2d2;
+}
+
+.fotrLogo :is(img, video) {
+    max-width: 200px;
 }
