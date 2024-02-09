@@ -122,7 +122,8 @@
             <div class="container">
                 <nav class="navbar navbar-expand-lg p-0">
                     <a class="navbar-brand" href="{{route('front.index')}}">
-                        <img src="{{asset('assets/images/logo.png')}}" alt="img">
+{{--                        <img src="{{asset('assets/images/logo.png')}}" alt="img">--}}
+                        <video src="{{asset('assets/images/Logo1.mp4')}}" autoplay loop muted alt="img"></video>
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -261,8 +262,8 @@
             </div>--}}
             <div class="col-12">
                 <div class="fotrLogo">
-                    <a href="#" class="footerLogo"><img src="{{asset('assets/images/min1.png')}}" class="img-fluid"
-                                                        alt="img"></a>
+                    <video src="{{asset('assets/images/Logo1.mp4')}}" autoplay loop muted alt="img"></video>
+
                 </div>
             </div>
             <div class="col-md-4">
@@ -321,7 +322,7 @@
                 </div>
                 <div class="calFoter">
                     <ul>
-                        <li><a href="tel:{{$ps->phone}}"><i class="fas fa-phone-alt"></i><span>{{$ps->phone}}</span></a>
+{{--                        <li><a href="tel:{{$ps->phone}}"><i class="fas fa-phone-alt"></i><span>{{$ps->phone}}</span></a>--}}
                         </li>
                         <li><a href="mailto:{{$ps->contact_email}}"><i
                                     class="fal fa-envelope"></i><span>{{$ps->contact_email}}</span></a></li>
