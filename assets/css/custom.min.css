@@ -20,10 +20,11 @@ body {
 
 :root {
     --white: #ffffff;
-    --black: #000;
+    --black: #000000;
     --gary-color: #727272;
     --lightgary-color: #b2b9bd;
-    --theme-color: #f25a29;
+    /*--theme-color: #f25a29;*/
+    --theme-color: #6A0036;
     --primary-color: #262262;
 }
 
@@ -196,6 +197,7 @@ section {
     padding: 1rem 1.5rem;
     color: #fff;
     text-transform: capitalize;
+    background-color: var(--theme-color);
 }
 
 /* sraachbar end */
@@ -211,7 +213,7 @@ section {
 
 .refreshHeading h5 {
     font-size: 0.875rem;
-    color: #652d90;
+    color: var(--theme-color);
     font-weight: 600;
     margin: 0;
 }
@@ -456,7 +458,7 @@ section {
 }
 
 .shirtSec {
-    background: #f05a28;
+    background: var(--theme-color);
     position: relative;
 }
 
@@ -557,6 +559,7 @@ section {
     border: 0;
     color: #652d90;
     padding: 0.782em 2.56em;
+    background: var(--white);
 }
 
 .blogCard {
@@ -796,7 +799,7 @@ footer {
 }
 
 .themeBtn:hover {
-    background: #652d90;
+    background: var(--black);
     color: var(--white) !important;
 }
 
@@ -805,8 +808,7 @@ footer {
 }
 
 .signupSec form .themeBtn:hover {
-    background: #eb5d34;
-    color: var(--white);
+    background: var(--black);
 }
 
 /* inner pages css start */
@@ -1027,7 +1029,7 @@ footer {
 }
 
 .about-page-end .refreshHeading.white h6 {
-    color: #652d90;
+    color: var(--white);
     font-size: 0.875rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -1240,12 +1242,12 @@ footer {
 
 .contactForm .themeBtn {
     border: 0;
-    background: #652d90;
+    background: var(--theme-color);
     color: var(--white) !important;
 }
 
 .contactForm .themeBtn:hover {
-    background: #eb5d34;
+    background: var(--black);
 }
 
 .leftOne {
@@ -2878,5 +2880,3 @@ button.filter-btn.btn.btn-primary {
     border-radius: 0 0.5rem 0.5rem 0;
     color: var(--white);
 }
-
-
