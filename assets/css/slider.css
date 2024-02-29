@@ -43,7 +43,7 @@ nav.navbar {
     height: 15px;
     background: #f25a29;
     font-size: 0.5625rem;
-    color: var(--white);
+    color: var(--theme-color);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -534,7 +534,7 @@ a.themeBtn.themeBtn1 {
 }
 
 .skyBtn {
-    background: rgb(0, 167, 157);
+    background: var(--black);
 }
 
 .homeSlider.swiper-container .swiper-button-prev:hover,
@@ -710,7 +710,7 @@ a.themeBtn.themeBtn1 {
 
 .mainCat .nav-item .nav-link:hover,
 .mainCat .nav-item .nav-link.active {
-    color: var(--theme-color);
+    color: var(--white);
     font-weight: 600;
     box-shadow: 0 1px 10px rgb(0 0 0 / 12%);
 }

@@ -123,7 +123,7 @@
                 <nav class="navbar navbar-expand-lg p-0">
                     <a class="navbar-brand" href="{{route('front.index')}}">
 {{--                        <img src="{{asset('assets/images/logo.png')}}" alt="img">--}}
-                        <video src="{{asset('assets/images/Logo1.mp4')}}" autoplay loop muted alt="img"></video>
+                        <video src="{{asset('assets/images/logo.mp4')}}" autoplay loop muted alt="img"></video>
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -262,7 +262,7 @@
             </div>--}}
             <div class="col-12">
                 <div class="fotrLogo">
-                    <video src="{{asset('assets/images/Logo1.mp4')}}" autoplay loop muted alt="img"></video>
+                    <video src="{{asset('assets/images/logo.mp4')}}" autoplay loop muted alt="img"></video>
 
                 </div>
             </div>
