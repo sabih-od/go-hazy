@@ -41,7 +41,7 @@ nav.navbar {
 .form-inline ul li a span {
     width: 15px;
     height: 15px;
-    background: #f25a29;
+    background: var(--theme-color);
     font-size: 0.5625rem;
     color: var(--theme-color);
     display: flex;
