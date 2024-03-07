@@ -67,7 +67,7 @@
             <div class="refreshHeading" data-aos="fade-up">
                 <h1>New Arrivals</h1>
                 <h5>GO-HAZY</h5>
-                <h2>Antony’s Popular Products</h2>
+                <h2>Tony's Popular Products</h2>
                 @include('partials.category.category_product')
                 <h6>Looks for the season ahead</h6>
 
