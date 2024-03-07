@@ -18,6 +18,7 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
+
         $gs = Generalsetting::findOrFail(1);
 
         if ($gs->is_capcha == 1) {
