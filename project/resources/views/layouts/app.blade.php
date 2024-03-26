@@ -432,6 +432,9 @@
 </script>
 @yield('script')
 
+<script src="https://service.demowebsitelinks.com/ada_plugin/" type="text/javascript"></script>
+
+
 </body>
 
 </html>
