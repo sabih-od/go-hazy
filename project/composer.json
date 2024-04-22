@@ -21,6 +21,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/socialite": "^6.0",
         "laravel/tinker": "^2.5",
+        "league/csv": "^9.8",
         "mercadopago/dx-php": "2.2.1",
         "mews/purifier": "^3.3",
         "mollie/laravel-mollie": "^2.10",

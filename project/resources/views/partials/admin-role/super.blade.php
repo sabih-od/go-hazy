@@ -123,6 +123,10 @@
     </li>
 
     <li>
+        <a href="{{ route('admin.prod.upload.zip') }}"><i class="fas fa-upload"></i>{{ __('Bulk Product Zip Upload') }}</a>
+    </li>
+
+    <li>
         <a href="#menu4" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
             <i class="icofont-speech-comments"></i>{{ __('Product Discussion') }}
         </a>

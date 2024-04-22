@@ -22,7 +22,7 @@ class Product extends Model
 
     public function category()
     {
-        return $this->belongsTo('App\Models\Category')->withDefault();
+        return $this->belongsTo(Category::class);
     }
 
     public function subcategory()
@@ -457,51 +457,34 @@ class Product extends Model
 
     public function offPercentage()
     {
-        $gs = cache()->remember('generalsettings', now()->addDay(), function () {
-            return DB::table('generalsettings')->first();
-        });
+        // Initialize price and previous price
         $price = $this->price;
-
         $preprice = $this->previous_price;
+
+        // If there's no previous price, return an empty string
         if (!$preprice) {
             return '';
         }
 
-        if ($this->user_id != 0) {
-            $price = $this->price + $gs->fixed_commission + ($this->price / 100) * $gs->percentage_commission;
-
-            $preprice = $this->previous_price + $gs->fixed_commission + ($this->previous_price / 100) * $gs->percentage_commission;
-        }
-
-        if (!empty($this->size)) {
-            $price += $this->size_price[0];
-            $preprice += $this->size_price[0];
-        }
-
-        // Attribute Section
-
+        // Process product attributes
         $attributes = $this->attributes["attributes"];
         if (!empty($attributes)) {
             $attrArr = json_decode($attributes, true);
-        }
-
-        if (!empty($attrArr)) {
-            foreach ($attrArr as $attrKey => $attrVal) {
-                if (is_array($attrVal) && array_key_exists("details_status", $attrVal) && $attrVal['details_status'] == 1) {
-
-                    foreach ($attrVal['values'] as $optionKey => $optionVal) {
-                        $price += $attrVal['prices'][$optionKey];
-                        // only the first price counts
-                        $preprice += $attrVal['prices'][$optionKey];
-                        break;
+            if (!empty($attrArr)) {
+                foreach ($attrArr as $attrKey => $attrVal) {
+                    if (is_array($attrVal) && array_key_exists("details_status", $attrVal) && $attrVal['details_status'] == 1) {
+                        foreach ($attrVal['values'] as $optionKey => $optionVal) {
+                            $price += $attrVal['prices'][$optionKey];
+                            // Only the first price counts for both current and previous prices
+                            $preprice += $attrVal['prices'][$optionKey];
+                            break;
+                        }
                     }
-
                 }
             }
         }
 
-        // Attribute Section Ends
-
+        // Retrieve the currency from the session or use the default currency
         if (Session::has('currency')) {
             $curr = cache()->remember('session_currency', now()->addDay(), function () {
                 return Currency::find(Session::get('currency'));
@@ -512,11 +495,25 @@ class Product extends Model
             });
         }
 
+        // Convert prices to the selected currency
         $price = $price * $curr->value;
         $preprice = $preprice * $curr->value;
-        $Percentage = (($preprice - $price) * 100) / $preprice;
-        return $Percentage;
 
+        // Calculate the percentage discount
+        $percentage = (($preprice - $price) * 100) / $preprice;
+        return $percentage;
+    }
+
+
+
+    public function productVariants()
+    {
+        return $this->hasMany(ProductVariation::class);
+    }
+
+    public function productPrices()
+    {
+        return $this->hasMany(ProductVariationPrice::class);
     }
 
 }

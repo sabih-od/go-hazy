@@ -19,7 +19,6 @@
             </div>
         </div>
     </section>
-
     <!-- Begin: Step 2 -->
     <div class="checkOutStyle">
         <div class="container">
@@ -29,7 +28,8 @@
                         <h2>Billing Address</h2>
                         <h4>Fill the form below to complete your purchase</h4>
                         <p class="checkout-subheading"><span>Already Registered?</span> Click here to <a
-                                href="{{ route('user.login') }}" data-toggle="modal" data-target="#signIn">Login now</a></p>
+                                href="{{ route('user.login') }}" data-toggle="modal" data-target="#signIn">Login now</a>
+                        </p>
                     </div>
                 </div>
                 {{ csrf_field() }}
@@ -106,42 +106,63 @@
                     </div>
                 </div>
 
-                <div class="row w-100" id="shipping_address_form">
-                    <div class="col-md-12">
-                        <label for="shipping_address">ADDRESS</label>
-                        <input type="text" class="form-control" name="shipping_address">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="">COUNTRY</label>
-                        <select name="shipping_country" id="s_country"
-                                class="form-control requiredField ">
-                            @include('includes.countries')
-                        </select>
-                        <small class="text-danger errorField" style="display: none"></small>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="">CITY</label>
-                        <input type="text" name="shipping_city" id="s_city"
-                               class="form-control requiredField "
-                               value="">
-                        <small class="text-danger errorField" style="display: none"></small>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="">ZIP/POSTAL CODE</label>
-                        <input type="text" name="shipping_zip" id="s_zip_code"
-                               class="form-control requiredField "
-                               value="">
-                        <small class="text-danger errorField" style="display: none"></small>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="">STATE/PROVINCE</label>
-                        <input type="text" name="shipping_state" id="s_state"
-                               class="form-control requiredField "
-                               value="">
-                        <small class="text-danger errorField" style="display: none"></small>
+                <div class="col-md-12" id="shipping_address_form">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="shipping_address">ADDRESS</label>
+                            <input type="text" class="form-control" name="shipping_address">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">COUNTRY</label>
+                            <select name="shipping_country" id="s_country"
+                                    class="form-control requiredField ">
+                                @include('includes.countries')
+                            </select>
+                            <small class="text-danger errorField" style="display: none"></small>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">CITY</label>
+                            <input type="text" name="shipping_city" id="s_city"
+                                   class="form-control requiredField "
+                                   value="">
+                            <small class="text-danger errorField" style="display: none"></small>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">ZIP/POSTAL CODE</label>
+                            <input type="text" name="shipping_zip" id="s_zip_code"
+                                   class="form-control requiredField "
+                                   value="">
+                            <small class="text-danger errorField" style="display: none"></small>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">STATE/PROVINCE</label>
+                            <input type="text" name="shipping_state" id="s_state"
+                                   class="form-control requiredField "
+                                   value="">
+                            <small class="text-danger errorField" style="display: none"></small>
+                        </div>
                     </div>
                 </div>
                 {{--Ship to a different address end--}}
+
+                <div class="col-md-12">
+                    <div class="checkbox">
+                        <input type="checkbox" id="is_veteran"
+                               name="is_veteran" value="is_veteran" {{ session()->has('is_veteran') ? 'checked' : '' }}
+                            {{ session()->has('is_discount_coupon') ? 'disabled' : '' }}>
+                        <label for="is_veteran">I am a Veteran.</label>
+                    </div>
+
+                    <div class="checkbox">
+                        <input type="checkbox" id="discount_coupon"
+                               name="discount_coupon"
+                               value="is_discount_coupon" {{ session()->has('is_discount_coupon') ? 'checked' : '' }}
+                            {{ session()->has('is_veteran') ? 'disabled' : '' }}>
+                        <label for="discount_coupon">Discount Coupon</label>
+                    </div>
+
+                    @include('frontend.includes.coupon')
+                </div>
 
                 <input type="hidden" id="shipping-cost" name="shipping_cost" value="0">
                 <input type="hidden" id="packing-cost" name="packing_cost" value="0">
@@ -176,7 +197,7 @@
                 <input type="hidden" id="original_tax" value="0">
                 <input type="hidden" id="wallet-price" name="wallet_price" value="0">
                 <input type="hidden" id="ttotal"
-                       value="{{ Session::has('cart') ? App\Models\Product::convertPrice(Session::get('cart')->totalPrice) : '0' }}">
+                       value="{{ $totalPrice }}">
                 <input type="hidden" name="coupon_code" id="coupon_code"
                        value="{{ Session::has('coupon_code') ? Session::get('coupon_code') : '' }}">
                 <input type="hidden" name="coupon_discount" id="coupon_discount"
@@ -186,7 +207,7 @@
                 <input type="hidden" name="user_id" id="user_id"
                        value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->id : '' }}">
 
-                <div class="payment-information">
+                <div class="payment-information mt-4">
                     <h4 class="title">
                         {{ __('Payment Info') }}
                     </h4>
@@ -275,59 +296,90 @@
                     <button class="btnStyle" type="submit">proceed to checkout</button>
                 </div>
             </form>
-
-
-            @if(Session::has('cart'))
+            {{--      @php--}}
+            {{--          $data = Session::get('cart');--}}
+            {{--          $total = 0;--}}
+            {{--          foreach($data->items as $price)--}}
+            {{--          {--}}
+            {{--              $total = $total + $price['totalPrice'];--}}
+            {{--          }--}}
+            {{--      @endphp--}}
+            @if(\App\Helpers\CartHelper::getCartTotalQty() > 0)
                 <div class="col-md-12 title my-5 text-center">
                     <h2>Order Summary</h2>
                 </div>
                 <div class="col-md-12 order-summery">
                     <div class="row no-gutters">
                         <div class="col-md-12 d-flex align-items-center justify-content-between">
-                            <span>Subtotal ({{ Session::has('cart') ? count(Session::get('cart')->items) : '0' }} items)</span>
-                            <strong>{{ Session::has('cart') ? (Session::get('cart')->totalPrice) : '0.00' }}</strong>
+                            <span>Subtotal ({{ \App\Helpers\CartHelper::getCartTotalQty() }} items)</span>
+                            <strong>{{ $totalPrice }} $</strong>
                             <input type="hidden" id="ttotal"
-                                   value="{{ Session::has('cart') ? (Session::get('cart')->totalPrice) : '0' }}">
+                                   value="{{ $totalPrice }}">
                         </div>
                         {{--                        <hr class="w-100">--}}
                         {{--                        <div class="col-md-12 d-flex align-items-center justify-content-between">--}}
                         {{--                            <span>Shipping fee</span>--}}
                         {{--                            <strong>USD 5.00</strong>--}}
                         {{--                        </div>--}}
+
                         <hr class="w-100">
-                        <div class="col-md-12">
-                            <form action="#" id="check-coupon-form" class="w-100">
-                                <div class="applyCoupon">
-                                    <input type="text" class="form-control" placeholder="Enter Voucher Code"
-                                           id="code" value="">
-                                    <button class="btnStyle" type="submit">Apply</button>
-                                </div>
-                            </form>
-                        </div>
-                        <hr class="w-100">
-                        <div class="col-md-12 {{Session::has('coupon') ? '' : 'd-none'}}
-                            d-flex align-items-center justify-content-between" id="discount-bar">
+                        {{--                        @php--}}
+                        {{--                            $get_veteran_percentage = App\Models\VeteranDiscount::where('id', Session::get('discount_id'))->first();--}}
+                        {{--                        @endphp--}}
+                        {{--                        @dd(session()->get('coupon_total1'))--}}
+                        <div class="col-md-12 d-flex align-items-center justify-content-between" id="discount-bar">
                             <span>Discounts</span>
-                            <strong id="discount_amount">{{ Session::has('coupon') ? Session::get('coupon') : 0 }}
+                            <strong
+                                id="discount_amount">{{ session()->get('coupon_deactive_total') ? 0
+                                :  abs($totalPrice - $total_discount_price) }}
                                 $</strong>
+                            {{--                            @if(!is_null($get_veteran_percentage) && !is_null($get_veteran_percentage->percentage))--}}
+                            {{--                                <strong id="discount_amount">{{ $get_veteran_percentage->percentage }}%</strong>--}}
+                            {{--                            @else--}}
+                            {{--                                <strong id="discount_amount">0%</strong>--}}
+                            {{--                            @endif--}}
                         </div>
                         <hr class="w-100">
+                        {{--                        @if(Session::has('cate_id'))--}}
+                        {{--                            @php--}}
+                        {{--                                $get_cate_id = Session::get('cate_id');--}}
+                        {{--                                if(!is_null($get_cate_id)){--}}
+                        {{--                                    $get_coupon_code =  App\Models\Coupon::where('category', $get_cate_id)->first();--}}
+                        {{--                                    $show_coupon_code = $get_coupon_code ? $get_coupon_code->code : '0';--}}
+                        {{--                                }--}}
+                        {{--                                else {--}}
+                        {{--                                    $show_coupon_code = '0';--}}
+                        {{--                                }--}}
+                        {{--                            @endphp--}}
+                        {{--                        @endif--}}
+
+                        {{--                        <div class="col-md-12 d-flex align-items-center justify-content-between" id="discount-bar">--}}
+                        {{--                            <span>Coupon</span>--}}
+                        {{--                            <strong id="discount_amount2">--}}
+                        {{--                                {{ $show_coupon_code ?: 'Not Available' }}--}}
+                        {{--                            </strong>--}}
+                        {{--                        </div>--}}
+
+
+                        {{--                        <hr class="w-100">--}}
                         <div class="col-md-12 d-flex align-items-center justify-content-between">
                             <span>Total</span>
                             <strong
                                 id="grand_total">
-                                {{ Session::has('cart') ?
-                                   Session::has('coupon') ?
-                                   (App\Models\Product::convertPrice((int)(Session::get('cart')->totalPrice) - (int)Session::get('coupon'))) :
-                                    App\Models\Product::convertPrice((int)Session::get('cart')->totalPrice) : '0.00' }}
+                                {{ $total_discount_price }} $
+
+                                {{-- {{ Session::has('cart') ?--}}
+                                {{--                                   Session::has('coupon') ?--}}
+                                {{--                                   (App\Models\Product::convertPrice((int)(Session::get('cart')->totalPrice) - (int)Session::get('coupon'))) :--}}
+                                {{--                                    App\Models\Product::convertPrice((int)Session::get('cart')->totalPrice) : '0.00' }}--}}
                             </strong>
-{{--                            <strong--}}
-{{--                                id="grand_total">--}}
-{{--                                {{ Session::has('cart') ?--}}
-{{--                                   Session::has('coupon') ?--}}
-{{--                                   (App\Models\Product::convertPrice((Session::get('cart')->totalPrice) - Session::get('coupon'))) :--}}
-{{--                                    App\Models\Product::convertPrice(Session::get('cart')->totalPrice) : '0.00' }}--}}
-{{--                            </strong>--}}
+                            {{--                            <strong--}}
+                            {{--                                id="grand_total">--}}
+                            {{--                                {{ Session::has('cart') ?--}}
+                            {{--                                   Session::has('coupon') ?--}}
+                            {{--                                   (App\Models\Product::convertPrice((Session::get('cart')->totalPrice) - Session::get('coupon'))) :--}}
+                            {{--                                    App\Models\Product::convertPrice(Session::get('cart')->totalPrice) : '0.00' }}--}}
+                            {{--                            </strong>--}}
                         </div>
                         <hr class="w-100">
                     </div>
@@ -385,70 +437,70 @@
     {{--        </div>--}}
     {{--    </div>--}}
 
-    @if(Session::has('cart'))
-        <div class="col-md-12 title my-5 text-center d-none">
-            <h2>Payment Info</h2>
-        </div>
-        <div class="col-md-12 order-summery d-none">
-            <div class="row no-gutters">
-                <div class="col-md-12">
-                    <div class="nav flex-column" role="tablist"
-                         aria-orientation="vertical">
-                        @foreach($gateways as $gt)
-                            @if($gt->type == 'manual')
-                                @if($digital == 0)
-                                    <a class="nav-link payment" data-val=""
-                                       data-show="{{$gt->showForm()}}"
-                                       data-form="{{ $gt->showCheckoutLink() }}"
-                                       data-href="{{ route('front.load.payment',['slug1' => $gt->showKeyword(),'slug2' => $gt->id]) }}"
-                                       id="v-pills-tab{{ $gt->id }}-tab"
-                                       data-toggle="pill"
-                                       href="#v-pills-tab{{ $gt->id }}" role="tab"
-                                       aria-controls="v-pills-tab{{ $gt->id }}"
-                                       aria-selected="false">
-                                        <div class="icon">
-                                            <span class="radio"></span>
-                                        </div>
-                                        <p>
-                                            {{ $gt->title }}
-                                            @if($gt->subtitle != null)
-                                                <small>
-                                                    {{ $gt->subtitle }}
-                                                </small>
-                                            @endif
-                                        </p>
-                                    </a>
-                                @endif
-                            @else
-                                <a class="nav-link payment"
-                                   data-val="{{ $gt->keyword }}"
-                                   data-show="{{$gt->showForm()}}"
-                                   data-form="{{ $gt->showCheckoutLink() }}"
-                                   data-href="{{ route('front.load.payment',['slug1' => $gt->showKeyword(),'slug2' => $gt->id]) }}"
-                                   id="v-pills-tab{{ $gt->id }}-tab"
-                                   data-toggle="pill"
-                                   href="#v-pills-tab{{ $gt->id }}" role="tab"
-                                   aria-controls="v-pills-tab{{ $gt->id }}"
-                                   aria-selected="false">
-                                    <div class="icon">
-                                        <span class="radio"></span>
-                                    </div>
-                                    <p>
-                                        {{ $gt->name }}
-                                        @if($gt->information != null)
-                                            <small>
-                                                {{ $gt->getAutoDataText() }}
-                                            </small>
-                                        @endif
-                                    </p>
-                                </a>
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
+    {{--    @if(Session::has('cart'))--}}
+    {{--        <div class="col-md-12 title my-5 text-center d-none">--}}
+    {{--            <h2>Payment Info</h2>--}}
+    {{--        </div>--}}
+    {{--        <div class="col-md-12 order-summery d-none">--}}
+    {{--            <div class="row no-gutters">--}}
+    {{--                <div class="col-md-12">--}}
+    {{--                    <div class="nav flex-column" role="tablist"--}}
+    {{--                         aria-orientation="vertical">--}}
+    {{--                        @foreach($gateways as $gt)--}}
+    {{--                            @if($gt->type == 'manual')--}}
+    {{--                                @if($digital == 0)--}}
+    {{--                                    <a class="nav-link payment" data-val=""--}}
+    {{--                                       data-show="{{$gt->showForm()}}"--}}
+    {{--                                       data-form="{{ $gt->showCheckoutLink() }}"--}}
+    {{--                                       data-href="{{ route('front.load.payment',['slug1' => $gt->showKeyword(),'slug2' => $gt->id]) }}"--}}
+    {{--                                       id="v-pills-tab{{ $gt->id }}-tab"--}}
+    {{--                                       data-toggle="pill"--}}
+    {{--                                       href="#v-pills-tab{{ $gt->id }}" role="tab"--}}
+    {{--                                       aria-controls="v-pills-tab{{ $gt->id }}"--}}
+    {{--                                       aria-selected="false">--}}
+    {{--                                        <div class="icon">--}}
+    {{--                                            <span class="radio"></span>--}}
+    {{--                                        </div>--}}
+    {{--                                        <p>--}}
+    {{--                                            {{ $gt->title }}--}}
+    {{--                                            @if($gt->subtitle != null)--}}
+    {{--                                                <small>--}}
+    {{--                                                    {{ $gt->subtitle }}--}}
+    {{--                                                </small>--}}
+    {{--                                            @endif--}}
+    {{--                                        </p>--}}
+    {{--                                    </a>--}}
+    {{--                                @endif--}}
+    {{--                            @else--}}
+    {{--                                <a class="nav-link payment"--}}
+    {{--                                   data-val="{{ $gt->keyword }}"--}}
+    {{--                                   data-show="{{$gt->showForm()}}"--}}
+    {{--                                   data-form="{{ $gt->showCheckoutLink() }}"--}}
+    {{--                                   data-href="{{ route('front.load.payment',['slug1' => $gt->showKeyword(),'slug2' => $gt->id]) }}"--}}
+    {{--                                   id="v-pills-tab{{ $gt->id }}-tab"--}}
+    {{--                                   data-toggle="pill"--}}
+    {{--                                   href="#v-pills-tab{{ $gt->id }}" role="tab"--}}
+    {{--                                   aria-controls="v-pills-tab{{ $gt->id }}"--}}
+    {{--                                   aria-selected="false">--}}
+    {{--                                    <div class="icon">--}}
+    {{--                                        <span class="radio"></span>--}}
+    {{--                                    </div>--}}
+    {{--                                    <p>--}}
+    {{--                                        {{ $gt->name }}--}}
+    {{--                                        @if($gt->information != null)--}}
+    {{--                                            <small>--}}
+    {{--                                                {{ $gt->getAutoDataText() }}--}}
+    {{--                                            </small>--}}
+    {{--                                        @endif--}}
+    {{--                                    </p>--}}
+    {{--                                </a>--}}
+    {{--                            @endif--}}
+    {{--                        @endforeach--}}
+    {{--                    </div>--}}
+    {{--                </div>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    @endif--}}
     <!-- END: Step 2 -->
 
     <!-- Begin: End 3 -->
@@ -495,48 +547,172 @@
             });
 
             // Validate Coupon
-            $("#check-coupon-form").on('submit', function (e) {
+            {{--$("#check-coupon-form").on('submit', function (e) {--}}
+            {{--    e.preventDefault();--}}
+
+            {{--    var val = $("#code").val();--}}
+            {{--    var total = $("#total").val();--}}
+            {{--    var ship = 0;--}}
+
+            {{--    $.ajax({--}}
+            {{--        type: "GET",--}}
+            {{--        url: mainurl + "/carts/coupon/check",--}}
+            {{--        data: {code: val, total: total, shipping_cost: ship},--}}
+            {{--        success: function (data) {--}}
+            {{--            console.log(data);--}}
+            {{--            if (data == 0) {--}}
+            {{--                toastr.error('{{__('Coupon not found')}}');--}}
+            {{--                $("#code").val("");--}}
+            {{--            } else if (data == 2) {--}}
+            {{--                toastr.error('{{__('Coupon already have been taken')}}');--}}
+            {{--                $("#code").val("");--}}
+            {{--            } else {--}}
+            {{--                // $("#check-coupon-form").toggle();--}}
+            {{--                $("#discount-bar").removeClass('d-none');--}}
+            {{--                $("#discount-bar").addClass('d-flex');--}}
+
+            {{--                $('#grandtotal').val(data[0]);--}}
+            {{--                $('#grand_total').html(data[0]);--}}
+            {{--                $('#tgrandtotal').val(data[0]);--}}
+            {{--                $('#coupon_code').val(data[1]);--}}
+            {{--                $('#coupon_discount').val(data[2]);--}}
+            {{--                $('#discount_amount').html(data[2] + '$');--}}
+            {{--                if (data[4] != 0) {--}}
+            {{--                    $('.dpercent').html('(' + data[4] + ')');--}}
+            {{--                } else {--}}
+            {{--                    $('.dpercent').html('');--}}
+            {{--                }--}}
+            {{--                // window.location.reload();--}}
+            {{--                toastr.success("Coupon Activated");--}}
+            {{--                $("#code").val("");--}}
+            {{--            }--}}
+            {{--        }--}}
+            {{--    });--}}
+            {{--    return false;--}}
+            {{--});--}}
+            $("#check-coupon-form button").on('click', function (e) {
                 e.preventDefault();
 
                 var val = $("#code").val();
                 var total = $("#total").val();
                 var ship = 0;
+                var coupon_type = $('input[type="checkbox"]:checked').val()
 
                 $.ajax({
                     type: "GET",
                     url: mainurl + "/carts/coupon/check",
-                    data: {code: val, total: total, shipping_cost: ship},
+                    data: {
+                        code: val,
+                        total: total,
+                        shipping_cost: ship,
+                        coupon_type: coupon_type
+                    },
                     success: function (data) {
-                        if (data == 0) {
-                            toastr.error('{{__('Coupon not found')}}');
-                            $("#code").val("");
-                        } else if (data == 2) {
-                            toastr.error('{{__('Coupon already have been taken')}}');
-                            $("#code").val("");
-                        } else {
-                            // $("#check-coupon-form").toggle();
-                            $("#discount-bar").removeClass('d-none');
-                            $("#discount-bar").addClass('d-flex');
-
-                            $('#grandtotal').val(data[0]);
-                            $('#grand_total').html(data[0]);
-                            $('#tgrandtotal').val(data[0]);
-                            $('#coupon_code').val(data[1]);
-                            $('#coupon_discount').val(data[2]);
-                            $('#discount_amount').html(data[2] + '$');
-                            if (data[4] != 0) {
-                                $('.dpercent').html('(' + data[4] + ')');
-                            } else {
-                                $('.dpercent').html('');
-                            }
-                            // window.location.reload();
+                        if (data.status === 'error') {
+                            toastr.error(data.message);
+                            // $("#code").val("");
+                        } else if (data.status === 'success') {
                             toastr.success("Coupon Activated");
-                            $("#code").val("");
+                            window.location.reload()
+                            // location.reload(true);
                         }
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle AJAX error, if needed
+                        console.error(xhr.responseText);
+                        toastr.error("Server Error!");
                     }
                 });
+
                 return false;
             });
+
+            $('#is_veteran').on('change', function (e) {
+                const check = $(this).prop('checked')
+                console.log("check", check);
+
+                if (check) {
+                    $('#check-coupon-form').show()
+
+                } else {
+
+                    $('#check-coupon-form').hide()
+
+                    var val = $("#code").val();
+                    if (val) {
+                        $.ajax({
+                            type: "GET",
+                            url: mainurl + "/carts/coupon/deactivate",
+                            data: {
+                                code: val,
+                            },
+                            success: function (data) {
+                                if (data.status === 'error') {
+                                    toastr.error(data.message);
+                                    // $("#code").val("");
+                                } else if (data.status === 'success') {
+                                    toastr.success("Coupon Deactivated");
+                                    window.location.reload()
+                                    // location.reload(true);
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                // Handle AJAX error, if needed
+                                console.error(xhr.responseText);
+                                toastr.error("Server Error!");
+                            }
+                        });
+                    }
+
+                }
+
+            })
+
+            $('#discount_coupon').on('change', function (e) {
+                const check = $(this).prop('checked')
+                console.log("check", check);
+                if (check) {
+                    $('#check-coupon-form').show()
+
+                } else {
+
+                    $('#check-coupon-form').hide()
+
+                    var val = $("#code").val();
+                    if (val) {
+                        $.ajax({
+                            type: "GET",
+                            url: mainurl + "/carts/coupon/deactivate",
+                            data: {
+                                code: val,
+                            },
+                            success: function (data) {
+                                if (data.status === 'error') {
+                                    toastr.error(data.message);
+                                    // $("#code").val("");
+                                } else if (data.status === 'success') {
+                                    toastr.success("Coupon Deactivated");
+                                    $total_discount_price = 0;
+                                    window.location.reload()
+                                    // location.reload(true);
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                // Handle AJAX error, if needed
+                                console.error(xhr.responseText);
+                                toastr.error("Server Error!");
+                            }
+                        });
+                    }
+
+                }
+
+            })
+
+            $('input[type="checkbox"]').click(function () {
+                $('input[type="checkbox"]').not(this).prop('checked', false);
+            });
+
         });
     </script>
 @endsection

@@ -3,6 +3,7 @@
 @section('content')
     @include('partials.global.common-header')
 
+
     <!-- breadcrumb -->
     <div class="full-row bg-light overlay-dark py-5"
          style="background-image: url({{ $gs->breadcrumb_banner ? asset('assets/images/'.$gs->breadcrumb_banner):asset('assets/images/noimage.png') }}); background-position: center center; background-size: cover;">
@@ -26,48 +27,48 @@
     <!-- breadcrumb -->
     <section class="tempcart">
 
-    @if(!empty($tempcart))
-     <div class="container">
-         <div class="row justify-content-center">
-             <div class="col-lg-10">
-                 <!-- Starting of Dashboard data-table area -->
-                 <div class="content-box section-padding add-product-1">
-                     <div class="top-area">
-                         <div class="content order-de">
-                             <h4 class="heading">
-                                 {{ __('THANK YOU FOR YOUR PURCHASE.') }}
-                             </h4>
-                             <p class="text">
-                                 {{ __("We'll email you an order confirmation with details and tracking info.") }}
-                             </p>
-                             <a href="{{ route('front.index') }}" class="link">
-                                 <h5>{{ __('Get Back To Our Homepage') }}</h5></a>
-                         </div>
-                     </div>
-                     <div class="row">
-                         <div class="col-lg-12">
-                             <div class="product__header">
-                                 <div class="row reorder-xs">
-                                     <div class="col-lg-12">
-                                         <div class="product-header-title">
-                                             <h4>{{ __('Order#') }} {{$order->order_number}}</h4>
-                                         </div>
-                                     </div>
-                                     @include('alerts.form-success')
-                                     <div class="col-md-12" id="tempview">
-                                         <div class="dashboard-content">
-                                             <div class="view-order-page" id="print">
-                                                 <p class="order-date">{{ __('Order Date') }}
-                                                     {{date('d-M-Y',strtotime($order->created_at))}}</p>
+        @if(!empty($tempcart))
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <!-- Starting of Dashboard data-table area -->
+                        <div class="content-box section-padding add-product-1">
+                            <div class="top-area">
+                                <div class="content order-de">
+                                    <h4 class="heading">
+                                        {{ __('THANK YOU FOR YOUR PURCHASE.') }}
+                                    </h4>
+                                    <p class="text">
+                                        {{ __("We'll email you an order confirmation with details and tracking info.") }}
+                                    </p>
+                                    <a href="{{ route('front.index') }}" class="link">
+                                        <h5>{{ __('Get Back To Our Homepage') }}</h5></a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="product__header">
+                                        <div class="row reorder-xs">
+                                            <div class="col-lg-12">
+                                                <div class="product-header-title">
+                                                    <h4>{{ __('Order#') }} {{$order->order_number}}</h4>
+                                                </div>
+                                            </div>
+                                            @include('alerts.form-success')
+                                            <div class="col-md-12" id="tempview">
+                                                <div class="dashboard-content">
+                                                    <div class="view-order-page" id="print">
+                                                        <p class="order-date">{{ __('Order Date') }}
+                                                            {{date('d-M-Y',strtotime($order->created_at))}}</p>
                                                         @if($order->dp == 1)
-                                                     <div class="billing-add-area">
-                                                         <div class="row">
-                                                             <div class="col-md-6">
-                                                                 <h5>{{ __('Shipping Address') }}</h5>
-                                                                 <address>
-                                                                     {{ __('Name:') }} {{$order->customer_name}}
-                                                                     <br>
-                                                                     {{ __('Email:') }} {{$order->customer_email}}
+                                                            <div class="billing-add-area">
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <h5>{{ __('Shipping Address') }}</h5>
+                                                                        <address>
+                                                                            {{ __('Name:') }} {{$order->customer_name}}
+                                                                            <br>
+                                                                            {{ __('Email:') }} {{$order->customer_email}}
                                                                             <br>
                                                                             {{ __('Phone:') }} {{$order->customer_phone}}
                                                                             <br>
@@ -205,19 +206,61 @@
                                                                             {{ \PriceHelper::showOrderCurrencyPrice((($order->tax) / $order->currency_value),$order->currency_sign) }}
                                                                         </p>
 
-                                                                        <p>{{ __('Total Amount :') }}
-                                                                            {{ \PriceHelper::showCurrencyPrice(($order->pay_amount) + $order->coupon_discount)  }}
-                                                                        </p>
+                                                                        {{--                                                                        <p>{{ __('Total Amount :') }}--}}
+                                                                        {{--                                                                            {{ \PriceHelper::showCurrencyPrice(($order->pay_amount) + $order->coupon_discount)  }}--}}
+                                                                        {{--                                                                        </p>--}}
 
-                                                                        <p>{{ __('Discount:') }}
 
-                                                                            @if($order->method != "Wallet")
-                                                                                {{ \PriceHelper::showCurrencyPrice($order->coupon_discount)  }}
+                                                                        @if (!is_null($order->getPercentage) && Session::has('coupon_code'))
+                                                                            <p>{{ __('Discount:') }}
+                                                                                @if ($order->method != "Wallet")
+                                                                                    {{(!is_null($order->getPercentage) ? $order->getPercentage->percentage : 0) }}
+                                                                                    %
+                                                                                @endif
+                                                                            </p>
 
-                                                                            @else
-                                                                                {{ \PriceHelper::showOrderCurrencyPrice(($order->wallet_price * $order->currency_value),$order->currency_sign) }}
-                                                                            @endif
-                                                                        </p>
+                                                                            <p>{{ __('Coupon:') }}
+                                                                                @if ($order->method != "Wallet")
+                                                                                    @php
+                                                                                        $get_coupon_code = App\Models\Coupon::where('code', Session::get('coupon_code'))->first();
+                                                                                        $show_coupon_price = $get_coupon_code ? $get_coupon_code->price : 0;
+                                                                                    @endphp
+                                                                                    @if($get_coupon_code->type === 0)
+                                                                                        {{ $show_coupon_price }}%
+                                                                                    @elseif($get_coupon_code->type === 1)
+                                                                                        {{ $show_coupon_price }}$
+                                                                                    @endif
+                                                                                @endif
+                                                                            </p>
+                                                                        @elseif (Session::has('coupon_code'))
+                                                                            <p>{{ __('Coupon:') }}
+                                                                                @if ($order->method != "Wallet")
+                                                                                    @php
+                                                                                        $get_coupon_code = App\Models\Coupon::where('code', Session::get('coupon_code'))->first();
+                                                                                        $show_coupon_price = $get_coupon_code ? $get_coupon_code->price : 0;
+                                                                                    @endphp
+                                                                                    @if($get_coupon_code->type === 0)
+                                                                                        {{ $show_coupon_price }}%
+                                                                                    @elseif($get_coupon_code->type === 1)
+                                                                                        {{ $show_coupon_price }}$
+                                                                                    @endif
+                                                                                @endif
+                                                                            </p>
+                                                                        @elseif (!is_null($order->getPercentage))
+                                                                            <p>{{ __('Discount:') }}
+                                                                                @if ($order->method != "Wallet")
+                                                                                    {{(!is_null($order->getPercentage) ? $order->getPercentage->percentage : 0) }}
+                                                                                    %
+
+                                                                                    {{--                                                                                    {{ \PriceHelper::showCurrencyPrice(!is_null($order->getPercentage) ? $order->getPercentage->percentage : 0) }}%--}}
+                                                                                @endif
+                                                                            </p>
+                                                                        @else
+                                                                            <p>{{ __('Discount:') }}
+                                                                                0$
+                                                                            </p>
+                                                                        @endif
+
 
                                                                         <p>{{ __('Paid Amount:') }}
 
@@ -257,62 +300,80 @@
                                                                     <th width="35%">{{ __('Name') }}</th>
                                                                     <th width="20%">{{ __('Details') }}</th>
                                                                     <th>{{ __('Price') }}</th>
-                                                                    <th>{{ __('Discount') }}</th>
+                                                                    {{--                                                                    <th>{{ __('Discount') }}</th>--}}
                                                                     <th>{{ __('Total') }}</th>
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
 
-                                                                @foreach($tempcart->items as $product)
+                                                                @php
+                                                                    $pro = json_decode($tempcart);
+                                                                @endphp
+                                                                @foreach($pro as $row)
+                                                                    {{--                                                                    @dd($row)--}}
+
+
                                                                     <tr>
 
-                                                                        <td>{{ $product['item']['name'] }}</td>
+                                                                        <td>{{ $row->product->name }}</td>
                                                                         <td>
-                                                                            <b>{{ __('Quantity') }}</b>: {{$product['qty']}}
+                                                                            <b>{{ __('Quantity') }}</b>: {{$row->qty}}
                                                                             <br>
-                                                                            @if(!empty($product['size']))
-                                                                                <b>{{ __('Size') }}</b>:
-                                                                                {{ $product['item']['measure'] }}{{str_replace('-',' ',$product['size'])}}
-                                                                                <br>
-                                                                            @endif
-                                                                            @if(!empty($product['color']))
-                                                                                <div class="d-flex mt-2">
-                                                                                    <b>{{ __('Color') }}</b> : <span
-                                                                                        id="color-bar"
-                                                                                        style="border: 10px solid #{{$product['color'] == "" ? "white" : $product['color']}};"></span>
-                                                                                </div>
-                                                                            @endif
 
-                                                                            @if(!empty($product['keys']))
+                                                                            {{--                                                                            @if(!empty($product['color']))--}}
+                                                                            {{--                                                                                <div class="d-flex mt-2">--}}
+                                                                            {{--                                                                                    <b>{{ __('Color') }}</b> : <span--}}
+                                                                            {{--                                                                                        id="color-bar"--}}
+                                                                            {{--                                                                                        style="border: 10px solid #{{$product['color'] == "" ? "white" : $product['color']}};"></span>--}}
+                                                                            {{--                                                                                </div>--}}
+                                                                            {{--                                                                            @endif--}}
 
-                                                                                @foreach( array_combine(explode(',',
-                                                                                $product['keys']), explode(',', $product['values']))
-                                                                                as $key => $value)
-
-                                                                                    <b>{{ ucwords(str_replace('_', ' ', $key))  }}
-                                                                                        :
-                                                                                    </b> {{ $value }} <br>
-                                                                                @endforeach
-
-                                                                            @endif
 
                                                                         </td>
-
-                                                                        <td>{{ \PriceHelper::showCurrencyPrice(($order->pay_amount) + $order->coupon_discount)  }}
+                                                                        <td>{{ $row->show_price }}$
+                                                                            {{--                                                                        <td>{{ \PriceHelper::showCurrencyPrice(($order->pay_amount) + $order->coupon_discount)  }}--}}
+                                                                        </td>
+                                                                        <td>{{ $row->show_total_price }}$
+                                                                            {{--                                                                        <td>{{ \PriceHelper::showCurrencyPrice(($order->pay_amount) + $order->coupon_discount)  }}--}}
                                                                         </td>
 
-                                                                        <td>{{ \PriceHelper::showCurrencyPrice($order->coupon_discount)  }}
-                                                                            <small>{{ $product['discount'] == 0 ? '' : '('.$product['discount'].'% '.__('Off').')' }}</small>
-                                                                        </td>
+                                                                        {{--                                                                        <td>--}}
+                                                                        {{--                                                                            {{ \PriceHelper::showCurrencyPrice(!is_null($order->getPercentage) ? $order->getPercentage->percentage : 0)  }}--}}
+                                                                        {{--                                                                        </td>--}}
 
-                                                                        <td>{{ \PriceHelper::showOrderCurrencyPrice((($order->pay_amount+$order->wallet_price) * $order->currency_value),$order->currency_sign) }}
-                                                                            <small>{{ $product['discount'] == 0 ? '' : '('.$product['discount'].'% '.__('Off').')' }}</small>
-                                                                        </td>
+                                                                        {{--                                                                        <td>{{ \PriceHelper::showCurrencyPrice($order->coupon_discount)  }}--}}
+                                                                        {{--                                                                            <small>{{ $product['discount'] == 0 ? '' : '('.$product['discount'].'% '.__('Off').')' }}</small>--}}
+                                                                        {{--                                                                        </td>--}}
+
 
                                                                     </tr>
+
                                                                 @endforeach
 
                                                                 </tbody>
+                                                                <tfoot>
+                                                                <tr>
+                                                                    <th colspan="2"></th>
+                                                                    <th>Total:</th>
+                                                                    <th>
+                                                                        {{ collect($pro)->sum('show_total_price') }}$
+                                                                    </th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th colspan="2"></th>
+                                                                    <th>Discount:</th>
+                                                                    <th>
+                                                                        {{ ($d = $order->coupon_discount) > 0 ? '-'.$d.'$':'0$' }}
+                                                                    </th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th colspan="2"></th>
+                                                                    <th>Total Paid:</th>
+                                                                    <th>
+                                                                        {{ \PriceHelper::showOrderCurrencyPrice((($order->pay_amount + $order->wallet_price) * $order->currency_value),$order->currency_sign) }}
+                                                                    </th>
+                                                                </tr>
+                                                                </tfoot>
                                                             </table>
                                                         </div>
                                                     </div>

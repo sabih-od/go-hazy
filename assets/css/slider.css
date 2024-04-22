@@ -4,8 +4,8 @@ header {
     padding: 0.4rem 0;
 }
 
-.navbar-brand img {
-    max-width: 110px;
+.navbar-brand :is(img, video) {
+    max-width: 200px;
 }
 
 .navbar-nav {
@@ -41,9 +41,9 @@ nav.navbar {
 .form-inline ul li a span {
     width: 15px;
     height: 15px;
-    background: #f25a29;
+    background: var(--theme-color);
     font-size: 0.5625rem;
-    color: var(--white);
+    color: var(--theme-color);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -82,7 +82,7 @@ a.navbar-brand {
 }
 
 .mainSlider {
-    height: 847px;
+    height: 670px;
     position: relative;
     z-index: 1;
 }
@@ -228,15 +228,9 @@ a.navbar-brand {
 .homeSlider .slide-inner {
     width: 100%;
     height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 1;
     background-size: cover;
     background-position: center;
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -378,17 +372,22 @@ a.navbar-brand {
     bottom: 0;
     right: 0;
     left: 0;
-    display: none;
+}
+
+.preLoader video{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .preLoader.black {
-    background-color: var(--primary);
+    background-color: var(--white);
     z-index: 11113;
 }
 
 .preLoader.white {
     z-index: 11112;
-    background-color: #652d90;
+    background-color: var(--white);
 }
 
 .topBar .paragraph {
@@ -534,7 +533,7 @@ a.themeBtn.themeBtn1 {
 }
 
 .skyBtn {
-    background: rgb(0, 167, 157);
+    background: var(--black);
 }
 
 .homeSlider.swiper-container .swiper-button-prev:hover,
@@ -616,7 +615,7 @@ a.themeBtn.themeBtn1 {
 .navbar .dropdown-menu {
     border: none;
     max-height: 80vh;
-    overflow-x:hidden;
+    overflow-x: hidden;
     overflow-y: scroll;
 }
 
@@ -710,7 +709,7 @@ a.themeBtn.themeBtn1 {
 
 .mainCat .nav-item .nav-link:hover,
 .mainCat .nav-item .nav-link.active {
-    color: var(--theme-color);
+    color: var(--white);
     font-weight: 600;
     box-shadow: 0 1px 10px rgb(0 0 0 / 12%);
 }
@@ -805,9 +804,6 @@ a.themeBtn.themeBtn1 {
     white-space: nowrap;
     position: relative;
 }
-
-
-
 
 
 .price-range-block #slider-range {
@@ -928,4 +924,8 @@ button.filter-btn.btn.btn-primary {
     border: none;
     border-radius: 0px;
     background: #d2d2d2;
+}
+
+.fotrLogo :is(img, video) {
+    max-width: 200px;
 }

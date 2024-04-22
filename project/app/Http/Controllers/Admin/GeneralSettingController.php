@@ -15,7 +15,7 @@ class GeneralSettingController extends AdminBaseController
 {
     protected $rules =
     [
-        'logo'              => 'mimes:jpeg,jpg,png,svg',
+        'logo'              => 'mimes:jpeg,jpg,png,svg,mp4',
         'favicon'           => 'mimes:jpeg,jpg,png,svg',
         'loader'            => 'mimes:gif',
         'admin_loader'      => 'mimes:gif',
