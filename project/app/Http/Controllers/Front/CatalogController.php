@@ -118,17 +118,13 @@ class CatalogController extends FrontBaseController
             ->when($maxprice, function ($query, $maxprice) {
                 return $query->where('price', '<=', $maxprice);
             })
-            ->when($minPrice, function ($query, $minPrice) {
-                return $query->where('price', '>=', $minPrice);
-            })
-            ->when($maxPrice, function ($query, $maxPrice) {
-                return $query->where('price', '<=', $maxPrice);
-            })
+
             ->when($title, function ($query) use ($title) {
                 return $query->where('name', 'LIKE', '%' . $title . '%');
             })
             ->when($sorts, function ($query, $sorts) {
                 if ($sorts == 'date_desc') {
+
                     return $query->latest('id');
                 } elseif ($sorts == 'date_asc') {
                     return $query->oldest('id');

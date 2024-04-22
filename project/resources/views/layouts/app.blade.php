@@ -349,16 +349,17 @@
 </footer>
 <!-- END: Footer -->
 
-{{--<div id="search">--}}
-{{--    <button class="close" type="button">×</button>--}}
-{{--    <form method="GET" action="{{route('front.category')}}">--}}
-{{--        @csrf--}}
-{{--        <input placeholder="SEARCH" type="search" value="" name="title">--}}
-{{--        <div class="srch-btn">--}}
-{{--            <button href="#" class="themeBtn" type="submit">Search</button>--}}
-{{--        </div>--}}
-{{--    </form>--}}
-{{--</div>--}}
+
+<div id="search">
+    <button class="close" type="button">×</button>
+    <form method="GET" action="{{route('front.category')}}">
+        @csrf
+        <input placeholder="SEARCH" type="search" value="" name="title">
+        <div class="srch-btn">
+            <button href="#" class="themeBtn" type="submit">Search</button>
+        </div>
+    </form>
+</div>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
