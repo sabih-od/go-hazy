@@ -104,7 +104,7 @@
           integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <!--    <link rel="stylesheet" href="css/responsive.css" />-->
-    <title>Go Hazy</title>
+    <title>Hazy By Tony</title>
 </head>
 
 <body>
@@ -255,6 +255,9 @@
 
 <!-- Begin: Footer -->
 <footer>
+
+
+
     <div class="container">
         <div class="row align-items-baseline justify-content-between">
             {{--<div class="col-md-12">
@@ -270,7 +273,7 @@
                 <div class="fotrLogo">
                     {{--                    <a href="#" class="footerLogo"><img src="{{asset('assets/images/min1.png')}}" class="img-fluid"--}}
                     {{--                                                        alt="img"></a>--}}
-                    <p>Go-Hazy is a Veteran-owned online store that sells high-quality men’s and women’s apparel – from
+                    <p>Hazy-by-tony is a Veteran-owned online store that sells high-quality men’s and women’s apparel – from
                         clothing to accessories, cosmetics, and consumer electronics – we offer it all. By combining
                         cutting-edge design with an affordable price tag, we bring you the newest styles at an
                         affordable price.</p>
@@ -337,7 +340,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <p>@ Copyright 2023 Go Hazy. All Rights Reserved.</p>
+                    <p>@ Copyright 2023 Hazy By Tony. All Rights Reserved.</p>
                 </div>
             </div>
         </div>

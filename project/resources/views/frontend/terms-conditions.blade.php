@@ -31,7 +31,7 @@
                 <div class="col-md-12">
                     <h6>Terms and Conditions</h6>
                     <p>Welcome to Antony Garcia! These terms and conditions outline the rules and regulations for the
-                        use of the Antony Garcia Website, located at <a href="{{route('front.index')}}">https://go-hazy.com/</a></p>
+                        use of the Antony Garcia Website, located at <a href="{{route('front.index')}}">https://hazy-by-tony.com/</a></p>
                     <p>By accessing this website, we assume you accept these terms and conditions. Do not continue to
                         use Antony Garcia if you do not agree to take all of the terms and conditions stated on this
                         page.
