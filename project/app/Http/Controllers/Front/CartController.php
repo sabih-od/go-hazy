@@ -922,7 +922,7 @@ class CartController extends FrontBaseController
                 $otp = mt_rand(100000, 999999);
                 $data = [
                     'to' => $email,
-                    'from' => "Go-hazy.com",
+                    'from' => "Hazy-by-tony.com",
                     'subject' => "Otp Verification code ",
                     'body' => 'this is your OTP code ' . $otp,
                 ];

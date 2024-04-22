@@ -326,7 +326,7 @@ class StripeController extends CheckoutBaseControlller
                     $msg .= "Quantity: " . $order->totalQty . ".<br>";
 //                    $msg .= "Item: " . $oldCart->item->name . ".<br>";
                     $msg .= "Regards: <br>";
-                    $msg .= "<b>Team GO HAZY</b>";
+                    $msg .= "<b>Team HAZY BY TONY</b>";
 
                     $this->customMail($from, $to, $subject, $msg);
 
@@ -343,7 +343,7 @@ class StripeController extends CheckoutBaseControlller
                     $msg .= "Quantity: " . $order->totalQty . ".<br>";
 //                    $msg .= "Item: " . $oldCart->item->name . ".<br>";
                     $msg .= "Regards: <br>";
-                    $msg .= "<b>Team GO HAZY</b>";
+                    $msg .= "<b>Team HAZY BY TONY</b>";
 
                     $this->customMail($from, $to, $subject, $msg);
 

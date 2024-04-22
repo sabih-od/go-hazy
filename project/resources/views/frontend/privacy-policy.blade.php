@@ -29,7 +29,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <p>At Antony Garcia, accessible from https://go-hazy.com/ /, one of our main priorities is the
+                    <p>At Antony Garcia, accessible from https://hazy-by-tony.com/ /, one of our main priorities is the
                         privacy of our visitors. This Privacy Policy document contains types of information that are
                         collected and recorded by Antony Garcia and how we use it.</p>
                     <p>If you have additional questions or require more information about our Privacy Policy, do not

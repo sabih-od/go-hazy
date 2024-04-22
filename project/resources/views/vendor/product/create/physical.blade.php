@@ -213,7 +213,7 @@
 												</div>
 											</div>
 
-				
+
 											<div class="showbox">
 												<div class="row">
 													<div class="col-lg-12">
@@ -226,7 +226,7 @@
 															placeholder="{{ __('Minimum Order Qty') }}" name="minimum_qty">
 													</div>
 												</div>
-				
+
 											</div>
 
 
@@ -339,7 +339,7 @@
 																	<div class="tsize-area">
 																		<span class="remove tsize-remove"><i class="fas fa-times"></i></span>
 																		<input  type="text" class="input-field tsize" placeholder="{{ __('Enter Product Size') }}"  >
-																		
+
 																	 </div>
 																</div>
 															<a href="javascript:;" id="tsize-btn" class="add-more mt-4 mb-3"><i class="fas fa-plus"></i>{{ __('Add More Size') }} </a>
@@ -593,7 +593,7 @@
 										  </div>
 
 										<input type="hidden" name="type" value="Physical">
-											
+
 									</div>
 								</div>
 							</div>
