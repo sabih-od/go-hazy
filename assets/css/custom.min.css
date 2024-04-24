@@ -2863,6 +2863,7 @@ button.filter-btn.btn.btn-primary {
     display: flex;
     align-items: center;
 }
+
 .header-main__nav .searchForm form input {
     display: inline-block;
     width: 500px;
@@ -2881,3 +2882,60 @@ button.filter-btn.btn.btn-primary {
     border-radius: 0 0.5rem 0.5rem 0;
     color: var(--white);
 }
+
+var logoSlider
+
+=
+new
+
+Swiper
+(
+'.logoSlider'
+,
+{
+loop: true,
+autoplay: true,
+slidesPerView:
+
+1
+,
+spaceBetween:
+
+10
+,
+centeredSlides: true,
+roundLengths: true,
+breakpoints: {
+
+1199
+: {
+    slidesPerView: 5,
+    spaceBetween: 10
+}
+
+,
+768
+: {
+    slidesPerView: 4,
+    spaceBetween: 10
+}
+
+,
+576
+: {
+    slidesPerView: 3,
+    spaceBetween: 10
+}
+
+,
+375
+: {
+    slidesPerView: 2,
+    spaceBetween: 10
+}
+
+}
+,
+}
+)
+;
