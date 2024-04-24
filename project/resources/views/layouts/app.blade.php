@@ -8,7 +8,15 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
-
+<style>
+    .logoSlider-img img {
+        display: block;
+        width: 200px;
+        aspect-ratio: 3/2;
+        object-fit: contain;
+        margin: 0 auto;
+    }
+</style>
     <link rel="icon" type="image/x-icon" href="{{asset('assets/images/'.$gs->favicon)}}"/>
 
 
@@ -256,6 +264,84 @@
 <!-- Begin: Footer -->
 <footer>
 
+    <section class="logo-section">
+        <div class="container">
+            <div class="swiper logoSlider">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <figure class="logoSlider-img">
+                            <img src="{{asset('assets/images/brandlogos/logo1.pn')}}g" alt="img" class="img-fluid">
+                        </figure>
+                    </div>
+                    <div class="swiper-slide">
+                        <figure class="logoSlider-img">
+                            <img src="{{asset('assets/images/brandlogos/logo2.png')}}" alt="img" class="img-fluid">
+                        </figure>
+                    </div>
+                    <div class="swiper-slide">
+                        <figure class="logoSlider-img">
+                            <img src="{{asset('assets/images/brandlogos/logo3.png')}}" alt="img" class="img-fluid">
+                        </figure>
+                    </div>
+                    <div class="swiper-slide">
+                        <figure class="logoSlider-img">
+                            <img src="{{asset('assets/images/brandlogos/logo4.png')}}" alt="img" class="img-fluid">
+                        </figure>
+                    </div>
+                    <div class="swiper-slide">
+                        <figure class="logoSlider-img">
+                            <img src="{{asset('assets/images/brandlogos/logo5.png')}}" alt="img" class="img-fluid">
+                        </figure>
+                    </div>
+                    <div class="swiper-slide">
+                        <figure class="logoSlider-img">
+                            <img src="{{asset('assets/images/brandlogos/logo6.png')}}" alt="img" class="img-fluid">
+                        </figure>
+                    </div>
+                    <div class="swiper-slide">
+                        <figure class="logoSlider-img">
+                            <img src="{{asset('assets/images/brandlogos/logo7.png')}}" alt="img" class="img-fluid">
+                        </figure>
+                    </div>
+                    <div class="swiper-slide">
+                        <figure class="logoSlider-img">
+                            <img src="{{asset('assets/images/brandlogos/logo8.png')}}" alt="img" class="img-fluid">
+                        </figure>
+                    </div>
+                    <div class="swiper-slide">
+                        <figure class="logoSlider-img">
+                            <img src="{{asset('assets/images/brandlogos/logo9.png')}}" alt="img" class="img-fluid">
+                        </figure>
+                    </div>
+                    <div class="swiper-slide">
+                        <figure class="logoSlider-img">
+                            <img src="{{asset('assets/images/brandlogos/logo10.png')}}" alt="img" class="img-fluid">
+                        </figure>
+                    </div>
+                    <div class="swiper-slide">
+                        <figure class="logoSlider-img">
+                            <img src="{{asset('assets/images/brandlogos/logo11.png')}}" alt="img" class="img-fluid">
+                        </figure>
+                    </div>
+                    <div class="swiper-slide">
+                        <figure class="logoSlider-img">
+                            <img src="{{asset('assets/images/brandlogos/logo12.png')}}" alt="img" class="img-fluid">
+                        </figure>
+                    </div>
+                    <div class="swiper-slide">
+                        <figure class="logoSlider-img">
+                            <img src="{{asset('assets/images/brandlogos/logo13.png')}}" alt="img" class="img-fluid">
+                        </figure>
+                    </div>
+                    <div class="swiper-slide">
+                        <figure class="logoSlider-img">
+                            <img src="{{asset('assets/images/brandlogos/logo14.png')}}" alt="img" class="img-fluid">
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
     <div class="container">
