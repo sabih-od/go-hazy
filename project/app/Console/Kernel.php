@@ -14,6 +14,10 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\CrudGenerator::class,
+        Commands\ThirtyPercentAdd::class,
+        Commands\PVImageJobDispatch::class,
+
+
         //
     ];
 
@@ -25,9 +29,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+
     }
+
 
     /**
      * Register the commands for the application.
@@ -40,4 +44,5 @@ class Kernel extends ConsoleKernel
 
         require base_path('routes/console.php');
     }
+
 }

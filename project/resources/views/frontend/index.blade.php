@@ -3,7 +3,8 @@
 @section('content')
 
     <div class="preLoader black">
-        <img src="{{asset('assets/images/min1.png')}}" alt="img">
+{{--        <img src="{{asset('assets/images/logo.png')}}" alt="img">--}}
+        <video src="{{asset('assets/images/logo.mp4')}}" autoplay muted alt="img"></video>
     </div>
     <div class="preLoader white"></div>
 
@@ -65,54 +66,10 @@
         <div class="container">
             <div class="refreshHeading" data-aos="fade-up">
                 <h1>New Arrivals</h1>
-                <h5>GO-HAZY</h5>
-                <h2>Antony’s Popular Products</h2>
+                <h5>HAZY BY TONY</h5>
+                <h2>Tony's Popular Products</h2>
+                @include('partials.category.category_product')
                 <h6>Looks for the season ahead</h6>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="swiper popularSlider">
-                            <div class="swiper-wrapper">
-                                @foreach($categories as $category)
-                                    @php
-                                        // Get the category name
-                                        $categoryName = $category->name;
-
-                                        if (!in_array($categoryName, ['Fishing', 'OutDoor', 'Veteran'])) {
-                                            continue;
-                                        }
-
-
-                                        $categoryImage = $category->image ? asset('assets/images/products/' . $category->image) : null;
-
-
-                                        if (!$categoryImage) {
-                                            $categoryImage = 'https://w0.peakpx.com/wallpaper/132/110/HD-wallpaper-404-not-found-error.jpg';
-                                        }
-
-                                        $firstProduct = $category->products->first();
-                                        if ($firstProduct && $firstProduct->photo) {
-                                            $productImage = asset('assets/images/products/' . $firstProduct->photo);
-                                        } else {
-                                            $productImage = $categoryImage;
-                                        }
-                                    @endphp
-                                    <div class="swiper-slide">
-                                        <div class="product-box" data-aos="fade-right">
-                                            <a href="{{ route('front.category', $category->slug) }}">
-                                                <div class="pro-img">
-                                                    <img src="{{ $productImage }}" alt="img">
-                                                </div>
-                                                <h4 data-id="{{ $category->id }}">{{ $categoryName ?? 'Shop' }}</h4>
-                                            </a>
-                                            <p>({{ count($category->products) }}) Products</p>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
 
                 <span>Shop Featured Categories.</span>
             </div>
@@ -147,28 +104,29 @@
                                         </a>
                                         <p>({{count($category->products)}}) Products</p>
                                     </div>
+
                                 </div>
                             @endforeach
-                            {{--                                @foreach($categories as $category)--}}
-                            {{--                                @foreach($category->products as $key => $products)--}}
-                            {{--                                    @if($key > 5)--}}
-                            {{--                                        @break--}}
-                            {{--                                    @endif--}}
-                            {{--                                    <div class="swiper-slide">--}}
-                            {{--                                        <div class="product-box" data-aos="fade-right">--}}
-                            {{--                                            <div class="pro-img">--}}
-                            {{--                                                <a href="{{ route('front.category', $category->slug) }}">--}}
-                            {{--                                                    <img--}}
-                            {{--                                                        src="{{asset('assets/images/products/'.$products->photo) ?? 'Shop'}}"--}}
-                            {{--                                                        alt="img">--}}
-                            {{--                                                </a>--}}
-                            {{--                                            </div>--}}
-                            {{--                                            <h4>{{$category->name ?? 'Shop'}}</h4>--}}
-                            {{--                                            <p>{{$category->products->count()}} Products</p>--}}
-                            {{--                                        </div>--}}
-                            {{--                                    </div>--}}
-                            {{--                                @endforeach--}}
-                            {{--                            @endforeach--}}
+                                {{--                                @foreach($categories as $category)--}}
+                                {{--                                @foreach($category->products as $key => $products)--}}
+                                {{--                                    @if($key > 5)--}}
+                                {{--                                        @break--}}
+                                {{--                                    @endif--}}
+                                {{--                                    <div class="swiper-slide">--}}
+                                {{--                                        <div class="product-box" data-aos="fade-right">--}}
+                                {{--                                            <div class="pro-img">--}}
+                                {{--                                                <a href="{{ route('front.category', $category->slug) }}">--}}
+                                {{--                                                    <img--}}
+                                {{--                                                        src="{{asset('assets/images/products/'.$products->photo) ?? 'Shop'}}"--}}
+                                {{--                                                        alt="img">--}}
+                                {{--                                                </a>--}}
+                                {{--                                            </div>--}}
+                                {{--                                            <h4>{{$category->name ?? 'Shop'}}</h4>--}}
+                                {{--                                            <p>{{$category->products->count()}} Products</p>--}}
+                                {{--                                        </div>--}}
+                                {{--                                    </div>--}}
+                                {{--                                @endforeach--}}
+                                {{--                            @endforeach--}}
                         </div>
                     </div>
                 </div>
@@ -197,7 +155,7 @@
         <img src="{{asset('assets/images/shapebg2.png')}}" class="img-fluid w-100 twoShape" alt="img">
         <div class="container">
             <div class="refreshHeading white" data-aos="fade-up">
-                <h2>ABOUT GO-HAZY</h2>
+                <h2>ABOUT HAZY BY TONY</h2>
                 <h6>Elevate Your Wardrobe</h6>
             </div>
             <div class="row">
@@ -604,7 +562,7 @@
         <div class="container">
             <div class="refreshHeading" data-aos="fade-up">
                 <h1>Shoes Trends</h1>
-                <h5>GO-HAZY</h5>
+                <h5>HAZY BY TONY</h5>
                 <h2>FEATURED BLOGS</h2>
                 <span>Stay updated with what’s in and what’s out by our blogs</span>
             </div>

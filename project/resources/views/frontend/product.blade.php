@@ -171,10 +171,10 @@
                             <h2 class="widget-title">{{ __('New & Upcoming') }}</h2>
                             <ul class="price-filter-list">
                                 <li>
-                                    <a href="#" class="highestToLowest" data-filter="highest">Highest to Lower</a>
+                                    <a href="#" class="highestToLowest" data-filter="highest">Highest to Lowest </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="lowestToHighest" data-filter="lowest">Lower to Highest</a>
+                                    <a href="#" class="lowestToHighest" data-filter="lowest">Lowest to Highest</a>
                                 </li>
                                 <li>
                                     <a href="#" class="bestSeller" data-filter="bestSeller">Best Sellers</a>
@@ -209,8 +209,8 @@
                             </div>
                         </div>
                         @php
-                        $currentUrl = url()->current();
-                        $paginate = app('request')->input('page');
+                            $currentUrl = url()->current();
+                            $paginate = app('request')->input('page');
                         @endphp
                         <div class="col-md-8">
                             <div class="shopLabel">
@@ -273,6 +273,7 @@
                         $categories = Category::all();
                         $sort = 'ASC';
                     @endphp
+
                     @include('frontend.ajax.filter-price')
                     {{--                    <div class="row">--}}
                     {{--                        <div class="col-md-12">--}}
@@ -333,6 +334,60 @@
                     {{--                            </div>--}}
                     {{--                        </div>--}}
                     {{--                    </div>--}}
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="container">
+                                <div class="row">
+                                    @forelse($data['prods'] as $item)
+                                        <div class="col-lg-4 col-sm-6">
+                                            <div class="product-box">
+                                                <div class="pro-img">
+                                                    <a href="#">
+                                                        <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}"
+                                                             alt="img">
+                                                    </a>
+
+                                                    @if (round((int)$item->offPercentage()) > 0)
+                                                        <div class="on-sale">- {{ round((int)$item->offPercentage() )}}%</div>
+                                                    @endif
+                                                    <div class="overlay">
+                                                        <ul>
+                                                            <li><a href="#"><i class="far fa-search"></i></a></li>
+                                                            <li><a href="#"><i class="fal fa-heart"></i></a></li>
+                                                            <li><a href="{{ route('front.product', $item['slug']) }}">
+                                                                    <i class="fal fa-shopping-cart"></i></a></li>
+                                                            <li><a href="{{ route('front.product', $item['slug']) }}"><img
+                                                                        src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}"
+                                                                        class="img-fluid" alt="img"></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <h4>{{$item->name ?? 'Shop'}}</h4>
+                                                <p>{{$item->category->name ?? 'Shop'}}</p>
+                                                {{--                            <span>${{$item->price ?? 'Shop'}}</span>--}}
+                                                <span>{{ $item->setCurrency() ?? 'Shop' }}</span>
+                                                <del>{{ $item->showPreviousPrice() ?? 'Shop' }}</del>
+                                            </div>
+                                        </div>
+                                    @empty
+                                        <p>There Are No Products</p>
+                                    @endforelse
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="pagination listPaginate">
+{{--                                        {{ $data['prods']->links() . ($data['min'] ? '&min=' . $data['min'] : '') . ($data['max'] ? '&max=' . $data['max'] : '') }}--}}
+                                        {{ $data['prods']->appends(request()->input())->links() }}
+                                        {{--                        <ul>--}}
+                                        {{--                            <li><a href="#" class="active">1</a></li>--}}
+                                        {{--                            <li><a href="">2</a></li>--}}
+                                        {{--                            <li><a href="#"><i class="fal fa-angle-right"></i></a></li>--}}
+                                        {{--                        </ul>--}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

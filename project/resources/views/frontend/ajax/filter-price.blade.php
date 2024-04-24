@@ -3,20 +3,23 @@
         <div class="container">
             <div class="row">
                 @forelse($data['prods'] as $item)
-
-                    {{--@php
-                        $price = $item ? $item->price : $item->setCurrency();
-                        $rounded_price = round($price);
-                        $price_without_decimal = number_format($rounded_price, 0, '', '');
-                    @endphp--}}
+                    @php
+                        $price = $item->getOriginal('price');
+                    @endphp
 
                     <div class="col-lg-4 col-sm-6">
                         <div class="product-box">
                             <div class="pro-img">
-                                <a href="#">
+                                <a href="{{ route('front.product', $item['slug']) }}">
+                                    @if(!empty($item->photo) && file_exists(public_path('assets/images/products/'.$item->photo )))
                                     <img
-                                        src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}"
+                                        src="{{asset('assets/images/products/'.$item->photo)}}"
                                         alt="img">
+                                    @else
+                                        <img
+                                            src="{{asset('assets/images/noimage.png')}}"
+                                            alt="img">
+                                    @endif
                                 </a>
 
                                 @if (round((int)$item->offPercentage()) > 0)
@@ -42,7 +45,7 @@
 {{--                                                                            {{ dd($item->price, $item->setCurrency()) }}--}}
                             {{--                                                <span>${{$item->price ?? 'Shop'}}</span>--}}
 {{--                            @dd($item->setCurrency())--}}
-                            <span>${{ $item ? $item->price : $item->setCurrency() ?? '0.00'  }}</span>
+                            <span>${{ $price }}</span>
                             <del>{{ $item->showPreviousPrice() ?? '0.00' }}</del>
                         </div>
                     </div>

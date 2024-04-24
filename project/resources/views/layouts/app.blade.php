@@ -2,10 +2,13 @@
 <html lang="en">
 
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Required meta tags -->
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
+
     <link rel="icon" type="image/x-icon" href="{{asset('assets/images/'.$gs->favicon)}}"/>
 
 
@@ -93,6 +96,7 @@
     <link rel="stylesheet" href="{{asset('assets/css/all.min.css')}}"/>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" href="{{asset('assets/css/magnify.css')}}"/>
     <link rel="stylesheet" href="{{asset('assets/css/custom.min.css')}}"/>
     <link rel="stylesheet" href="{{asset('assets/css/slider.css')}}"/>
     <link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}"/>
@@ -100,7 +104,7 @@
           integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <!--    <link rel="stylesheet" href="css/responsive.css" />-->
-    <title>Go Hazy</title>
+    <title>Hazy By Tony</title>
 </head>
 
 <body>
@@ -119,6 +123,7 @@
                 <nav class="navbar navbar-expand-lg p-0">
                     <a class="navbar-brand" href="{{route('front.index')}}">
                         <img src="{{asset('assets/images/logo.png')}}" alt="img">
+{{--                        <video src="{{asset('assets/images/logo.mp4')}}" autoplay loop muted alt="img"></video>--}}
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -126,91 +131,104 @@
                         <span class="fa fa-bars"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav m-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="{{route('front.index')}}">Home <span
-                                        class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle"
-                                   onclick="window.location.href='{{route('front.category')}}'"
-                                   href="{{route('front.category')}}" id="navbarDropdown" role="button"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Shop
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <div class="container-fluid d-block p-0">
-                                        <div class="row no-gutters">
-                                            <div class="col-3">
-                                                <div class="mainCat">
-                                                    <h4>Store Category</h4>
-                                                    <ul class="nav flex-column">
-                                                        @foreach($categories as $category)
-                                                            <li class="nav-item category_element"
-                                                            ><a
-                                                                    href="{{ route('front.category', $category->slug) }}"
-                                                                    class="nav-link"
-                                                                    data-id="as{{$category->id}}">{{$category->name ?? ''}}</a>
-                                                            </li>
-                                                        @endforeach
-                                                    </ul>
+                        <div class="header-main__nav">
+                            <ul class="navbar-nav m-auto">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="{{route('front.index')}}">Home <span
+                                            class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle"
+                                       onclick="window.location.href='{{route('front.category')}}'"
+                                       href="{{route('front.category')}}" id="navbarDropdown" role="button"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Shop
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <div class="container-fluid d-block p-0">
+                                            <div class="row no-gutters">
+                                                <div class="col-3">
+                                                    <div class="mainCat">
+                                                        <h4>Store Category</h4>
+                                                        <ul class="nav flex-column">
+                                                            @foreach($categories as $category)
+                                                                <li class="nav-item category_element"
+                                                                ><a
+                                                                        href="{{ route('front.category', $category->slug) }}"
+                                                                        class="nav-link"
+                                                                        data-id="as{{$category->id}}">{{$category->name ?? ''}}</a>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-9">
-                                                @foreach($categories as $category)
-                                                    <div class="subCat" id="as{{$category->id}}">
-                                                        <div class="container-fluid d-block">
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <div class="container-fluid d-block">
-                                                                        <div class="row">
-                                                                            @foreach($category->subs as $subscategory)
-                                                                                <div
-                                                                                    class="col-md-3 sub_category_element"
-                                                                                    data-parent="{{$category->id}}">
-                                                                                    <a href="{{ route('front.category', [$category->slug,$subscategory->slug]) }}"><span
-                                                                                            class="text-uppercase text-white">{{ $subscategory->name ?? '' }}</span></a>
-                                                                                    @if(isset($subscategory->childs) != null)
-                                                                                        <ul class="nav flex-column">
-                                                                                            @foreach($subscategory->childs as $child)
-                                                                                                <li class="nav-item">
-                                                                                                    <a class="nav-link active"
-                                                                                                       href="{{ route('front.category', [$category->slug, $subscategory->slug, $child->slug]) }}">
-                                                                                                        {{ $child->name ?? '' }}</a>
-                                                                                                </li>
-                                                                                            @endforeach
-                                                                                        </ul>
-                                                                                    @endif
-                                                                                </div>
-                                                                            @endforeach
+                                                <div class="col-9">
+                                                    @foreach($categories as $category)
+                                                        <div class="subCat" id="as{{$category->id}}">
+                                                            <div class="container-fluid d-block">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="container-fluid d-block">
+                                                                            <div class="row">
+                                                                                @foreach($category->subs as $subscategory)
+                                                                                    <div
+                                                                                        class="col-md-3 sub_category_element"
+                                                                                        data-parent="{{$category->id}}">
+                                                                                        <a href="{{ route('front.category', [$category->slug,$subscategory->slug]) }}"><span
+                                                                                                class="text-uppercase text-white">{{ $subscategory->name ?? '' }}</span></a>
+                                                                                        @if(isset($subscategory->childs) != null)
+                                                                                            <ul class="nav flex-column">
+                                                                                                @foreach($subscategory->childs as $child)
+                                                                                                    <li class="nav-item">
+                                                                                                        <a class="nav-link active"
+                                                                                                           href="{{ route('front.category', [$category->slug, $subscategory->slug, $child->slug]) }}">
+                                                                                                            {{ $child->name ?? '' }}</a>
+                                                                                                    </li>
+                                                                                                @endforeach
+                                                                                            </ul>
+                                                                                        @endif
+                                                                                    </div>
+                                                                                @endforeach
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                @endforeach
+                                                    @endforeach
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('front.blog')}}">Blogs</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('front.about')}}">About Us</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('front.contact')}}">Contact Us</a>
-                            </li>
-                        </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('front.blog')}}">Blogs</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('front.about')}}">About Us</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('front.contact')}}">Contact Us</a>
+                                </li>
+                            </ul>
+                            <div class="searchForm">
+                                <div class="deliver text-center">deliver to <span class="d-block"><i class="fas fa-map-marker-alt"></i> USA</span></div>
+                                <form method="GET" action="{{route('front.category')}}">
+                                    @csrf
+                                    <input type="text" placeholder="Search here..." value="" name="title">
+                                    <div class="srch-btn">
+                                        <button type="submit"><i class="far fa-search"></i></button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
                         <div class="form-inline">
                             <ul>
-                                <li><a href="#search"><i class="far fa-search"></i></a></li>
+                                {{--                                <li><a href="#search"><i class="far fa-search"></i></a></li>--}}
                                 <li><a href="{{route('front.cart')}}"><i class="fal fa-shopping-cart"></i>
                                         <span>
-                                            {{ Session::has('cart') ? count(Session::get('cart')->items) : '0' }}
+                                            {{ \App\Helpers\CartHelper::getCartTotalQty() }}
                                         </span></a>
                                 </li>
                                 @if(\Illuminate\Support\Facades\Auth::check())
@@ -237,6 +255,9 @@
 
 <!-- Begin: Footer -->
 <footer>
+
+
+
     <div class="container">
         <div class="row align-items-baseline justify-content-between">
             {{--<div class="col-md-12">
@@ -244,15 +265,15 @@
             </div>--}}
             <div class="col-12">
                 <div class="fotrLogo">
-                    <a href="#" class="footerLogo"><img src="{{asset('assets/images/min1.png')}}" class="img-fluid"
-                                                        alt="img"></a>
+{{--                    <video src="{{asset('assets/images/logo.mp4')}}" autoplay loop muted alt="img"></video>--}}
+                    <img src="{{asset('assets/images/logo.png')}}" alt="image" class="img-fluid">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="fotrLogo">
-{{--                    <a href="#" class="footerLogo"><img src="{{asset('assets/images/min1.png')}}" class="img-fluid"--}}
-{{--                                                        alt="img"></a>--}}
-                    <p>Go-Hazy is a Veteran-owned online store that sells high-quality men’s and women’s apparel – from
+                    {{--                    <a href="#" class="footerLogo"><img src="{{asset('assets/images/min1.png')}}" class="img-fluid"--}}
+                    {{--                                                        alt="img"></a>--}}
+                    <p>Hazy-by-tony is a Veteran-owned online store that sells high-quality men’s and women’s apparel – from
                         clothing to accessories, cosmetics, and consumer electronics – we offer it all. By combining
                         cutting-edge design with an affordable price tag, we bring you the newest styles at an
                         affordable price.</p>
@@ -304,7 +325,7 @@
                 </div>
                 <div class="calFoter">
                     <ul>
-                        <li><a href="tel:{{$ps->phone}}"><i class="fas fa-phone-alt"></i><span>{{$ps->phone}}</span></a>
+{{--                        <li><a href="tel:{{$ps->phone}}"><i class="fas fa-phone-alt"></i><span>{{$ps->phone}}</span></a>--}}
                         </li>
                         <li><a href="mailto:{{$ps->contact_email}}"><i
                                     class="fal fa-envelope"></i><span>{{$ps->contact_email}}</span></a></li>
@@ -319,7 +340,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <p>@ Copyright 2023 Go Hazy. All Rights Reserved.</p>
+                    <p>@ Copyright 2023 Hazy By Tony. All Rights Reserved.</p>
                 </div>
             </div>
         </div>
@@ -327,6 +348,7 @@
 
 </footer>
 <!-- END: Footer -->
+
 
 <div id="search">
     <button class="close" type="button">×</button>
@@ -350,6 +372,7 @@
 <script src="{{asset('assets/js/gsap.js')}}"></script>
 <script src="{{asset('assets/js/slick.min.js')}}"></script>
 <script src="{{asset('assets/js/scrollTrigger.js')}}"></script>
+<script src="{{asset('assets/js/jquery.magnify.js')}}"></script>
 <script src="{{asset('assets/js/custom.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
@@ -412,6 +435,8 @@
 
 </script>
 @yield('script')
+
+<script src="https://service.demowebsitelinks.com/ada_plugin/" type="text/javascript"></script>
 
 
 </body>

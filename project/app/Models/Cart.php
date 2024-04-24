@@ -101,10 +101,32 @@ class Cart extends Model
 
 // **************** ADD TO CART MULTIPLE *******************
 
-    public function addnum($item, $id, $qty, $size, $color, $size_qty, $size_price, $size_key, $keys, $values, $affilate_user) {
+    public function addnum($item, $id, $qty, $size, $color, $size_qty, $size_price, $size_key, $keys, $values, $affilate_user , $originalPrice , $productPriceID , $productoptionsID ) {
         $size_cost = 0;
 
-        $storedItem = ['qty' => 0,'size_key' => 0, 'size_qty' =>  $item->size_qty,'size_price' => $item->size_price, 'size' => $item->size, 'color' => $item->color, 'stock' => $item->stock, 'price' => $item->price, 'item' => $item, 'license' => '', 'dp' => '0','keys' => $keys, 'values' => $values,'item_price' => $item->price,'discount' => 0,'affilate_user' => 0];
+
+        $storedItem = [
+            'qty' => 0,
+            'size_key' => 0,
+            'size_qty' =>  $item->size_qty,
+            'size_price' => $item->size_price,
+            'size' => $item->size,
+            'color' => $item->color,
+            'stock' => $item->stock,
+            'price' => $item->price,
+            'item' => $item,
+            'license' => '',
+            'dp' => '0',
+            'keys' => $keys,
+            'values' => $values,
+            'item_price' => $item->price,
+            'discount' => 0,
+            'affilate_user' => 0,
+            'originalPrice' => $originalPrice,
+            'totalPrice' => $originalPrice*$qty,
+            'productPriceID' => $productPriceID,
+            'productoptionsID' => $productoptionsID,
+        ];
         if($item->type == 'Physical')
         {
             if ($this->items) {
@@ -198,6 +220,11 @@ class Cart extends Model
         $storedItem['price'] = $item->price * $storedItem['qty'];
         $this->items[$id.$size.$color.str_replace(str_split(' ,'),'',$values)] = $storedItem;
         $this->totalQty += $storedItem['qty'];
+
+//        $storedItem['originalPrice'] = $originalPrice;
+//        $storedItem['totalPrice'] = $totalPrice;
+
+
     }
 
 

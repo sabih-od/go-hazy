@@ -8,7 +8,7 @@
             <div class="col-md-4">
                 <div class="fotrLogo">
                     <a href="#" class="footerLogo"><img src="images/min1.png" class="img-fluid" alt="img"></a>
-                    <p>Go-Hazy is an online store that sells high-quality men’s and women’s apparel – from clothing to
+                    <p>Hazy By Tony is an online store that sells high-quality men’s and women’s apparel – from clothing to
                         accessories, cosmetics, and consumer electronics – we offer it all. By combining cutting-edge
                         design
                         with an affordable price tag, we bring you the newest styles at an affordable price.</p>

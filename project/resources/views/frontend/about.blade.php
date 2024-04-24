@@ -35,10 +35,10 @@
                 </div>
                 <div class="col-md-5">
                     <div class="refreshHeading white" data-aos="fade-up">
-                        <h6>GO-HAZY</h6>
+                        <h6>HAZY-BY-TONY</h6>
                         <h2>ABOUT STORE</h2>
                         <div class="abouticonContent">
-                            <p>Go-Hazy is your go-to firm for apparel, beauty products, accessories, and consumer
+                            <p>Hazy-By-Tony is your go-to firm for apparel, beauty products, accessories, and consumer
                                 electronics.</p>
                             <p>By combining cutting-edge design with an affordable price tag, we bring you the newest
                                 styles
@@ -62,7 +62,7 @@
             <div class="row align-items-center">
                 <div class="col-md-5">
                     <div class="refreshHeading white" data-aos="fade-up">
-                        <h6>GO-HAZY</h6>
+                        <h6>HAZY BY TONY</h6>
                         <h2>WHY CHOOSE US?</h2>
                         <div class="abouticonContent">
                             <p><strong>Experience:</strong></p>
