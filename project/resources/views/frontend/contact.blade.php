@@ -53,7 +53,7 @@
 
                     <div class="refreshHeading text-left" data-aos="fade-up">
                         {{--                            <h5>INFORMATION ABOUT US</h5>--}}
-                        <h2><h2>CONTACT US FOR ANY<br>QUESTIONS</h2></h2>
+                        <h2><h2>Feel Free to Contact Us For Any <br>Questions and Queries!</h2></h2>
                         @if(session()->has('success'))
                             <p class="text-success">{{ session()->get('success') }}</p>
                         @elseif(session()->has('error'))

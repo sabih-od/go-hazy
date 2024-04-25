@@ -359,10 +359,8 @@
                 <div class="fotrLogo">
                     {{--                    <a href="#" class="footerLogo"><img src="{{asset('assets/images/min1.png')}}" class="img-fluid"--}}
                     {{--                                                        alt="img"></a>--}}
-                    <p>Hazy-by-tony is a Veteran-owned online store that sells high-quality men’s and women’s apparel – from
-                        clothing to accessories, cosmetics, and consumer electronics – we offer it all. By combining
-                        cutting-edge design with an affordable price tag, we bring you the newest styles at an
-                        affordable price.</p>
+                    <p>Hazy by Tony<br>
+                        Hazy by Tony is an online store owned by a veteran, offering high-quality men’s and women’s apparel, including clothing, accessories, cosmetics, and consumer electronics. We blend innovative design with affordability, bringing you the latest styles at great prices.</p>
                     {{--<p>Go-Hazy is an online store that sells high-quality men’s and women’s apparel – from clothing to
                         accessories, cosmetics, and consumer electronics – we offer it all. By combining cutting-edge
                         design
