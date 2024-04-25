@@ -2,10 +2,10 @@
 
 @section('content')
 
-    <div class="preLoader black">
-        {{--        <img src="{{asset('assets/images/logo.png')}}" alt="img">--}}
-        <video src="{{asset('assets/images/logo.mp4')}}" autoplay muted alt="img"></video>
-    </div>
+{{--    <div class="preLoader black">--}}
+{{--        --}}{{--        <img src="{{asset('assets/images/logo.png')}}" alt="img">--}}
+{{--        <video src="{{asset('assets/images/logo.mp4')}}" autoplay muted alt="img"></video>--}}
+{{--    </div>--}}
     <div class="preLoader white"></div>
 
     <div class="mouse-cursor cursor-outer"></div>

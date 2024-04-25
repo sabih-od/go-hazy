@@ -218,6 +218,19 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{route('front.contact')}}">Contact Us</a>
                                 </li>
+{{--                                <li>--}}
+{{--                                    <div id="search">--}}
+{{--                                        <button class="close" type="button">×</button>--}}
+{{--                                        <form method="GET" action="{{route('front.category')}}">--}}
+{{--                                            @csrf--}}
+{{--                                            <input placeholder="SEARCH" type="search" value="" name="title">--}}
+{{--                                            <div class="srch-btn">--}}
+{{--                                                <button href="#" class="themeBtn" type="submit">Search</button>--}}
+{{--                                            </div>--}}
+{{--                                        </form>--}}
+{{--                                    </div>--}}
+
+{{--                                </li>--}}
                             </ul>
                             <div class="searchForm">
                                 <div class="deliver text-center">deliver to <span class="d-block"><i class="fas fa-map-marker-alt"></i> USA</span></div>
@@ -434,16 +447,16 @@
 <!-- END: Footer -->
 
 
-<div id="search">
-    <button class="close" type="button">×</button>
-    <form method="GET" action="{{route('front.category')}}">
-        @csrf
-        <input placeholder="SEARCH" type="search" value="" name="title">
-        <div class="srch-btn">
-            <button href="#" class="themeBtn" type="submit">Search</button>
-        </div>
-    </form>
-</div>
+    {{--<div id="search">--}}
+    {{--    <button class="close" type="button">×</button>--}}
+    {{--    <form method="GET" action="{{route('front.category')}}">--}}
+    {{--        @csrf--}}
+    {{--        <input placeholder="SEARCH" type="search" value="" name="title">--}}
+    {{--        <div class="srch-btn">--}}
+    {{--            <button href="#" class="themeBtn" type="submit">Search</button>--}}
+    {{--        </div>--}}
+    {{--    </form>--}}
+    {{--</div>--}}
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
