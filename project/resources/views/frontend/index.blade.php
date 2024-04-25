@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="preLoader black">
-{{--        <img src="{{asset('assets/images/logo.png')}}" alt="img">--}}
+        {{--        <img src="{{asset('assets/images/logo.png')}}" alt="img">--}}
         <video src="{{asset('assets/images/logo.mp4')}}" autoplay muted alt="img"></video>
     </div>
     <div class="preLoader white"></div>
@@ -60,53 +60,49 @@
         $categories = Category::all();
         /*$products_Image = $categories*/
         /*@dd($products);*/
-        $sort = 'ASC';
+        $sort = 'DESC';
     @endphp
     <section class="refreshSec">
         <div class="container">
             <div class="refreshHeading" data-aos="fade-up">
                 <h1>New Arrivals</h1>
                 <h5>HAZY BY TONY</h5>
-                <h2>Tony's Popular Products</h2>
-                @include('partials.category.category_product')
-                <h6>Looks for the season ahead</h6>
+                <h2>Check Out Our Most Popular Items!</h2>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="swiper popularSlider">
+                            <div class="swiper-wrapper">
+                                {{--                            @dd($categories)--}}
+                                @foreach($categories as $category)
+                                    @php
+                                        $src = count($category->products) && $category->products->first() && $category->products->first()->photo
+                                        ?  asset('assets/images/products/'.$category->products()->first()->photo)
+                                        : 'https://w0.peakpx.com/wallpaper/132/110/HD-wallpaper-404-not-found-error.jpg';
 
-                <span>Shop Featured Categories.</span>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="swiper popularSlider">
-                        <div class="swiper-wrapper">
-                            @foreach($categories as $category)
-                                @php
-                                    $src = count($category->products) && $category->products->first() && $category->products->first()->photo
-                                    ?  asset('assets/images/products/'.$category->products()->first()->photo)
-                                    : 'https://w0.peakpx.com/wallpaper/132/110/HD-wallpaper-404-not-found-error.jpg';
-
-                                    foreach ($category->products as $product) {
-                                        $data = $product['slug'];
-                                        break;
-                                    }
-                                @endphp
-                                <div class="swiper-slide">
-                                    <div class="product-box" data-aos="fade-right">
-                                        @if(!empty($category) && count($category->products) > 0)
-                                            <a href="{{ route('front.product', $data) }}">
-                                        @else
-                                            <a href="{{ route('front.category', $category->slug) }}">
-                                        @endif
-                                        <div class="pro-img">
-                                            <img
-                                                src="{{ $src }}"
-                                                alt="img">
+                                        foreach ($category->products as $product) {
+                                            $data = $product['slug'];
+                                            break;
+                                        }
+                                    @endphp
+                                    <div class="swiper-slide">
+                                        <div class="product-box" data-aos="fade-right">
+                                            @if(!empty($category) && count($category->products) > 0)
+                                                <a href="{{ route('front.product', $data) }}">
+                                                    @else
+                                                        <a href="{{ route('front.category', $category->slug) }}">
+                                                            @endif
+                                                            <div class="pro-img">
+                                                                <img
+                                                                    src="{{ $src }}"
+                                                                    alt="img">
+                                                            </div>
+                                                            <h4 data-id="{{$category->id}}">{{$category->name ?? 'Shop'}}</h4>
+                                                        </a>
+                                                        <p>({{count($category->products)}}) Products</p>
                                         </div>
-                                            <h4 data-id="{{$category->id}}">{{$category->name ?? 'Shop'}}</h4>
-                                        </a>
-                                        <p>({{count($category->products)}}) Products</p>
-                                    </div>
 
-                                </div>
-                            @endforeach
+                                    </div>
+                                @endforeach
                                 {{--                                @foreach($categories as $category)--}}
                                 {{--                                @foreach($category->products as $key => $products)--}}
                                 {{--                                    @if($key > 5)--}}
@@ -127,26 +123,32 @@
                                 {{--                                    </div>--}}
                                 {{--                                @endforeach--}}
                                 {{--                            @endforeach--}}
-                        </div>
-                    </div>
-                </div>
-                {{--@forelse($products as $item)
---}}{{--                                    {{ dd($item->photo) }}--}}{{--
-                    <div class="col-lg-4 col-sm-6">
-                        <div class="product-box" data-aos="fade-right">
-                            <div class="pro-img">
-                                <a href="#">
-                                    <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}" alt="img">
-                                </a>
                             </div>
-                            <h4>{{$item->name ?? 'Shop'}}</h4>
-                            <p>{{$item->category->name ?? 'Shop'}}</p>
                         </div>
                     </div>
-@empty
-                    ponka
-                @endforelse--}}
+                    {{--@forelse($products as $item)
+    --}}{{--                                    {{ dd($item->photo) }}--}}{{--
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="product-box" data-aos="fade-right">
+                                <div class="pro-img">
+                                    <a href="#">
+                                        <img src="{{asset('assets/images/products/'.$item->photo) ?? 'Shop'}}" alt="img">
+                                    </a>
+                                </div>
+                                <h4>{{$item->name ?? 'Shop'}}</h4>
+                                <p>{{$item->category->name ?? 'Shop'}}</p>
+                            </div>
+                        </div>
+    @empty
+                        ponka
+                    @endforelse--}}
+                </div>
+
+                <h6>Looks for the season ahead</h6>
+
+                <span>Shop Featured Categories.</span>
             </div>
+            @include('partials.category.category_product')
         </div>
     </section>
 
@@ -155,8 +157,8 @@
         <img src="{{asset('assets/images/shapebg2.png')}}" class="img-fluid w-100 twoShape" alt="img">
         <div class="container">
             <div class="refreshHeading white" data-aos="fade-up">
-                <h2>ABOUT HAZY BY TONY</h2>
-                <h6>Elevate Your Wardrobe</h6>
+                <h2>What We Offer At Hazy by Tony</h2>
+{{--                <h6>Elevate Your Wardrobe</h6>--}}
             </div>
             <div class="row">
                 <div class="col-md-6">
@@ -168,7 +170,7 @@
                                 </figure>
                                 <div class="abouticonContent">
                                     <h5>Beauty & Cosmetics:</h5>
-                                    <p>Be bold. Be daring. Be<br>Beautiful.</p>
+                                    <p>Embrace confidence and good looks with our beauty and cosmetics range.</p>
                                 </div>
                             </div>
                         </div>
@@ -179,7 +181,7 @@
                                 </figure>
                                 <div class="abouticonContent">
                                     <h5>Men and Women<br>Apparel:</h5>
-                                    <p>Explore Your True Style.</p>
+                                    <p>Discover your authentic style with our stylish and high-quality men's and women's apparel.</p>
                                 </div>
                             </div>
                         </div>
@@ -190,7 +192,7 @@
                                 </figure>
                                 <div class="abouticonContent">
                                     <h5>Accessories:</h5>
-                                    <p>Accessorize from Head<br>to Toe.</p>
+                                    <p>Complete your look from head to toe with accessories from Hazy by Tony. </p>
                                 </div>
                             </div>
                         </div>
@@ -201,7 +203,7 @@
                                 </figure>
                                 <div class="abouticonContent">
                                     <h5>Sports &<br>Entertainment:</h5>
-                                    <p>Get your hands on top-notch sports items at Antony Garcia.</p>
+                                    <p>Find top-notch sports gear from our sports and entertainment section. </p>
                                 </div>
                             </div>
                         </div>
@@ -212,8 +214,7 @@
                                 </figure>
                                 <div class="abouticonContent">
                                     <h5>Consumer Electronics:</h5>
-                                    <p>Looking for a piece of electronics that lasts long? We’re here to get you exactly
-                                        that.</p>
+                                    <p>Seeking durable electronics? Count on Hazy by Tony to deliver just that!</p>
                                 </div>
                             </div>
                         </div>
@@ -544,10 +545,8 @@
             <div class="row justify-content-center">
                 <div class="col-md-10">
                     <div class="refreshHeading white">
-                        <h2 data-aos="fade-right">SIGN UP FOR OUR NEWSLETTER</h2>
-                        <p data-aos="fade-up">Subscribe to our newsletter and get 10% off your first order –<br>Plus, be
-                            the first to hear
-                            about news, offers, and deals.</p>
+                        <h2 data-aos="fade-right">Sign Up For Our Newsletter!</h2>
+                        <p data-aos="fade-up">By signing up for our newsletter, not only do you get 10% off your first order, but you also get to know about exciting offers, discounts, and new arrivals before others!</p>
                         <form action="" data-aos="fade-left">
                             <input type="text" placeholder="Your email address">
                             <button class="themeBtn">Sign Up</button>
@@ -563,8 +562,15 @@
             <div class="refreshHeading" data-aos="fade-up">
                 <h1>Shoes Trends</h1>
                 <h5>HAZY BY TONY</h5>
-                <h2>FEATURED BLOGS</h2>
-                <span>Stay updated with what’s in and what’s out by our blogs</span>
+                <h2>Our Blogs </h2>
+                <span>Read our weekly blogs to stay updated about:</span>
+                <div>
+                    <ul>
+                        <li>The latest trends in fashion.</li>
+                        <li>How to style accessories for an elevated look?</li>
+                        <li>Tips to find the perfect foundation according to your skin <type class=""></type></li>
+                    </ul>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -610,8 +616,7 @@
                     <div class="deliveryBox red" data-aos="fade-right">
                         <div class="deliveryContent">
                             <h5>Free Delivery:</h5>
-                            <h6>AVAIL FREE DELIVERY ON ORDERS OVER
-                                $60.</h6>
+                            <h6>At Hazy by Tony, we offer free delivery on orders above $60!</h6>
                         </div>
                         <figure>
                             <img src="{{asset('assets/images/van.png')}}" class="img-fluid" alt="img">
@@ -622,7 +627,7 @@
                     <div class="deliveryBox purple" data-aos="fade-left">
                         <div class="deliveryContent">
                             <h5>Our Social:</h5>
-                            <h6>FOLLOW US ON INSTAGRAM AND STRIKE A POSE TO BE FEATURED.</h6>
+                            <h6>Follow Hazy by Tony on Instagram and strike a pose to be featured on our page. </h6>
                         </div>
                         <figure>
                             <img src="{{asset('assets/images/insta.png')}}" class="img-fluid" alt="img">

@@ -24,9 +24,16 @@
         <div class="container">
             <div class="refreshHeading" data-aos="fade-up">
                 <h1>Shoes Trends</h1>
-                <h5>ANTONY GARCIA</h5>
-                <h2>FEATURED BLOGS</h2>
-                <span>Stay updated with what’s in and what’s out by our blogs</span>
+                <h5>HAZY BY TONY</h5>
+                <h2>Our Blogs </h2>
+                <span>Read our weekly blogs to stay updated about:</span>
+                <div>
+                    <ul>
+                        <li>The latest trends in fashion.</li>
+                        <li>How to style accessories for an elevated look?</li>
+                        <li>Tips to find the perfect foundation according to your skin <type class=""></type></li>
+                    </ul>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
