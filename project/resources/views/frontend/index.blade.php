@@ -2,10 +2,10 @@
 
 @section('content')
 
-    <div class="preLoader black">
-        {{--        <img src="{{asset('assets/images/logo.png')}}" alt="img">--}}
-        <video src="{{asset('assets/images/logo.mp4')}}" autoplay muted alt="img"></video>
-    </div>
+{{--    <div class="preLoader black">--}}
+{{--        --}}{{--        <img src="{{asset('assets/images/logo.png')}}" alt="img">--}}
+{{--        <video src="{{asset('assets/images/logo.mp4')}}" autoplay muted alt="img"></video>--}}
+{{--    </div>--}}
     <div class="preLoader white"></div>
 
     <div class="mouse-cursor cursor-outer"></div>
@@ -57,7 +57,7 @@
     @php
         use App\Models\Category;
 
-        $categories = Category::all();
+            $categories = Category::whereIn('name', ['Beauty, Health & Hair', 'Automobiles & Motorcycles', 'Automobiles & Motorcycles'])->get();
         /*$products_Image = $categories*/
         /*@dd($products);*/
         $sort = 'DESC';
@@ -144,9 +144,9 @@
                     @endforelse--}}
                 </div>
 
-                <h6>Looks for the season ahead</h6>
+{{--                <h6>Looks for the season ahead</h6>--}}
 
-                <span>Shop Featured Categories.</span>
+{{--                <span>Shop Featured Categories.</span>--}}
             </div>
             @include('partials.category.category_product')
         </div>
