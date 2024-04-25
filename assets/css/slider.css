@@ -374,21 +374,21 @@ a.navbar-brand {
     left: 0;
 }
 
-.preLoader video{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+/*.preLoader video{*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    object-fit: cover;*/
+/*}*/
 
-.preLoader.black {
-    background-color: var(--white);
-    z-index: 11113;
-}
+/*.preLoader.black {*/
+/*    background-color: var(--white);*/
+/*    z-index: 11113;*/
+/*}*/
 
-.preLoader.white {
-    z-index: 11112;
-    background-color: var(--white);
-}
+/*.preLoader.white {*/
+/*    z-index: 11112;*/
+/*    background-color: var(--white);*/
+/*}*/
 
 .topBar .paragraph {
     font-size: 0.9375rem;
