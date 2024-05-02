@@ -111,9 +111,15 @@
 
                             <input type="hidden" id="product_id" name="product_id"
                                    value="{{ $productt->id }}">
+                            @if(\Illuminate\Support\Facades\Auth::check())
                             <div class="cartBtn">
                                 <a href="javascript:;" class="btnStyle" id="addcrt">Add To Cart</a>
                             </div>
+                            @else
+                                <div class="cartBtn">
+                                    <a href="{{route('user.login')}}" class="btnStyle">Login In</a>
+                                </div>
+                            @endif
                         </div>
                     </form>
                     <div class="sku">
