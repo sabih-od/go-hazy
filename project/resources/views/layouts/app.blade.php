@@ -8,15 +8,22 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
-<style>
-    .logoSlider-img img {
-        display: block;
-        width: 200px;
-        aspect-ratio: 3/2;
-        object-fit: contain;
-        margin: 0 auto;
-    }
-</style>
+    <style>
+        .logoSlider-img img {
+            display: block;
+            width: 200px;
+            aspect-ratio: 3/2;
+            object-fit: contain;
+            margin: 0 auto;
+        }
+
+        .logosWrapper {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+    </style>
     <link rel="icon" type="image/x-icon" href="{{asset('assets/images/'.$gs->favicon)}}"/>
 
 
@@ -69,6 +76,10 @@
 
             gtag('js', new Date());
             gtag('config', '{{ $seo->google_analytics }}');
+
+
+
+
         </script>
     @endif
     @if(!empty($seo->facebook_pixel))
@@ -93,6 +104,10 @@
                 'https://connect.facebook.net/en_US/fbevents.js');
             fbq('init', '{{ $seo->facebook_pixel }}');
             fbq('track', 'PageView');
+
+
+
+
         </script>
         <noscript>
             <img height="1" width="1" style="display:none"
@@ -131,7 +146,7 @@
                 <nav class="navbar navbar-expand-lg p-0">
                     <a class="navbar-brand" href="{{route('front.index')}}">
                         <img src="{{asset('assets/images/logo.png')}}" alt="img">
-{{--                        <video src="{{asset('assets/images/logo.mp4')}}" autoplay loop muted alt="img"></video>--}}
+                        {{--                        <video src="{{asset('assets/images/logo.mp4')}}" autoplay loop muted alt="img"></video>--}}
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -218,22 +233,23 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{route('front.contact')}}">Contact Us</a>
                                 </li>
-{{--                                <li>--}}
-{{--                                    <div id="search">--}}
-{{--                                        <button class="close" type="button">×</button>--}}
-{{--                                        <form method="GET" action="{{route('front.category')}}">--}}
-{{--                                            @csrf--}}
-{{--                                            <input placeholder="SEARCH" type="search" value="" name="title">--}}
-{{--                                            <div class="srch-btn">--}}
-{{--                                                <button href="#" class="themeBtn" type="submit">Search</button>--}}
-{{--                                            </div>--}}
-{{--                                        </form>--}}
-{{--                                    </div>--}}
+                                {{--                                <li>--}}
+                                {{--                                    <div id="search">--}}
+                                {{--                                        <button class="close" type="button">×</button>--}}
+                                {{--                                        <form method="GET" action="{{route('front.category')}}">--}}
+                                {{--                                            @csrf--}}
+                                {{--                                            <input placeholder="SEARCH" type="search" value="" name="title">--}}
+                                {{--                                            <div class="srch-btn">--}}
+                                {{--                                                <button href="#" class="themeBtn" type="submit">Search</button>--}}
+                                {{--                                            </div>--}}
+                                {{--                                        </form>--}}
+                                {{--                                    </div>--}}
 
-{{--                                </li>--}}
+                                {{--                                </li>--}}
                             </ul>
                             <div class="searchForm">
-                                <div class="deliver text-center">deliver to <span class="d-block"><i class="fas fa-map-marker-alt"></i> USA</span></div>
+                                <div class="deliver text-center">deliver to <span class="d-block"><i
+                                            class="fas fa-map-marker-alt"></i> USA</span></div>
                                 <form method="GET" action="{{route('front.category')}}">
                                     @csrf
                                     <input type="text" placeholder="Search here..." value="" name="title">
@@ -279,79 +295,70 @@
 
     <section class="logo-section">
         <div class="container">
-            <div class="swiper logoSlider">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <figure class="logoSlider-img">
-                            <img src="{{asset('assets/images/brandlogos/Armani.png')}}" alt="img" class="img-fluid">
-                        </figure>
-                    </div>
-                    <div class="swiper-slide">
-                        <figure class="logoSlider-img">
-                            <img src="{{asset('assets/images/brandlogos/Calvin Klein Wordmark.svg')}}" alt="img" class="img-fluid">
-                        </figure>
-                    </div>
-                    <div class="swiper-slide">
-                        <figure class="logoSlider-img">
-                            <img src="{{asset('assets/images/brandlogos/Chanel.png')}}" alt="img" class="img-fluid">
-                        </figure>
-                    </div>
-                    <div class="swiper-slide">
-                        <figure class="logoSlider-img">
-                            <img src="{{asset('assets/images/brandlogos/Dior 2022.svg')}}" alt="img" class="img-fluid">
-                        </figure>
-                    </div>
-                    <div class="swiper-slide">
-                        <figure class="logoSlider-img">
-                            <img src="{{asset('assets/images/brandlogos/Jordan Air.png')}}" alt="img" class="img-fluid">
-                        </figure>
-                    </div>
-                    <div class="swiper-slide">
-                        <figure class="logoSlider-img">
-                            <img src="{{asset('assets/images/brandlogos/Maybelline New York.svg')}}" alt="img" class="img-fluid">
-                        </figure>
-                    </div>
-                    <div class="swiper-slide">
-                        <figure class="logoSlider-img">
-                            <img src="{{asset('assets/images/brandlogos/Prada.svg')}}" alt="img" class="img-fluid">
-                        </figure>
-                    </div>
-                    <div class="swiper-slide">
-                        <figure class="logoSlider-img">
-                            <img src="{{asset('assets/images/brandlogos/Sephora.svg')}}" alt="img" class="img-fluid">
-                        </figure>
-                    </div>
-                    <div class="swiper-slide">
-                        <figure class="logoSlider-img">
-                            <img src="{{asset('assets/images/brandlogos/Target Old.svg')}}" alt="img" class="img-fluid">
-                        </figure>
-                    </div>
-                    <div class="swiper-slide">
-                        <figure class="logoSlider-img">
-                            <img src="{{asset('assets/images/brandlogos/Walmart.svg')}}" alt="img" class="img-fluid">
-                        </figure>
-                    </div>
-                    <div class="swiper-slide">
-                        <figure class="logoSlider-img">
-                            <img src="{{asset('assets/images/brandlogos/Zara New 2020.png')}}" alt="img" class="img-fluid">
-                        </figure>
-                    </div>
-{{--                    <div class="swiper-slide">--}}
-{{--                        <figure class="logoSlider-img">--}}
-{{--                            <img src="{{asset('assets/images/brandlogos/logo12.png')}}" alt="img" class="img-fluid">--}}
-{{--                        </figure>--}}
-{{--                    </div>--}}
-{{--                    <div class="swiper-slide">--}}
-{{--                        <figure class="logoSlider-img">--}}
-{{--                            <img src="{{asset('assets/images/brandlogos/logo13.png')}}" alt="img" class="img-fluid">--}}
-{{--                        </figure>--}}
-{{--                    </div>--}}
-{{--                    <div class="swiper-slide">--}}
-{{--                        <figure class="logoSlider-img">--}}
-{{--                            <img src="{{asset('assets/images/brandlogos/logo14.png')}}" alt="img" class="img-fluid">--}}
-{{--                        </figure>--}}
-{{--                    </div>--}}
-                </div>
+            <div class="logosWrapper">
+                <figure class="logoSlider-img">
+                    <img src="{{asset('assets/images/brandlogos/Armani.png')}}" alt="img" class="img-fluid">
+                </figure>
+                <figure class="logoSlider-img">
+                    <img src="{{asset('assets/images/brandlogos/Calvin Klein Wordmark.svg')}}" alt="img"
+                         class="img-fluid">
+                </figure>
+                <figure class="logoSlider-img">
+                    <img src="{{asset('assets/images/brandlogos/Chanel.png')}}" alt="img" class="img-fluid">
+                </figure>
+                <figure class="logoSlider-img">
+                    <img src="{{asset('assets/images/brandlogos/Dior 2022.svg')}}" alt="img" class="img-fluid">
+                </figure>
+                <figure class="logoSlider-img">
+                    <img src="{{asset('assets/images/brandlogos/Jordan Air.png')}}" alt="img" class="img-fluid">
+                </figure>
+                <figure class="logoSlider-img">
+                    <img src="{{asset('assets/images/brandlogos/Maybelline New York.svg')}}" alt="img"
+                         class="img-fluid">
+                </figure>
+                <figure class="logoSlider-img">
+                    <img src="{{asset('assets/images/brandlogos/Prada.svg')}}" alt="img" class="img-fluid">
+                </figure>
+                <figure class="logoSlider-img">
+                    <img src="{{asset('assets/images/brandlogos/Sephora.svg')}}" alt="img" class="img-fluid">
+                </figure>
+                <figure class="logoSlider-img">
+                    <img src="{{asset('assets/images/brandlogos/Target Old.svg')}}" alt="img" class="img-fluid">
+                </figure>
+                <figure class="logoSlider-img">
+                    <img src="{{asset('assets/images/brandlogos/Walmart.svg')}}" alt="img" class="img-fluid">
+                </figure>
+                <figure class="logoSlider-img">
+                    <img src="{{asset('assets/images/brandlogos/Zara New 2020.png')}}" alt="img" class="img-fluid">
+                </figure>
+
+                <figure class="logoSlider-img">
+                    <img src="{{asset('assets/images/brandlogos/logo2.png')}}" alt="img" class="img-fluid">
+                </figure>
+                <figure class="logoSlider-img">
+                    <img src="{{asset('assets/images/brandlogos/logo3.png')}}" alt="img" class="img-fluid">
+                </figure>
+                <figure class="logoSlider-img">
+                    <img src="{{asset('assets/images/brandlogos/logo4.png')}}" alt="img" class="img-fluid">
+                </figure>
+                <figure class="logoSlider-img">
+                    <img src="{{asset('assets/images/brandlogos/logo5.png')}}" alt="img" class="img-fluid">
+                </figure>
+                <figure class="logoSlider-img">
+                    <img src="{{asset('assets/images/brandlogos/logo6.png')}}" alt="img" class="img-fluid">
+                </figure>
+                <figure class="logoSlider-img">
+                    <img src="{{asset('assets/images/brandlogos/logo7.png')}}" alt="img" class="img-fluid">
+                </figure>
+                <figure class="logoSlider-img">
+                    <img src="{{asset('assets/images/brandlogos/logo8.png')}}" alt="img" class="img-fluid">
+                </figure>
+                <figure class="logoSlider-img">
+                    <img src="{{asset('assets/images/brandlogos/logo9.png')}}" alt="img" class="img-fluid">
+                </figure>
+                <figure class="logoSlider-img">
+                    <img src="{{asset('assets/images/brandlogos/logo11.png')}}" alt="img" class="img-fluid">
+                </figure>
             </div>
         </div>
     </section>
@@ -364,7 +371,7 @@
             </div>--}}
             <div class="col-12">
                 <div class="fotrLogo">
-{{--                    <video src="{{asset('assets/images/logo.mp4')}}" autoplay loop muted alt="img"></video>--}}
+                    {{--                    <video src="{{asset('assets/images/logo.mp4')}}" autoplay loop muted alt="img"></video>--}}
                     <img src="{{asset('assets/images/logo.png')}}" alt="image" class="img-fluid">
                 </div>
             </div>
@@ -372,7 +379,9 @@
                 <div class="fotrLogo">
                     {{--                    <a href="#" class="footerLogo"><img src="{{asset('assets/images/min1.png')}}" class="img-fluid"--}}
                     {{--                                                        alt="img"></a>--}}
-                    <p>Hazy By Tony is a Veteran-owned online store, offering high-quality men’s and women’s apparel, including clothing, accessories, cosmetics, and consumer electronics. We blend innovative design with affordability, bringing you the latest styles at great prices.</p>
+                    <p>Hazy By Tony is a Veteran-owned online store, offering high-quality men’s and women’s apparel,
+                        including clothing, accessories, cosmetics, and consumer electronics. We blend innovative design
+                        with affordability, bringing you the latest styles at great prices.</p>
                     {{--<p>Go-Hazy is an online store that sells high-quality men’s and women’s apparel – from clothing to
                         accessories, cosmetics, and consumer electronics – we offer it all. By combining cutting-edge
                         design
@@ -421,10 +430,10 @@
                 </div>
                 <div class="calFoter">
                     <ul>
-{{--                        <li><a href="tel:{{$ps->phone}}"><i class="fas fa-phone-alt"></i><span>{{$ps->phone}}</span></a>--}}
+                        {{--                        <li><a href="tel:{{$ps->phone}}"><i class="fas fa-phone-alt"></i><span>{{$ps->phone}}</span></a>--}}
                         </li>
-{{--                        <li><a href="mailto:{{$ps->contact_email}}"><i--}}
-{{--                                    class="fal fa-envelope"></i><span>{{$ps->contact_email}}</span></a></li>--}}
+                        {{--                        <li><a href="mailto:{{$ps->contact_email}}"><i--}}
+                        {{--                                    class="fal fa-envelope"></i><span>{{$ps->contact_email}}</span></a></li>--}}
                         <li><a href="#"><i class="far fa-map-marker-alt"></i><span>Location: {{$ps->street}}</span></a>
                         </li>
                     </ul>
@@ -446,16 +455,16 @@
 <!-- END: Footer -->
 
 
-    {{--<div id="search">--}}
-    {{--    <button class="close" type="button">×</button>--}}
-    {{--    <form method="GET" action="{{route('front.category')}}">--}}
-    {{--        @csrf--}}
-    {{--        <input placeholder="SEARCH" type="search" value="" name="title">--}}
-    {{--        <div class="srch-btn">--}}
-    {{--            <button href="#" class="themeBtn" type="submit">Search</button>--}}
-    {{--        </div>--}}
-    {{--    </form>--}}
-    {{--</div>--}}
+{{--<div id="search">--}}
+{{--    <button class="close" type="button">×</button>--}}
+{{--    <form method="GET" action="{{route('front.category')}}">--}}
+{{--        @csrf--}}
+{{--        <input placeholder="SEARCH" type="search" value="" name="title">--}}
+{{--        <div class="srch-btn">--}}
+{{--            <button href="#" class="themeBtn" type="submit">Search</button>--}}
+{{--        </div>--}}
+{{--    </form>--}}
+{{--</div>--}}
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -488,16 +497,20 @@
         s1.setAttribute('crossorigin', '*');
         s0.parentNode.insertBefore(s1, s0);
     })();
+
+
+
+
 </script>
 <!--End of Tawk.to Script-->
 <script>
     @if(session()->has('error'))
-    toastr.error('{{ session()->get('error') }}');
+        toastr.error('{{ session()->get('error') }}');
     {{--toastr.success('{{ session()->get('
     --}}
     @endif
     @if(session()->has('success'))
-    toastr.success('{{ session()->get('success') }}');
+        toastr.success('{{ session()->get('success') }}');
     @endif
 </script>
 {{-- Translator --}}
@@ -508,6 +521,10 @@
             includedLanguages: 'en,ja,es,ru,de,tl'
         }, 'google_translate_element');
     }
+
+
+
+
 </script>
 
 
@@ -528,6 +545,10 @@
             $('option[value="tl"]').text('Tagalog')
         }, 1000);
     });
+
+
+
+
 
 </script>
 @yield('script')
