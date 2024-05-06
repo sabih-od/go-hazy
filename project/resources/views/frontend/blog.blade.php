@@ -45,7 +45,7 @@
                                         <figure>
                                             <img src="{{ asset('assets/images/blogs/'.$blog->photo) ?? '' }}"
                                                  class="img-fluid" alt="img">
-                                            <span>29 <small>aug</small></span>
+                                            <span>{{ $blog->created_at->diffForHumans() }}</span>
                                         </figure>
                                         <div class="blogContent">
                                             <h6>{{$blog->title ?? ''}}</h6>
@@ -60,7 +60,7 @@
                                                 </ul>
                                             </div>
                                             <p>{!! substr($blog->details, 0, 150) ?? '' !!}</p>
-                                            <a href="{{route('front.blog')}}">Continue reading</a>
+                                            <a href="{{route('front.blogshow',$blog->id)}}">Continue reading</a>
                                         </div>
                                     </div>
                                 </div>

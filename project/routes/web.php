@@ -1386,7 +1386,7 @@ Route::group(['middleware' => 'maintenance'], function () {
     Route::get('/order/track/{id}', 'Front\FrontendController@trackload')->name('front.track.search');
     // BLOG SECTION
     Route::get('/blog', 'Front\FrontendController@blog')->name('front.blog');
-    Route::get('/blog/{slug}', 'Front\FrontendController@blogshow')->name('front.blogshow');
+    Route::get('/blog/{id}', 'Front\FrontendController@blogshow')->name('front.blogshow');
     Route::get('/blog/category/{slug}', 'Front\FrontendController@blogcategory')->name('front.blogcategory');
     Route::get('/blog/tag/{slug}', 'Front\FrontendController@blogtags')->name('front.blogtags');
     Route::get('/blog-search', 'Front\FrontendController@blogsearch')->name('front.blogsearch');

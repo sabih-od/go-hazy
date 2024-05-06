@@ -283,74 +283,74 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <figure class="logoSlider-img">
-                            <img src="{{asset('assets/images/brandlogos/logo1.pn')}}g" alt="img" class="img-fluid">
+                            <img src="{{asset('assets/images/brandlogos/Armani.png')}}" alt="img" class="img-fluid">
                         </figure>
                     </div>
                     <div class="swiper-slide">
                         <figure class="logoSlider-img">
-                            <img src="{{asset('assets/images/brandlogos/logo2.png')}}" alt="img" class="img-fluid">
+                            <img src="{{asset('assets/images/brandlogos/Calvin Klein Wordmark.svg')}}" alt="img" class="img-fluid">
                         </figure>
                     </div>
                     <div class="swiper-slide">
                         <figure class="logoSlider-img">
-                            <img src="{{asset('assets/images/brandlogos/logo3.png')}}" alt="img" class="img-fluid">
+                            <img src="{{asset('assets/images/brandlogos/Chanel.png')}}" alt="img" class="img-fluid">
                         </figure>
                     </div>
                     <div class="swiper-slide">
                         <figure class="logoSlider-img">
-                            <img src="{{asset('assets/images/brandlogos/logo4.png')}}" alt="img" class="img-fluid">
+                            <img src="{{asset('assets/images/brandlogos/Dior 2022.svg')}}" alt="img" class="img-fluid">
                         </figure>
                     </div>
                     <div class="swiper-slide">
                         <figure class="logoSlider-img">
-                            <img src="{{asset('assets/images/brandlogos/logo5.png')}}" alt="img" class="img-fluid">
+                            <img src="{{asset('assets/images/brandlogos/Jordan Air.png')}}" alt="img" class="img-fluid">
                         </figure>
                     </div>
                     <div class="swiper-slide">
                         <figure class="logoSlider-img">
-                            <img src="{{asset('assets/images/brandlogos/logo6.png')}}" alt="img" class="img-fluid">
+                            <img src="{{asset('assets/images/brandlogos/Maybelline New York.svg')}}" alt="img" class="img-fluid">
                         </figure>
                     </div>
                     <div class="swiper-slide">
                         <figure class="logoSlider-img">
-                            <img src="{{asset('assets/images/brandlogos/logo7.png')}}" alt="img" class="img-fluid">
+                            <img src="{{asset('assets/images/brandlogos/Prada.svg')}}" alt="img" class="img-fluid">
                         </figure>
                     </div>
                     <div class="swiper-slide">
                         <figure class="logoSlider-img">
-                            <img src="{{asset('assets/images/brandlogos/logo8.png')}}" alt="img" class="img-fluid">
+                            <img src="{{asset('assets/images/brandlogos/Sephora.svg')}}" alt="img" class="img-fluid">
                         </figure>
                     </div>
                     <div class="swiper-slide">
                         <figure class="logoSlider-img">
-                            <img src="{{asset('assets/images/brandlogos/logo9.png')}}" alt="img" class="img-fluid">
+                            <img src="{{asset('assets/images/brandlogos/Target Old.svg')}}" alt="img" class="img-fluid">
                         </figure>
                     </div>
                     <div class="swiper-slide">
                         <figure class="logoSlider-img">
-                            <img src="{{asset('assets/images/brandlogos/logo10.png')}}" alt="img" class="img-fluid">
+                            <img src="{{asset('assets/images/brandlogos/Walmart.svg')}}" alt="img" class="img-fluid">
                         </figure>
                     </div>
                     <div class="swiper-slide">
                         <figure class="logoSlider-img">
-                            <img src="{{asset('assets/images/brandlogos/logo11.png')}}" alt="img" class="img-fluid">
+                            <img src="{{asset('assets/images/brandlogos/Zara New 2020.png')}}" alt="img" class="img-fluid">
                         </figure>
                     </div>
-                    <div class="swiper-slide">
-                        <figure class="logoSlider-img">
-                            <img src="{{asset('assets/images/brandlogos/logo12.png')}}" alt="img" class="img-fluid">
-                        </figure>
-                    </div>
-                    <div class="swiper-slide">
-                        <figure class="logoSlider-img">
-                            <img src="{{asset('assets/images/brandlogos/logo13.png')}}" alt="img" class="img-fluid">
-                        </figure>
-                    </div>
-                    <div class="swiper-slide">
-                        <figure class="logoSlider-img">
-                            <img src="{{asset('assets/images/brandlogos/logo14.png')}}" alt="img" class="img-fluid">
-                        </figure>
-                    </div>
+{{--                    <div class="swiper-slide">--}}
+{{--                        <figure class="logoSlider-img">--}}
+{{--                            <img src="{{asset('assets/images/brandlogos/logo12.png')}}" alt="img" class="img-fluid">--}}
+{{--                        </figure>--}}
+{{--                    </div>--}}
+{{--                    <div class="swiper-slide">--}}
+{{--                        <figure class="logoSlider-img">--}}
+{{--                            <img src="{{asset('assets/images/brandlogos/logo13.png')}}" alt="img" class="img-fluid">--}}
+{{--                        </figure>--}}
+{{--                    </div>--}}
+{{--                    <div class="swiper-slide">--}}
+{{--                        <figure class="logoSlider-img">--}}
+{{--                            <img src="{{asset('assets/images/brandlogos/logo14.png')}}" alt="img" class="img-fluid">--}}
+{{--                        </figure>--}}
+{{--                    </div>--}}
                 </div>
             </div>
         </div>

@@ -295,30 +295,31 @@ class FrontendController extends FrontBaseController
         return view('frontend.blog', compact('blogs', 'search', 'bcats', 'tags'));
     }
 
-    public function blogshow($slug)
+    public function blogshow($id)
     {
-
-
-        // BLOG TAGS
-        $tags = null;
-        $tagz = '';
-        $name = Blog::where('language_id', $this->language->id)->pluck('tags')->toArray();
-        foreach ($name as $nm) {
-            $tagz .= $nm . ',';
-        }
-        $tags = array_unique(explode(',', $tagz));
-        // BLOG CATEGORIES
-        $bcats = BlogCategory::where('language_id', $this->language->id)->get();
-        // BLOGS
-
-        $blog = Blog::where('slug', $slug)->first();
-
-        $blog->views = $blog->views + 1;
-        $blog->update();
-        // BLOG META TAG
-        $blog_meta_tag = $blog->meta_tag;
-        $blog_meta_description = $blog->meta_description;
-        return view('frontend.blogshow', compact('blog', 'bcats', 'tags', 'blog_meta_tag', 'blog_meta_description'));
+//dd($id);
+$blog = Blog::find($id);
+//        // BLOG TAGS
+//        $tags = null;
+//        $tagz = '';
+//        $name = Blog::where('language_id', $this->language->id)->pluck('tags')->toArray();
+//        foreach ($name as $nm) {
+//            $tagz .= $nm . ',';
+//        }
+//        $tags = array_unique(explode(',', $tagz));
+//        // BLOG CATEGORIES
+//        $bcats = BlogCategory::where('language_id', $this->language->id)->get();
+//        // BLOGS
+//
+//        $blog = Blog::where('slug', $slug)->first();
+//
+//        $blog->views = $blog->views + 1;
+//        $blog->update();
+//        // BLOG META TAG
+//        $blog_meta_tag = $blog->meta_tag;
+//        $blog_meta_description = $blog->meta_description;
+//        return view('frontend.blogshow', compact('blog', 'bcats', 'tags', 'blog_meta_tag', 'blog_meta_description'));
+        return view('frontend.blogshow', compact('blog'));
     }
 
     // -------------------------------- BLOG SECTION ENDS----------------------------------------
