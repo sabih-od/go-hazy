@@ -372,8 +372,7 @@
                 <div class="fotrLogo">
                     {{--                    <a href="#" class="footerLogo"><img src="{{asset('assets/images/min1.png')}}" class="img-fluid"--}}
                     {{--                                                        alt="img"></a>--}}
-                    <p>Hazy by Tony<br>
-                        Hazy by Tony is an online store owned by a veteran, offering high-quality men’s and women’s apparel, including clothing, accessories, cosmetics, and consumer electronics. We blend innovative design with affordability, bringing you the latest styles at great prices.</p>
+                    <p>Hazy By Tony is a Veteran-owned online store, offering high-quality men’s and women’s apparel, including clothing, accessories, cosmetics, and consumer electronics. We blend innovative design with affordability, bringing you the latest styles at great prices.</p>
                     {{--<p>Go-Hazy is an online store that sells high-quality men’s and women’s apparel – from clothing to
                         accessories, cosmetics, and consumer electronics – we offer it all. By combining cutting-edge
                         design
@@ -424,8 +423,8 @@
                     <ul>
 {{--                        <li><a href="tel:{{$ps->phone}}"><i class="fas fa-phone-alt"></i><span>{{$ps->phone}}</span></a>--}}
                         </li>
-                        <li><a href="mailto:{{$ps->contact_email}}"><i
-                                    class="fal fa-envelope"></i><span>{{$ps->contact_email}}</span></a></li>
+{{--                        <li><a href="mailto:{{$ps->contact_email}}"><i--}}
+{{--                                    class="fal fa-envelope"></i><span>{{$ps->contact_email}}</span></a></li>--}}
                         <li><a href="#"><i class="far fa-map-marker-alt"></i><span>Location: {{$ps->street}}</span></a>
                         </li>
                     </ul>
