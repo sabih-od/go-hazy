@@ -55,7 +55,8 @@ class ForgotController extends Controller
             $mailer->sendCustomMail($data);
 
 //            return response()->json(__('Verification Link Sent Successfully!. Please Check your email.'));
-            return redirect()->route('user.change.token', $token);
+//            return redirect()->route('user.change.token', $token);
+            return redirect()->back()->with('success','Check For The Password Reset Email');
         } else {
             // user not found
             return response()->json(array('errors' => [0 => __('No Account Found With This Email.')]));
@@ -66,34 +67,40 @@ class ForgotController extends Controller
     {
         if ($token) {
             if (User::where('email_token', $token)->exists()) {
-                return view('user.changepass', compact('token'));
+                return view('frontend.reset-password', compact('token'));
             }
         }
     }
 
     public function changepass(Request $request)
     {
-        $token = $request->file_token;
+        $request->validate([
+            'password' => 'required|confirmed'
+        ]);
+
+        $token = $request->input('file_token');
         $admin = User::where('email_token', $token)->first();
         if ($admin) {
-            if ($request->cpass) {
-                if (Hash::check($request->cpass, $admin->password)) {
-                    if ($request->newpass == $request->renewpass) {
-                        $input['password'] = Hash::make($request->newpass);
-                    } else {
-                        return response()->json(array('errors' => [0 => __('Confirm password does not match.')]));
-                    }
-                } else {
-                    return response()->json(array('errors' => [0 => __('Current password does not match.')]));
-                }
-            }
+            $input['password'] = Hash::make($request->input('password'));
+//            if ($request->cpass) {
+//                if (Hash::check($request->cpass, $admin->password)) {
+//                    if ($request->newpass == $request->renewpass) {
+//                        $input['password'] = Hash::make($request->newpass);
+//                    } else {
+//                        return response()->json(array('errors' => [0 => __('Confirm password does not match.')]));
+//                    }
+//                } else {
+//                    return response()->json(array('errors' => [0 => __('Current password does not match.')]));
+//                }
+//            }
             $admin->email_token = null;
             $admin->update($input);
-
-            $msg = __('Successfully changed your password.') . '<a href="' . route('front.index') . '?forgot=success"> ' . __('Login Now') . '</a>';
-            return response()->json($msg);
+//            $msg = __('Successfully changed your password.') . '<a href="' . route('front.index') . '?forgot=success"> ' . __('Login Now') . '</a>';
+//            return response()->json($msg);
+            return redirect()->route('user.login')->with('success','Password has Been Reset Successfully');
         } else {
-            return response()->json(array('errors' => [0 => __('Invalid Token.')]));
+//            return response()->json(array('errors' => [0 => __('Invalid Token.')]));
+            return redirect()->back()->with('error','Invalid Token');
         }
     }
 
