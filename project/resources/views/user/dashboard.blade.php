@@ -62,20 +62,20 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
-                            <div class="widget border-0 p-30 widget_categories bg-light account-info">
-                                <h4 class="widget-title down-line mb-30">{{ __('My Wallet') }}</h4>
-                                <div class="user-info">
-                                    <h5 class="title">{{ __('Affiliate Bonus') }}:</h5>
-                                    <h5 class="title w-price">{{ App\Models\Product::vendorConvertPrice($user->affilate_income) }}</h5>
-                                    <hr>
-                                    <h5 class="title w-title">{{ __('Wallet Balance') }}</h5>
-                                    <h5 class="title w-price mb-3">{{ App\Models\Product::vendorConvertPrice(Auth::user()->balance) }}</h5>
-                                    <a href="{{ route('user-deposit-create') }}" class="themeBtn"> <i
-                                            class="fas fa-plus"></i> {{ __('Add Deposit') }}</a>
-                                </div>
-                            </div>
-                        </div>
+{{--                        <div class="col-lg-6">--}}
+{{--                            <div class="widget border-0 p-30 widget_categories bg-light account-info">--}}
+{{--                                <h4 class="widget-title down-line mb-30">{{ __('My Wallet') }}</h4>--}}
+{{--                                <div class="user-info">--}}
+{{--                                    <h5 class="title">{{ __('Affiliate Bonus') }}:</h5>--}}
+{{--                                    <h5 class="title w-price">{{ App\Models\Product::vendorConvertPrice($user->affilate_income) }}</h5>--}}
+{{--                                    <hr>--}}
+{{--                                    <h5 class="title w-title">{{ __('Wallet Balance') }}</h5>--}}
+{{--                                    <h5 class="title w-price mb-3">{{ App\Models\Product::vendorConvertPrice(Auth::user()->balance) }}</h5>--}}
+{{--                                    <a href="{{ route('user-deposit-create') }}" class="themeBtn"> <i--}}
+{{--                                            class="fas fa-plus"></i> {{ __('Add Deposit') }}</a>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
                     </div>
                     {{-- Statistic section --}}
                     <div class="row mt-3">

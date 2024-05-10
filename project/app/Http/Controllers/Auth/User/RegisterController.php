@@ -29,7 +29,7 @@ class RegisterController extends Controller
                 'g-recaptcha-response.required' => "Please verify that you are not a robot.",
                 'g-recaptcha-response.captcha' => "Captcha error! try again later or contact site admin..",
             ];
-            $validator = Validator::make($request->all(), $rules, $customs);
+                $validator = Validator::make($request->all(), $rules, $customs);
             if ($validator->fails()) {
                 return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
             }
@@ -45,8 +45,11 @@ class RegisterController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+            $errorMessages = collect($validator->errors()->all())->flatten()->toArray();
+            $error = implode(' ', $errorMessages);
+            return redirect()->back()->with('error', $error);
         }
+
         //--- Validation Section Ends
 
         $user = new User;
