@@ -136,6 +136,8 @@ class ReadCsvFile implements ShouldQueue
 
                     // Save Data
                     $data->fill($input)->save();
+                    dump("<br>" . __('Row No') . ": " . $data->id .$this->line[5] . " - " . $this->line[21] .  " - " . $this->line[22] . " - " . $this->line[23] . " - " . __('SaveProductImage') . "<br>");
+
                     SaveProductImage::dispatch($data->id, $this->line[5], $this->line[21], $this->line[22], $this->line[23]);
 
                 } else {

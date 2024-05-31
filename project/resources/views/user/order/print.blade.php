@@ -198,44 +198,45 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-
-                                                        @foreach($cart['items'] as $product)
+                                                        @foreach($cart as $product)
                                                             <tr>
-                                                                <td>{{ $product['item']['id'] }}</td>
-                                                                <td>{{mb_strlen($product['item']['name'],'UTF-8') > 50 ? mb_substr($product['item']['name'],0,50,'UTF-8').'...' : $product['item']['name']}}</td>
+                                                                <td>{{ $product['id'] }}</td>
+                                                                <td>{{mb_strlen($product['product']['name'],'UTF-8') > 50 ? mb_substr($product['product']['name'],0,50,'UTF-8').'...' : $product['product']['name']}}</td>
                                                                 <td>
                                                                     <b>{{ __('Quantity') }}</b>: {{$product['qty']}}
                                                                     <br>
-                                                                    @if(!empty($product['size']))
-                                                                        <b>{{ __('Size') }}</b>
-                                                                        : {{ $product['item']['measure'] }}{{str_replace('-',' ',$product['size'])}}
+{{--                                                                    @dd($product)--}}
+                                                                    @foreach($product['options'] as $options)
+{{--                                                                    @if(!empty($product['size']))--}}
+                                                                        <b>{{ $options['option_type'] ?? ''  }}</b>
+                                                                        : {{ $options['option_display_name'] ?? ''}}
                                                                         <br>
-                                                                    @endif
-                                                                    @if(!empty($product['color']))
+{{--                                                                    @endif--}}
+{{--                                                                    @if(!empty($product['color']))--}}
 
-                                                                        <b>{{ __('Color') }}</b>:  <span id="color-bar"
-                                                                                                         style="border-radius: 50%; vertical-align: bottom; border: 10px solid {{$product['color'] == "" ? "white" : '#'.$product['color']}};"></span>
+{{--                                                                        <b>{{ __('Color') }}</b>:  <span id="color-bar"--}}
+{{--                                                                                                         style="border-radius: 50%; vertical-align: bottom; border: 10px solid {{$product['option_display_name'] == "" ? "white" : '#'.$product['option_display_name'] ?? ''}};"></span>--}}
 
-                                                                    @endif
+{{--                                                                    @endif--}}
 
-                                                                    @if(!empty($product['keys']))
+{{--                                                                    @if(!empty($product['keys']))--}}
 
-                                                                        @foreach( array_combine(explode(',', $product['keys']), explode(',', $product['values']))  as $key => $value)
+{{--                                                                        @foreach( array_combine(explode(',', $product['keys']), explode(',', $product['values']))  as $key => $value)--}}
 
-                                                                            <b>{{ ucwords(str_replace('_', ' ', $key))  }}
-                                                                                : </b> {{ $value }} <br>
-                                                                        @endforeach
+{{--                                                                            <b>{{ ucwords(str_replace('_', ' ', $key))  }}--}}
+{{--                                                                                : </b> {{ $value }} <br>--}}
+{{--                                                                        @endforeach--}}
 
-                                                                    @endif
-
+{{--                                                                    @endif--}}
+                                                                    @endforeach
                                                                 </td>
                                                                 <td>
-                                                                    {{ \PriceHelper::showCurrencyPrice(($product['item_price'] ) * $order->currency_value) }}
+                                                                    {{ \PriceHelper::showCurrencyPrice(($product['show_total_price'] ) * $order->currency_value) }}
 
                                                                 </td>
                                                                 <td>
                                                                     {{ \PriceHelper::showOrderCurrencyPrice((($order->pay_amount + $order->wallet_price) * $order->currency_value),$order->currency_sign) }}
-                                                                    <small>{{ $product['discount'] == 0 ? '' : '('.$product['discount'].'% '.__('Off').')' }}</small>
+                                                                    <small>{{ $product['show_total_price'] == 0 ? '' : '('.$product['show_total_price'].'% '.__('Off').')' }}</small>
                                                                 </td>
 
                                                             </tr>
