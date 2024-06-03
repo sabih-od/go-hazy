@@ -2,9 +2,11 @@
     <div class="col-md-12">
         <div class="container">
             <div class="row">
-                @forelse($data['prods'] as $item)
+
+                @forelse($data['prods']->reverse() as $item)
+{{--                    @dd($item->price);--}}
                     @php
-                        $price = $item->getOriginal('price');
+                        $price = $item->price;
                     @endphp
 
                     <div class="col-lg-4 col-sm-6">
