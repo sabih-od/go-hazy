@@ -2,9 +2,11 @@
     <div class="col-md-12">
         <div class="container">
             <div class="row">
-                @forelse($data['prods'] as $item)
+
+                @forelse($data['prods']->reverse() as $item)
+{{--                    @dd($item->price);--}}
                     @php
-                        $price = $item->getOriginal('price');
+                        $price = $item->price;
                     @endphp
 
                     <div class="col-lg-4 col-sm-6">
@@ -46,7 +48,7 @@
                             {{--                                                <span>${{$item->price ?? 'Shop'}}</span>--}}
 {{--                            @dd($item->setCurrency())--}}
                             <span>${{ number_format($price, 2) }}</span>
-                            <del>${{ ($item->showPreviousPrice() ?? 0.00) }}</del>
+                            <del>{{ ($item->showPreviousPrice() ?? 0.00) }}</del>
                         </div>
                     </div>
                 @empty
