@@ -48,7 +48,7 @@
                             {{--                                                <span>${{$item->price ?? 'Shop'}}</span>--}}
 {{--                            @dd($item->setCurrency())--}}
                             <span>${{ number_format($price, 2) }}</span>
-                            <del>${{ ($item->showPreviousPrice() ?? 0.00) }}</del>
+                            <del>{{ ($item->showPreviousPrice() ?? 0.00) }}</del>
                         </div>
                     </div>
                 @empty
