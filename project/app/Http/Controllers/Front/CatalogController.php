@@ -34,13 +34,12 @@ class CatalogController extends FrontBaseController
         }
 
         //   dd(session::get('view'));
-
         $cat = null;
         $subcat = null;
         $childcat = null;
         $flash = null;
-        $minprice = $request->input('minPrice') ?? null;
-        $maxprice = $request->input('maxPrice') ?? null;
+        $minprice = $request->min ?? null;
+        $maxprice = $request->max ?? null;
         $minPrice = $request->minPrice ?? null;
         $maxPrice = $request->maxPrice ?? null;
         $sorts = 'ASC';
@@ -63,9 +62,8 @@ class CatalogController extends FrontBaseController
         $data['min'] = $minprice;
         $data['max'] = $maxprice;
         $data['title'] = $title;
-
-        $data['min'] = $minprice;
-        $data['max'] = $maxprice;
+//        $data['min'] = $minprice;
+//        $data['max'] = $maxprice;
 
         if (!empty($slug)) {
             $cat = Category::where('slug', $slug)->firstOrFail();
@@ -114,10 +112,16 @@ class CatalogController extends FrontBaseController
             ->when($search, function ($query, $search) {
                 return $query->where('name', 'like', '%' . $search . '%')->orWhere('name', 'like', $search . '%');
             })
-            ->when($request->has('minPrice'), function ($q) use ($minprice) {
+            ->when($request->has('minPrice'), function ($q) use ($minPrice) {
+                return $q->where('price', '>=', $minPrice);
+            })
+            ->when($request->has('maxPrice'), function ($q) use ($maxPrice) {
+                return $q->where('price', '<=', $maxPrice);
+            })
+            ->when($request->has('min'), function ($q) use ($minprice) {
                 return $q->where('price', '>=', $minprice);
             })
-            ->when($request->has('maxPrice'), function ($q) use ($maxprice) {
+            ->when($request->has('max'), function ($q) use ($maxprice) {
                 return $q->where('price', '<=', $maxprice);
             })
             ->when($title, function ($query) use ($title) {
