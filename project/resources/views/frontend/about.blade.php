@@ -38,7 +38,7 @@
                         <h6>About Us</h6>
                         <h2>HAZY-BY-TONY</h2>
                         <div class="abouticonContent">
-                            <p>Hazy-By-Tony is your one-stop shop for apparel, beauty products, accessories, consumer electronics, and so many more items! </p>
+                            <p>Hazy-By-Tony is your one-stop shop for apparel, beauty products, accessories, consumer electronics, and many more items! </p>
                             <p>We offer the latest styles at affordable prices by blending cutting-edge design with affordability. With us, you can splurge and stock up on all your favorite items without breaking the bank.</p>
                             <p>Our philosophy is straightforward: we're serious about fashion and the quality we offer! So, let us keep you updated on the latest trends and lifestyle news and show you the hottest styles before anyone else. Keeping you in tune with the latest trends and providing exceptional and exclusive items for you is our priority at Hazy by Tony!</p>
 
@@ -63,7 +63,7 @@
                             <p><strong>Professionalism:</strong></p>
                             <p>Our team comprises highly skilled staff, advanced sewing technology, and thorough work processes, ensuring top-notch product quality.</p>
                             <p><strong>Cost Management:</strong></p>
-                            <p>Through careful cost control from the outset, we enable you to offer more competitive pricing. In this way, our customers can shop without being restricted by the budget. </p>
+                            <p>Through careful cost control from the outset, we are able to offer our customers more competitive pricing. In this way, our customers can shop without being restricted by the budget. </p>
 
                         </div>
                     </div>
