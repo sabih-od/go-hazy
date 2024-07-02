@@ -181,7 +181,8 @@
                                 </figure>
                                 <div class="abouticonContent">
                                     <h5>Men and Women<br>Apparel:</h5>
-                                    <p>Discover your authentic style with our stylish and high-quality men's and women's apparel.</p>
+                                    <p>Discover your authentic style with our stylish and high-quality men's and women's
+                                        apparel.</p>
                                 </div>
                             </div>
                         </div>
@@ -192,7 +193,7 @@
                                 </figure>
                                 <div class="abouticonContent">
                                     <h5>Accessories:</h5>
-                                    <p>Complete your look from head to toe with accessories from Hazy by Tony. </p>
+                                    <p> Complete your look from head to toe with accessories from Hazy by Tony. </p>
                                 </div>
                             </div>
                         </div>
@@ -203,7 +204,7 @@
                                 </figure>
                                 <div class="abouticonContent">
                                     <h5>Sports &<br>Entertainment:</h5>
-                                    <p>Find top-notch sports gear from our sports and entertainment section. </p>
+                                    <p>   Find top-notch sports gear from our sports and entertainment section. </p>
                                 </div>
                             </div>
                         </div>
@@ -214,7 +215,7 @@
                                 </figure>
                                 <div class="abouticonContent">
                                     <h5>Consumer Electronics:</h5>
-                                    <p>Looking for durable electronics? Count on Hazy by Tony to deliver the best quality of electronics to you.</p>
+                                    <p>  Seeking durable electronics? Count on Hazy by Tony to deliver just that!</p>
                                 </div>
                             </div>
                         </div>

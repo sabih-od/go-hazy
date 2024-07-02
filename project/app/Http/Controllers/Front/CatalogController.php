@@ -336,7 +336,10 @@ if($request->input('maxPrice') AND $request->input('minPrice')){
 //        if ($request->ajax()) {
 //        }
 
-        return view('frontend.product')->with([
+//        return view('frontend.product')->with([
+//            'data' => $data,
+//        ]);
+        return view('new-layout.shop')->with([
             'data' => $data,
         ]);
     }
