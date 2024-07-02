@@ -93,11 +93,10 @@ class FrontendController extends FrontBaseController
         $new_categories = Category::where('status', 1)
             ->whereIn('name', ['Fishing', 'Veterans', 'Office Security'])
             ->get();
-
-
         $data['blogs'] = Blog::where('language_id', $this->language->id)->latest()->take(3)->get();
 
-        return view('frontend.index', $data ,compact('new_categories'));
+//        return view('frontend.index', $data ,compact('new_categories'));
+        return view('new-layout.index', $data ,compact('new_categories','data'));
     }
 
     // Home Page Ajax Display
