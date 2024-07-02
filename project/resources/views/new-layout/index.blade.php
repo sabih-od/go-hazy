@@ -318,8 +318,8 @@
                                         <div class="swiper-slide">
                                             <div class="seller-card">
                                                 <figure>
-                                                    @if(!empty($item->photo) && file_exists(public_path('assets/images/products/'.$item->photo )))
-                                                        <img src="{{asset('assets/images/products/'.$item->photo)}}" class="img-fluid" alt="img">
+                                                    @if(!empty($product->photo) && file_exists(public_path('assets/images/products/'.$product->photo )))
+                                                        <img src="{{asset('assets/images/products/'.$product->photo)}}" class="img-fluid" alt="img">
                                                     @else
                                                         <img src="{{asset('assets/images/noimage.png')}}" class="img-fluid" alt="img">
                                                     @endif
@@ -557,7 +557,7 @@
                                 <div class="swiper-slide">
                                     <div class="seller-card">
                                         <figure>
-                               @if(!empty($product->name) && file_exists(public_path('assets/images/products/'.$product->photo)))
+                               @if(!empty($product->photo) && file_exists(public_path('assets/images/products/'.$product->photo)))
                                 <img src="{{ asset('assets/images/products/'.$product->photo) }}" class="img-fluid" alt="img">
 @else
                                 <img src="{{ asset('assets/images/noimage.png') }}" class="img-fluid" alt="img">
