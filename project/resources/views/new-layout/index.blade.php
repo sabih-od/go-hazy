@@ -54,52 +54,6 @@
                                     </div>
                                 </div>
                             @endforeach
-                            {{--                            <div class="swiper-slide">--}}
-                            {{--                                <img src="{{asset('assets/new-layout/images/slidebg.webp')}}" class="w-100 radius-img" alt="img">--}}
-                            {{--                                <div class="slide-inner">--}}
-                            {{--                                    <div class="row align-items-center">--}}
-                            {{--                                        <div class="col-md-6">--}}
-                            {{--                                            <div class="slideOne">--}}
-                            {{--                                                <h2>Welcome To</h2>--}}
-                            {{--                                                <h3>Hazy by Tony</h3>--}}
-                            {{--                                                <p>From women’s fashion to consumer electronics, we offer a huge variety--}}
-                            {{--                                                    of items priced reasonably and shipped quickly. So, don’t wait any--}}
-                            {{--                                                    further and shop your hearts out at Hazy by Tony.--}}
-                            {{--                                                </p>--}}
-                            {{--                                                <div>--}}
-                            {{--                                                    <a href="#" class="themeBtn borderBtn">See All Products</a>--}}
-                            {{--                                                </div>--}}
-                            {{--                                            </div>--}}
-                            {{--                                        </div>--}}
-                            {{--                                        <div class="col-md-6">--}}
-                            {{--                                            <figure><img src="{{asset('assets/new-layout/images/slideimg.webp')}}" class="img-fluid" alt="img"></figure>--}}
-                            {{--                                        </div>--}}
-                            {{--                                    </div>--}}
-                            {{--                                </div>--}}
-                            {{--                            </div>--}}
-                            {{--                            <div class="swiper-slide">--}}
-                            {{--                                <img src="{{asset('assets/new-layout/images/slidebg2.webp')}}" class="w-100 radius-img" alt="img">--}}
-                            {{--                                <div class="slide-inner">--}}
-                            {{--                                    <div class="row align-items-center">--}}
-                            {{--                                        <div class="col-md-6">--}}
-                            {{--                                            <div class="slideOne">--}}
-                            {{--                                                <h2>Welcome To</h2>--}}
-                            {{--                                                <h3>Hazy by Tony</h3>--}}
-                            {{--                                                <p>From women’s fashion to consumer electronics, we offer a huge variety--}}
-                            {{--                                                    of items priced reasonably and shipped quickly. So, don’t wait any--}}
-                            {{--                                                    further and shop your hearts out at Hazy by Tony.--}}
-                            {{--                                                </p>--}}
-                            {{--                                                <div>--}}
-                            {{--                                                    <a href="#" class="themeBtn borderBtn">See All Products</a>--}}
-                            {{--                                                </div>--}}
-                            {{--                                            </div>--}}
-                            {{--                                        </div>--}}
-                            {{--                                        <div class="col-md-6">--}}
-                            {{--                                            <figure><img src="{{asset('assets/new-layout/images/slideimg.webp')}}" class="img-fluid" alt="img"></figure>--}}
-                            {{--                                        </div>--}}
-                            {{--                                    </div>--}}
-                            {{--                                </div>--}}
-                            {{--                            </div>--}}
                         </div>
                     </div>
                     <div class="swiper-button-prev"></div>
@@ -131,24 +85,6 @@
                                     </div>
                                 </div>
                             @endforeach
-                            {{--                            <div class="swiper-slide">--}}
-                            {{--                                <div class="explore-card">--}}
-                            {{--                                    <figure>--}}
-                            {{--                                        <img src="{{asset('assets/new-layout/images/categories2.webp')}}"--}}
-                            {{--                                             class="img-fluid" alt="img">--}}
-                            {{--                                        <a href="#" class="themeBtn borderBtn">men’s Fashion</a>--}}
-                            {{--                                    </figure>--}}
-                            {{--                                </div>--}}
-                            {{--                            </div>--}}
-                            {{--                            <div class="swiper-slide">--}}
-                            {{--                                <div class="explore-card">--}}
-                            {{--                                    <figure>--}}
-                            {{--                                        <img src="{{asset('assets/new-layout/images/categories3.webp')}}"--}}
-                            {{--                                             class="img-fluid" alt="img">--}}
-                            {{--                                        <a href="#" class="themeBtn borderBtn">jewelry & watches</a>--}}
-                            {{--                                    </figure>--}}
-                            {{--                                </div>--}}
-                            {{--                            </div>--}}
                         </div>
                         <div class="swiper-pagination"></div>
                     </div>
@@ -363,7 +299,8 @@
                     </li>
                     @foreach($categories->take(6) as $category)
                         <li class="nav-item">
-                            <a class="nav-link" id="tab-{{$category->id}}" data-toggle="tab"
+                            <a class="nav-link" id="tab-{{$category->id}}" data-category-id="{{$category->id}}"
+                               data-toggle="tab"
                                href="#category-{{$category->id}}" role="tab"
                                aria-controls="category-{{$category->id}}" aria-selected="false">{{$category->name}}</a>
                         </li>
@@ -377,16 +314,15 @@
                         <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
                             <div class="swiper featureSlider">
                                 <div class="swiper-wrapper">
-                                    @foreach($data['products']->take(20) as $product)
+                                    @foreach($data['products']->take(12) as $product)
                                         <div class="swiper-slide">
                                             <div class="seller-card">
                                                 <figure>
-                                                    <img src="{{asset('assets/images/products/'.$product->photo)}}"
-                                                         class="img-fluid" alt="img">
-                                                    <a href="#" class="heart">
-                                                        <i class="fal fa-heart"></i>
-                                                        <i class="fas fa-heart"></i>
-                                                    </a>
+                                                    @if(!empty($item->photo) && file_exists(public_path('assets/images/products/'.$item->photo )))
+                                                        <img src="{{asset('assets/images/products/'.$item->photo)}}" class="img-fluid" alt="img">
+                                                    @else
+                                                        <img src="{{asset('assets/images/noimage.png')}}" class="img-fluid" alt="img">
+                                                    @endif
                                                 </figure>
                                                 <div class="seller-content">
                                                     <h2>{{$product->name}}</h2>
@@ -401,7 +337,8 @@
                                                     </div>
                                                     <h4>${{$product->price}}</h4>
                                                     <div>
-                                                        <a href="{{ route('front.product', $product->slug) }}" class="themeBtn">Add To Cart</a>
+                                                        <a href="{{ route('front.product', $product->slug) }}"
+                                                           class="themeBtn">Add To Cart</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -411,44 +348,15 @@
                             </div>
                         </div>
                         @foreach($categories->take(6) as $category)
-                            <div class="tab-pane fade" id="category-{{$category->id}}" role="tabpanel"
-                                 aria-labelledby="tab-{{$category->id}}">
+                            <div class="tab-pane fade" id="category-{{$category->id}}" role="tabpanel" aria-labelledby="tab-{{$category->id}}">
                                 <div class="swiper featureSlider">
-                                    <div class="swiper-wrapper">
-                                        @foreach($data['products']->where('category_id', $category->id)->take(20) as $product)
-                                            <div class="swiper-slide">
-                                                <div class="seller-card">
-                                                    <figure>
-                                                        <img src="{{asset('assets/images/products/'.$product->photo)}}"
-                                                             class="img-fluid" alt="img">
-                                                        <a href="#" class="heart">
-                                                            <i class="fal fa-heart"></i>
-                                                            <i class="fas fa-heart"></i>
-                                                        </a>
-                                                    </figure>
-                                                    <div class="seller-content">
-                                                        <h2>{{$product->name}}</h2>
-                                                        <p>{{$product->category->name}}</p>
-                                                        <div class="star">
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <span>({{$product->ratings ?? ''}})</span>
-                                                        </div>
-                                                        <h4>${{$product->price}}</h4>
-                                                        <div>
-                                                            <a href="{{ route('front.product', $product->slug) }}" class="themeBtn">Add To Cart</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
+                                    <div class="swiper-wrapper" id="category-products-{{$category->id}}">
+                                        <!-- Products for this category will be loaded here -->
                                     </div>
                                 </div>
                             </div>
                         @endforeach
+
                     </div>
                 </div>
             </div>
@@ -549,24 +457,24 @@
         <div class="swiper blogSlider" data-aos="fade-up">
             <div class="swiper-wrapper">
                 @foreach($data['blogs'] as $blog)
-                <div class="swiper-slide">
-                    <div class="blog-card">
-                        <figure class="blog-card_img">
-                            <img src="{{asset('assets/images/blogs/'.$blog->photo) ?? ''}}" alt="image"
-                                 class="img-fluid">
-                        </figure>
-                        <div class="blog-card__content">
-                            <h5 class="sub-heading">{{$blog->created_at->diffForHumans() ?? ''}}</h5>
-                            <h4>{{$blog->title ?? ''}}</h4>
-                            <p>
-                                {!! \Illuminate\Support\Str::limit($blog->details, 100, '...')  !!}
-                            </p>
-                            <div>
-                                <a href="{{route('front.blogshow',$blog->id)}}">read more</a>
+                    <div class="swiper-slide">
+                        <div class="blog-card">
+                            <figure class="blog-card_img">
+                                <img src="{{asset('assets/images/blogs/'.$blog->photo) ?? ''}}" alt="image"
+                                     class="img-fluid">
+                            </figure>
+                            <div class="blog-card__content">
+                                <h5 class="sub-heading">{{$blog->created_at->diffForHumans() ?? ''}}</h5>
+                                <h4>{{$blog->title ?? ''}}</h4>
+                                <p>
+                                    {!! \Illuminate\Support\Str::limit($blog->details, 500, '...')  !!}
+                                </p>
+                                <div>
+                                    <a href="{{route('front.blogshow',$blog->id)}}">read more</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 @endforeach
 
             </div>
@@ -628,85 +536,64 @@
         </div>
     </section>
 
-    <section class="brands-logo">
-        <div class="swiper logoSlider-one" data-aos="fade">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <figure class="brand-logo-img">
-                        <img src="{{asset('assets/new-layout/images/brnadlogo1.webp')}}" alt="image" class="img-fluid">
-                    </figure>
-                </div>
-                <div class="swiper-slide">
-                    <figure class="brand-logo-img">
-                        <img src="{{asset('assets/new-layout/images/brnadlogo2.webp')}}" alt="image" class="img-fluid">
-                    </figure>
-                </div>
-                <div class="swiper-slide">
-                    <figure class="brand-logo-img">
-                        <img src="{{asset('assets/new-layout/images/brnadlogo3.webp')}}" alt="image" class="img-fluid">
-                    </figure>
-                </div>
-                <div class="swiper-slide">
-                    <figure class="brand-logo-img">
-                        <img src="{{asset('assets/new-layout/images/brnadlogo4.webp')}}" alt="image" class="img-fluid">
-                    </figure>
-                </div>
-                <div class="swiper-slide">
-                    <figure class="brand-logo-img">
-                        <img src="{{asset('assets/new-layout/images/brnadlogo5.webp')}}" alt="image" class="img-fluid">
-                    </figure>
-                </div>
-                <div class="swiper-slide">
-                    <figure class="brand-logo-img">
-                        <img src="{{asset('assets/new-layout/images/brnadlogo6.webp')}}" alt="image" class="img-fluid">
-                    </figure>
-                </div>
-                <div class="swiper-slide">
-                    <figure class="brand-logo-img">
-                        <img src="{{asset('assets/new-layout/images/brnadlogo7.webp')}}" alt="image" class="img-fluid">
-                    </figure>
-                </div>
-            </div>
-        </div>
-        <div class="swiper logoSlider-two" data-aos="fade">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <figure class="brand-logo-img">
-                        <img src="{{asset('assets/new-layout/images/brnadlogo8.webp')}}" alt="image" class="img-fluid">
-                    </figure>
-                </div>
-                <div class="swiper-slide">
-                    <figure class="brand-logo-img">
-                        <img src="{{asset('assets/new-layout/images/brnadlogo9.webp')}}" alt="image" class="img-fluid">
-                    </figure>
-                </div>
-                <div class="swiper-slide">
-                    <figure class="brand-logo-img">
-                        <img src="{{asset('assets/new-layout/images/brnadlogo10.webp')}}" alt="image" class="img-fluid">
-                    </figure>
-                </div>
-                <div class="swiper-slide">
-                    <figure class="brand-logo-img">
-                        <img src="{{asset('assets/new-layout/images/brnadlogo11.webp')}}" alt="image" class="img-fluid">
-                    </figure>
-                </div>
-                <div class="swiper-slide">
-                    <figure class="brand-logo-img">
-                        <img src="{{asset('assets/new-layout/images/brnadlogo12.webp')}}" alt="image" class="img-fluid">
-                    </figure>
-                </div>
-                <div class="swiper-slide">
-                    <figure class="brand-logo-img">
-                        <img src="{{asset('assets/new-layout/images/brnadlogo13.webp')}}" alt="image" class="img-fluid">
-                    </figure>
-                </div>
-                <div class="swiper-slide">
-                    <figure class="brand-logo-img">
-                        <img src="{{asset('assets/new-layout/images/brnadlogo14.webp')}}" alt="image" class="img-fluid">
-                    </figure>
-                </div>
-            </div>
-        </div>
-    </section>
+
 
 @endsection
+@push('script')
+    <script>
+        $(document).ready(function() {
+            $('.nav-link').on('click', function() {
+                var categoryId = $(this).data('category-id');
+                if (categoryId) {
+                    $.ajax({
+                        url: "{{ route('category.products') }}",
+                        method: 'GET',
+                        data: { category_id: categoryId },
+                        success: function(response) {
+                            var productsHtml = '';
+                            response.forEach(function(product) {
+
+                                productsHtml += `
+                                <div class="swiper-slide">
+                                    <div class="seller-card">
+                                        <figure>
+                               @if(!empty($product->name) && file_exists(public_path('assets/images/products/'.$product->photo)))
+                                <img src="{{ asset('assets/images/products/'.$product->photo) }}" class="img-fluid" alt="img">
+@else
+                                <img src="{{ asset('assets/images/noimage.png') }}" class="img-fluid" alt="img">
+@endif
+
+
+                            </figure>
+                            <div class="seller-content">
+                                <h2>${product.name}</h2>
+                                            <p>${product.category.name}</p>
+                                            <div class="star">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <span>(${product.ratings || ''})</span>
+                                            </div>
+                                            <h4>$${product.price}</h4>
+                                            <div>
+                                                <a href="{{ route('front.product', '') }}/${product.slug}" class="themeBtn">Add To Cart</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            });
+                            $('#category-products-' + categoryId).html(productsHtml);
+                        },
+                        error: function(xhr) {
+                            console.error(xhr.responseText);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+@endpush

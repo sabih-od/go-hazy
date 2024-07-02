@@ -166,6 +166,7 @@
                                 </a>
                             </ul>
                         </div>
+
                         <div id="bigbazar-price-filter-list-1"
                              class="widget bigbazar_widget_price_filter_list widget_layered_nav widget-toggle mx-3">
                             <h2 class="widget-title">{{ __('New & Upcoming') }}</h2>
@@ -187,8 +188,10 @@
                                 {{--                                </li>--}}
                             </ul>
                         </div>
+
                     </div>
                 </div>
+
                 <div class="col-xl-9">
                     <div class="row align-items-center mb-4">
                         <div class="col-md-4">

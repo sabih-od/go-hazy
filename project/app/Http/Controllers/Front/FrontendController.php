@@ -99,6 +99,14 @@ class FrontendController extends FrontBaseController
         return view('new-layout.index', $data ,compact('new_categories','data'));
     }
 
+    public function fetchProducts(Request $request)
+    {
+        $categoryId = $request->input('category_id');
+        $products = Product::with('category')->where('category_id', $categoryId)->take(12)->get();
+
+        return response()->json($products);
+    }
+
     // Home Page Ajax Display
 
     public function extraIndex()
@@ -227,7 +235,8 @@ class FrontendController extends FrontBaseController
         if ($request->ajax()) {
             return view('front.ajax.blog', compact('blogs'));
         }
-        return view('frontend.blog', compact('blogs', 'bcats', 'tags'));
+//        return view('frontend.blog', compact('blogs', 'bcats', 'tags'));
+        return view('new-layout.blog', compact('blogs', 'bcats', 'tags'));
     }
 
     public function blogcategory(Request $request, $slug)
@@ -366,7 +375,8 @@ $blog = Blog::find($id);
         $ps = $this->ps;
         $faq = Faq::get();
 
-        return view('frontend.contact', compact('ps', 'faq'));
+//        return view('frontend.contact', compact('ps', 'faq'));
+        return view('new-layout.contact', compact('ps', 'faq'));
     }
 
 
@@ -566,7 +576,8 @@ $blog = Blog::find($id);
 
     public function about()
     {
-        return view('frontend.about');
+//        return view('frontend.about');
+        return view('new-layout.about');
     }
 
 
