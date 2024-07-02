@@ -319,9 +319,11 @@
                                             <div class="seller-card">
                                                 <figure>
                                                     @if(!empty($product->photo) && file_exists(public_path('assets/images/products/'.$product->photo )))
-                                                        <img src="{{asset('assets/images/products/'.$product->photo)}}" class="img-fluid" alt="img">
+                                                        <img src="{{asset('assets/images/products/'.$product->photo)}}"
+                                                             class="img-fluid" alt="img">
                                                     @else
-                                                        <img src="{{asset('assets/images/noimage.png')}}" class="img-fluid" alt="img">
+                                                        <img src="{{asset('assets/images/noimage.png')}}"
+                                                             class="img-fluid" alt="img">
                                                     @endif
                                                 </figure>
                                                 <div class="seller-content">
@@ -348,7 +350,8 @@
                             </div>
                         </div>
                         @foreach($categories->take(6) as $category)
-                            <div class="tab-pane fade" id="category-{{$category->id}}" role="tabpanel" aria-labelledby="tab-{{$category->id}}">
+                            <div class="tab-pane fade" id="category-{{$category->id}}" role="tabpanel"
+                                 aria-labelledby="tab-{{$category->id}}">
                                 <div class="swiper featureSlider">
                                     <div class="swiper-wrapper" id="category-products-{{$category->id}}">
                                         <!-- Products for this category will be loaded here -->
@@ -541,28 +544,25 @@
 @endsection
 @push('script')
     <script>
-        $(document).ready(function() {
-            $('.nav-link').on('click', function() {
+        $(document).ready(function () {
+            $('.nav-link').on('click', function () {
                 var categoryId = $(this).data('category-id');
                 if (categoryId) {
                     $.ajax({
                         url: "{{ route('category.products') }}",
                         method: 'GET',
-                        data: { category_id: categoryId },
-                        success: function(response) {
+                        data: {category_id: categoryId},
+                        success: function (response) {
                             var productsHtml = '';
-                            response.forEach(function(product) {
+                            response.forEach(function (product) {
+                                var imageUrl = product.photo ? "{{ asset('assets/images/products/') }}/" + product.photo : "{{ asset('assets/images/noimage.png') }}";
 
                                 productsHtml += `
+
                                 <div class="swiper-slide">
                                     <div class="seller-card">
                                         <figure>
-                               @if(!empty($product->photo) && file_exists(public_path('assets/images/products/'.$product->photo)))
-                                <img src="{{ asset('assets/images/products/'.$product->photo) }}" class="img-fluid" alt="img">
-@else
-                                <img src="{{ asset('assets/images/noimage.png') }}" class="img-fluid" alt="img">
-@endif
-
+                                                       <img src="${imageUrl}" class="img-fluid" alt="img">
 
                             </figure>
                             <div class="seller-content">
@@ -587,7 +587,7 @@
                             });
                             $('#category-products-' + categoryId).html(productsHtml);
                         },
-                        error: function(xhr) {
+                        error: function (xhr) {
                             console.error(xhr.responseText);
                         }
                     });
