@@ -61,6 +61,7 @@
 {{--</div>--}}
 <div class="row" id="filterByPrice">
     @forelse($data['prods']->reverse() as $item)
+
         @php
             $price = $item->price;
         @endphp
