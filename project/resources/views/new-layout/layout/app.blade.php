@@ -160,8 +160,14 @@
                 <div class="col-md-4">
                     <div class="cart-box">
                         <ul class="cart-list">
-                            <li><a href="#"><i class="fas fa-user"></i></a></li>
-                            <li><a href="#"><i class="fas fa-shopping-cart"></i><span>0</span></a></li>
+                            @if(\Illuminate\Support\Facades\Auth::check())
+                            <li><a href="{{route('user-dashboard')}}"><i class="fas fa-user"  style="color: green"></i></a></li>
+                            @else
+                                <li><a href="{{route('user.login.submit')}}"><i class="fas fa-user"></i></a></li>
+                            @endif
+                            <li><a href="{{route('front.cart')}}"><i class="fas fa-shopping-cart"></i> <span>
+                                            {{ \App\Helpers\CartHelper::getCartTotalQty() }}
+                                        </span></a></li>
                         </ul>
                         <div class="menuBar">
                             <button class="btn btn-menu ml-auto">
@@ -379,11 +385,16 @@
                 <div class="footerLinks">
                     <h3>Contact Us</h3>
                     <ul>
-                        <li><a href="">My Account</a></li>
-                        <li><a href="">Track Order</a></li>
+                        @if(\Illuminate\Support\Facades\Auth::check())
+                        <li><a href="{{route('user-dashboard')}}">My Account</a></li>
+                        <li><a href="{{route('user-order-track')}}">Track Order</a></li>
+                        @else
+                            <li><a href="{{route('user.login')}}">My Account</a></li>
+                            <li><a href="{{route('user.login')}}">Track Order</a></li>
+                        @endif
                         <li><a href="">Returns & Exchanges</a></li>
-                        <li><a href="">Shipping Protection Policy</a></li>
-                        <li><a href="">Contact Us</a></li>
+                        <li><a href="{{route('front.vendor', 'return')}}">Shipping Protection Policy</a></li>
+                        <li><a href="{{route('front.contact')}}">Contact Us</a></li>
                     </ul>
                 </div>
             </div>
