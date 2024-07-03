@@ -392,7 +392,7 @@
                             <li><a href="{{route('user.login')}}">My Account</a></li>
                             <li><a href="{{route('user.login')}}">Track Order</a></li>
                         @endif
-                        <li><a href="">Returns & Exchanges</a></li>
+                        <li><a href="{{route('front.vendor', 'terms')}}">Terms & Conditions</a></li>
                         <li><a href="{{route('front.vendor', 'return')}}">Shipping Protection Policy</a></li>
                         <li><a href="{{route('front.contact')}}">Contact Us</a></li>
                     </ul>
