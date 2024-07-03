@@ -181,7 +181,8 @@
                                 </figure>
                                 <div class="abouticonContent">
                                     <h5>Men and Women<br>Apparel:</h5>
-                                    <p>Discover your authentic style with our stylish and high-quality men's and women's apparel.</p>
+                                    <p>Discover your authentic style with our stylish and high-quality men's and women's
+                                        apparel.</p>
                                 </div>
                             </div>
                         </div>
@@ -192,7 +193,7 @@
                                 </figure>
                                 <div class="abouticonContent">
                                     <h5>Accessories:</h5>
-                                    <p>Complete your look from head to toe with accessories from Hazy by Tony. </p>
+                                    <p> Complete your look from head to toe with accessories from Hazy by Tony. </p>
                                 </div>
                             </div>
                         </div>
@@ -203,7 +204,7 @@
                                 </figure>
                                 <div class="abouticonContent">
                                     <h5>Sports &<br>Entertainment:</h5>
-                                    <p>Find top-notch sports gear from our sports and entertainment section. </p>
+                                    <p>   Find top-notch sports gear from our sports and entertainment section. </p>
                                 </div>
                             </div>
                         </div>
@@ -214,7 +215,7 @@
                                 </figure>
                                 <div class="abouticonContent">
                                     <h5>Consumer Electronics:</h5>
-                                    <p>Seeking durable electronics? Count on Hazy by Tony to deliver just that!</p>
+                                    <p>  Seeking durable electronics? Count on Hazy by Tony to deliver just that!</p>
                                 </div>
                             </div>
                         </div>
@@ -545,8 +546,8 @@
             <div class="row justify-content-center">
                 <div class="col-md-10">
                     <div class="refreshHeading white">
-                        <h2 data-aos="fade-right">Sign Up For Our Newsletter!</h2>
-                        <p data-aos="fade-up">By signing up for our newsletter, not only do you get 10% off your first order, but you also get to know about exciting offers, discounts, and new arrivals before others!</p>
+                        <h2 data-aos="fade-right">Sign Up for Our Newsletter!</h2>
+                        <p data-aos="fade-up">When you sign up for our newsletter, you not only receive a 10% discount on your first order but also gain early access to exciting offers, discounts, and new arrivals!</p>
                         <form action="" data-aos="fade-left">
                             <input type="text" placeholder="Your email address">
                             <button class="themeBtn">Sign Up</button>

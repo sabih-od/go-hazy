@@ -1379,6 +1379,7 @@ Route::group(['middleware' => 'maintenance'], function () {
     Route::post('/item/report', 'Front\CatalogController@report')->name('product.report');
 
     Route::get('/', 'Front\FrontendController@index')->name('front.index');
+    Route::get('/category/products', 'Front\FrontendController@fetchProducts')->name('category.products');
     Route::get('/view', 'Front\CartController@view_cart')->name('front.cart-view');
     Route::get('/extras', 'Front\FrontendController@extraIndex')->name('front.extraIndex');
     Route::get('/currency/{id}', 'Front\FrontendController@currency')->name('front.currency');
@@ -1386,7 +1387,7 @@ Route::group(['middleware' => 'maintenance'], function () {
     Route::get('/order/track/{id}', 'Front\FrontendController@trackload')->name('front.track.search');
     // BLOG SECTION
     Route::get('/blog', 'Front\FrontendController@blog')->name('front.blog');
-    Route::get('/blog/{slug}', 'Front\FrontendController@blogshow')->name('front.blogshow');
+    Route::get('/blog/{id}', 'Front\FrontendController@blogshow')->name('front.blogshow');
     Route::get('/blog/category/{slug}', 'Front\FrontendController@blogcategory')->name('front.blogcategory');
     Route::get('/blog/tag/{slug}', 'Front\FrontendController@blogtags')->name('front.blogtags');
     Route::get('/blog-search', 'Front\FrontendController@blogsearch')->name('front.blogsearch');

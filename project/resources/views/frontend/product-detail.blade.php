@@ -85,7 +85,6 @@
                         <p>{!! $productt->details !!}
                         </p>
 
-
                         {{--                        {{dd($variation)}}--}}
                         @foreach ($variation as $categoryName => $categoryItems)
                             <h2 class="mb-4">{{ $categoryName }}</h2>

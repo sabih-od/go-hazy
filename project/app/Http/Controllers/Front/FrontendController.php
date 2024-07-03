@@ -87,17 +87,24 @@ class FrontendController extends FrontBaseController
 
 
         $data['arrivals'] = ArrivalSection::where('status', 1)->get();
-        $data['products'] = Product::where('language_id', 1)->get();
+        $data['products'] = Product::where('status', 1)->orderBy('created_at','desc')->take(12)->get();
         $data['ratings'] = Rating::get();
         $data['categories'] = Category::where('status', 1)->get();
         $new_categories = Category::where('status', 1)
             ->whereIn('name', ['Fishing', 'Veterans', 'Office Security'])
             ->get();
-
-
         $data['blogs'] = Blog::where('language_id', $this->language->id)->latest()->take(3)->get();
 
-        return view('frontend.index', $data ,compact('new_categories'));
+//        return view('frontend.index', $data ,compact('new_categories'));
+        return view('new-layout.index', $data ,compact('new_categories','data'));
+    }
+
+    public function fetchProducts(Request $request)
+    {
+        $categoryId = $request->input('category_id');
+        $products = Product::with('category')->where('category_id', $categoryId)->take(12)->get();
+
+        return response()->json($products);
     }
 
     // Home Page Ajax Display
@@ -228,7 +235,8 @@ class FrontendController extends FrontBaseController
         if ($request->ajax()) {
             return view('front.ajax.blog', compact('blogs'));
         }
-        return view('frontend.blog', compact('blogs', 'bcats', 'tags'));
+//        return view('frontend.blog', compact('blogs', 'bcats', 'tags'));
+        return view('new-layout.blog', compact('blogs', 'bcats', 'tags'));
     }
 
     public function blogcategory(Request $request, $slug)
@@ -295,30 +303,31 @@ class FrontendController extends FrontBaseController
         return view('frontend.blog', compact('blogs', 'search', 'bcats', 'tags'));
     }
 
-    public function blogshow($slug)
+    public function blogshow($id)
     {
-
-
-        // BLOG TAGS
-        $tags = null;
-        $tagz = '';
-        $name = Blog::where('language_id', $this->language->id)->pluck('tags')->toArray();
-        foreach ($name as $nm) {
-            $tagz .= $nm . ',';
-        }
-        $tags = array_unique(explode(',', $tagz));
-        // BLOG CATEGORIES
-        $bcats = BlogCategory::where('language_id', $this->language->id)->get();
-        // BLOGS
-
-        $blog = Blog::where('slug', $slug)->first();
-
-        $blog->views = $blog->views + 1;
-        $blog->update();
-        // BLOG META TAG
-        $blog_meta_tag = $blog->meta_tag;
-        $blog_meta_description = $blog->meta_description;
-        return view('frontend.blogshow', compact('blog', 'bcats', 'tags', 'blog_meta_tag', 'blog_meta_description'));
+//dd($id);
+$blog = Blog::find($id);
+//        // BLOG TAGS
+//        $tags = null;
+//        $tagz = '';
+//        $name = Blog::where('language_id', $this->language->id)->pluck('tags')->toArray();
+//        foreach ($name as $nm) {
+//            $tagz .= $nm . ',';
+//        }
+//        $tags = array_unique(explode(',', $tagz));
+//        // BLOG CATEGORIES
+//        $bcats = BlogCategory::where('language_id', $this->language->id)->get();
+//        // BLOGS
+//
+//        $blog = Blog::where('slug', $slug)->first();
+//
+//        $blog->views = $blog->views + 1;
+//        $blog->update();
+//        // BLOG META TAG
+//        $blog_meta_tag = $blog->meta_tag;
+//        $blog_meta_description = $blog->meta_description;
+//        return view('frontend.blogshow', compact('blog', 'bcats', 'tags', 'blog_meta_tag', 'blog_meta_description'));
+        return view('frontend.blogshow', compact('blog'));
     }
 
     // -------------------------------- BLOG SECTION ENDS----------------------------------------
@@ -366,7 +375,8 @@ class FrontendController extends FrontBaseController
         $ps = $this->ps;
         $faq = Faq::get();
 
-        return view('frontend.contact', compact('ps', 'faq'));
+//        return view('frontend.contact', compact('ps', 'faq'));
+        return view('new-layout.contact', compact('ps', 'faq'));
     }
 
 
@@ -566,7 +576,8 @@ class FrontendController extends FrontBaseController
 
     public function about()
     {
-        return view('frontend.about');
+//        return view('frontend.about');
+        return view('new-layout.about');
     }
 
 

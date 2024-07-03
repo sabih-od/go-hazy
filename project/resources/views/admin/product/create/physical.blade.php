@@ -489,7 +489,7 @@
 																									{{ __('(Added with base price)') }}
 																								</span>
 																							</label>
-																							<input type="number" name="size_price[]" step="0.01" class="input-field" placeholder="{{ __('Size Price') }}" value="0" min="0.01">
+																							<input type="number" name="size_price[]" step="0.01" class="input-field" placeholder="{{ __('Size Price') }}" value="0" min="0">
 																						</div>
 																						<div class="col-md-3 col-sm-6">
 																							<label>

@@ -62,41 +62,58 @@ class ReadCsvFile implements ShouldQueue
                 $input['subcategory_id'] = null;
                 $input['childcategory_id'] = null;
 
-                $mcat = Category::firstOrCreate([
-                    'name' => $this->line[1]
-                ], [
-                    'slug' => Str::slug($this->line[1]),
-                    'language_id' => 1
-                ]);
-                if ($mcat->exists()) {
+                $mcat = null;
+                $scat = null;
+                $chcat = null;
+                if (isset($this->line[1]) && $this->line[1] != 'undefined') {
+                    $mcat = Category::where('id', $this->line[1])->first();
+
                     $input['category_id'] = $mcat->id;
 
-                    if ($this->line[2] != "") {
-                        $scat = Subcategory::firstOrCreate([
-                            'name' => $this->line[2],
-                            'category_id' => $mcat->id,
-                        ], [
-                            'slug' => Str::slug($this->line[2]),
-                            'language_id' => 1
-                        ]);
-                        if ($scat->exists()) {
-                            $input['subcategory_id'] = $scat->id;
+                } elseif (isset($this->line[2]) && $this->line[2] != 'undefined') {
+                    $scat = Subcategory::where('id', $this->line[2])->with('category')->first();
+                    $input['subcategory_id'] = $scat->id;
+                    $input['category_id'] = $scat->category->id;
 
-                            if ($this->line[3] != "") {
-                                $chcat = Childcategory::firstOrCreate([
-                                    'name' => $this->line[3],
-                                    'subcategory_id' => $scat->id,
-                                ], [
-                                    'slug' => Str::slug($this->line[3]),
-                                    'language_id' => 1
-                                ]);
+                } elseif (isset($this->line[3]) && $this->line[3] != 'undefined') {
+                    $chcat = Childcategory::where('id', $this->line[3])->with('subcategory.category')->first();
 
-                                if ($chcat->exists()) {
-                                    $input['childcategory_id'] = $chcat->id;
-                                }
-                            }
-                        }
-                    }
+                    $input['childcategory_id'] = $chcat->id;
+                    $input['subcategory_id'] = $chcat->subcategory->id;
+                    $input['category_id'] = $chcat->subcategory->category->id;
+                }
+
+//                REMODIFY CODE CAUSE OF SCRAPPER
+
+                if ($mcat || $scat || $chcat) {
+
+//                    $input['category_id'] = $mcat->id;
+//                    if ($this->line[2] != "") {
+//                        $scat = Subcategory::firstOrCreate([
+//                            'name' => $this->line[2],
+//                            'category_id' => $mcat->id,
+//                        ], [
+//                            'slug' => Str::slug($this->line[2]),
+//                            'language_id' => 1
+//                        ]);
+//                        if ($scat->exists()) {
+//                            $input['subcategory_id'] = $scat->id;
+//
+//                            if ($this->line[3] != "") {
+//                                $chcat = Childcategory::firstOrCreate([
+//                                    'name' => $this->line[3],
+//                                    'subcategory_id' => $scat->id,
+//                                ], [
+//                                    'slug' => Str::slug($this->line[3]),
+//                                    'language_id' => 1
+//                                ]);
+//
+//                                if ($chcat->exists()) {
+//                                    $input['childcategory_id'] = $chcat->id;
+//                                }
+//                            }
+//                        }
+//                    }
 
                     $input['photo'] = 'abc';
                     $input['name'] = $this->line[4];
@@ -119,6 +136,8 @@ class ReadCsvFile implements ShouldQueue
 
                     // Save Data
                     $data->fill($input)->save();
+                    dump("<br>" . __('Row No') . ": " . $data->id .$this->line[5] . " - " . $this->line[21] .  " - " . $this->line[22] . " - " . $this->line[23] . " - " . __('SaveProductImage') . "<br>");
+
                     SaveProductImage::dispatch($data->id, $this->line[5], $this->line[21], $this->line[22], $this->line[23]);
 
                 } else {

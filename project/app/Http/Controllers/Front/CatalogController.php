@@ -23,6 +23,7 @@ class CatalogController extends FrontBaseController
 
     public function category(Request $request, $slug = null, $slug1 = null, $slug2 = null)
     {
+
         /*dump(\DB::listen(function ($q) {
             echo $q->sql;
             echo print_r($q->bindings, 1);
@@ -33,7 +34,6 @@ class CatalogController extends FrontBaseController
         }
 
         //   dd(session::get('view'));
-
         $cat = null;
         $subcat = null;
         $childcat = null;
@@ -62,9 +62,8 @@ class CatalogController extends FrontBaseController
         $data['min'] = $minprice;
         $data['max'] = $maxprice;
         $data['title'] = $title;
-
-        $data['min'] = $minprice;
-        $data['max'] = $maxprice;
+//        $data['min'] = $minprice;
+//        $data['max'] = $maxprice;
 
         if (!empty($slug)) {
             $cat = Category::where('slug', $slug)->firstOrFail();
@@ -93,6 +92,7 @@ class CatalogController extends FrontBaseController
                 return false;
             });
 
+
         $prods = Product::when($cat, function ($query, $cat) {
             return $query->where('category_id', $cat->id);
         })
@@ -112,13 +112,18 @@ class CatalogController extends FrontBaseController
             ->when($search, function ($query, $search) {
                 return $query->where('name', 'like', '%' . $search . '%')->orWhere('name', 'like', $search . '%');
             })
-            ->when($minprice, function ($query, $minprice) {
-                return $query->where('price', '>=', $minprice);
+            ->when($request->has('minPrice'), function ($q) use ($minPrice) {
+                return $q->where('price', '>=', $minPrice);
             })
-            ->when($maxprice, function ($query, $maxprice) {
-                return $query->where('price', '<=', $maxprice);
+            ->when($request->has('maxPrice'), function ($q) use ($maxPrice) {
+                return $q->where('price', '<=', $maxPrice);
             })
-
+            ->when($request->has('min'), function ($q) use ($minprice) {
+                return $q->where('price', '>=', $minprice);
+            })
+            ->when($request->has('max'), function ($q) use ($maxprice) {
+                return $q->where('price', '<=', $maxprice);
+            })
             ->when($title, function ($query) use ($title) {
                 return $query->where('name', 'LIKE', '%' . $title . '%');
             })
@@ -260,33 +265,42 @@ class CatalogController extends FrontBaseController
         /*$prod = $prods->where('language_id', $this->language->id)->where('status', 1)
             ->get();*/
         // Pagination Work End
+if($request->input('maxPrice') AND $request->input('minPrice')){
+    $prods = $prods->where('language_id', $this->language->id)->where('status', 1)->get();
 
-        $prods = $prods->where('language_id', $this->language->id)->where('status', 1)->get()
-            ->reject(function ($item) {
-                if ($item->user_id != 0) {
-                    if ($item->user->is_vendor != 2) {
-                        return true;
-                    }
+
+    if ($sort == 'DESC') {
+        $data['prods'] = $prods->sortByDesc('price')->paginate(isset($pageby) ? $pageby : 12);
+    } elseif ($sort == 'ASC') {
+        $data['prods'] = $prods->sortBy('price')->paginate(isset($pageby) ? $pageby : 12);
+    }
+}else {
+    $prods = $prods->where('language_id', $this->language->id)->where('status', 1)->get()
+        ->reject(function ($item) {
+            if ($item->user_id != 0) {
+                if ($item->user->is_vendor != 2) {
+                    return true;
                 }
+            }
 
-                if (isset($_GET['max'])) {
-                    if ($item->vendorSizePrice() >= $_GET['max']) {
-                        return true;
-                    }
+            if (isset($_GET['max'])) {
+                if ($item->vendorSizePrice() >= $_GET['max']) {
+                    return true;
                 }
-                return false;
-            })->map(function ($item) {
-                $item->price = $item->vendorSizePrice();
-                return $item;
+            }
+            return false;
+        })->map(function ($item) {
+            $item->price = $item->vendorSizePrice();
+            return $item;
 
-            });
+        });
 
-        if ($sort == 'DESC') {
-            $data['prods'] = $prods->sortByDesc('price')->paginate(isset($pageby) ? $pageby : 12);
-        } elseif ($sort == 'ASC') {
-            $data['prods'] = $prods->sortBy('price')->paginate(isset($pageby) ? $pageby : 12);
-        }
-
+    if ($sort == 'DESC') {
+        $data['prods'] = $prods->sortByDesc('price')->paginate(isset($pageby) ? $pageby : 12);
+    } elseif ($sort == 'ASC') {
+        $data['prods'] = $prods->sortBy('price')->paginate(isset($pageby) ? $pageby : 12);
+    }
+}
 //        $data['prods']  = $prods->paginate(isset($pageby) ? $pageby : 12);
 
 
@@ -322,7 +336,10 @@ class CatalogController extends FrontBaseController
 //        if ($request->ajax()) {
 //        }
 
-        return view('frontend.product')->with([
+//        return view('frontend.product')->with([
+//            'data' => $data,
+//        ]);
+        return view('new-layout.shop')->with([
             'data' => $data,
         ]);
     }
