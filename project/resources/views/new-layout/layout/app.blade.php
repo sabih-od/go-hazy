@@ -101,26 +101,26 @@
                     <li><a href="{{route('front.blog')}}" class="nav-item">Blog</a></li>
                     <li><a href="{{route('front.contact')}}" class="nav-item">Contact Us</a></li>
                 </ul>
-                <p class="headline">FREE SHIPPING & FREE RETURNS!</p>
-                <ul class="deliver">
-                    <li>
-                        <a href="#">Deliver To</a>
-                    </li>
-                    <li>
-                        <div class="dropdown dropdown1">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="{{asset('assets/new-layout/images/flag.webp')}}" class="img-fluid"
-                                     alt="img">
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                <a href="{{route('front.vendor', 'return')}}"><p class="headline">FREE SHIPPING & FREE RETURNS!</p></a>
+{{--                <ul class="deliver">--}}
+{{--                    <li>--}}
+{{--                        <a href="#">Deliver To</a>--}}
+{{--                    </li>--}}
+{{--                    <li>--}}
+{{--                        <div class="dropdown dropdown1">--}}
+{{--                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"--}}
+{{--                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+{{--                                <img src="{{asset('assets/new-layout/images/flag.webp')}}" class="img-fluid"--}}
+{{--                                     alt="img">--}}
+{{--                            </button>--}}
+{{--                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">--}}
+{{--                                <a class="dropdown-item" href="#">Action</a>--}}
+{{--                                <a class="dropdown-item" href="#">Another action</a>--}}
+{{--                                <a class="dropdown-item" href="#">Something else here</a>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </li>--}}
+{{--                </ul>--}}
             </div>
         </div>
     </div>
