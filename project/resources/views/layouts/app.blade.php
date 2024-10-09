@@ -513,6 +513,8 @@
         toastr.success('{{ session()->get('success') }}');
     @endif
 </script>
+<script src="https://js.stripe.com/v3/"></script>
+
 {{-- Translator --}}
 <script type="text/javascript">
     function googleTranslateElementInit() {

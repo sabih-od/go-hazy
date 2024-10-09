@@ -22,7 +22,8 @@
     <!-- Begin: Step 2 -->
     <div class="checkOutStyle">
         <div class="container">
-            <form class="row formStyle checkoutform" id="" action="" method="POST">
+            {{--            <form class="row formStyle checkoutform" id="" action="" method="POST">--}}
+            <form class="row formStyle" id="" action="{{route('front.stripe.submit')}}" method="POST">
                 <div class="col-md-12">
                     <div class="title inner">
                         <h2>Billing Address</h2>
@@ -46,7 +47,7 @@
                 <div class="col-md-6">
                     <label>Phone</label>
                     <input type="tel" class="form-control" name="customer_phone"
-                           value="{{ Auth::check() ? Auth::user()->phone : '' }}">
+                           value="{{ Auth::check() ? Auth::user()->phone : '' }}" required>
                 </div>
                 @if(!Auth::check())
                     <div class="col-md-12">
@@ -74,28 +75,28 @@
                 <div class="col-md-12">
                     <label>address</label>
                     <input type="text" class="form-control" name="customer_address"
-                           value="{{ Auth::check() ? Auth::user()->address : '' }}">
+                           value="{{ Auth::check() ? Auth::user()->address : '' }}" required>
                 </div>
                 <div class="col-md-6">
                     <label>Country</label>
-                    <select name="customer_country" id="country" class="form-control">
+                    <select name="customer_country" id="country" class="form-control" required>
                         @include('includes.countries')
                     </select>
                 </div>
                 <div class="col-md-6">
                     <label>State/Province</label>
                     <input type="text" class="form-control" name="customer_state"
-                           value="{{ Auth::check() ? Auth::user()->state : '' }}">
+                           value="{{ Auth::check() ? Auth::user()->state : '' }}" required>
                 </div>
                 <div class="col-md-6">
                     <label>city</label>
                     <input type="text" class="form-control" name="customer_city"
-                           value="{{ Auth::check() ? Auth::user()->city : '' }}">
+                           value="{{ Auth::check() ? Auth::user()->city : '' }}" required>
                 </div>
                 <div class="col-md-6">
                     <label>Zip/Postal code</label>
                     <input type="text" class="form-control" name="customer_zip"
-                           value="{{ Auth::check() ? Auth::user()->zip : '' }}">
+                           value="{{ Auth::check() ? Auth::user()->zip : '' }}" required>
                 </div>
 
                 {{--Ship to a different address start--}}
@@ -105,8 +106,7 @@
                         <label for="ship_address">Ship to a different address? </label>
                     </div>
                 </div>
-
-                <div class="col-md-12" id="shipping_address_form">
+                <div class="col-md-12" id="shipping_address_form" style="display:none;">
                     <div class="row">
                         <div class="col-md-12">
                             <label for="shipping_address">ADDRESS</label>
@@ -207,91 +207,92 @@
                 <input type="hidden" name="user_id" id="user_id"
                        value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->id : '' }}">
 
-                <div class="payment-information mt-4">
-                    <h4 class="title">
-                        {{ __('Payment Info') }}
-                    </h4>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="nav flex-column" role="tablist"
-                                 aria-orientation="vertical">
-                                @foreach($gateways as $gt)
-                                    @if($gt->type == 'manual')
-                                        @if($digital == 0)
-                                            <a class="nav-link payment" data-val=""
-                                               data-show="{{$gt->showForm()}}"
-                                               data-form="{{ $gt->showCheckoutLink() }}"
-                                               data-href="{{ route('front.load.payment',['slug1' => $gt->showKeyword(),'slug2' => $gt->id]) }}"
-                                               id="v-pills-tab{{ $gt->id }}-tab"
-                                               data-toggle="pill"
-                                               href="#v-pills-tab{{ $gt->id }}" role="tab"
-                                               aria-controls="v-pills-tab{{ $gt->id }}"
-                                               aria-selected="false">
-                                                <div class="icon">
-                                                    <span class="radio"></span>
-                                                </div>
-                                                <p>
-                                                    {{ $gt->title }}
-                                                    @if($gt->subtitle != null)
-                                                        <small>
-                                                            {{ $gt->subtitle }}
-                                                        </small>
-                                                    @endif
-                                                </p>
-                                            </a>
-                                        @endif
-                                    @else
-                                        <a class="nav-link payment"
-                                           data-val="{{ $gt->keyword }}"
-                                           data-show="{{$gt->showForm()}}"
-                                           data-form="{{ $gt->showCheckoutLink() }}"
-                                           data-href="{{ route('front.load.payment',['slug1' => $gt->showKeyword(),'slug2' => $gt->id]) }}"
-                                           id="v-pills-tab{{ $gt->id }}-tab"
-                                           data-toggle="pill"
-                                           href="#v-pills-tab{{ $gt->id }}" role="tab"
-                                           aria-controls="v-pills-tab{{ $gt->id }}"
-                                           aria-selected="false">
-                                            <div class="icon">
-                                                <span class="radio"></span>
-                                            </div>
-                                            <p>
-                                                {{ $gt->name }}
-                                                @if($gt->information != null)
-                                                    <small>
-                                                        {{ $gt->getAutoDataText() }}
-                                                    </small>
-                                                @endif
-                                            </p>
-                                        </a>
-                                    @endif
-                                @endforeach
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="pay-area d-none">
-                                <div class="tab-content" id="v-pills-tabContent">
-                                    @foreach($gateways as $gt)
-                                        @if($gt->type == 'manual')
-                                            @if($digital == 0)
-                                                <div class="tab-pane fade"
-                                                     id="v-pills-tab{{ $gt->id }}"
-                                                     role="tabpanel"
-                                                     aria-labelledby="v-pills-tab{{ $gt->id }}-tab">
-                                                </div>
-                                            @endif
-                                        @else
-                                            <div class="tab-pane fade"
-                                                 id="v-pills-tab{{ $gt->id }}"
-                                                 role="tabpanel"
-                                                 aria-labelledby="v-pills-tab{{ $gt->id }}-tab">
-                                            </div>
-                                        @endif
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {{--                <div class="payment-information mt-4">--}}
+                {{--                    <h4 class="title">--}}
+                {{--                        {{ __('Payment Info') }}--}}
+                {{--                    </h4>--}}
+                {{--                    <div class="row">--}}
+                {{--                        <div class="col-lg-12">--}}
+                {{--                            <div class="nav flex-column" role="tablist"--}}
+                {{--                                 aria-orientation="vertical">--}}
+                {{--                                @foreach($gateways as $gt)--}}
+                {{--                                    @if($gt->type == 'manual')--}}
+                {{--                                        @if($digital == 0)--}}
+                {{--                                            <a class="nav-link payment" data-val=""--}}
+                {{--                                               data-show="{{$gt->showForm()}}"--}}
+                {{--                                               data-form="{{ $gt->showCheckoutLink() }}"--}}
+                {{--                                               data-href="{{ route('front.load.payment',['slug1' => $gt->showKeyword(),'slug2' => $gt->id]) }}"--}}
+                {{--                                               id="v-pills-tab{{ $gt->id }}-tab"--}}
+                {{--                                               data-toggle="pill"--}}
+                {{--                                               href="#v-pills-tab{{ $gt->id }}" role="tab"--}}
+                {{--                                               aria-controls="v-pills-tab{{ $gt->id }}"--}}
+                {{--                                               aria-selected="false">--}}
+                {{--                                                <div class="icon">--}}
+                {{--                                                    <span class="radio"></span>--}}
+                {{--                                                </div>--}}
+                {{--                                                <p>--}}
+                {{--                                                    {{ $gt->title }}--}}
+                {{--                                                    @if($gt->subtitle != null)--}}
+                {{--                                                        <small>--}}
+                {{--                                                            {{ $gt->subtitle }}--}}
+                {{--                                                        </small>--}}
+                {{--                                                    @endif--}}
+                {{--                                                </p>--}}
+                {{--                                            </a>--}}
+                {{--                                        @endif--}}
+                {{--                                    @else--}}
+                {{--                                        <a class="nav-link payment"--}}
+                {{--                                           data-val="{{ $gt->keyword }}"--}}
+                {{--                                           data-show="{{$gt->showForm()}}"--}}
+                {{--                                           data-form="{{ $gt->showCheckoutLink() }}"--}}
+                {{--                                           data-href="{{ route('front.load.payment',['slug1' => $gt->showKeyword(),'slug2' => $gt->id]) }}"--}}
+                {{--                                           id="v-pills-tab{{ $gt->id }}-tab"--}}
+                {{--                                           data-toggle="pill"--}}
+                {{--                                           href="#v-pills-tab{{ $gt->id }}" role="tab"--}}
+                {{--                                           aria-controls="v-pills-tab{{ $gt->id }}"--}}
+                {{--                                           aria-selected="false">--}}
+                {{--                                            <div class="icon">--}}
+                {{--                                                <span class="radio"></span>--}}
+                {{--                                            </div>--}}
+                {{--                                            <p>--}}
+                {{--                                                {{ $gt->name }}--}}
+                {{--                                                @if($gt->information != null)--}}
+                {{--                                                    <small>--}}
+                {{--                                                        {{ $gt->getAutoDataText() }}--}}
+                {{--                                                    </small>--}}
+                {{--                                                @endif--}}
+                {{--                                            </p>--}}
+                {{--                                        </a>--}}
+                {{--                                    @endif--}}
+                {{--                                @endforeach--}}
+                {{--                            </div>--}}
+                {{--                        </div>--}}
+                {{--                        <div class="col-lg-12">--}}
+                {{--                            <div class="pay-area d-none">--}}
+                {{--                                <div class="tab-content" id="v-pills-tabContent">--}}
+                {{--                                    @foreach($gateways as $gt)--}}
+                {{--                                        @if($gt->type == 'manual')--}}
+                {{--                                            @if($digital == 0)--}}
+                {{--                                                <div class="tab-pane fade"--}}
+                {{--                                                     id="v-pills-tab{{ $gt->id }}"--}}
+                {{--                                                     role="tabpanel"--}}
+                {{--                                                     aria-labelledby="v-pills-tab{{ $gt->id }}-tab">--}}
+                {{--                                                </div>--}}
+                {{--                                            @endif--}}
+                {{--                                        @else--}}
+                {{--                                            <div class="tab-pane fade"--}}
+                {{--                                                 id="v-pills-tab{{ $gt->id }}"--}}
+                {{--                                                 role="tabpanel"--}}
+                {{--                                                 aria-labelledby="v-pills-tab{{ $gt->id }}-tab">--}}
+                {{--                                            </div>--}}
+                {{--                                        @endif--}}
+                {{--                                    @endforeach--}}
+                {{--                                </div>--}}
+                {{--                            </div>--}}
+                {{--                        </div>--}}
+                {{--                    </div>--}}
+                {{--                </div>--}}
+
                 <div class="col-md-12 mt-4 text-center">
                     <button class="btnStyle" type="submit">proceed to checkout</button>
                 </div>
@@ -526,7 +527,7 @@
 
             // Hide Password and shipping Fields
             $('#password_fields').hide();
-            $('#shipping_address_form').hide();
+            // $('#shipping_address_form').hide();
 
             //show password fields when create account is checked
             $('input[name="pass_check"]').on('click', function () {
@@ -537,14 +538,7 @@
                 }
             });
 
-            // Show shipping fields when ship to a diffent address is checked
-            $('input[name="shipping_address_checked"]').on('click', function () {
-                if ($(this).prop('checked')) {
-                    $('#shipping_address_form').fadeIn();
-                } else {
-                    $('#shipping_address_form').hide();
-                }
-            });
+
 
             // Validate Coupon
             {{--$("#check-coupon-form").on('submit', function (e) {--}}
@@ -713,6 +707,16 @@
                 $('input[type="checkbox"]').not(this).prop('checked', false);
             });
 
+        });
+
+        // Show shipping fields when ship to a diffent address is checked
+        document.getElementById('ship_address').addEventListener('change', function () {
+            const shippingForm = document.getElementById('shipping_address_form');
+            if (this.checked) {
+                shippingForm.style.display = 'block';
+            } else {
+                shippingForm.style.display = 'none';
+            }
         });
     </script>
 @endsection

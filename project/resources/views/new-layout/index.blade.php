@@ -73,7 +73,9 @@
                 <div class="col-md-12">
                     <div class="swiper exploreSlider" data-aos="fade-up">
                         <div class="swiper-wrapper">
+
                             @foreach($categories as $category)
+
                                 <div class="swiper-slide">
                                     <div class="explore-card">
                                         <figure>

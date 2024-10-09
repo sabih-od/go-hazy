@@ -20,6 +20,7 @@ use Session;
 use OrderHelper;
 use Illuminate\Support\Str;
 
+
 class StripeController extends CheckoutBaseControlller
 {
     use PHPCustomMail;
@@ -37,9 +38,11 @@ class StripeController extends CheckoutBaseControlller
     {
 
         $input = $request->all();
+
+        session(['user_data' => $input]);
 //        dd($input);
 
-        $data = PaymentGateway::whereKeyword('stripe')->first();
+//        $data = PaymentGateway::whereKeyword('stripe')->first();
 
         $cart = new CartHelper();
         $cartData = $cart->getData();
@@ -169,37 +172,78 @@ class StripeController extends CheckoutBaseControlller
 
         // Validate Card Data
 
-        $validator = \Validator::make($request->all(), [
-            'cardNumber' => 'required',
-            'cardCVC' => 'required',
-            'month' => 'required',
-            'year' => 'required',
-        ]);
+//        $validator = \Validator::make($request->all(), [
+//            'cardNumber' => 'required',
+//            'cardCVC' => 'required',
+//            'month' => 'required',
+//            'year' => 'required',
+//        ]);
 
 
-        if ($validator->passes()) {
-            $stripe = Stripe::make(\Config::get('services.stripe.secret'));
-            try {
-                $token = $stripe->tokens()->create([
-                    'card' => [
-                        'number' => $input['cardNumber'],
-                        'exp_month' => $input['month'],
-                        'exp_year' => $input['year'],
-                        'cvc' => $input['cardCVC'],
+//        if ($validator->passes()) {
+
+        $lineItems = [];
+//dd($cartData);
+        foreach ($cartData as $item) {
+
+            $lineItems[] = [
+                'price_data' => [
+                    'currency' => 'usd',
+                    'product_data' => [
+                        'name' => $item['product']->name,
+                        'images' => [$item['image']],
                     ],
-                ]);
-                if (!isset($token['id'])) {
-                    return back()->with('error', __('Token Problem With Your Token.'));
-                }
+                    'unit_amount' => intval($item['show_price'] * 100),
+                ],
+                'quantity' => $item['qty'],
+            ];
+        }
+//dd($lineItems);
+//            $stripe = Stripe::make(\Config::get('services.stripe.secret'));
+        \Stripe\Stripe::setApiKey('sk_test_lUp78O7PgN08WC9UgNRhOCnr'); // Use environment variables for keys
+//dd('here');
 
-                $charge = $stripe->charges()->create([
-                    'card' => $token['id'],
-                    'currency' => $this->curr->name,
-                    'amount' => $item_amount,
-                    'description' => $item_name,
-                ]);
+        try {
 
-                if ($charge['status'] == 'succeeded') {
+            // Create a Stripe Checkout session
+            $session = \Stripe\Checkout\Session::create([
+                'payment_method_types' => ['card'],
+                'line_items' => $lineItems,
+                'mode' => 'payment',
+                'success_url' => route('checkout.success', ['status' => 'success']),
+
+                'cancel_url' => route('checkout.cancel'),
+            ]);
+//dd($session);
+            // Redirect to Stripe checkout session
+            return redirect($session->url);
+        } catch (\Stripe\Exception\ApiErrorException $e) {
+            // Handle API error
+            return redirect()->route('checkout.cancel')->with('error', $e->getMessage());
+        }
+//            dd('here');
+//            try {
+//                $token = $stripe->tokens()->create([
+//                    'card' => [
+//                        'number' => $input['cardNumber'],
+//                        'exp_month' => $input['month'],
+//                        'exp_year' => $input['year'],
+//                        'cvc' => $input['cardCVC'],
+//                    ],
+//                ]);
+//
+//                if (!isset($token['id'])) {
+//                    return back()->with('error', __('Token Problem With Your Token.'));
+//                }
+
+//                $charge = $stripe->charges()->create([
+//                    'card' => $token['id'],
+//                    'currency' => $this->curr->name,
+//                    'amount' => $item_amount,
+//                    'description' => $item_name,
+//                ]);
+
+//                if ($charge['status'] == 'succeeded') {
 
 //                    $oldCart = Session::get('cart');
 //                    $cart = new Cart($oldCart);
@@ -215,49 +259,49 @@ class StripeController extends CheckoutBaseControlller
 //                    $affilate_users = $temp_affilate_users == null ? null : json_encode($temp_affilate_users);
 
 
-                    $cart = json_encode($cartData);
-
-
-                    $order = new Order;
-                    $input['cart'] = $cart;
-                    $input['user_id'] = Auth::check() ? Auth::user()->id : NULL;
-                    $input['affilate_users'] = '0';
-                    $input['pay_amount'] = abs((float)$item_amount / (float)$this->curr->value);
-                    $input['order_number'] = $item_number;
-                    $input['wallet_price'] = $request->wallet_price / $this->curr->value;
-                    $input['payment_status'] = "Completed";
-                    $input['txnid'] = $charge['balance_transaction'];
-                    $input['charge_id'] = $charge['id'];
-                    $input['coupon_discount'] = ($d = abs($get_total_price - $total)) > 0 ? $d : 0;
+//                    $cart = json_encode($cartData);
+//
+//
+//                    $order = new Order;
+//                    $input['cart'] = $cart;
+//                    $input['user_id'] = Auth::check() ? Auth::user()->id : NULL;
+//                    $input['affilate_users'] = '0';
+//                    $input['pay_amount'] = abs((float)$item_amount / (float)$this->curr->value);
+//                    $input['order_number'] = $item_number;
+//                    $input['wallet_price'] = $request->wallet_price / $this->curr->value;
+//                    $input['payment_status'] = "Completed";
+//                    $input['txnid'] = $charge['balance_transaction'];
+//                    $input['charge_id'] = $charge['id'];
+//                    $input['coupon_discount'] = ($d = abs($get_total_price - $total)) > 0 ? $d : 0;
 //                    if($input['tax_type'] == 'state_tax'){
 //                        $input['tax_location'] = State::findOrFail($input['tax'])->state;
 //                    }else{
 //                        dd(Country::findOrFail(232)->country_name);
 //                        $input['tax_location'] = Country::findOrFail($input['tax'])->country_name;
 //                    }
-                    $input['tax'] = Session::get('current_tax') ?? '0';
+//                    $input['tax'] = Session::get('current_tax') ?? '0';
 
 //                    dd($input);
-                    if ($input['dp'] == 1) {
-                        $input['status'] = 'completed';
-                    }
-                    if (Session::has('affilate')) {
-                        $val = $request->total / $this->curr->value;
-                        $val = $val / 100;
-                        $sub = $val * $this->gs->affilate_charge;
-
-                        if ($sub > 0) {
-                            $user = OrderHelper::affilate_check(Session::get('affilate'), $sub, $input['dp']); // For Affiliate Checking
-                            $input['affilate_user'] = Session::get('affilate');
-                            $input['affilate_charge'] = $sub;
-                        }
-
-                    }
+//                    if ($input['dp'] == 1) {
+//                        $input['status'] = 'completed';
+//                    }
+//                    if (Session::has('affilate')) {
+//                        $val = $request->total / $this->curr->value;
+//                        $val = $val / 100;
+//                        $sub = $val * $this->gs->affilate_charge;
+//
+//                        if ($sub > 0) {
+//                            $user = OrderHelper::affilate_check(Session::get('affilate'), $sub, $input['dp']); // For Affiliate Checking
+//                            $input['affilate_user'] = Session::get('affilate');
+//                            $input['affilate_charge'] = $sub;
+//                        }
+//
+//                    }
 //                    dd($input);
 
-                    $order->fill($input)->save();
-                    $order->tracks()->create(['order_id' => $order->id, 'title' => 'Pending', 'text' => 'You have successfully placed your order.']);
-                    $order->notifications()->create();
+//                    $order->fill($input)->save();
+//                    $order->tracks()->create(['order_id' => $order->id, 'title' => 'Pending', 'text' => 'You have successfully placed your order.']);
+//                    $order->notifications()->create();
 
 //                    if (!is_null($get_veteran_percentage)) {
 //                        $get_veteran_percentage->order_id = $order->id;
@@ -266,26 +310,26 @@ class StripeController extends CheckoutBaseControlller
 //                    }
 
 
-                    if ($input['coupon_id'] != "") {
-                        OrderHelper::coupon_check($input['coupon_id']); // For Coupon Checking
-                    }
-
-                    OrderHelper::size_qty_check($cart); // For Size Quantiy Checking
-                    OrderHelper::stock_check($cart); // For Stock Checking
-                    OrderHelper::vendor_order_check($cart, $order); // For Vendor Order Checking
-
-                    Session::put('temporder', $order);
-                    Session::put('tempcart', $cart);
-                    Session::forget('cart');
-                    Session::forget('already');
-                    Session::forget('coupon');
-                    Session::forget('coupon_total');
-                    Session::forget('coupon_total1');
-                    Session::forget('coupon_percentage');
-
-                    if ($order->user_id != 0 && $order->wallet_price != 0) {
-                        OrderHelper::add_to_transaction($order, $order->wallet_price); // Store To Transactions
-                    }
+//                    if ($input['coupon_id'] != "") {
+//                        OrderHelper::coupon_check($input['coupon_id']); // For Coupon Checking
+//                    }
+//
+//                    OrderHelper::size_qty_check($cart); // For Size Quantiy Checking
+//                    OrderHelper::stock_check($cart); // For Stock Checking
+//                    OrderHelper::vendor_order_check($cart, $order); // For Vendor Order Checking
+//
+//                    Session::put('temporder', $order);
+//                    Session::put('tempcart', $cart);
+//                    Session::forget('cart');
+//                    Session::forget('already');
+//                    Session::forget('coupon');
+//                    Session::forget('coupon_total');
+//                    Session::forget('coupon_total1');
+//                    Session::forget('coupon_percentage');
+//
+//                    if ($order->user_id != 0 && $order->wallet_price != 0) {
+//                        OrderHelper::add_to_transaction($order, $order->wallet_price); // Store To Transactions
+//                    }
 
 //                    //Sending Email To Buyer
 //                    $data = [
@@ -312,54 +356,196 @@ class StripeController extends CheckoutBaseControlller
 //                    $mailer->sendCustomMail($data);
 
 
-                    //Sending Email To Admin
-                    $to = $this->ps->contact_email;
-                    $from = 'noreply@gohazy.com';
-                    $subject = "New Order Recieved!!";
-                    $msg = "Hello Admin!<br>Your store has received a new order.<br>Order Number is " . $order->order_number . ".Please login to your panel to check. <br>Thank you." . ".<br>";
-                    $msg .= "Customer Name: " . $order->customer_name . ".<br>";
-                    $msg .= "Customer Phone: " . $order->customer_phone . ".<br>";
-                    $msg .= "Customer Address: " . $order->customer_address . ".<br>";
-                    $msg .= "Total Amount: " . (($order->pay_amount) + $order->coupon_discount) . ".<br>";
-                    $msg .= "Discount: " . $order->coupon_discount . ".<br>";
-                    $msg .= "Paid Amount: " . ($order->pay_amount + $order->wallet_price) . ".<br>";
-                    $msg .= "Quantity: " . $order->totalQty . ".<br>";
+        //Sending Email To Admin
+//                    $to = $this->ps->contact_email;
+//                    $from = 'noreply@gohazy.com';
+//                    $subject = "New Order Recieved!!";
+//                    $msg = "Hello Admin!<br>Your store has received a new order.<br>Order Number is " . $order->order_number . ".Please login to your panel to check. <br>Thank you." . ".<br>";
+//                    $msg .= "Customer Name: " . $order->customer_name . ".<br>";
+//                    $msg .= "Customer Phone: " . $order->customer_phone . ".<br>";
+//                    $msg .= "Customer Address: " . $order->customer_address . ".<br>";
+//                    $msg .= "Total Amount: " . (($order->pay_amount) + $order->coupon_discount) . ".<br>";
+//                    $msg .= "Discount: " . $order->coupon_discount . ".<br>";
+//                    $msg .= "Paid Amount: " . ($order->pay_amount + $order->wallet_price) . ".<br>";
+//                    $msg .= "Quantity: " . $order->totalQty . ".<br>";
 //                    $msg .= "Item: " . $oldCart->item->name . ".<br>";
-                    $msg .= "Regards: <br>";
-                    $msg .= "<b>Team HAZY BY TONY</b>";
+//                    $msg .= "Regards: <br>";
+//                    $msg .= "<b>Team HAZY BY TONY</b>";
 
-                    $this->customMail($from, $to, $subject, $msg);
+//                    $this->customMail($from, $to, $subject, $msg);
 
-                    //Sending Email To Buyer
-                    $to = $order->customer_email;
-                    $from = 'noreply@gohazy.com';
-                    $subject = "Your Order Has Been Placed";
-                    $msg = "Hi... " . $order->customer_name . ".<br>";
-                    $msg .= "Phone: " . $order->customer_phone . ".<br>";
-                    $msg .= "Address: " . $order->customer_address . ".<br>";
-                    $msg .= "Total Amount: " . (($order->pay_amount) + $order->coupon_discount) . ".<br>";
-                    $msg .= "Discount: " . $order->coupon_discount . ".<br>";
-                    $msg .= "Paid Amount: " . ($order->pay_amount + $order->wallet_price) . ".<br>";
-                    $msg .= "Quantity: " . $order->totalQty . ".<br>";
+        //Sending Email To Buyer
+//                    $to = $order->customer_email;
+//                    $from = 'noreply@gohazy.com';
+//                    $subject = "Your Order Has Been Placed";
+//                    $msg = "Hi... " . $order->customer_name . ".<br>";
+//                    $msg .= "Phone: " . $order->customer_phone . ".<br>";
+//                    $msg .= "Address: " . $order->customer_address . ".<br>";
+//                    $msg .= "Total Amount: " . (($order->pay_amount) + $order->coupon_discount) . ".<br>";
+//                    $msg .= "Discount: " . $order->coupon_discount . ".<br>";
+//                    $msg .= "Paid Amount: " . ($order->pay_amount + $order->wallet_price) . ".<br>";
+//                    $msg .= "Quantity: " . $order->totalQty . ".<br>";
 //                    $msg .= "Item: " . $oldCart->item->name . ".<br>";
-                    $msg .= "Regards: <br>";
-                    $msg .= "<b>Team HAZY BY TONY</b>";
+//                    $msg .= "Regards: <br>";
+//                    $msg .= "<b>Team HAZY BY TONY</b>";
+//
+//                    $this->customMail($from, $to, $subject, $msg);
+//
+//                    return redirect($success_url);
 
-                    $this->customMail($from, $to, $subject, $msg);
+//                }
+//
+//            } catch (Exception $e) {
+//                return back()->with('unsuccess', $e->getMessage());
+//            } catch (\Cartalyst\Stripe\Exception\CardErrorException $e) {
+//                return back()->with('unsuccess', $e->getMessage());
+//            } catch (\Cartalyst\Stripe\Exception\MissingParameterException $e) {
+//                return back()->with('unsuccess', $e->getMessage());
+//            }
+//        }
+//        return back()->with('unsuccess', __('Please Enter Valid Credit Card Informations.'));
 
-                    return redirect($success_url);
+    }
 
-                }
+    public function checkoutSuccess(Request $request)
+    {
 
-            } catch (Exception $e) {
-                return back()->with('unsuccess', $e->getMessage());
-            } catch (\Cartalyst\Stripe\Exception\CardErrorException $e) {
-                return back()->with('unsuccess', $e->getMessage());
-            } catch (\Cartalyst\Stripe\Exception\MissingParameterException $e) {
-                return back()->with('unsuccess', $e->getMessage());
+        $cart = new CartHelper();
+        $cartData = $cart->getData();
+        $lineItems = [];
+
+        // Initialize total
+        $total = 0;
+        $totalQty = 0;
+        foreach ($cartData as $item) {
+            if (isset($item['show_price'])) {
+                $total += $item['show_price'];
+            }
+            if (isset($item['qty'])) {
+                $totalQty += $item['qty'];
             }
         }
-        return back()->with('unsuccess', __('Please Enter Valid Credit Card Informations.'));
+        $item_number = Str::random(4) . time();
+        // Convert cart data to JSON
+        $cart = json_encode($cartData);
 
+        try {
+
+            $order = Order::create([
+                'cart' => $cart,
+                'user_id' => Auth::id(),
+                'totalQty' => $totalQty,
+                'affilate_users' => '0',
+                'pay_amount' => $total,
+                'order_number' => $item_number,
+                'customer_email' => Auth::user()->email,
+                'customer_name' => Auth::user()->name,
+                'customer_country' => Session::get('user_data')['customer_country'],
+                'customer_phone' => Session::get('user_data')['customer_phone'],
+                'customer_address' => Session::get('user_data')['customer_address'],
+                'wallet_price' => 0,
+                'payment_status' => 'Completed',
+                'txnid' => '0',
+                'charge_id' => '0',
+                'coupon_discount' => 0,
+                'tax_location' => '0',
+                'tax' => '0',
+                'currency_sign' => "$",
+                'currency_name' => "Dollar",
+                'currency_value' => "0",
+                'shipping_cost' => "0",
+            ]);
+        \Illuminate\Support\Facades\Session::forget('user_data');
+
+//
+//
+
+//                'user_id' => Auth::check() ? Auth::user()->id : null,
+//                'affilate_users' => '0',
+//                'pay_amount' => abs((float)$total / (float)$this->curr->value),
+//                'order_number' => $item_number,
+//                'wallet_price' => $request->wallet_price / $this->curr->value,
+//                'payment_status' => "Completed",
+//                'tax' => Session::get('current_tax') ?? '0',
+//                'status' => 'completed',
+//            ];
+
+            // Affiliate and coupon checks
+//            if (Session::has('affilate')) {
+//                $val = $request->total / $this->curr->value;
+//                $val = $val / 100;
+//                $sub = $val * $this->gs->affilate_charge;
+//
+//                if ($sub > 0) {
+//                    $user = OrderHelper::affilate_check(Session::get('affilate'), $sub, $input['dp']);
+//                    $input['affilate_user'] = Session::get('affilate');
+//                    $input['affilate_charge'] = $sub;
+//                }
+//            }
+
+            // Save the order and related data
+
+//            dd($order);
+            $order->tracks()->create(['order_id' => $order->id, 'title' => 'Pending', 'text' => 'You have successfully placed your order.']);
+            $order->notifications()->create();
+
+            // Clear session data
+            Session::forget(['cart', 'already', 'coupon', 'coupon_total', 'coupon_percentage']);
+
+            // Additional logic for transactions and emails can be added here
+//            if ($order->user_id != 0 && $order->wallet_price != 0) {
+//                OrderHelper::add_to_transaction($order, $order->wallet_price); // Store to Transactions
+//            }
+
+            // Sending email notifications
+            $this->sendEmailNotifications($order);
+            return redirect()->route('front.payment.return')->with('success', 'Your Order Has Been Placed Successfully');
+        } catch (\Exception $e) {
+            Log::error('Checkout Success Error: ' . $e->getMessage());
+            return back()->with('error', 'An error occurred while processing your order. Please try again.');
+        }
+    }
+
+// Function to handle email notifications
+    private function sendEmailNotifications($order)
+    {
+
+        // Email to Admin
+        $to = $this->ps->contact_email;
+        $from = 'noreply@gohazy.com';
+        $subject = "New Order Received!!";
+        $msg = "Hello Admin!<br>Your store has received a new order.<br>Order Number is " . $order->order_number . ". Please login to your panel to check. <br>Thank you." . "<br>";
+        $msg .= "Customer Name: " . $order->customer_name . ".<br>";
+        $msg .= "Customer Phone: " . $order->customer_phone . ".<br>";
+        $msg .= "Customer Address: " . $order->customer_address . ".<br>";
+        $msg .= "Total Amount: " . (($order->pay_amount) + $order->coupon_discount) . ".<br>";
+        $msg .= "Discount: " . $order->coupon_discount . ".<br>";
+        $msg .= "Paid Amount: " . ($order->pay_amount + $order->wallet_price) . ".<br>";
+        $msg .= "Quantity: " . $order->totalQty . ".<br>";
+        $msg .= "Regards: <br>";
+        $msg .= "<b>Team HAZY BY TONY</b>";
+
+        $this->customMail($from, $to, $subject, $msg);
+
+        // Email to Buyer
+        $to = $order->customer_email;
+        $subject = "Your Order Has Been Placed";
+        $msg = "Hi... " . $order->customer_name . ".<br>";
+        $msg .= "Phone: " . $order->customer_phone . ".<br>";
+        $msg .= "Address: " . $order->customer_address . ".<br>";
+        $msg .= "Total Amount: " . (($order->pay_amount) + $order->coupon_discount) . ".<br>";
+        $msg .= "Discount: " . $order->coupon_discount . ".<br>";
+        $msg .= "Paid Amount: " . ($order->pay_amount + $order->wallet_price) . ".<br>";
+        $msg .= "Quantity: " . $order->totalQty . ".<br>";
+        $msg .= "Regards: <br>";
+        $msg .= "<b>Team HAZY BY TONY</b>";
+
+        $this->customMail($from, $to, $subject, $msg);
+    }
+
+
+    public function checkoutCancel()
+    {
+        dd('Orhere');
     }
 }

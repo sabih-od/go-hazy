@@ -5,6 +5,7 @@
 
 use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\FrontendController;
+use App\Http\Controllers\Payment\Checkout\StripeController;
 use App\Models\Order;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -872,8 +873,8 @@ Route::prefix('admin')->group(function () {
     // STATUS SECTION ENDS
 
     // FEATURE SECTION
-    Route::get('/products/feature/{id}', 'Admin\ProductController@feature')->name('admin-prod-feature');
-    Route::post('/products/feature/{id}', 'Admin\ProductController@featuresubmit')->name('admin-prod-feature');
+    Route::get('/products/feature/{id}', 'Admin\ProductController@feature')->name('admin-prod-feature.prod');
+    Route::post('/products/feature/{id}/form', 'Admin\ProductController@featuresubmit')->name('admin-prod-feature');
     // FEATURE SECTION ENDS
 
     // GALLERY SECTION ------------
@@ -1193,7 +1194,7 @@ Route::group(['middleware' => 'maintenance'], function () {
         // User Wishlist Ends
 
         // User Review
-        Route::post('/review/submit', 'User\UserController@reviewsubmit')->name('front.review.submit');
+        Route::post('/review/submit', 'User\UserController@reviewsubmit')->name('front.review.submit.user');
         // User Review Ends
 
         // User Orders
@@ -1492,7 +1493,8 @@ Route::group(['middleware' => 'maintenance'], function () {
 
     // Stripe
     Route::post('/checkout/payment/stripe-submit', 'Payment\Checkout\StripeController@store')->name('front.stripe.submit');
-
+    Route::get('/upgrade/checkout/{status}', [StripeController::class, 'checkoutSuccess'])->name('checkout.success');
+    Route::get('/upgrade/cancel', [StripeController::class, 'checkoutCancel'])->name('checkout.cancel');
     // Instamojo
     Route::post('/checkout/payment/instamojo-submit', 'Payment\Checkout\InstamojoController@store')->name('front.instamojo.submit');
     Route::get('/checkout/payment/instamojo-notify', 'Payment\Checkout\InstamojoController@notify')->name('front.instamojo.notify');

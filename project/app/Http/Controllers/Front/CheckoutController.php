@@ -389,17 +389,20 @@ class CheckoutController extends FrontBaseController
 
     public function payreturn()
     {
-        if (Session::has('tempcart')) {
+        $order = Order::where('user_id', \Illuminate\Support\Facades\Auth::id())->latest()->first();
 
-            $order = Session::get('temporder');
-            $tempcart = Session::get('temporder')->cart;
 
-        } else {
-            $tempcart = '';
-            return redirect()->back();
-        }
+//        if (Session::has('tempcart')) {
+//
+//            $order = Session::get('temporder');
+//            $tempcart = Session::get('temporder')->cart;
+//
+//        } else {
+//            $tempcart = '';
+//            return redirect()->back();
+//        }
 
-        return view('frontend.success', compact('tempcart', 'order'));
+        return view('frontend.success', compact( 'order'));
     }
 
 
