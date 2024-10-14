@@ -26,8 +26,8 @@
                                 <div class="swiper-slide">
                                     <img src="{{asset('assets/images/sliders/'.($slider->photo ?? ''))}}"
                                          class="w-100 radius-img" alt="img">
-{{--                                    <img src="{{asset('assets/new-layout/images/slidebg1.webp')}}"--}}
-{{--                                         class="w-100 radius-img" alt="img">--}}
+                                    {{--                                    <img src="{{asset('assets/new-layout/images/slidebg1.webp')}}"--}}
+                                    {{--                                         class="w-100 radius-img" alt="img">--}}
                                     <div class="slide-inner">
                                         <div class="row align-items-center">
                                             <div class="col-md-6">
@@ -48,10 +48,13 @@
                                                     </div>
                                                 </div>
                                             </div>
-{{--                                            <div class="col-md-6">--}}
-{{--                                                <figure><img src="{{asset('assets/new-layout/images/slideimg.webp')}}"--}}
-{{--                                                             class="img-fluid" alt="img"></figure>--}}
-{{--                                            </div>--}}
+                                            @if($slider->subtitle_text != null)
+                                                <div class="col-md-6">
+                                                    <figure><img
+                                                            src="{{asset('assets/new-layout/images/slideimg.webp')}}"
+                                                            class="img-fluid" alt="img"></figure>
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -444,7 +447,7 @@
                 </div>
             </div>
             <figure class="what-we-offer-img mt-5" data-aos="zoom-out">
-                <img src="{{asset('assets/new-layout/images/what-we-offer-img.webp')}}" alt="image" class="img-fluid">
+                <img src="{{asset('assets/new-layout/images/what-we-offer-img.png')}}" alt="image" class="img-fluid">
             </figure>
         </div>
     </section>
@@ -568,17 +571,17 @@
                 breakpoints: {
                     320: {
                         slidesPerView: 1, // Single slide per row on smaller screens
-                        grid: { rows: 2 },
+                        grid: {rows: 2},
                         spaceBetween: 10,
                     },
                     768: {
                         slidesPerView: 2, // Two slides per row on medium screens
-                        grid: { rows: 2 },
+                        grid: {rows: 2},
                         spaceBetween: 15,
                     },
                     1024: {
                         slidesPerView: 4, // Four slides per row on larger screens
-                        grid: { rows: 2 },
+                        grid: {rows: 2},
                         spaceBetween: 20,
                     },
                 },
@@ -591,7 +594,7 @@
                     $.ajax({
                         url: "{{ route('category.products') }}",
                         method: 'GET',
-                        data: { category_id: categoryId },
+                        data: {category_id: categoryId},
                         success: function (response) {
                             var productsHtml = '';
                             response.forEach(function (product) {
@@ -649,17 +652,17 @@
                                 breakpoints: {
                                     320: {
                                         slidesPerView: 1, // Single slide per row on smaller screens
-                                        grid: { rows: 2 },
+                                        grid: {rows: 2},
                                         spaceBetween: 10,
                                     },
                                     768: {
                                         slidesPerView: 2, // Two slides per row on medium screens
-                                        grid: { rows: 2 },
+                                        grid: {rows: 2},
                                         spaceBetween: 15,
                                     },
                                     1024: {
                                         slidesPerView: 4, // Four slides per row on larger screens
-                                        grid: { rows: 2 },
+                                        grid: {rows: 2},
                                         spaceBetween: 20,
                                     },
                                 },

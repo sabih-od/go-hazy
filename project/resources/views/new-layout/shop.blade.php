@@ -190,7 +190,7 @@
                             <span>Showing 1–16 of 72 results</span>
                         </div>
                         <select>
-                            <option>Short by Latest</option>
+                            <option>Sort by Latest</option>
                         </select>
                     </div>
 
