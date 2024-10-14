@@ -24,8 +24,10 @@
                             @foreach($data['sliders'] as $slider)
                                 {{--                                @dd($slider)--}}
                                 <div class="swiper-slide">
-                                    <img src="{{asset('assets/new-layout/images/slidebg1.webp')}}"
+                                    <img src="{{asset('assets/images/sliders/'.($slider->photo ?? ''))}}"
                                          class="w-100 radius-img" alt="img">
+{{--                                    <img src="{{asset('assets/new-layout/images/slidebg1.webp')}}"--}}
+{{--                                         class="w-100 radius-img" alt="img">--}}
                                     <div class="slide-inner">
                                         <div class="row align-items-center">
                                             <div class="col-md-6">
@@ -46,10 +48,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <figure><img src="{{asset('assets/new-layout/images/slideimg.webp')}}"
-                                                             class="img-fluid" alt="img"></figure>
-                                            </div>
+{{--                                            <div class="col-md-6">--}}
+{{--                                                <figure><img src="{{asset('assets/new-layout/images/slideimg.webp')}}"--}}
+{{--                                                             class="img-fluid" alt="img"></figure>--}}
+{{--                                            </div>--}}
                                         </div>
                                     </div>
                                 </div>
