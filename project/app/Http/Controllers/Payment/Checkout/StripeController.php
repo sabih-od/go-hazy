@@ -198,10 +198,9 @@ class StripeController extends CheckoutBaseControlller
                 'quantity' => $item['qty'],
             ];
         }
-//dd($lineItems);
-//            $stripe = Stripe::make(\Config::get('services.stripe.secret'));
-        \Stripe\Stripe::setApiKey('sk_test_lUp78O7PgN08WC9UgNRhOCnr'); // Use environment variables for keys
-//dd('here');
+
+
+        \Stripe\Stripe::setApiKey(config('app.stripe.secret_key'));
 
         try {
 
