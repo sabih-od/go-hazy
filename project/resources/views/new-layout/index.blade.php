@@ -373,7 +373,6 @@
         </div>
     </section>
 
-
     <section class="what-we-offer pb-0">
         <div class="container">
             <div class="title text-center mb-4">
@@ -381,22 +380,34 @@
                 <h3 class="heading" data-aos="fade-up">What We Offer At Hazy by Tony</h3>
             </div>
             <div class="row justify-content-center">
+@php
+$beauty = \App\Models\Category::where('slug','beauty-health-hair')->first();
+
+@endphp
                 <div class="col-lg-4" data-aos="zoom-in">
                     <div class="offer-card">
+                        <a href="{{route('front.category',$beauty->slug)}}">
                         <figure class="offer-card__icon"><img
                                 src="{{asset('assets/new-layout/images/offer-icon1.webp')}}" alt="image"
                                 class="img-fluid"></figure>
+                    </a>
                         <div class="offer-card__content">
                             <h4>Beauty & Cosmetics:</h4>
                             <p>Embrace confidence and good looks with our beauty and cosmetics range.</p>
                         </div>
                     </div>
                 </div>
+                @php
+                    $menWomen = \App\Models\Category::where('slug','mens-fashion')->first();
+
+                @endphp
                 <div class="col-lg-4" data-aos="zoom-in">
                     <div class="offer-card">
+                        <a href="{{route('front.category',$menWomen->slug)}}">
                         <figure class="offer-card__icon"><img
                                 src="{{asset('assets/new-layout/images/offer-icon2.webp')}}" alt="image"
                                 class="img-fluid"></figure>
+                        </a>
                         <div class="offer-card__content">
                             <h4>Men and Women Apparel:</h4>
                             <p>
@@ -408,9 +419,15 @@
                 </div>
                 <div class="col-lg-4" data-aos="zoom-in">
                     <div class="offer-card">
+                        @php
+                            $accessories = \App\Models\Category::where('slug','jewelry-watches')->first();
+
+                        @endphp
+                        <a href="{{route('front.category',$accessories->slug)}}">
                         <figure class="offer-card__icon"><img
                                 src="{{asset('assets/new-layout/images/offer-icon3.webp')}}" alt="image"
                                 class="img-fluid"></figure>
+                        </a>
                         <div class="offer-card__content">
                             <h4>Accessories:</h4>
                             <p>
@@ -421,9 +438,15 @@
                 </div>
                 <div class="col-lg-4" data-aos="zoom-in">
                     <div class="offer-card">
+                        @php
+                            $sports = \App\Models\Category::where('slug','outdoor-fun-sports')->first();
+
+                        @endphp
+                        <a href="{{route('front.category',$sports->slug)}}">
                         <figure class="offer-card__icon"><img
                                 src="{{asset('assets/new-layout/images/offer-icon4.webp')}}" alt="image"
                                 class="img-fluid"></figure>
+                        </a>
                         <div class="offer-card__content">
                             <h4>Sports & Entertainment:</h4>
                             <p>
@@ -434,9 +457,14 @@
                 </div>
                 <div class="col-lg-4" data-aos="zoom-in">
                     <div class="offer-card">
+                        @php
+                            $electronics = \App\Models\Category::where('slug','consumer-electronics')->first();
+
+                        @endphp
+                        <a href="{{route('front.category',$electronics->slug)}}">
                         <figure class="offer-card__icon"><img
                                 src="{{asset('assets/new-layout/images/offer-icon5.webp')}}" alt="image"
-                                class="img-fluid"></figure>
+                                class="img-fluid"></figure></a>
                         <div class="offer-card__content">
                             <h4>Consumer Electronics:</h4>
                             <p>
