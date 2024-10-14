@@ -439,6 +439,7 @@ class CartController extends FrontBaseController
     // add to cart
     public function addnumcart(Request $request)
     {
+
         $request->validate([
             'id' => ['required', Rule::exists('products')],
             'qty' => 'required|numeric|min:1',
@@ -462,6 +463,7 @@ class CartController extends FrontBaseController
         $cart = new CartHelper();
 
         if ($hasVariations) {
+
             // check variation product stock
             $variation = $get_product->productPrices()
                 ->where('id', $productPriceID)
@@ -475,6 +477,7 @@ class CartController extends FrontBaseController
             }
 
             if ($variation && $variation->available_quantity < $qty) {
+                dd('here');
                 return response()->json([
                     'status' => false,
                     'message' => 'Out of stock!'

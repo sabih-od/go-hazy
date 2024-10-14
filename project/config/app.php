@@ -12,6 +12,9 @@ return [
     | any other location as required by the application or its packages.
     |
     */
+    'stripe' => [
+        'secret_key' => env('STRIPE_SECRET_KEY'),
+    ],
 
     'name' => env('APP_NAME', 'Laravel'),
 

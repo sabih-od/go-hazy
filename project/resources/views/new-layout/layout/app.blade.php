@@ -210,79 +210,107 @@
 <section class="brands-logo">
     <div class="swiper logoSlider-one" data-aos="fade">
         <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <figure class="brand-logo-img">
-                    <img src="{{asset('assets/new-layout/images/brnadlogo1.webp')}}" alt="image" class="img-fluid">
-                </figure>
+            <div class="swiper-slide"><a href="https://www.prada.com">
+                    <figure class="brand-logo-img">
+                        <img src="{{asset('assets/new-layout/images/brnadlogo1.webp')}}" alt="image" class="img-fluid">
+                    </figure>
+                </a>
             </div>
             <div class="swiper-slide">
-                <figure class="brand-logo-img">
-                    <img src="{{asset('assets/new-layout/images/brnadlogo2.webp')}}" alt="image" class="img-fluid">
-                </figure>
+                <a href="https://www.armani.com/">
+                    <figure class="brand-logo-img">
+                        <img src="{{asset('assets/new-layout/images/brnadlogo2.webp')}}" alt="image" class="img-fluid">
+                    </figure>
+                </a>
             </div>
             <div class="swiper-slide">
-                <figure class="brand-logo-img">
-                    <img src="{{asset('assets/new-layout/images/brnadlogo3.webp')}}" alt="image" class="img-fluid">
-                </figure>
+                <a href="https://www.fila.com/">
+                    <figure class="brand-logo-img">
+                        <img src="{{asset('assets/new-layout/images/brnadlogo3.webp')}}" alt="image" class="img-fluid">
+                    </figure>
+                </a>
             </div>
             <div class="swiper-slide">
-                <figure class="brand-logo-img">
-                    <img src="{{asset('assets/new-layout/images/brnadlogo4.webp')}}" alt="image" class="img-fluid">
-                </figure>
+                <a href="https://www.adidas.com/">
+                    <figure class="brand-logo-img">
+                        <img src="{{asset('assets/new-layout/images/brnadlogo4.webp')}}" alt="image" class="img-fluid">
+                    </figure>
+                </a>
             </div>
             <div class="swiper-slide">
-                <figure class="brand-logo-img">
-                    <img src="{{asset('assets/new-layout/images/brnadlogo5.webp')}}" alt="image" class="img-fluid">
-                </figure>
+                <a href="https://www.nike.com/">
+                    <figure class="brand-logo-img">
+                        <img src="{{asset('assets/new-layout/images/brnadlogo5.webp')}}" alt="image" class="img-fluid">
+                    </figure>
+                </a>
             </div>
             <div class="swiper-slide">
-                <figure class="brand-logo-img">
-                    <img src="{{asset('assets/new-layout/images/brnadlogo6.webp')}}" alt="image" class="img-fluid">
-                </figure>
+                <a href="https://us.puma.com/">
+                    <figure class="brand-logo-img">
+                        <img src="{{asset('assets/new-layout/images/brnadlogo6.webp')}}" alt="image" class="img-fluid">
+                    </figure>
+                </a>
             </div>
             <div class="swiper-slide">
-                <figure class="brand-logo-img">
-                    <img src="{{asset('assets/new-layout/images/brnadlogo7.webp')}}" alt="image" class="img-fluid">
-                </figure>
+                <a href="https://www.chanel.com/">
+                    <figure class="brand-logo-img">
+                        <img src="{{asset('assets/new-layout/images/brnadlogo7.webp')}}" alt="image" class="img-fluid">
+                    </figure>
+                </a>
             </div>
         </div>
     </div>
     <div class="swiper logoSlider-two" data-aos="fade">
         <div class="swiper-wrapper">
             <div class="swiper-slide">
-                <figure class="brand-logo-img">
-                    <img src="{{asset('assets/new-layout/images/brnadlogo8.webp')}}" alt="image" class="img-fluid">
-                </figure>
+                <a href="https://www.loreal.com/">
+                    <figure class="brand-logo-img">
+                        <img src="{{asset('assets/new-layout/images/brnadlogo8.webp')}}" alt="image" class="img-fluid">
+                    </figure>
+                </a>
             </div>
             <div class="swiper-slide">
-                <figure class="brand-logo-img">
-                    <img src="{{asset('assets/new-layout/images/brnadlogo9.webp')}}" alt="image" class="img-fluid">
-                </figure>
+                <a href="https://www.dior.com/">
+                    <figure class="brand-logo-img">
+                        <img src="{{asset('assets/new-layout/images/brnadlogo9.webp')}}" alt="image" class="img-fluid">
+                    </figure>
+                </a>
             </div>
             <div class="swiper-slide">
-                <figure class="brand-logo-img">
-                    <img src="{{asset('assets/new-layout/images/brnadlogo10.webp')}}" alt="image" class="img-fluid">
-                </figure>
+                <a href="https://us.louisvuitton.com/">
+                    <figure class="brand-logo-img">
+                        <img src="{{asset('assets/new-layout/images/brnadlogo10.webp')}}" alt="image" class="img-fluid">
+                    </figure>
+                </a>
             </div>
             <div class="swiper-slide">
-                <figure class="brand-logo-img">
-                    <img src="{{asset('assets/new-layout/images/brnadlogo11.webp')}}" alt="image" class="img-fluid">
-                </figure>
+                <a href="https://www.gucci.com/">
+                    <figure class="brand-logo-img">
+                        <img src="{{asset('assets/new-layout/images/brnadlogo11.webp')}}" alt="image" class="img-fluid">
+                    </figure>
+                </a>
             </div>
             <div class="swiper-slide">
-                <figure class="brand-logo-img">
-                    <img src="{{asset('assets/new-layout/images/brnadlogo12.webp')}}" alt="image" class="img-fluid">
-                </figure>
+                <a href="https://www.zara.com/">
+                    <figure class="brand-logo-img">
+                        <img src="{{asset('assets/new-layout/images/brnadlogo12.webp')}}" alt="image" class="img-fluid">
+                    </figure>
+                </a>
             </div>
             <div class="swiper-slide">
-                <figure class="brand-logo-img">
-                    <img src="{{asset('assets/new-layout/images/brnadlogo13.webp')}}" alt="image" class="img-fluid">
-                </figure>
+                <a href="https://www.reebok.com/">
+                    <figure class="brand-logo-img">
+                        <img src="{{asset('assets/new-layout/images/brnadlogo13.webp')}}" alt="image" class="img-fluid">
+                    </figure>
+                </a>
             </div>
+
             <div class="swiper-slide">
-                <figure class="brand-logo-img">
-                    <img src="{{asset('assets/new-layout/images/brnadlogo14.webp')}}" alt="image" class="img-fluid">
-                </figure>
+                <a href="https://www.nike.com/jordan">
+                    <figure class="brand-logo-img">
+                        <img src="{{asset('assets/new-layout/images/brnadlogo14.webp')}}" alt="image" class="img-fluid">
+                    </figure>
+                </a>
             </div>
         </div>
     </div>

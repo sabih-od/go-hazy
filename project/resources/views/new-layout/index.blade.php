@@ -547,28 +547,62 @@
 @push('script')
     <script>
         $(document).ready(function () {
+            // Initialize Swiper for the default "All" tab with two rows
+            var allSwiper = new Swiper('.featureSlider', {
+                slidesPerView: 2, // Number of slides per row
+                spaceBetween: 20,
+                loop: true,
+                grid: {
+                    rows: 2, // Number of rows
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                breakpoints: {
+                    320: {
+                        slidesPerView: 1, // Single slide per row on smaller screens
+                        grid: { rows: 2 },
+                        spaceBetween: 10,
+                    },
+                    768: {
+                        slidesPerView: 2, // Two slides per row on medium screens
+                        grid: { rows: 2 },
+                        spaceBetween: 15,
+                    },
+                    1024: {
+                        slidesPerView: 4, // Four slides per row on larger screens
+                        grid: { rows: 2 },
+                        spaceBetween: 20,
+                    },
+                },
+            });
+
+            // Handle tab click and load products dynamically
             $('.nav-link').on('click', function () {
                 var categoryId = $(this).data('category-id');
                 if (categoryId) {
                     $.ajax({
                         url: "{{ route('category.products') }}",
                         method: 'GET',
-                        data: {category_id: categoryId},
+                        data: { category_id: categoryId },
                         success: function (response) {
                             var productsHtml = '';
                             response.forEach(function (product) {
                                 var imageUrl = product.photo ? "{{ asset('assets/images/products/') }}/" + product.photo : "{{ asset('assets/images/noimage.png') }}";
 
                                 productsHtml += `
-
                                 <div class="swiper-slide">
                                     <div class="seller-card">
                                         <figure>
-                                                       <img src="${imageUrl}" class="img-fluid" alt="img">
-
-                            </figure>
-                            <div class="seller-content">
-                                <h2>${product.name}</h2>
+                                            <img src="${imageUrl}" class="img-fluid" alt="img">
+                                        </figure>
+                                        <div class="seller-content">
+                                            <h2>${product.name}</h2>
                                             <p>${product.category.name}</p>
                                             <div class="star">
                                                 <i class="fas fa-star"></i>
@@ -588,6 +622,46 @@
                             `;
                             });
                             $('#category-products-' + categoryId).html(productsHtml);
+
+                            // Destroy any existing Swiper instance for this tab
+                            if (typeof categorySwiper !== 'undefined') {
+                                categorySwiper.destroy(true, true);
+                            }
+
+                            // Reinitialize Swiper for the newly loaded content with two rows
+                            categorySwiper = new Swiper('#category-products-' + categoryId + ' .swiper', {
+                                slidesPerView: 2, // Number of slides per row
+                                spaceBetween: 20,
+                                loop: true,
+                                grid: {
+                                    rows: 2, // Number of rows
+                                },
+                                navigation: {
+                                    nextEl: '.swiper-button-next',
+                                    prevEl: '.swiper-button-prev',
+                                },
+                                pagination: {
+                                    el: '.swiper-pagination',
+                                    clickable: true,
+                                },
+                                breakpoints: {
+                                    320: {
+                                        slidesPerView: 1, // Single slide per row on smaller screens
+                                        grid: { rows: 2 },
+                                        spaceBetween: 10,
+                                    },
+                                    768: {
+                                        slidesPerView: 2, // Two slides per row on medium screens
+                                        grid: { rows: 2 },
+                                        spaceBetween: 15,
+                                    },
+                                    1024: {
+                                        slidesPerView: 4, // Four slides per row on larger screens
+                                        grid: { rows: 2 },
+                                        spaceBetween: 20,
+                                    },
+                                },
+                            });
                         },
                         error: function (xhr) {
                             console.error(xhr.responseText);
@@ -597,5 +671,4 @@
             });
         });
     </script>
-
 @endpush
