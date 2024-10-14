@@ -567,7 +567,7 @@ $beauty = \App\Models\Category::where('slug','beauty-health-hair')->first();
                         <img src="{{asset('assets/new-layout/images/work-icon5.webp')}}" alt="image" class="img-fluid">
                     </figure>
                     <div class="work-card__content">
-                        <h4 class="sub-heading">Factory Sealed Pakegf</h4>
+                        <h4 class="sub-heading">Factory Sealed Package</h4>
                     </div>
                 </div>
             </div>
