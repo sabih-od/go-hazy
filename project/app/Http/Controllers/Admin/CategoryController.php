@@ -190,12 +190,17 @@ class CategoryController extends AdminBaseController
         }
 
         //If Photo Exist
-        if (file_exists(public_path() . '/assets/images/categories/' . $data->photo)) {
-            unlink(public_path() . '/assets/images/categories/' . $data->photo);
+        $photoPath = public_path('assets/images/categories/' . $data->photo);
+        if (!empty($data->photo) && file_exists($photoPath)) {
+            unlink($photoPath);
         }
-        if (file_exists(public_path() . '/assets/images/categories/' . $data->image)) {
-            unlink(public_path() . '/assets/images/categories/' . $data->image);
+
+        // If Image Exists
+        $imagePath = public_path('assets/images/categories/' . $data->image);
+        if (!empty($data->image) && file_exists($imagePath)) {
+            unlink($imagePath);
         }
+
         $data->delete();
         //--- Redirect Section
         $msg = __('Data Deleted Successfully.');

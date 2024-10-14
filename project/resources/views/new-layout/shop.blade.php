@@ -4,7 +4,12 @@
     <div class="mouse-cursor cursor-inner"></div>
 
     <section class="inner-banner">
-        <img src="{{asset('assets/new-layout/images/slidebg.webp')}}" class="w-100 imginer" alt="img">
+        @if($data['cat']->image)
+
+        <img src="{{asset('assets/images/categories/'.$data['cat']->image)}}" class="w-100 imginer" alt="img">
+        @else
+            <img src="{{asset('assets/new-layout/images/slidebg.webp')}}" class="w-100 imginer" alt="img">
+       @endif
         <div class="overlay">
             <div class="container">
                 <div class="row align-items-center">
@@ -16,7 +21,12 @@
 
                     </div>
                     <div class="col-md-6">
-                        <figure><img src="{{asset('assets/new-layout/images/slideimg.webp')}}" class="img-fluid" alt="img"></figure>
+                        @if($data['cat']->image)
+
+                            <img src="#" class="w-100 imginer" >
+                        @else
+                            <figure><img src="{{asset('assets/new-layout/images/slideimg.webp')}}" class="img-fluid" alt="img"></figure>
+                            @endif
                     </div>
                 </div>
             </div>
