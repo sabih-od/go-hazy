@@ -187,7 +187,14 @@
                                 </li>
                                 <li><a href="#"><i class="fal fa-list"></i></a></li>
                             </ul>
-                            <span>Showing 1–16 of 72 results</span>
+                            @php
+                                $totalResults = $data['prods']->total(); // Total products in the database
+                                $perPage = $data['prods']->perPage(); // Products per page
+                                $currentPage = $data['prods']->currentPage(); // Current page
+                                $from = ($currentPage - 1) * $perPage + 1; // Starting item index
+                                $to = min($from + $perPage - 1, $totalResults); // Ending item index
+                            @endphp
+                            <span>Showing {{ $from }}–{{ $to }} of {{ $totalResults }} results</span>
                         </div>
                         <select>
                             <option>Sort by Latest</option>
