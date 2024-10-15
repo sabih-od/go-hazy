@@ -545,6 +545,8 @@ class StripeController extends CheckoutBaseControlller
 
     public function checkoutCancel()
     {
-        dd('Orhere');
+        // Optionally, add a flash message to notify the user of the cancellation
+        return redirect()->route('front.index')->with('error', 'Your payment was canceled. Please try again.');
     }
+
 }

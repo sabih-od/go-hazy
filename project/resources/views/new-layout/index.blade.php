@@ -48,7 +48,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            @if($slider->subtitle_text != null)
+                                            @if($slider->subtitle_text == 'Welcome to Hazy by Tony!')
                                                 <div class="col-md-6">
                                                     <figure><img
                                                             src="{{asset('assets/new-layout/images/slideimg.webp')}}"
