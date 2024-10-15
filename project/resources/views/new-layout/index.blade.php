@@ -84,7 +84,7 @@
                                 <div class="swiper-slide">
                                     <div class="explore-card">
                                         <figure>
-                                            <img src="{{asset('assets/images/products/'.$category->image ?? ' ')}}"
+                                            <img src="{{asset('assets/images/categories/'.$category->image ?? ' ')}}"
                                                  class="img-fluid" alt="img">
                                             <a href="{{ route('front.category', $category->slug) }}"
                                                class="themeBtn borderBtn">{{$category->name ?? ''}}</a>
@@ -342,7 +342,7 @@
                                                         <i class="fas fa-star"></i>
                                                         <i class="fas fa-star"></i>
                                                         <i class="fas fa-star"></i>
-                                                        <span>({{$product->ratings ?? ''}})</span>
+{{--                                                        <span>({{$product->ratings ?? ''}})</span>--}}
                                                     </div>
                                                     <h4>${{$product->price}}</h4>
                                                     <div>
