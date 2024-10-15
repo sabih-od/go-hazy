@@ -16,55 +16,51 @@
     <div class="mouse-cursor cursor-outer"></div>
     <div class="mouse-cursor cursor-inner"></div>
     <section class="mainSlider">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="swiper-container heroSlider">
-                        <div class="swiper-wrapper">
-                            @foreach($data['sliders'] as $slider)
-                                {{--                                @dd($slider)--}}
-                                <div class="swiper-slide">
-                                    <img src="{{asset('assets/images/sliders/'.($slider->photo ?? ''))}}"
-                                         class="w-100 radius-img" alt="img">
-                                    {{--                                    <img src="{{asset('assets/new-layout/images/slidebg1.webp')}}"--}}
-                                    {{--                                         class="w-100 radius-img" alt="img">--}}
-                                    <div class="slide-inner">
-                                        <div class="row align-items-center">
-                                            <div class="col-md-6">
-                                                <div class="slideOne">
-                                                    @php
-                                                        $subtitleText = $slider->subtitle_text;
-                                                         $words = explode(' ', $subtitleText);
+        <div class="swiper swiper-container heroSlider">
+            <div class="swiper-wrapper">
+                @foreach($data['sliders'] as $slider)
+                    {{--                                @dd($slider)--}}
+                    <div class="swiper-slide">
+                        <img src="{{asset('assets/images/sliders/'.($slider->photo ?? ''))}}"
+                             class="w-100 radius-img" alt="img">
+                        {{--                                    <img src="{{asset('assets/new-layout/images/slidebg1.webp')}}"--}}
+                        {{--                                         class="w-100 radius-img" alt="img">--}}
+                        <div class="slide-inner">
+                            <div class="container">
+                                <div class="row align-items-center">
+                                    <div class="col-md-6">
+                                        <div class="slideOne">
+                                            @php
+                                                $subtitleText = $slider->subtitle_text;
+                                                 $words = explode(' ', $subtitleText);
 
-                $firstPart = implode(' ', array_slice($words, 0, 2));
-                $secondPart = implode(' ', array_slice($words, 2));
-                                                    @endphp
-                                                    <h2>{{$firstPart ?? ''}}</h2>
-                                                    <h3>{{$secondPart ?? ''}}</h3>
-                                                    <p>{{$slider->title_text ?? ''}}</p>
-                                                    <div>
-                                                        <a href="{{route('front.category')}}"
-                                                           class="themeBtn borderBtn">See All Products</a>
-                                                    </div>
-                                                </div>
+        $firstPart = implode(' ', array_slice($words, 0, 2));
+        $secondPart = implode(' ', array_slice($words, 2));
+                                            @endphp
+                                            <h2>{{$firstPart ?? ''}}</h2>
+                                            <h3>{{$secondPart ?? ''}}</h3>
+                                            <p>{{$slider->title_text ?? ''}}</p>
+                                            <div>
+                                                <a href="{{route('front.category')}}"
+                                                   class="themeBtn borderBtn">See All Products</a>
                                             </div>
-                                            @if($slider->subtitle_text == 'Welcome to Hazy by Tony!')
-                                                <div class="col-md-6">
-                                                    <figure><img
-                                                            src="{{asset('assets/new-layout/images/slideimg.webp')}}"
-                                                            class="img-fluid" alt="img"></figure>
-                                                </div>
-                                            @endif
                                         </div>
                                     </div>
+                                    @if($slider->subtitle_text == 'Welcome to Hazy by Tony!')
+                                        <div class="col-md-6">
+                                            <figure><img
+                                                    src="{{asset('assets/new-layout/images/slideimg.webp')}}"
+                                                    class="img-fluid" alt="img"></figure>
+                                        </div>
+                                    @endif
                                 </div>
-                            @endforeach
+                            </div>
                         </div>
                     </div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
-                </div>
+                @endforeach
             </div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
         </div>
     </section>
 
@@ -342,7 +338,7 @@
                                                         <i class="fas fa-star"></i>
                                                         <i class="fas fa-star"></i>
                                                         <i class="fas fa-star"></i>
-{{--                                                        <span>({{$product->ratings ?? ''}})</span>--}}
+                                                        {{--                                                        <span>({{$product->ratings ?? ''}})</span>--}}
                                                     </div>
                                                     <h4>${{$product->price}}</h4>
                                                     <div>
@@ -380,17 +376,17 @@
                 <h3 class="heading" data-aos="fade-up">What We Offer At Hazy by Tony</h3>
             </div>
             <div class="row justify-content-center">
-@php
-$beauty = \App\Models\Category::where('slug','beauty-health-hair')->first();
+                @php
+                    $beauty = \App\Models\Category::where('slug','beauty-health-hair')->first();
 
-@endphp
+                @endphp
                 <div class="col-lg-4" data-aos="zoom-in">
                     <div class="offer-card">
                         <a href="{{route('front.category',$beauty->slug)}}">
-                        <figure class="offer-card__icon"><img
-                                src="{{asset('assets/new-layout/images/offer-icon1.webp')}}" alt="image"
-                                class="img-fluid"></figure>
-                    </a>
+                            <figure class="offer-card__icon"><img
+                                    src="{{asset('assets/new-layout/images/offer-icon1.webp')}}" alt="image"
+                                    class="img-fluid"></figure>
+                        </a>
                         <div class="offer-card__content">
                             <h4>Beauty & Cosmetics:</h4>
                             <p>Embrace confidence and good looks with our beauty and cosmetics range.</p>
@@ -404,9 +400,9 @@ $beauty = \App\Models\Category::where('slug','beauty-health-hair')->first();
                 <div class="col-lg-4" data-aos="zoom-in">
                     <div class="offer-card">
                         <a href="{{route('front.category',$menWomen->slug)}}">
-                        <figure class="offer-card__icon"><img
-                                src="{{asset('assets/new-layout/images/offer-icon2.webp')}}" alt="image"
-                                class="img-fluid"></figure>
+                            <figure class="offer-card__icon"><img
+                                    src="{{asset('assets/new-layout/images/offer-icon2.webp')}}" alt="image"
+                                    class="img-fluid"></figure>
                         </a>
                         <div class="offer-card__content">
                             <h4>Men and Women Apparel:</h4>
@@ -424,9 +420,9 @@ $beauty = \App\Models\Category::where('slug','beauty-health-hair')->first();
 
                         @endphp
                         <a href="{{route('front.category',$accessories->slug)}}">
-                        <figure class="offer-card__icon"><img
-                                src="{{asset('assets/new-layout/images/offer-icon3.webp')}}" alt="image"
-                                class="img-fluid"></figure>
+                            <figure class="offer-card__icon"><img
+                                    src="{{asset('assets/new-layout/images/offer-icon3.webp')}}" alt="image"
+                                    class="img-fluid"></figure>
                         </a>
                         <div class="offer-card__content">
                             <h4>Accessories:</h4>
@@ -443,9 +439,9 @@ $beauty = \App\Models\Category::where('slug','beauty-health-hair')->first();
 
                         @endphp
                         <a href="{{route('front.category',$sports->slug)}}">
-                        <figure class="offer-card__icon"><img
-                                src="{{asset('assets/new-layout/images/offer-icon4.webp')}}" alt="image"
-                                class="img-fluid"></figure>
+                            <figure class="offer-card__icon"><img
+                                    src="{{asset('assets/new-layout/images/offer-icon4.webp')}}" alt="image"
+                                    class="img-fluid"></figure>
                         </a>
                         <div class="offer-card__content">
                             <h4>Sports & Entertainment:</h4>
@@ -462,9 +458,10 @@ $beauty = \App\Models\Category::where('slug','beauty-health-hair')->first();
 
                         @endphp
                         <a href="{{route('front.category',$electronics->slug)}}">
-                        <figure class="offer-card__icon"><img
-                                src="{{asset('assets/new-layout/images/offer-icon5.webp')}}" alt="image"
-                                class="img-fluid"></figure></a>
+                            <figure class="offer-card__icon"><img
+                                    src="{{asset('assets/new-layout/images/offer-icon5.webp')}}" alt="image"
+                                    class="img-fluid"></figure>
+                        </a>
                         <div class="offer-card__content">
                             <h4>Consumer Electronics:</h4>
                             <p>

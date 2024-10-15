@@ -567,11 +567,11 @@ ul.cart-list li:last-child a {
 }
 
 .mainSlider .swiper-button-prev {
-    left: -1.5rem;
+    left: 3rem;
 }
 
 .mainSlider .swiper-button-next {
-    right: -1.5rem;
+    right: 3rem;
 }
 
 .mainSlider .swiper-button-prev:after,
