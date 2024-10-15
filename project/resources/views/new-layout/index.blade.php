@@ -37,7 +37,13 @@
         $firstPart = implode(' ', array_slice($words, 0, 2));
         $secondPart = implode(' ', array_slice($words, 2));
                                             @endphp
-                                            <h2>{{$firstPart ?? ''}}</h2>
+
+                                            @if($firstPart != 'Welcome to')
+                                                <h3>{{$firstPart ?? ''}}</h3>
+                                            @else
+                                                <h2>{{$firstPart ?? ''}}</h2>
+
+                                            @endif
                                             <h3>{{$secondPart ?? ''}}</h3>
                                             <p>{{$slider->title_text ?? ''}}</p>
                                             <div>
